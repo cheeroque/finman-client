@@ -5,6 +5,7 @@
       <b-nav-item @click="show = 'expense'"> Расходы </b-nav-item>
       <b-nav-item @click="show = 'income'"> Доходы </b-nav-item>
       <b-nav-item @click="show = null"> Всё сразу </b-nav-item>
+      <b-nav-item class="ml-auto" @click="modalShow = true"> Добавить </b-nav-item>
     </b-nav>
     <transition name="fade" mode="out-in">
       <b-table :key="page" :fields="fields" :items="records.data" @sort-changed="onTableSort">
@@ -30,12 +31,14 @@
       </b-table>
     </transition>
     <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total"></b-pagination>
+    <modal-record-create v-model="modalShow" :categories="categories" @hide="reFetch(true)"></modal-record-create>
   </b-container>
 </template>
 
 <script>
 import { BNav, BNavItem, BTable, BPagination } from 'bootstrap-vue'
 import FormRecordEdit from '@/components/FormRecordEdit'
+import ModalRecordCreate from '@/components/ModalRecordCreate'
 
 export default {
   components: {
@@ -43,7 +46,8 @@ export default {
     BNavItem,
     BTable,
     BPagination,
-    FormRecordEdit
+    FormRecordEdit,
+    ModalRecordCreate
   },
   data() {
     return {
@@ -55,6 +59,7 @@ export default {
       sortBy: 'created_at',
       sortDesc: true,
       show: null,
+      modalShow: false,
       fields: [
         { key: 'created_at', label: 'Дата', sortable: true },
         { key: 'sum', label: 'Сумма', sortable: true },
