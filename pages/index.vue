@@ -1,19 +1,21 @@
 <template>
   <b-container tag="main">
-    <h1>Баланс: {{ total }}</h1>
     <b-nav>
-      <b-nav-item @click="show = 'expense'"> Расходы </b-nav-item>
-      <b-nav-item @click="show = 'income'"> Доходы </b-nav-item>
-      <b-nav-item @click="show = null"> Всё сразу </b-nav-item>
+      <b-nav-item :active="show === 'expense'" @click="show = 'expense'"> Расходы </b-nav-item>
+      <b-nav-item :active="show === 'income'" @click="show = 'income'"> Доходы </b-nav-item>
+      <b-nav-item :active="!show" @click="show = null"> Всё сразу </b-nav-item>
       <b-nav-item class="ml-auto" @click="modalShow = true"> Добавить </b-nav-item>
     </b-nav>
     <transition name="fade" mode="out-in">
       <b-table :key="page" :fields="fields" :items="records.data" @sort-changed="onTableSort">
         <template #cell(created_at)="{ item }">
-          {{ item.updated_at ? formatDate(item.updated_at) : formatDate(item.created_at) }}
+          <b-link :to="`/month/${getMonth(item)}`">
+            {{ formatDate(item) }}
+            <!-- {{ item.updated_at ? formatDate(item.updated_at) : formatDate(item.created_at) }} -->
+          </b-link>
         </template>
         <template #cell(category_id)="{ value }">
-          {{ getCagetoryName(value) }}
+          {{ getCategoryName(value) }}
         </template>
         <template #cell(edit)="{ toggleDetails }">
           <b-link @click="toggleDetails"> edit </b-link>
@@ -51,7 +53,6 @@ export default {
   },
   data() {
     return {
-      total: null,
       records: [],
       categories: [],
       page: 1,
@@ -72,14 +73,6 @@ export default {
   async fetch() {
     await this.reFetch()
   },
-  watch: {
-    page() {
-      this.$fetch()
-    },
-    show() {
-      this.$fetch()
-    }
-  },
   computed: {
     query() {
       const query = {
@@ -95,6 +88,14 @@ export default {
         .join('&')
     }
   },
+  watch: {
+    page() {
+      this.$fetch()
+    },
+    show() {
+      this.$fetch()
+    }
+  },
   methods: {
     async getRecords() {
       this.records = await this.$http.$get(`${process.env.API_URL}/records?${this.query}`)
@@ -102,24 +103,28 @@ export default {
     async getCategories() {
       this.categories = await this.$http.$get(`${process.env.API_URL}/categories`)
     },
-    async getTotal() {
-      this.total = await this.$http.$get(`${process.env.API_URL}/total`)
-    },
     async reFetch(refreshTotal = false) {
       await this.getRecords()
       if (!(this.categories && this.categories.length)) await this.getCategories()
-      if (!this.total || refreshTotal) await this.getTotal()
+      if (refreshTotal) this.$root.$emit('refetch')
     },
     onTableSort(event) {
       this.sortBy = event.sortBy
       this.sortDesc = event.sortDesc
       this.$fetch()
     },
-    getCagetoryName(id) {
-      const category = this.categories.find((category) => category.id === id)
+    getCategoryName(id) {
+      const category = this.categories.find((category) => category.id.toString() === id.toString())
       return category ? category.name : null
     },
-    formatDate(dateString) {
+    getMonth(item) {
+      const dateString = item.updated_at || item.created_at
+      const date = new Date(dateString)
+
+      return `${date.getFullYear()}-${date.getMonth() + 1}`
+    },
+    formatDate(item) {
+      const dateString = item.updated_at || item.created_at
       const date = new Date(dateString)
       const dateOptions = {
         dateStyle: 'short',
