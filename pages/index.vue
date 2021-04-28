@@ -11,11 +11,13 @@
         <template #cell(created_at)="{ item }">
           <b-link :to="`/month/${getMonth(item)}`">
             {{ formatDate(item) }}
-            <!-- {{ item.updated_at ? formatDate(item.updated_at) : formatDate(item.created_at) }} -->
           </b-link>
         </template>
         <template #cell(category_id)="{ value }">
-          {{ getCategoryName(value) }}
+          <!-- <b-link :to="`/category/${getCategorySlug(value)}`"> -->
+          <b-link :to="`/category/${value}`">
+            {{ getCategoryName(value) }}
+          </b-link>
         </template>
         <template #cell(edit)="{ toggleDetails }">
           <b-link @click="toggleDetails"> edit </b-link>
@@ -113,8 +115,15 @@ export default {
       this.sortDesc = event.sortDesc
       this.$fetch()
     },
+    getCategory(id) {
+      return this.categories.find((category) => category.id.toString() === id.toString())
+    },
+    getCategorySlug(id) {
+      const category = this.getCategory(id)
+      return category ? category.slug : null
+    },
     getCategoryName(id) {
-      const category = this.categories.find((category) => category.id.toString() === id.toString())
+      const category = this.getCategory(id)
       return category ? category.name : null
     },
     getMonth(item) {
@@ -124,7 +133,7 @@ export default {
       return `${date.getFullYear()}-${date.getMonth() + 1}`
     },
     formatDate(item) {
-      const dateString = item.updated_at || item.created_at
+      const dateString = item.created_at
       const date = new Date(dateString)
       const dateOptions = {
         dateStyle: 'short',
