@@ -1,11 +1,13 @@
 <template>
   <b-container tag="main">
-    <b-nav>
-      <b-nav-item :active="show === 'expense'" @click="show = 'expense'"> Расходы </b-nav-item>
-      <b-nav-item :active="show === 'income'" @click="show = 'income'"> Доходы </b-nav-item>
-      <b-nav-item :active="!show" @click="show = null"> Всё сразу </b-nav-item>
-      <b-nav-item class="ml-auto" @click="modalShow = true"> Добавить </b-nav-item>
-    </b-nav>
+    <b-row class="mb-32">
+      <b-col cols="auto" class="flex-fill">
+        <nav-show-mode v-model="show" @input="$fetch"></nav-show-mode>
+      </b-col>
+      <b-col cols="auto">
+        <b-button block @click="modalShow = true"> Добавить </b-button>
+      </b-col>
+    </b-row>
     <transition name="fade" mode="out-in">
       <b-table :key="page" :fields="fields" :items="records.data" @sort-changed="onTableSort">
         <template #cell(created_at)="{ item }">
@@ -14,7 +16,6 @@
           </b-link>
         </template>
         <template #cell(category_id)="{ value }">
-          <!-- <b-link :to="`/category/${getCategorySlug(value)}`"> -->
           <b-link :to="`/category/${value}`">
             {{ getCategoryName(value) }}
           </b-link>
@@ -25,43 +26,43 @@
         <template #row-details="{ item, toggleDetails }">
           <form-record-edit
             :record="item"
-            :categories="categories"
             @change="
-              toggleDetails
-              reFetch(true)
+              () => {
+                toggleDetails()
+                refresh()
+              }
             "
           ></form-record-edit>
         </template>
       </b-table>
     </transition>
-    <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total"></b-pagination>
-    <modal-record-create v-model="modalShow" :categories="categories" @hide="reFetch(true)"></modal-record-create>
+    <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total" @input="$fetch"></b-pagination>
+    <modal-record-create v-model="modalShow" @hide="refresh"></modal-record-create>
   </b-container>
 </template>
 
 <script>
-import { BNav, BNavItem, BTable, BPagination } from 'bootstrap-vue'
+import { BTable, BPagination } from 'bootstrap-vue'
+import NavShowMode from '@/components/NavShowMode'
 import FormRecordEdit from '@/components/FormRecordEdit'
 import ModalRecordCreate from '@/components/ModalRecordCreate'
 
 export default {
   components: {
-    BNav,
-    BNavItem,
     BTable,
     BPagination,
+    NavShowMode,
     FormRecordEdit,
     ModalRecordCreate
   },
   data() {
     return {
       records: [],
-      categories: [],
       page: 1,
       perPage: 50,
       sortBy: 'created_at',
       sortDesc: true,
-      show: null,
+      show: 'expense',
       modalShow: false,
       fields: [
         { key: 'created_at', label: 'Дата', sortable: true },
@@ -73,9 +74,12 @@ export default {
     }
   },
   async fetch() {
-    await this.reFetch()
+    await this.getRecords()
   },
   computed: {
+    categories() {
+      return this.$store.state.categories
+    },
     query() {
       const query = {
         page: this.page,
@@ -90,25 +94,9 @@ export default {
         .join('&')
     }
   },
-  watch: {
-    page() {
-      this.$fetch()
-    },
-    show() {
-      this.$fetch()
-    }
-  },
   methods: {
     async getRecords() {
       this.records = await this.$http.$get(`${process.env.API_URL}/records?${this.query}`)
-    },
-    async getCategories() {
-      this.categories = await this.$http.$get(`${process.env.API_URL}/categories`)
-    },
-    async reFetch(refreshTotal = false) {
-      await this.getRecords()
-      if (!(this.categories && this.categories.length)) await this.getCategories()
-      if (refreshTotal) this.$root.$emit('refetch')
     },
     onTableSort(event) {
       this.sortBy = event.sortBy
@@ -140,6 +128,10 @@ export default {
         timeStyle: 'short'
       }
       return date.toLocaleString('ru-RU', dateOptions)
+    },
+    refresh() {
+      this.$store.dispatch('getTotal')
+      this.$fetch()
     }
   }
 }
