@@ -46,12 +46,6 @@ export default {
       default() {
         return {}
       }
-    },
-    categories: {
-      type: Array,
-      default() {
-        return []
-      }
     }
   },
   data() {
@@ -66,6 +60,9 @@ export default {
     }
   },
   computed: {
+    categories() {
+      return this.$store.state.categories
+    },
     categoryOptions() {
       const categories = this.categories.map((category) => {
         return {

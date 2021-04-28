@@ -26,7 +26,6 @@ export default {
   data() {
     return {
       records: [],
-      categories: [],
       groupFields: [
         { key: 'expand', label: '' },
         { key: 'category_id', label: 'Категория' },
@@ -40,10 +39,12 @@ export default {
     }
   },
   async fetch() {
-    await this.getCategories()
     await this.getRecords()
   },
   computed: {
+    categories() {
+      return this.$store.state.categories
+    },
     groupedRecords() {
       return Object.keys(this.records).map((key) => {
         return {
@@ -54,9 +55,6 @@ export default {
     }
   },
   methods: {
-    async getCategories() {
-      this.categories = await this.$http.$get(`${process.env.API_URL}/categories`)
-    },
     async getRecords() {
       this.records = await this.$http.$get(`${process.env.API_URL}/month/${this.$route.params.month}`)
     },

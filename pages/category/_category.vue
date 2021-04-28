@@ -9,7 +9,7 @@
         <b-table :fields="detailsFields" :items="item.items"></b-table>
       </template>
     </b-table>
-    <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total"></b-pagination>
+    <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total" @input="$fetch"></b-pagination>
   </b-container>
 </template>
 
@@ -26,7 +26,6 @@ export default {
       page: 1,
       perPage: 12,
       currentCategory: {},
-      categories: [],
       records: {},
       groupFields: [
         { key: 'expand', label: '' },
@@ -41,13 +40,15 @@ export default {
     }
   },
   async fetch() {
-    this.categories = await this.$http.$get(`${process.env.API_URL}/categories`)
     this.currentCategory = await this.$http.$get(`${process.env.API_URL}/categories/${this.$route.params.category}`)
     this.records = await this.$http.$get(
       `${process.env.API_URL}/category/${this.$route.params.category}?page=${this.page}&perPage=${this.perPage}`
     )
   },
   computed: {
+    categories() {
+      return this.$store.state.categories
+    },
     groupedRecords() {
       return this.records.data
         ? Object.keys(this.records.data).map((key) => {
@@ -59,14 +60,8 @@ export default {
         : []
     }
   },
-  watch: {
-    page() {
-      this.$fetch()
-    }
-  },
   methods: {
     getTotalSum(item) {
-      // return item.items
       return item.items ? item.items.map((item) => item.sum).reduce((acc, item) => acc + item, 0) : 0
     }
   }

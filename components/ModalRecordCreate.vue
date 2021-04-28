@@ -1,6 +1,6 @@
 <template>
   <b-modal v-model="localVisible" @hide="$emit('hide')">
-    <form-record-edit :categories="categories" create @change="localVisible = false"></form-record-edit>
+    <form-record-edit create @change="localVisible = false"></form-record-edit>
   </b-modal>
 </template>
 
@@ -22,12 +22,6 @@ export default {
       type: Boolean,
       default() {
         return false
-      }
-    },
-    categories: {
-      type: Array,
-      default() {
-        return []
       }
     }
   },
