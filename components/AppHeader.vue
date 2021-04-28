@@ -1,6 +1,8 @@
 <template>
   <header class="app-header">
-    <h1>Баланс: {{ total }}</h1>
+    <h1>
+      <b-link to="/"> Баланс: {{ total }} </b-link>
+    </h1>
   </header>
 </template>
 
