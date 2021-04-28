@@ -9,15 +9,17 @@
         <b-table :fields="detailsFields" :items="item.items"></b-table>
       </template>
     </b-table>
+    <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total"></b-pagination>
   </b-container>
 </template>
 
 <script>
-import { BTable } from 'bootstrap-vue'
+import { BTable, BPagination } from 'bootstrap-vue'
 
 export default {
   components: {
-    BTable
+    BTable,
+    BPagination
   },
   data() {
     return {
@@ -25,7 +27,7 @@ export default {
       perPage: 12,
       currentCategory: {},
       categories: [],
-      records: [],
+      records: {},
       groupFields: [
         { key: 'expand', label: '' },
         { key: 'period', label: 'Месяц' },
@@ -47,17 +49,25 @@ export default {
   },
   computed: {
     groupedRecords() {
-      return Object.keys(this.records).map((key) => {
-        return {
-          period: key,
-          items: this.records[key]
-        }
-      })
+      return this.records.data
+        ? Object.keys(this.records.data).map((key) => {
+            return {
+              period: key,
+              items: this.records.data[key]
+            }
+          })
+        : []
+    }
+  },
+  watch: {
+    page() {
+      this.$fetch()
     }
   },
   methods: {
     getTotalSum(item) {
-      return item.items.map((item) => item.sum).reduce((acc, item) => acc + item, 0)
+      // return item.items
+      return item.items ? item.items.map((item) => item.sum).reduce((acc, item) => acc + item, 0) : 0
     }
   }
 }
