@@ -10,24 +10,18 @@
         <b-table :fields="detailsFields" :items="item.items"></b-table>
       </template>
     </b-table>
-    <table class="table">
-      <tbody>
-        <tr v-for="year in [2016, 2017, 2018, 2019, 2020, 2021].reverse()" :key="year">
-          <td v-for="month in 12" :key="`${year}-${13 - month}`">
-            <b-link :to="`/month/${year}-${13 - month}`"> {{ year }}-{{ 13 - month }} </b-link>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <grid-months></grid-months>
   </b-container>
 </template>
 
 <script>
 import { BTable } from 'bootstrap-vue'
+import GridMonths from '@/components/GridMonths'
 
 export default {
   components: {
-    BTable
+    BTable,
+    GridMonths
   },
   data() {
     return {
@@ -71,12 +65,7 @@ export default {
       return category ? category.name : null
     },
     getTotalSum(item) {
-      return item.items
-        .map((item) => item.sum)
-        .reduce((acc, item) => {
-          console.log(acc, item)
-          return acc + item
-        }, 0)
+      return item.items.map((item) => item.sum).reduce((acc, item) => acc + item, 0)
     }
   }
 }
