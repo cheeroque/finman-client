@@ -11,7 +11,7 @@
     <transition name="fade" mode="out-in">
       <b-table :key="page" :fields="fields" :items="records.data" @sort-changed="onTableSort">
         <template #cell(created_at)="{ item }">
-          <b-link :to="`/month/${getMonth(item)}`">
+          <b-link :to="`/month/${$getPeriod(item.created_at)}`">
             {{ formatDate(item) }}
           </b-link>
         </template>
@@ -114,12 +114,12 @@ export default {
       const category = this.getCategory(id)
       return category ? category.name : null
     },
-    getMonth(item) {
-      const dateString = item.updated_at || item.created_at
-      const date = new Date(dateString)
+    // getMonth(item) {
+    //   const dateString = item.updated_at || item.created_at
+    //   const date = new Date(dateString)
 
-      return `${date.getFullYear()}-${date.getMonth() + 1}`
-    },
+    //   return `${date.getFullYear()}-${date.getMonth() + 1}`
+    // },
     formatDate(item) {
       const dateString = item.created_at
       const date = new Date(dateString)
