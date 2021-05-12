@@ -40,9 +40,9 @@ export default {
     }
   },
   async fetch() {
-    this.currentCategory = await this.$http.$get(`${process.env.API_URL}/categories/${this.$route.params.category}`)
-    this.records = await this.$http.$get(
-      `${process.env.API_URL}/category/${this.$route.params.category}?page=${this.page}&perPage=${this.perPage}`
+    this.currentCategory = await this.$axios.$get(`categories/${this.$route.params.category}`)
+    this.records = await this.$axios.$get(
+      `category/${this.$route.params.category}?page=${this.page}&perPage=${this.perPage}`
     )
   },
   computed: {

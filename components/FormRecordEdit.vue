@@ -91,17 +91,17 @@ export default {
     },
     async createRecord() {
       this.form.created_at = Date.now()
-      await this.$http.$post(`${process.env.API_URL}/records`, this.form).then(() => {
+      await this.$axios.$post('records', this.form).then(() => {
         this.$emit('change')
       })
     },
     async updateRecord() {
-      await this.$http.$put(`${process.env.API_URL}/records/${this.record.id}`, this.form).then(() => {
+      await this.$axios.$put(`records/${this.record.id}`, this.form).then(() => {
         this.$emit('change')
       })
     },
     async deleteRecord() {
-      await this.$http.$delete(`${process.env.API_URL}/records/${this.record.id}`).then(() => {
+      await this.$axios.$delete(`records/${this.record.id}`).then(() => {
         this.$emit('change')
       })
     }

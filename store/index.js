@@ -14,11 +14,11 @@ export const mutations = {
 
 export const actions = {
   async getTotal({ commit }) {
-    const total = await this.$http.$get(`${process.env.API_URL}/total`)
+    const total = await this.$axios.$get('total')
     commit('SET_TOTAL', total)
   },
   async getCategories({ commit }) {
-    const categories = await this.$http.$get(`${process.env.API_URL}/categories`)
+    const categories = await this.$axios.$get('categories')
     commit('SET_CATEGORIES', categories)
   }
 }

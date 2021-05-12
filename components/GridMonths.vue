@@ -47,7 +47,7 @@ export default {
   },
   methods: {
     async getFirstRecord() {
-      this.first = await this.$http.$get(`${process.env.API_URL}/records/first`)
+      this.first = await this.$axios.$get('records/first')
     }
   }
 }

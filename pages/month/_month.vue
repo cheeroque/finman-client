@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     async getRecords() {
-      this.records = await this.$http.$get(`${process.env.API_URL}/month/${this.$route.params.month}`)
+      this.records = await this.$http.$get(`${process.env.API_URL}month/${this.$route.params.month}`)
     },
     getCategoryName(id) {
       const category = this.categories.find((category) => category.id.toString() === id.toString())

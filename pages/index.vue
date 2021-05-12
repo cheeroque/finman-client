@@ -96,7 +96,7 @@ export default {
   },
   methods: {
     async getRecords() {
-      this.records = await this.$http.$get(`${process.env.API_URL}/records?${this.query}`)
+      this.records = await this.$axios.$get(`records?${this.query}`)
     },
     onTableSort(event) {
       this.sortBy = event.sortBy

@@ -1,7 +1,8 @@
 export default {
   env: {
-    API_URL: process.env.API_URL || 'http://127.0.0.1:8000/api'
+    API_URL: process.env.API_URL || 'http://127.0.0.1:8000/api/'
   },
+
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'finman-client',
@@ -29,7 +30,7 @@ export default {
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/style-resources'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxt/http', '@nuxtjs/svg-sprite', 'bootstrap-vue/nuxt'],
+  modules: ['@nuxtjs/auth-next', '@nuxtjs/axios', '@nuxtjs/svg-sprite', 'bootstrap-vue/nuxt'],
 
   styleResources: {
     scss: [
@@ -46,12 +47,40 @@ export default {
     components: ['BContainer', 'BRow', 'BCol', 'BButton', 'BLink']
   },
 
+  auth: {
+    strategies: {
+      local: {
+        token: {
+          property: 'access_token'
+        },
+        user: {
+          property: false
+        },
+        endpoints: {
+          login: { url: '/login', method: 'post' },
+          user: false
+        }
+      }
+    }
+  },
+
+  axios: {
+    baseURL: process.env.API_URL,
+    headers: {
+      Accept: 'application/json'
+    }
+  },
+
   svgSprite: {
     input: '~/assets/images/icons'
   },
 
   generate: {
     crawler: false
+  },
+
+  router: {
+    middleware: ['auth']
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
