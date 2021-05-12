@@ -21,19 +21,22 @@ export default {
       form: {
         name: null,
         password: null
-      }
+      },
+      error: null
     }
   },
   methods: {
     async onSubmit() {
-      try {
-        await this.$auth.login({ data: this.form }).then((response) => {
+      await this.$auth
+        .login({ data: this.form })
+        .then((response) => {
+          this.error = null
           this.$auth.setUser(response.data.user)
+          this.$router.push('/')
         })
-        this.$router.push('/')
-      } catch (e) {
-        console.log(e)
-      }
+        .catch((error) => {
+          this.error = error.response.data.message
+        })
     }
   }
 }
