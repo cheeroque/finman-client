@@ -41,11 +41,6 @@ import FormRecordEdit from '@/components/FormRecordEdit'
 import ModalRecordCreate from '@/components/ModalRecordCreate'
 
 export default {
-  head: {
-    bodyAttrs: {
-      class: 'has-navbar'
-    }
-  },
   components: {
     BTable,
     BPagination,
@@ -73,6 +68,11 @@ export default {
   },
   async fetch() {
     await this.getRecords()
+  },
+  head: {
+    bodyAttrs: {
+      class: 'has-navbar'
+    }
   },
   computed: {
     categories() {
