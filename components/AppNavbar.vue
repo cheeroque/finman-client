@@ -5,7 +5,7 @@
     </div>
     <b-nav class="navbar-nav">
       <b-nav-item v-for="tab in tabs" :key="tab.value" :active="show === tab.value" @click="$emit('change', tab.value)">
-        <svg-icon :name="`show-${tab.value}-24`" width="24" height="24" aria-hidden="true" />
+        <svg-icon :name="`show-${tab.value || 'all'}-24`" width="24" height="24" aria-hidden="true" />
         <span class="caption">
           {{ tab.text }}
         </span>
@@ -41,7 +41,7 @@ export default {
         return [
           { value: 'expense', text: 'Расходы' },
           { value: 'income', text: 'Доходы' },
-          { value: 'all', text: 'Все записи' }
+          { value: null, text: 'Все записи' }
         ]
       }
     }
@@ -84,7 +84,7 @@ export default {
       flex-direction: column;
       align-items: center;
       padding: 0.375rem 1rem 0.5rem;
-      color: $gray-500;
+      color: $gray-600;
       transition: $transition-base;
       transition-property: color;
 
@@ -113,7 +113,7 @@ export default {
     width: $navbar-width-collapse;
     padding-top: $header-height-lg;
     padding-bottom: 1.5rem;
-    background-color: $gray-200;
+    background-color: $gray-100;
 
     .btn-create-wrapper {
       display: flex;
@@ -140,7 +140,7 @@ export default {
 
       .nav-link {
         padding: 0.5rem;
-        color: $gray-500;
+        color: $gray-600;
         transition-property: color, background-color;
 
         .caption {

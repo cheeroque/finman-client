@@ -1,5 +1,5 @@
 <template>
-  <b-container tag="main" fluid>
+  <b-container tag="main" class="px-0 px-lg-24" fluid>
     <transition name="fade" mode="out-in">
       <b-table :key="page" :fields="fields" :items="records.data" @sort-changed="onTableSort">
         <template #cell(created_at)="{ item }">
