@@ -148,7 +148,7 @@ export default {
         }
 
         &:hover {
-          color: $gray-600;
+          color: $primary;
         }
 
         &.active {
