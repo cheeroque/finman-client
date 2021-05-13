@@ -16,6 +16,7 @@ $orange: #ff7124;
 
 $primary: #0083b0;
 $primary-light: #00b4db;
+$primary-dark: #005f80;
 $secondary: $orange;
 $light: $gray-100;
 $dark: $gray-800;
@@ -27,7 +28,7 @@ $theme-colors: (
   'primary-light': $primary-light,
   'secondary': $secondary,
   'light': $light,
-  'dark': $dark,
+  'dark': $dark
 );
 
 $yiq-text-dark: $gray-900;
@@ -75,7 +76,7 @@ $spacers: (
   40: 2.5rem,
   48: 3rem,
   56: 3.5rem,
-  64: 4rem,
+  64: 4rem
 );
 
 // Grid
@@ -88,22 +89,21 @@ $grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1200px,
+  xl: 1200px
 );
 
 $container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: 1164px,
+  xl: 1164px
 );
 
 // Fonts
 
 $font-family-sans-serif: 'Roboto', sans-serif;
 $font-family-alternate: 'Roboto', sans-serif;
-$font-family-monospace: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas',
-  'Liberation Mono', 'Courier New', monospace;
+$font-family-monospace: 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', monospace;
 
 $font-size-base: 1rem;
 $font-weight-normal: 400;
@@ -246,3 +246,12 @@ $pagination-active-border-color: $secondary;
 $pagination-disabled-color: $pagination-border-color;
 $pagination-disabled-bg: transparent;
 $pagination-disabled-border-color: $pagination-border-color;
+
+// Misc
+
+$header-height: 0;
+$header-height-lg: 5.625rem;
+
+$navbar-height: 8rem;
+$navbar-width-collapse: 3rem;
+$navbar-width-expand: 22.5rem;

@@ -1,6 +1,5 @@
 <template>
   <b-container>
-    {{ $auth.loggedIn }}
     <form @submit.prevent="onSubmit">
       <div>
         <input v-model="form.name" type="text" required />

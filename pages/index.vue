@@ -1,13 +1,5 @@
 <template>
-  <b-container tag="main">
-    <b-row class="mb-32">
-      <b-col cols="auto" class="flex-fill">
-        <nav-show-mode v-model="show" @input="$fetch"></nav-show-mode>
-      </b-col>
-      <b-col cols="auto">
-        <b-button block @click="modalShow = true"> Добавить </b-button>
-      </b-col>
-    </b-row>
+  <b-container tag="main" fluid>
     <transition name="fade" mode="out-in">
       <b-table :key="page" :fields="fields" :items="records.data" @sort-changed="onTableSort">
         <template #cell(created_at)="{ item }">
@@ -38,20 +30,26 @@
     </transition>
     <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total" @input="$fetch"></b-pagination>
     <modal-record-create v-model="modalShow" @hide="refresh"></modal-record-create>
+    <app-navbar v-model="show" @change="$fetch" @create-record="modalShow = true" />
   </b-container>
 </template>
 
 <script>
 import { BTable, BPagination } from 'bootstrap-vue'
-import NavShowMode from '@/components/NavShowMode'
+import AppNavbar from '@/components/AppNavbar'
 import FormRecordEdit from '@/components/FormRecordEdit'
 import ModalRecordCreate from '@/components/ModalRecordCreate'
 
 export default {
+  head: {
+    bodyAttrs: {
+      class: 'has-navbar'
+    }
+  },
   components: {
     BTable,
     BPagination,
-    NavShowMode,
+    AppNavbar,
     FormRecordEdit,
     ModalRecordCreate
   },
