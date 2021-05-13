@@ -1,32 +1,46 @@
 <template>
   <b-container tag="main" class="px-0 px-lg-24" fluid>
     <transition name="fade" mode="out-in">
-      <b-table :key="page" :fields="fields" :items="records.data" @sort-changed="onTableSort">
-        <template #cell(created_at)="{ item }">
-          <b-link :to="`/month/${$getPeriod(item.created_at)}`">
-            {{ formatDate(item) }}
-          </b-link>
-        </template>
-        <template #cell(category_id)="{ value }">
-          <b-link :to="`/category/${value}`">
-            {{ getCategoryName(value) }}
-          </b-link>
-        </template>
-        <template #cell(edit)="{ toggleDetails }">
-          <b-link @click="toggleDetails"> edit </b-link>
-        </template>
-        <template #row-details="{ item, toggleDetails }">
-          <form-record-edit
-            :record="item"
-            @change="
-              () => {
-                toggleDetails()
-                refresh()
-              }
-            "
-          ></form-record-edit>
-        </template>
-      </b-table>
+      <div :key="page" class="table-card">
+        <b-table
+          :fields="fields"
+          :items="records.data"
+          borderless
+          responsive
+          sort-icon-left
+          striped
+          @sort-changed="onTableSort"
+        >
+          <template #cell(created_at)="{ item }">
+            <b-link :to="`/month/${$getPeriod(item.created_at)}`" class="text-reset">
+              <span class="date">{{ formatDate(item) }}</span>
+              <span class="time">{{ formatTime(item) }}</span>
+            </b-link>
+          </template>
+          <template #cell(category_id)="{ value }">
+            <b-link :to="`/category/${value}`" class="text-reset">
+              {{ getCategoryName(value) }}
+            </b-link>
+          </template>
+          <template #cell(note)="{ value, toggleDetails }">
+            <b-link class="text-reset row-details-toggle" @click="toggleDetails">
+              <span class="caption">{{ value }}</span>
+              <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
+            </b-link>
+          </template>
+          <template #row-details="{ item, toggleDetails }">
+            <form-record-edit
+              :record="item"
+              @change="
+                () => {
+                  toggleDetails()
+                  refresh()
+                }
+              "
+            ></form-record-edit>
+          </template>
+        </b-table>
+      </div>
     </transition>
     <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total" @input="$fetch"></b-pagination>
     <modal-record-create v-model="modalShow" @hide="refresh"></modal-record-create>
@@ -58,11 +72,10 @@ export default {
       show: 'expense',
       modalShow: false,
       fields: [
-        { key: 'created_at', label: 'Дата', sortable: true },
-        { key: 'sum', label: 'Сумма', sortable: true },
+        { key: 'created_at', label: 'Дата', sortable: true, tdClass: 'table-cell-datetime' },
+        { key: 'sum', label: 'Сумма', sortable: true, tdClass: 'table-cell-sum' },
         { key: 'category_id', label: 'Категория', sortable: true },
-        { key: 'note', label: 'Комментарий' },
-        { key: 'edit', label: 'Редактировать' }
+        { key: 'note', label: 'Комментарий' }
       ]
     }
   },
@@ -112,17 +125,19 @@ export default {
       const category = this.getCategory(id)
       return category ? category.name : null
     },
-    // getMonth(item) {
-    //   const dateString = item.updated_at || item.created_at
-    //   const date = new Date(dateString)
-
-    //   return `${date.getFullYear()}-${date.getMonth() + 1}`
-    // },
     formatDate(item) {
       const dateString = item.created_at
       const date = new Date(dateString)
       const dateOptions = {
-        dateStyle: 'short',
+        day: '2-digit',
+        month: '2-digit'
+      }
+      return date.toLocaleString('ru-RU', dateOptions)
+    },
+    formatTime(item) {
+      const dateString = item.created_at
+      const date = new Date(dateString)
+      const dateOptions = {
         timeStyle: 'short'
       }
       return date.toLocaleString('ru-RU', dateOptions)

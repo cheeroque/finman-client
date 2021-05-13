@@ -1,1 +1,117 @@
 @import '~bootstrap/scss/tables';
+
+.table {
+  thead {
+    font-size: $font-size-1;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    color: $gray-500;
+  }
+
+  line-height: 1.25;
+}
+
+.table-cell-datetime {
+  .time {
+    font-size: 0.875em;
+    color: $gray-500;
+
+    &::before {
+      display: inline;
+      content: '@ ';
+    }
+  }
+}
+
+.table-cell-sum {
+  font-weight: $font-weight-bold;
+}
+
+.row-details-toggle {
+  display: flex;
+
+  .caption {
+    flex: 1 1 auto;
+  }
+
+  .icon {
+    flex: 0 0 auto;
+    margin-left: 0.25rem;
+    color: $gray-300;
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .table {
+    font-size: $font-size-1;
+
+    thead {
+      font-size: $font-size-0;
+      border-bottom: $border-width solid $gray-300;
+      background-color: $gray-100;
+    }
+
+    th,
+    td {
+      padding-left: $grid-gutter-width / 2;
+      padding-right: $grid-gutter-width / 2;
+    }
+
+    &.b-table {
+      & > thead,
+      & > tfoot {
+        & > tr {
+          & > [aria-sort] {
+            &:not(.b-table-sort-icon-left),
+            &.b-table-sort-icon-left {
+              background-image: none;
+              padding-left: $grid-gutter-width / 2;
+              padding-right: $grid-gutter-width / 2;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .table-cell-datetime {
+    .time {
+      display: none;
+    }
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .table-card {
+    border-radius: $border-radius;
+    background-color: $white;
+    box-shadow: $box-shadow-sm;
+  }
+
+  .table {
+    th,
+    td {
+      padding: 0.75rem $grid-gutter-width;
+    }
+
+    &.b-table {
+      & > thead,
+      & > tfoot {
+        & > tr {
+          & > th[aria-sort] {
+            &:not(.b-table-sort-icon-left) {
+              padding-left: $grid-gutter-width;
+              padding-right: $grid-gutter-width;
+            }
+
+            &.b-table-sort-icon-left {
+              padding-left: $grid-gutter-width;
+              padding-right: $grid-gutter-width;
+              background-position: left 0.75rem center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
