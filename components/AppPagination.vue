@@ -7,6 +7,8 @@
       :per-page="perPage"
       :size="size"
       :total-rows="totalRows"
+      first-number
+      last-number
     ></b-pagination>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div class="table-card">
+  <div :class="{ 'pb-24': !!total }" class="table-card">
     <transition :name="transition" mode="out-in">
       <b-table
         :key="currentPage"
@@ -59,7 +59,13 @@
       </b-table>
     </transition>
 
-    <app-pagination v-if="total" v-model="localCurrentPage" :per-page="perPage" :total-rows="total"></app-pagination>
+    <app-pagination
+      v-if="total"
+      v-model="localCurrentPage"
+      :per-page="perPage"
+      :total-rows="total"
+      align="center"
+    ></app-pagination>
   </div>
 </template>
 

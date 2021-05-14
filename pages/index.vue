@@ -6,6 +6,7 @@
       :current-page="page"
       :per-page="perPage"
       :total="records.total"
+      class="mb-lg-32"
       fixed
       @sort-changed="changeSort"
       @page-changed="changePage"
@@ -39,14 +40,12 @@
         ></form-record-edit>
       </template>
     </table-card>
-    <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total" @input="$fetch"></b-pagination>
     <modal-record-create v-model="modalShow" @hide="refresh"></modal-record-create>
     <app-navbar v-model="show" @change="$fetch" @create-record="modalShow = true" />
   </b-container>
 </template>
 
 <script>
-import { BPagination } from 'bootstrap-vue'
 import TableCard from '@/components/TableCard'
 import AppNavbar from '@/components/AppNavbar'
 import FormRecordEdit from '@/components/FormRecordEdit'
@@ -55,7 +54,6 @@ import ModalRecordCreate from '@/components/ModalRecordCreate'
 export default {
   components: {
     TableCard,
-    BPagination,
     AppNavbar,
     FormRecordEdit,
     ModalRecordCreate
