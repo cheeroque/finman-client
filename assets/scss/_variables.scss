@@ -79,6 +79,19 @@ $spacers: (
   64: 4rem
 );
 
+// Sizes
+
+$sizes: (
+  15: 15%,
+  20: 20%,
+  25: 25%,
+  40: 40%,
+  50: 50%,
+  75: 75%,
+  100: 100%,
+  auto: auto
+);
+
 // Grid
 
 $grid-gutter-width: 1.5rem;

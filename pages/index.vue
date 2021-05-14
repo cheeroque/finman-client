@@ -1,46 +1,44 @@
 <template>
   <b-container tag="main" class="px-0 px-lg-24" fluid>
-    <transition name="fade" mode="out-in">
-      <table-card
-        :key="page"
-        :fields="fields"
-        :items="records.data"
-        :current-page="page"
-        :per-page="perPage"
-        :total="records.total"
-        @sort-changed="changeSort"
-        @page-changed="changePage"
-      >
-        <template #cell(created_at)="{ item }">
-          <b-link :to="`/month/${$getPeriod(item.created_at)}`" class="text-reset">
-            <span class="date">{{ formatDate(item) }}</span>
-            <span class="time">{{ formatTime(item) }}</span>
-          </b-link>
-        </template>
-        <template #cell(category_id)="{ value }">
-          <b-link :to="`/category/${value}`" class="text-reset">
-            {{ getCategoryName(value) }}
-          </b-link>
-        </template>
-        <template #cell(note)="{ value, toggleDetails }">
-          <b-link class="text-reset row-details-toggle" @click="toggleDetails">
-            <span class="caption">{{ value }}</span>
-            <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
-          </b-link>
-        </template>
-        <template #row-details="{ item, toggleDetails }">
-          <form-record-edit
-            :record="item"
-            @change="
-              () => {
-                toggleDetails()
-                refresh()
-              }
-            "
-          ></form-record-edit>
-        </template>
-      </table-card>
-    </transition>
+    <table-card
+      :fields="fields"
+      :items="records.data"
+      :current-page="page"
+      :per-page="perPage"
+      :total="records.total"
+      fixed
+      @sort-changed="changeSort"
+      @page-changed="changePage"
+    >
+      <template #cell(created_at)="{ item }">
+        <b-link :to="`/month/${$getPeriod(item.created_at)}`" class="text-reset">
+          <span class="date">{{ formatDate(item) }}</span>
+          <span class="time">{{ formatTime(item) }}</span>
+        </b-link>
+      </template>
+      <template #cell(category_id)="{ value }">
+        <b-link :to="`/category/${value}`" class="text-reset">
+          {{ getCategoryName(value) }}
+        </b-link>
+      </template>
+      <template #cell(note)="{ value, toggleDetails }">
+        <b-link class="text-reset row-details-toggle" @click="toggleDetails">
+          <span class="caption">{{ value }}</span>
+          <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
+        </b-link>
+      </template>
+      <template #row-details="{ item, toggleDetails }">
+        <form-record-edit
+          :record="item"
+          @change="
+            () => {
+              toggleDetails()
+              refresh()
+            }
+          "
+        ></form-record-edit>
+      </template>
+    </table-card>
     <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total" @input="$fetch"></b-pagination>
     <modal-record-create v-model="modalShow" @hide="refresh"></modal-record-create>
     <app-navbar v-model="show" @change="$fetch" @create-record="modalShow = true" />
@@ -72,10 +70,10 @@ export default {
       show: 'expense',
       modalShow: false,
       fields: [
-        { key: 'created_at', label: 'Дата', sortable: true, tdClass: 'table-cell-datetime' },
-        { key: 'sum', label: 'Сумма', sortable: true, tdClass: 'table-cell-sum' },
-        { key: 'category_id', label: 'Категория', sortable: true },
-        { key: 'note', label: 'Комментарий' }
+        { key: 'created_at', label: 'Дата', sortable: true, thClass: 'w-15', tdClass: 'table-cell-datetime' },
+        { key: 'sum', label: 'Сумма', sortable: true, thClass: 'w-20', tdClass: 'table-cell-sum' },
+        { key: 'category_id', label: 'Категория', thClass: 'w-25', sortable: true },
+        { key: 'note', label: 'Комментарий', thClass: 'w-40' }
       ]
     }
   },
@@ -114,9 +112,16 @@ export default {
       this.sortDesc = event.sortDesc
       this.$fetch()
     },
-    changePage(event) {
+    async changePage(event) {
       this.page = event
-      this.$fetch()
+      if (process.client) {
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        })
+      }
+      await this.$fetch()
     },
     getCategory(id) {
       return this.categories.find((category) => category.id.toString() === id.toString())
