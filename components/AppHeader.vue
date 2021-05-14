@@ -1,7 +1,10 @@
 <template>
   <b-container tag="header" class="app-header px-lg-24" fluid>
     <h1>
-      <b-link to="/" class="text-reset text-decoration-none"> {{ total }}&nbsp;₽ </b-link>
+      <transition name="fade" mode="out-in">
+        <b-link v-if="total" :key="total" to="/" class="text-reset text-decoration-none"> {{ total }}&nbsp;₽ </b-link>
+        <span v-else>&nbsp;</span>
+      </transition>
     </h1>
   </b-container>
 </template>
