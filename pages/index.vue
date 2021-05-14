@@ -1,46 +1,45 @@
 <template>
   <b-container tag="main" class="px-0 px-lg-24" fluid>
     <transition name="fade" mode="out-in">
-      <div :key="page" class="table-card">
-        <b-table
-          :fields="fields"
-          :items="records.data"
-          borderless
-          responsive
-          sort-icon-left
-          striped
-          @sort-changed="onTableSort"
-        >
-          <template #cell(created_at)="{ item }">
-            <b-link :to="`/month/${$getPeriod(item.created_at)}`" class="text-reset">
-              <span class="date">{{ formatDate(item) }}</span>
-              <span class="time">{{ formatTime(item) }}</span>
-            </b-link>
-          </template>
-          <template #cell(category_id)="{ value }">
-            <b-link :to="`/category/${value}`" class="text-reset">
-              {{ getCategoryName(value) }}
-            </b-link>
-          </template>
-          <template #cell(note)="{ value, toggleDetails }">
-            <b-link class="text-reset row-details-toggle" @click="toggleDetails">
-              <span class="caption">{{ value }}</span>
-              <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
-            </b-link>
-          </template>
-          <template #row-details="{ item, toggleDetails }">
-            <form-record-edit
-              :record="item"
-              @change="
-                () => {
-                  toggleDetails()
-                  refresh()
-                }
-              "
-            ></form-record-edit>
-          </template>
-        </b-table>
-      </div>
+      <table-card
+        :fields="fields"
+        :items="records.data"
+        :key="page"
+        :current-page="page"
+        :per-page="perPage"
+        :total="records.total"
+        @sort-changed="changeSort"
+        @page-changed="changePage"
+      >
+        <template #cell(created_at)="{ item }">
+          <b-link :to="`/month/${$getPeriod(item.created_at)}`" class="text-reset">
+            <span class="date">{{ formatDate(item) }}</span>
+            <span class="time">{{ formatTime(item) }}</span>
+          </b-link>
+        </template>
+        <template #cell(category_id)="{ value }">
+          <b-link :to="`/category/${value}`" class="text-reset">
+            {{ getCategoryName(value) }}
+          </b-link>
+        </template>
+        <template #cell(note)="{ value, toggleDetails }">
+          <b-link class="text-reset row-details-toggle" @click="toggleDetails">
+            <span class="caption">{{ value }}</span>
+            <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
+          </b-link>
+        </template>
+        <template #row-details="{ item, toggleDetails }">
+          <form-record-edit
+            :record="item"
+            @change="
+              () => {
+                toggleDetails()
+                refresh()
+              }
+            "
+          ></form-record-edit>
+        </template>
+      </table-card>
     </transition>
     <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total" @input="$fetch"></b-pagination>
     <modal-record-create v-model="modalShow" @hide="refresh"></modal-record-create>
@@ -49,14 +48,15 @@
 </template>
 
 <script>
-import { BTable, BPagination } from 'bootstrap-vue'
+import { BPagination } from 'bootstrap-vue'
+import TableCard from '@/components/TableCard'
 import AppNavbar from '@/components/AppNavbar'
 import FormRecordEdit from '@/components/FormRecordEdit'
 import ModalRecordCreate from '@/components/ModalRecordCreate'
 
 export default {
   components: {
-    BTable,
+    TableCard,
     BPagination,
     AppNavbar,
     FormRecordEdit,
@@ -109,9 +109,13 @@ export default {
     async getRecords() {
       this.records = await this.$axios.$get(`records?${this.query}`)
     },
-    onTableSort(event) {
+    changeSort(event) {
       this.sortBy = event.sortBy
       this.sortDesc = event.sortDesc
+      this.$fetch()
+    },
+    changePage(event) {
+      this.page = event
       this.$fetch()
     },
     getCategory(id) {
