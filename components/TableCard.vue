@@ -14,7 +14,7 @@
     >
       <template
         v-for="field in fields"
-        v-slot:[`cell(${field.key})`]="{
+        #[`cell(${field.key})`]="{
           detailsShowing,
           index,
           item,
@@ -41,7 +41,7 @@
           {{ value }}
         </slot>
       </template>
-      <template #row-details="{ fields, index, item, rowSelected, selectRow, toggleDetails, unselectRow }">
+      <template #row-details="{ index, item, rowSelected, selectRow, toggleDetails, unselectRow }">
         <slot
           :fields="fields"
           :index="index"
@@ -56,17 +56,18 @@
       </template>
     </b-table>
 
-    <b-pagination v-if="total" v-model="localCurrentPage" :per-page="perPage" :total-rows="total"></b-pagination>
+    <app-pagination v-if="total" v-model="localCurrentPage" :per-page="perPage" :total-rows="total"></app-pagination>
   </div>
 </template>
 
 <script>
-import { BTable, BPagination } from 'bootstrap-vue'
+import { BTable } from 'bootstrap-vue'
+import AppPagination from '@/components/AppPagination'
 
 export default {
   components: {
     BTable,
-    BPagination
+    AppPagination
   },
   props: {
     fields: {

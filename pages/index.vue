@@ -2,9 +2,9 @@
   <b-container tag="main" class="px-0 px-lg-24" fluid>
     <transition name="fade" mode="out-in">
       <table-card
+        :key="page"
         :fields="fields"
         :items="records.data"
-        :key="page"
         :current-page="page"
         :per-page="perPage"
         :total="records.total"
