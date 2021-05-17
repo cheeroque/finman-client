@@ -7,7 +7,6 @@
       :per-page="perPage"
       :total="records.total"
       class="mb-lg-32"
-      fixed
       @sort-changed="changeSort"
       @page-changed="changePage"
     >
@@ -68,10 +67,31 @@ export default {
       show: 'expense',
       modalShow: false,
       fields: [
-        { key: 'created_at', label: 'Дата', sortable: true, thClass: 'w-15', tdClass: 'table-cell-datetime' },
-        { key: 'sum', label: 'Сумма', sortable: true, thClass: 'w-20', tdClass: 'table-cell-sum' },
-        { key: 'category_id', label: 'Категория', thClass: 'w-25', sortable: true },
-        { key: 'note', label: 'Комментарий', thClass: 'w-40' }
+        {
+          key: 'created_at',
+          label: 'Дата',
+          sortable: true,
+          thClass: null,
+          tdClass: 'table-cell-datetime'
+        },
+        {
+          key: 'sum',
+          label: 'Сумма',
+          sortable: true,
+          thClass: 'text-right',
+          tdClass: 'table-cell-sum text-right'
+        },
+        {
+          key: 'category_id',
+          label: 'Категория',
+          thClass: null,
+          sortable: true
+        },
+        {
+          key: 'note',
+          label: 'Комментарий',
+          thClass: null
+        }
       ]
     }
   },
@@ -106,7 +126,7 @@ export default {
       this.records = await this.$axios.$get(`records?${this.query}`)
     },
     changeSort(event) {
-      this.sortBy = event.sortBy
+      this.sortBy = event.sortBy ?? 'created_at'
       this.sortDesc = event.sortDesc
       this.$fetch()
     },

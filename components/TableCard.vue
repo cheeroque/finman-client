@@ -164,6 +164,7 @@ export default {
 
   .table-cell-sum {
     font-weight: $font-weight-bold;
+    font-variant-numeric: tabular-nums;
   }
 
   .row-details-toggle {
