@@ -1,13 +1,13 @@
 <template>
-  <div :class="{ 'pb-24': !!total }" class="table-card">
+  <div class="table-card">
     <transition :name="transition" mode="out-in">
       <b-table
-        :key="currentPage"
         :fields="fields"
         :items="items"
         :fixed="fixed"
         :small="small"
         :table-class="tableClass"
+        sort-direction="desc"
         borderless
         responsive
         sort-icon-left
@@ -58,25 +58,15 @@
         </template>
       </b-table>
     </transition>
-
-    <app-pagination
-      v-if="total"
-      v-model="localCurrentPage"
-      :per-page="perPage"
-      :total-rows="total"
-      align="center"
-    ></app-pagination>
   </div>
 </template>
 
 <script>
 import { BTable } from 'bootstrap-vue'
-import AppPagination from '@/components/AppPagination'
 
 export default {
   components: {
-    BTable,
-    AppPagination
+    BTable
   },
   props: {
     fields: {
@@ -101,10 +91,6 @@ export default {
         return false
       }
     },
-    perPage: {
-      type: [Number, String],
-      default: 0
-    },
     small: {
       type: Boolean,
       default() {
@@ -115,23 +101,9 @@ export default {
       type: [Array, Object, String],
       default: null
     },
-    total: {
-      type: [Number, String],
-      default: 0
-    },
     transition: {
       type: String,
       default: null
-    }
-  },
-  computed: {
-    localCurrentPage: {
-      get() {
-        return this.currentPage
-      },
-      set(newValue) {
-        this.$emit('page-changed', newValue)
-      }
     }
   }
 }
