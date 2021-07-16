@@ -11,9 +11,10 @@
 
 <script>
 export default {
-  computed: {
-    total() {
-      return this.$store.state.total
+  props: {
+    total: {
+      type: [Number, String],
+      default: null
     }
   }
 }

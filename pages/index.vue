@@ -25,7 +25,6 @@
       </template>
     </CardTabs>
     <ModalRecordEdit v-model="modalShow" :item="activeRecord" @hide="refresh" />
-    <AppNavbar v-model="show" @change="$fetch" @create-record="editRecord" />
   </b-container>
 </template>
 
@@ -36,8 +35,6 @@ export default {
       activeRecord: null,
       records: [],
       perPage: 50,
-      sortBy: 'created_at',
-      sortDesc: true,
       modalShow: false,
       fields: [
         {
