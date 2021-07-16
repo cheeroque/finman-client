@@ -1,5 +1,5 @@
 <template>
-  <b-container tag="header" class="app-header px-lg-24" fluid>
+  <b-container tag="header" class="app-header d-lg-none" fluid>
     <h1>
       <transition name="fade" mode="out-in">
         <b-link v-if="total" :key="total" to="/" class="text-reset text-decoration-none"> {{ total }}&nbsp;₽ </b-link>
@@ -21,28 +21,20 @@ export default {
 
 <style lang="scss" scoped>
 .app-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  background-color: $gray-100;
+  background-color: $primary-light;
+  background-image: linear-gradient(to bottom right, $primary-light, $primary);
 
   h1 {
     margin: 0;
     font-size: 2rem;
     line-height: 1.25;
-    color: $gray-600;
-  }
-}
-
-@include media-breakpoint-up(lg) {
-  .app-header {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    background-color: transparent;
-
-    h1 {
-      font-size: 3rem;
-      color: $primary;
-    }
+    color: $white;
   }
 }
 </style>
