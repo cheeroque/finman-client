@@ -1,70 +1,53 @@
 <template>
   <b-container tag="main" class="px-0 px-lg-24" fluid>
-    <table-card
-      :fields="fields"
-      :items="records.data"
-      :current-page="page"
-      :per-page="perPage"
-      :total="records.total"
-      class="mb-lg-32"
-      @sort-changed="changeSort"
-      @page-changed="changePage"
-    >
-      <template #cell(created_at)="{ item }">
-        <b-link :to="`/month/${$getPeriod(item.created_at)}`" class="text-reset">
-          <span class="date">{{ formatDate(item) }}</span>
-          <span class="time">{{ formatTime(item) }}</span>
-        </b-link>
+    <CardTabs :value="show" :tabs="tabs">
+      <DataTable :fields="fields" :items="records.data" class="mb-lg-32" @sort-changed="onSortChanged">
+        <template #cell(created_at)="{ item }">
+          <b-link :to="`/month/${$getPeriod(item.created_at)}`" class="text-reset">
+            <span class="date">{{ formatDate(item) }}</span>
+            <span class="time">{{ formatTime(item) }}</span>
+          </b-link>
+        </template>
+        <template #cell(category_id)="{ value }">
+          <b-link :to="`/category/${value}`" class="text-reset">
+            {{ getCategoryName(value) }}
+          </b-link>
+        </template>
+        <template #cell(note)="{ value, toggleDetails }">
+          <b-link class="text-reset row-details-toggle" @click="toggleDetails">
+            <span class="caption">{{ value }}</span>
+            <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
+          </b-link>
+        </template>
+        <template #row-details="{ item, toggleDetails }">
+          <FormRecordEdit
+            :record="item"
+            @change="
+              () => {
+                toggleDetails()
+                refresh()
+              }
+            "
+          />
+        </template>
+      </DataTable>
+      <template #footer>
+        <PaginationNav align="center" :number-of-pages="Math.ceil(records.total / perPage)" />
       </template>
-      <template #cell(category_id)="{ value }">
-        <b-link :to="`/category/${value}`" class="text-reset">
-          {{ getCategoryName(value) }}
-        </b-link>
-      </template>
-      <template #cell(note)="{ value, toggleDetails }">
-        <b-link class="text-reset row-details-toggle" @click="toggleDetails">
-          <span class="caption">{{ value }}</span>
-          <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
-        </b-link>
-      </template>
-      <template #row-details="{ item, toggleDetails }">
-        <form-record-edit
-          :record="item"
-          @change="
-            () => {
-              toggleDetails()
-              refresh()
-            }
-          "
-        ></form-record-edit>
-      </template>
-    </table-card>
-    <modal-record-create v-model="modalShow" @hide="refresh"></modal-record-create>
-    <app-navbar v-model="show" @change="$fetch" @create-record="modalShow = true" />
+    </CardTabs>
+    <ModalRecordCreate v-model="modalShow" @hide="refresh" />
+    <AppNavbar v-model="show" @change="$fetch" @create-record="modalShow = true" />
   </b-container>
 </template>
 
 <script>
-import TableCard from '@/components/TableCard'
-import AppNavbar from '@/components/AppNavbar'
-import FormRecordEdit from '@/components/FormRecordEdit'
-import ModalRecordCreate from '@/components/ModalRecordCreate'
-
 export default {
-  components: {
-    TableCard,
-    AppNavbar,
-    FormRecordEdit,
-    ModalRecordCreate
-  },
   data() {
     return {
       records: [],
-      page: 1,
       perPage: 50,
       sortBy: 'created_at',
       sortDesc: true,
-      show: 'expense',
       modalShow: false,
       fields: [
         {
@@ -92,6 +75,11 @@ export default {
           label: 'Комментарий',
           thClass: null
         }
+      ],
+      tabs: [
+        { value: null, text: 'Все записи' },
+        { value: 'expense', text: 'Расходы' },
+        { value: 'income', text: 'Доходы' }
       ]
     }
   },
@@ -108,30 +96,19 @@ export default {
       return this.$store.state.categories
     },
     query() {
-      const query = {
-        page: this.page,
-        perPage: this.perPage,
-        orderBy: this.sortBy,
-        order: this.sortDesc ? 'DESC' : 'ASC',
-        show: this.show
-      }
+      const query = { ...this.$route.query, perPage: this.perPage }
       return Object.keys(query)
         .filter((key) => Boolean(query[key]))
         .map((key) => `${key}=${query[key]}`)
         .join('&')
+    },
+    show() {
+      return this.$route.query.show || null
     }
   },
-  methods: {
-    async getRecords() {
-      this.records = await this.$axios.$get(`records?${this.query}`)
-    },
-    changeSort(event) {
-      this.sortBy = event.sortBy ?? 'created_at'
-      this.sortDesc = event.sortDesc
-      this.$fetch()
-    },
-    async changePage(event) {
-      this.page = event
+  watch: {
+    '$route.query'() {
+      this.refresh()
       if (process.client) {
         window.scroll({
           top: 0,
@@ -139,7 +116,16 @@ export default {
           behavior: 'smooth'
         })
       }
-      await this.$fetch()
+    }
+  },
+  methods: {
+    async getRecords() {
+      this.records = await this.$axios.$get(`records?${this.query}`)
+    },
+    onSortChanged({ sortBy, sortDesc }) {
+      this.$router.push({
+        query: { ...this.$route.query, orderBy: sortBy || 'created_at', order: sortDesc ? 'DESC' : 'ASC' }
+      })
     },
     getCategory(id) {
       return this.categories.find((category) => category.id.toString() === id.toString())
