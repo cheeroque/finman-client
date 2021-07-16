@@ -13,30 +13,19 @@
             {{ getCategoryName(value) }}
           </b-link>
         </template>
-        <template #cell(note)="{ value, toggleDetails }">
-          <b-link class="text-reset row-details-toggle" @click="toggleDetails">
-            <span class="caption">{{ value }}</span>
+        <template #cell(note)="{ item }">
+          <b-link class="text-reset row-details-toggle" @click="editRecord(item)">
+            <span class="caption">{{ item.note }}</span>
             <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
           </b-link>
-        </template>
-        <template #row-details="{ item, toggleDetails }">
-          <FormRecordEdit
-            :record="item"
-            @change="
-              () => {
-                toggleDetails()
-                refresh()
-              }
-            "
-          />
         </template>
       </DataTable>
       <template #footer>
         <PaginationNav align="center" :number-of-pages="Math.ceil(records.total / perPage)" />
       </template>
     </CardTabs>
-    <ModalRecordCreate v-model="modalShow" @hide="refresh" />
-    <AppNavbar v-model="show" @change="$fetch" @create-record="modalShow = true" />
+    <ModalRecordEdit v-model="modalShow" :item="activeRecord" @hide="refresh" />
+    <AppNavbar v-model="show" @change="$fetch" @create-record="editRecord" />
   </b-container>
 </template>
 
@@ -44,6 +33,7 @@
 export default {
   data() {
     return {
+      activeRecord: null,
       records: [],
       perPage: 50,
       sortBy: 'created_at',
@@ -121,6 +111,10 @@ export default {
   methods: {
     async getRecords() {
       this.records = await this.$axios.$get(`records?${this.query}`)
+    },
+    editRecord(record) {
+      this.activeRecord = record
+      this.modalShow = true
     },
     onSortChanged({ sortBy, sortDesc }) {
       this.$router.push({

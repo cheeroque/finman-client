@@ -10,7 +10,7 @@
       <b-form-input v-model="form.note" type="text"></b-form-input>
     </b-form-group>
     <b-form-group label="Дата">
-      <b-form-input v-model="form.updated_at" type="date"></b-form-input>
+      <b-form-input v-model="form.created_at" type="date"></b-form-input>
     </b-form-group>
 
     <b-row>
@@ -35,13 +35,7 @@ export default {
     BFormSelect
   },
   props: {
-    create: {
-      type: Boolean,
-      default() {
-        return false
-      }
-    },
-    record: {
+    item: {
       type: Object,
       default() {
         return {}
@@ -54,8 +48,8 @@ export default {
         category_id: null,
         sum: 0,
         note: null,
-        created_at: null,
-        updated_at: null
+        created_at: new Date(),
+        updated_at: new Date()
       }
     }
   },
@@ -70,20 +64,23 @@ export default {
           text: category.name
         }
       })
-      if (this.create) {
+      if (this.isCreate) {
         categories.unshift({ value: null, text: 'Выберите категорию', disabled: true })
       }
       return categories
+    },
+    isCreate() {
+      return !this.item || this.isEmptyObject(this.item)
     }
   },
   mounted() {
-    if (!this.create) {
-      this.form = { ...this.record }
+    if (!this.isCreate) {
+      this.form = { ...this.item }
     }
   },
   methods: {
     async onSubmit() {
-      if (this.create) {
+      if (this.isCreate) {
         await this.createRecord()
       } else {
         await this.updateRecord()
@@ -96,14 +93,17 @@ export default {
       })
     },
     async updateRecord() {
-      await this.$axios.$put(`records/${this.record.id}`, this.form).then(() => {
+      await this.$axios.$put(`records/${this.item.id}`, this.form).then(() => {
         this.$emit('change')
       })
     },
     async deleteRecord() {
-      await this.$axios.$delete(`records/${this.record.id}`).then(() => {
+      await this.$axios.$delete(`records/${this.item.id}`).then(() => {
         this.$emit('change')
       })
+    },
+    isEmptyObject(obj) {
+      return Object.keys(obj).length === 0 && obj.constructor === Object
     }
   }
 }

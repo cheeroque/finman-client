@@ -1,17 +1,15 @@
 <template>
   <b-modal v-model="localVisible" @hide="$emit('hide')">
-    <form-record-edit create @change="localVisible = false"></form-record-edit>
+    <FormRecordEdit :item="item" @change="localVisible = false" />
   </b-modal>
 </template>
 
 <script>
 import { BModal } from 'bootstrap-vue'
-import FormRecordEdit from '@/components/FormRecordEdit'
 
 export default {
   components: {
-    BModal,
-    FormRecordEdit
+    BModal
   },
   model: {
     prop: 'visible',
@@ -22,6 +20,12 @@ export default {
       type: Boolean,
       default() {
         return false
+      }
+    },
+    item: {
+      type: Object,
+      default() {
+        return {}
       }
     }
   },
