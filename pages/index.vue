@@ -1,6 +1,6 @@
 <template>
   <b-container tag="main" class="px-0 px-lg-24" fluid>
-    <CardTabs :value="show" :tabs="tabs">
+    <CardTabs :active="$route.query.show || null" :tabs="tabs">
       <DataTable
         :fields="fields"
         :items="records.data"
@@ -100,9 +100,6 @@ export default {
         .filter((key) => Boolean(query[key]))
         .map((key) => `${key}=${query[key]}`)
         .join('&')
-    },
-    show() {
-      return this.$route.query.show || null
     }
   },
   watch: {

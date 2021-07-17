@@ -1,25 +1,17 @@
 <template>
   <b-card header-tag="nav" no-body>
     <template #header>
-      <b-nav class="d-none d-lg-flex" card-header tabs>
+      <b-nav card-header tabs justified>
         <b-nav-item
           v-for="(tab, index) in tabs"
           :key="`tab-${index}`"
           :to="{ query: tab.value ? { show: tab.value } : null }"
-          :active="tab.value === value"
+          :active="tab.value === active"
         >
+          <svg-icon :name="`show-${tab.value || 'all'}-24`" width="24" height="24" aria-hidden="true" />
           {{ tab.text }}
         </b-nav-item>
       </b-nav>
-      <b-dropdown :text="activeTab.text" class="d-lg-none">
-        <b-dropdown-item
-          v-for="(tab, index) in tabs"
-          :key="`dropdown-item-${index}`"
-          :to="{ query: tab.value ? { show: tab.value } : null }"
-        >
-          {{ tab.text }}
-        </b-dropdown-item>
-      </b-dropdown>
     </template>
     <b-card-body>
       <slot></slot>
@@ -31,7 +23,7 @@
 </template>
 
 <script>
-import { BCard, BCardBody, BCardFooter, BNav, BNavItem, BDropdown, BDropdownItem } from 'bootstrap-vue'
+import { BCard, BCardBody, BCardFooter, BNav, BNavItem } from 'bootstrap-vue'
 
 export default {
   components: {
@@ -39,14 +31,12 @@ export default {
     BCardBody,
     BCardFooter,
     BNav,
-    BNavItem,
-    BDropdown,
-    BDropdownItem
+    BNavItem
   },
   props: {
-    value: {
+    active: {
       type: String,
-      default: ''
+      default: null
     },
     tabs: {
       type: Array,
@@ -57,7 +47,7 @@ export default {
   },
   computed: {
     activeTab() {
-      return this.tabs.find((tab) => tab.value === this.value) || {}
+      return this.tabs.find((tab) => tab.value === this.active) || {}
     }
   }
 }
