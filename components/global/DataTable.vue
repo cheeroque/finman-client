@@ -1,72 +1,45 @@
 <template>
   <div class="table-card">
     <transition :name="transition" mode="out-in">
-      <b-table
+      <b-table-lite
         :fields="fields"
         :items="items"
         :fixed="fixed"
         :small="small"
         :table-class="tableClass"
-        sort-direction="desc"
         borderless
         responsive
-        sort-icon-left
         striped
+        @head-clicked="onHeadClicked"
         @sort-changed="(event) => $emit('sort-changed', event)"
       >
-        <template
-          v-for="field in fields"
-          #[`cell(${field.key})`]="{
-            detailsShowing,
-            index,
-            item,
-            rowSelected,
-            selectRow,
-            toggleDetails,
-            unformatted,
-            unselectRow,
-            value
-          }"
-        >
-          <slot
-            :name="`cell(${field.key})`"
-            :details-showing="detailsShowing"
-            :index="index"
-            :item="item"
-            :row-selected="rowSelected"
-            :select-row="selectRow"
-            :toggle-details="toggleDetails"
-            :unformatted="unformatted"
-            :unselect-row="unselectRow"
-            :value="value"
-          >
+        <template v-for="hField in fields" #[`head(${hField.key})`]="{ column, field, label }">
+          <slot :name="`head(${hField.key})`" :column="column" :field="field" :label="label">
+            {{ label }}
+            <component
+              v-if="field.sortable && orderBy === column"
+              :is="`b-icon-sort-${order === 'DESC' ? 'down' : 'up'}`"
+            ></component>
+          </slot>
+        </template>
+        <template v-for="field in fields" #[`cell(${field.key})`]="{ index, item, unformatted, value }">
+          <slot :name="`cell(${field.key})`" :index="index" :item="item" :unformatted="unformatted" :value="value">
             {{ value }}
           </slot>
         </template>
-        <template #row-details="{ index, item, rowSelected, selectRow, toggleDetails, unselectRow }">
-          <slot
-            :fields="fields"
-            :index="index"
-            :item="item"
-            :row-selected="rowSelected"
-            :select-row="selectRow"
-            :toggle-details="toggleDetails"
-            :unselect-row="unselectRow"
-            name="row-details"
-          >
-          </slot>
-        </template>
-      </b-table>
+      </b-table-lite>
     </transition>
   </div>
 </template>
 
 <script>
-import { BTable } from 'bootstrap-vue'
+import { BTableLite, BIconSortUp, BIconSortDown } from 'bootstrap-vue'
 
 export default {
   components: {
-    BTable
+    BTableLite,
+    BIconSortUp,
+    BIconSortDown
   },
   props: {
     fields: {
@@ -75,21 +48,25 @@ export default {
         return []
       }
     },
+    fixed: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     items: {
       type: Array,
       default() {
         return []
       }
     },
-    currentPage: {
-      type: [Number, String],
-      default: 1
+    orderBy: {
+      type: String,
+      default: null
     },
-    fixed: {
-      type: Boolean,
-      default() {
-        return false
-      }
+    order: {
+      type: String,
+      default: null
     },
     small: {
       type: Boolean,
@@ -104,6 +81,19 @@ export default {
     transition: {
       type: String,
       default: null
+    }
+  },
+  methods: {
+    onHeadClicked(key, field) {
+      if (field.sortable) {
+        if (key === this.orderBy) {
+          this.$emit('sort-changed', { orderBy: key, order: this.order === 'DESC' ? 'ASC' : 'DESC' })
+        } else {
+          this.$emit('sort-changed', { orderBy: key, order: 'DESC' })
+        }
+      } else {
+        this.$emit('sort-reset')
+      }
     }
   }
 }

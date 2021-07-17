@@ -1,7 +1,15 @@
 <template>
   <b-container tag="main" class="px-0 px-lg-24" fluid>
     <CardTabs :value="show" :tabs="tabs">
-      <DataTable :fields="fields" :items="records.data" class="mb-lg-32" @sort-changed="onSortChanged">
+      <DataTable
+        :fields="fields"
+        :items="records.data"
+        :order-by="$route.query.orderBy || orderByDefault"
+        :order="$route.query.order || orderDefault"
+        class="mb-lg-32"
+        @sort-changed="onSortChanged"
+        @sort-reset="onSortReset"
+      >
         <template #cell(created_at)="{ item }">
           <b-link :to="`/month/${$getPeriod(item.created_at)}`" class="text-reset">
             <span class="date">{{ formatDate(item) }}</span>
@@ -33,28 +41,27 @@ export default {
   data() {
     return {
       activeRecord: null,
-      records: [],
-      perPage: 50,
-      modalShow: false,
+      orderByDefault: 'created_at',
+      orderDefault: 'DESC',
       fields: [
         {
           key: 'created_at',
           label: 'Дата',
           sortable: true,
-          thClass: null,
+          thClass: 'sortable',
           tdClass: 'table-cell-datetime'
         },
         {
           key: 'sum',
           label: 'Сумма',
           sortable: true,
-          thClass: 'text-right',
+          thClass: 'sortable text-right',
           tdClass: 'table-cell-sum text-right'
         },
         {
           key: 'category_id',
           label: 'Категория',
-          thClass: null,
+          thClass: 'sortable',
           sortable: true
         },
         {
@@ -63,6 +70,9 @@ export default {
           thClass: null
         }
       ],
+      modalShow: false,
+      perPage: 50,
+      records: [],
       tabs: [
         { value: null, text: 'Все записи' },
         { value: 'expense', text: 'Расходы' },
@@ -84,6 +94,8 @@ export default {
     },
     query() {
       const query = { ...this.$route.query, perPage: this.perPage }
+      if (!query.orderBy) query.orderBy = this.orderByDefault
+      if (!query.order) query.order = 'DESC'
       return Object.keys(query)
         .filter((key) => Boolean(query[key]))
         .map((key) => `${key}=${query[key]}`)
@@ -95,6 +107,7 @@ export default {
   },
   watch: {
     '$route.query'() {
+      console.log('query changed')
       this.refresh()
       if (process.client) {
         window.scroll({
@@ -113,9 +126,14 @@ export default {
       this.activeRecord = record
       this.modalShow = true
     },
-    onSortChanged({ sortBy, sortDesc }) {
+    onSortChanged({ orderBy, order }) {
       this.$router.push({
-        query: { ...this.$route.query, orderBy: sortBy || 'created_at', order: sortDesc ? 'DESC' : 'ASC' }
+        query: { ...this.$route.query, orderBy, order }
+      })
+    },
+    onSortReset() {
+      this.$router.push({
+        query: { ...this.$route.query, orderBy: this.orderByDefault, order: this.orderDefault }
       })
     },
     getCategory(id) {
