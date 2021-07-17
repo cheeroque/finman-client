@@ -83,11 +83,6 @@ export default {
   async fetch() {
     await this.getRecords()
   },
-  head: {
-    bodyAttrs: {
-      class: 'has-navbar'
-    }
-  },
   computed: {
     categories() {
       return this.$store.state.categories
@@ -114,6 +109,9 @@ export default {
         })
       }
     }
+  },
+  mounted() {
+    this.$root.$on('refresh-records', this.refresh)
   },
   methods: {
     async getRecords() {

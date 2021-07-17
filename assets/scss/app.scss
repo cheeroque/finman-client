@@ -24,6 +24,7 @@
 @import 'forms';
 @import 'modal';
 @import 'nav';
+@import 'navbar';
 @import 'pagination';
 @import 'tables';
 
@@ -32,19 +33,6 @@
 @import 'svg';
 @import 'utilities';
 @import 'transitions';
-
-.has-navbar {
-  padding-bottom: $navbar-height;
-
-  @include media-breakpoint-up(lg) {
-    padding-bottom: 0;
-    padding-right: $navbar-width-collapse;
-  }
-
-  @include media-breakpoint-up(xl) {
-    padding-right: $navbar-width-expand;
-  }
-}
 
 /* Bootstrap-Vue */
 

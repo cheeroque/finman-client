@@ -1,6 +1,6 @@
 <template>
   <b-modal v-model="localVisible" @hide="$emit('hide')">
-    <FormRecordEdit :item="item" @change="localVisible = false" />
+    <FormRecordEdit :item="item" @change="onRecordChange" />
   </b-modal>
 </template>
 
@@ -37,6 +37,12 @@ export default {
       set(newValue) {
         this.$emit('change', newValue)
       }
+    }
+  },
+  methods: {
+    onRecordChange() {
+      this.localVisible = false
+      this.$emit('record-change')
     }
   }
 }

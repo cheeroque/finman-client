@@ -1,16 +1,17 @@
 <template>
-  <div>
-    <AppNavbar :total="total" />
-    <AppHeader :total="total" />
-    <Nuxt />
+  <div class="app-wrapper">
+    <AppSidebar v-model="sidebarShow" />
+    <AppHeader />
+    <Nuxt class="app-content" />
+    <AppControls @toggle-sidebar="sidebarShow = !sidebarShow" />
   </div>
 </template>
 
 <script>
 export default {
-  computed: {
-    total() {
-      return this.$store.state.total
+  data() {
+    return {
+      sidebarShow: false
     }
   },
   mounted() {
@@ -19,3 +20,21 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@include media-breakpoint-up(lg) {
+  .app-wrapper {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+
+    ::v-deep {
+      .app-content {
+        min-height: 0;
+        padding: 1.5rem 0;
+        overflow-y: auto;
+      }
+    }
+  }
+}
+</style>
