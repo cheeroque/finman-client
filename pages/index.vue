@@ -32,7 +32,7 @@
         <PaginationNav align="center" :number-of-pages="Math.ceil(records.total / perPage)" />
       </template>
     </CardTabs>
-    <ModalRecordEdit v-model="modalShow" :item="activeRecord" @hide="refresh" />
+    <ModalRecordEdit v-model="modalShow" :item="activeRecord" @record-change="refresh" />
   </b-container>
 </template>
 
