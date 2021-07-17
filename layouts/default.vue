@@ -14,6 +14,18 @@ export default {
       sidebarShow: false
     }
   },
+  watch: {
+    $route() {
+      if (process.client) {
+        const content = document.querySelector('.app-content')
+        content.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        })
+      }
+    }
+  },
   mounted() {
     this.$store.dispatch('getTotal')
     this.$store.dispatch('getCategories')
