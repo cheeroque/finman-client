@@ -18,7 +18,7 @@
         </template>
         <template #cell(category_id)="{ value }">
           <b-link :to="`/category/${value}`" class="text-reset">
-            {{ getCategoryName(value) }}
+            {{ categoryById(value).name }}
           </b-link>
         </template>
         <template #cell(note)="{ item }">
@@ -37,6 +37,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -72,7 +74,6 @@ export default {
       ],
       modalShow: false,
       perPage: 50,
-      records: [],
       tabs: [
         { value: null, text: 'Все записи' },
         { value: 'expense', text: 'Расходы' },
@@ -80,43 +81,24 @@ export default {
       ]
     }
   },
-  async fetch() {
-    await this.getRecords()
-  },
   computed: {
+    ...mapGetters(['categoryById']),
     categories() {
       return this.$store.state.categories
     },
+    records() {
+      return this.$store.state.records
+    },
     query() {
-      const query = { ...this.$route.query, perPage: this.perPage }
-      if (!query.orderBy) query.orderBy = this.orderByDefault
-      if (!query.order) query.order = 'DESC'
-      return Object.keys(query)
-        .filter((key) => Boolean(query[key]))
-        .map((key) => `${key}=${query[key]}`)
-        .join('&')
+      return { ...this.$route.query, perPage: this.perPage }
     }
   },
   watch: {
     '$route.query'() {
-      console.log('query changed')
       this.refresh()
-      if (process.client) {
-        window.scroll({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        })
-      }
     }
   },
-  mounted() {
-    this.$root.$on('refresh-records', this.refresh)
-  },
   methods: {
-    async getRecords() {
-      this.records = await this.$axios.$get(`records?${this.query}`)
-    },
     editRecord(record) {
       this.activeRecord = record
       this.modalShow = true
@@ -127,20 +109,7 @@ export default {
       })
     },
     onSortReset() {
-      this.$router.push({
-        query: { ...this.$route.query, orderBy: this.orderByDefault, order: this.orderDefault }
-      })
-    },
-    getCategory(id) {
-      return this.categories.find((category) => category.id.toString() === id.toString())
-    },
-    getCategorySlug(id) {
-      const category = this.getCategory(id)
-      return category ? category.slug : null
-    },
-    getCategoryName(id) {
-      const category = this.getCategory(id)
-      return category ? category.name : null
+      this.$router.push({ query: null })
     },
     formatDate(item) {
       const dateString = item.created_at
@@ -160,8 +129,8 @@ export default {
       return date.toLocaleString('ru-RU', dateOptions)
     },
     refresh() {
-      this.$store.dispatch('getTotal')
-      this.$fetch()
+      this.$store.dispatch('fetchTotal')
+      this.$store.dispatch('fetchRecords', this.query)
     }
   }
 }

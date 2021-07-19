@@ -25,10 +25,6 @@ export default {
         })
       }
     }
-  },
-  mounted() {
-    this.$store.dispatch('getTotal')
-    this.$store.dispatch('getCategories')
   }
 }
 </script>
