@@ -44,6 +44,7 @@ export default {
   bootstrapVue: {
     bootstrapVueCSS: false,
     bootstrapCSS: false,
+    breakpoints: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
     components: ['BContainer', 'BRow', 'BCol', 'BButton', 'BLink']
   },
 
