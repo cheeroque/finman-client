@@ -102,6 +102,9 @@ export default {
       this.refresh()
     }
   },
+  mounted() {
+    this.refresh()
+  },
   methods: {
     editRecord(record) {
       this.activeRecord = record
