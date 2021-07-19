@@ -1,32 +1,34 @@
 <template>
-  <b-container tag="main">
-    <b-table :fields="groupFields" :items="groupedRecords">
-      <template #cell(expand)="{ toggleDetails }">
-        <b-link @click="toggleDetails"> + </b-link>
-      </template>
-      <template #cell(sum)="{ item }"> {{ getTotalSum(item) }} </template>
-      <template #row-details="{ item }">
-        <b-table :fields="detailsFields" :items="item.items"></b-table>
-      </template>
-    </b-table>
-    <b-pagination v-model="page" :per-page="perPage" :total-rows="records.total" @input="$fetch"></b-pagination>
+  <b-container tag="main" class="px-0 px-lg-24" fluid>
+    <h3 class="mb-32">Записи в&nbsp;категории &laquo;{{ categoryById(categoryId).name }}&raquo;</h3>
+    <b-row>
+      <b-col lg="6">
+        <DataTable :fields="groupFields" :items="groupedRecords" class="mb-lg-32">
+          <template #cell(expand)="{ toggleDetails }">
+            <b-link @click="toggleDetails"> + </b-link>
+          </template>
+          <template #cell(sum)="{ item }"> {{ getTotalSum(item) }} </template>
+          <template #row-details="{ item }">
+            <b-table-lite :fields="detailsFields" :items="item.items" borderless striped></b-table-lite>
+          </template>
+        </DataTable>
+        <PaginationNav v-if="numberOfPages" :number-of-pages="numberOfPages" align="center" />
+      </b-col>
+    </b-row>
   </b-container>
 </template>
 
 <script>
-import { BTable, BPagination } from 'bootstrap-vue'
+import { mapGetters } from 'vuex'
+import { BTableLite } from 'bootstrap-vue'
 
 export default {
   components: {
-    BTable,
-    BPagination
+    BTableLite
   },
   data() {
     return {
-      page: 1,
-      perPage: 12,
-      currentCategory: {},
-      records: {},
+      perPage: 18,
       groupFields: [
         { key: 'expand', label: '' },
         { key: 'period', label: 'Месяц' },
@@ -40,14 +42,18 @@ export default {
     }
   },
   async fetch() {
-    this.currentCategory = await this.$axios.$get(`categories/${this.$route.params.category}`)
-    this.records = await this.$axios.$get(
-      `category/${this.$route.params.category}?page=${this.page}&perPage=${this.perPage}`
-    )
+    await this.$store.dispatch('fetchRecordsByCategory', { categoryId: this.categoryId })
   },
   computed: {
+    ...mapGetters(['categoryById', 'error']),
     categories() {
       return this.$store.state.categories
+    },
+    categoryId() {
+      return this.$route.params.category
+    },
+    records() {
+      return this.$store.state.recordsByCategory
     },
     groupedRecords() {
       return this.records.data
@@ -58,6 +64,17 @@ export default {
             }
           })
         : []
+    },
+    numberOfPages() {
+      return this.records && this.records.total ? Math.ceil(this.records.total / this.perPage) : 0
+    },
+    query() {
+      return { ...this.$route.query, perPage: this.perPage }
+    }
+  },
+  watch: {
+    '$route.query'() {
+      this.$store.dispatch('fetchRecordsByCategory', { categoryId: this.categoryId, params: this.query })
     }
   },
   methods: {

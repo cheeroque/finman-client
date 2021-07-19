@@ -17,15 +17,25 @@
           <slot :name="`head(${hField.key})`" :column="column" :field="field" :label="label">
             {{ label }}
             <component
-              v-if="field.sortable && orderBy === column"
               :is="`b-icon-sort-${order === 'DESC' ? 'down' : 'up'}`"
+              v-if="field.sortable && orderBy === column"
             ></component>
           </slot>
         </template>
-        <template v-for="field in fields" #[`cell(${field.key})`]="{ index, item, unformatted, value }">
-          <slot :name="`cell(${field.key})`" :index="index" :item="item" :unformatted="unformatted" :value="value">
+        <template v-for="field in fields" #[`cell(${field.key})`]="{ index, item, toggleDetails, unformatted, value }">
+          <slot
+            :name="`cell(${field.key})`"
+            :index="index"
+            :item="item"
+            :toggleDetails="toggleDetails"
+            :unformatted="unformatted"
+            :value="value"
+          >
             {{ value }}
           </slot>
+        </template>
+        <template #row-details="{ index, item, toggleDetails }">
+          <slot name="row-details" :fields="fields" :index="index" :item="item" :toggleDetails="toggleDetails"></slot>
         </template>
       </b-table-lite>
     </transition>

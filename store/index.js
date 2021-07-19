@@ -3,6 +3,8 @@
 export const state = () => ({
   categories: [],
   records: {},
+  recordsByCategory: {},
+  recordsByMonth: {},
   error: false,
   total: 0
 })
@@ -16,6 +18,12 @@ export const mutations = {
   },
   SET_RECORDS(state, payload) {
     state.records = payload
+  },
+  SET_RECORDS_BY_CATEGORY(state, payload) {
+    state.recordsByCategory = payload
+  },
+  SET_RECORDS_BY_MONTH(state, payload) {
+    state.recordsByMonth = payload
   },
   SET_ERROR(state, payload) {
     state.error = payload
@@ -49,5 +57,12 @@ export const actions = {
       commit('SET_ERROR', { path: 'records', params, error })
     })
     commit('SET_RECORDS', records)
+  },
+  async fetchRecordsByCategory({ commit }, { categoryId, params = { perPage: 18 } }) {
+    console.log(categoryId)
+    const recordsByCategory = await this.$axios.$get(`category/${categoryId}`, { params }).catch((error) => {
+      commit('SET_ERROR', { path: 'recordsByCategory', params, error })
+    })
+    commit('SET_RECORDS_BY_CATEGORY', recordsByCategory)
   }
 }
