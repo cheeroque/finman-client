@@ -3,7 +3,7 @@
     <CardTabs :active="$route.query.show || null" :tabs="tabs">
       <DataTable
         :fields="fields"
-        :items="records.data"
+        :items="records && records.data"
         :order-by="$route.query.orderBy || orderByDefault"
         :order="$route.query.order || orderDefault"
         class="mb-lg-32"
@@ -33,7 +33,7 @@
         </template>
       </DataTable>
       <template #footer>
-        <PaginationNav align="center" :number-of-pages="Math.ceil(records.total / perPage)" />
+        <PaginationNav v-if="records && records.last_page" :number-of-pages="records.last_page" align="center" />
       </template>
     </CardTabs>
     <ModalRecordEdit v-model="modalShow" :item="activeRecord" @record-change="refresh" />
@@ -85,8 +85,12 @@ export default {
       ]
     }
   },
+  async fetch() {
+    await this.$store.dispatch('fetchCategories')
+    await this.$store.dispatch('fetchRecords')
+  },
   computed: {
-    ...mapGetters(['categoryById']),
+    ...mapGetters(['categoryById', 'error']),
     categories() {
       return this.$store.state.categories
     },
@@ -101,9 +105,6 @@ export default {
     '$route.query'() {
       this.refresh()
     }
-  },
-  mounted() {
-    this.refresh()
   },
   methods: {
     editRecord(record) {

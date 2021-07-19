@@ -7,6 +7,9 @@
 
 <script>
 export default {
+  async fetch() {
+    await this.$store.dispatch('fetchTotal')
+  },
   computed: {
     total() {
       return this.$store.state.total
