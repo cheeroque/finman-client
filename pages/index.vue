@@ -11,9 +11,13 @@
         @sort-reset="onSortReset"
       >
         <template #cell(created_at)="{ item }">
-          <b-link :to="`/month/${$getPeriod(item.created_at)}`" class="text-reset">
-            <span class="date">{{ formatDate(item) }}</span>
-            <span class="time">{{ formatTime(item) }}</span>
+          <b-link :to="`/month/${$monthApiLink(item.created_at)}`" class="text-reset">
+            <span class="date">
+              {{ $dateWithFormat(item.created_at, { day: '2-digit', month: '2-digit', year: '2-digit' }) }}
+            </span>
+            <span class="time">
+              {{ $dateWithFormat(item.created_at, { timeStyle: 'short' }) }}
+            </span>
           </b-link>
         </template>
         <template #cell(category_id)="{ value }">
@@ -110,23 +114,6 @@ export default {
     },
     onSortReset() {
       this.$router.push({ query: null })
-    },
-    formatDate(item) {
-      const dateString = item.created_at
-      const date = new Date(dateString)
-      const dateOptions = {
-        day: '2-digit',
-        month: '2-digit'
-      }
-      return date.toLocaleString('ru-RU', dateOptions)
-    },
-    formatTime(item) {
-      const dateString = item.created_at
-      const date = new Date(dateString)
-      const dateOptions = {
-        timeStyle: 'short'
-      }
-      return date.toLocaleString('ru-RU', dateOptions)
     },
     refresh() {
       this.$store.dispatch('fetchTotal')
