@@ -33,6 +33,7 @@ export const actions = {
   },
   async fetchRecords({ commit }, params = { perPage: 50 }) {
     const records = await this.$axios.$get('records', { params }).catch((error) => {
+      // eslint-disable-next-line
       console.log(error)
     })
     commit('SET_RECORDS', records)

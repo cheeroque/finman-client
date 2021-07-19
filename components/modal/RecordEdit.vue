@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="localVisible" @hide="$emit('hide')">
+  <b-modal v-model="localVisible" centered @hide="$emit('hide')">
     <FormRecordEdit :item="item" @change="onRecordChange" />
   </b-modal>
 </template>

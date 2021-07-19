@@ -9,13 +9,13 @@
     <b-form-group label="Комментарий">
       <b-form-input v-model="form.note" type="text"></b-form-input>
     </b-form-group>
-    <b-form-group label="Дата">
-      <b-form-input v-model="form.created_at" type="date"></b-form-input>
+    <b-form-group>
+      <DateTimePicker v-model="localDateTime" :locale="locale" />
     </b-form-group>
 
     <b-row>
       <b-col cols="6">
-        <b-button v-if="!create" variant="outline-danger" block @click="deleteRecord"> Удалить </b-button>
+        <b-button v-if="!isCreate" variant="outline-danger" block @click="deleteRecord"> Удалить </b-button>
       </b-col>
       <b-col cols="6">
         <b-button type="submit" variant="primary" block> Сохранить </b-button>
@@ -48,9 +48,9 @@ export default {
         category_id: null,
         sum: 0,
         note: null,
-        created_at: new Date(),
-        updated_at: new Date()
-      }
+        created_at: null
+      },
+      locale: 'ru-RU'
     }
   },
   computed: {
@@ -71,6 +71,14 @@ export default {
     },
     isCreate() {
       return !this.item || this.isEmptyObject(this.item)
+    },
+    localDateTime: {
+      get() {
+        return this.form.created_at ? new Date(this.form.created_at) : new Date()
+      },
+      set(newValue) {
+        this.form.created_at = newValue.toISOString()
+      }
     }
   },
   mounted() {
@@ -87,7 +95,6 @@ export default {
       }
     },
     async createRecord() {
-      this.form.created_at = Date.now()
       await this.$axios.$post('records', this.form).then(() => {
         this.$emit('change')
       })

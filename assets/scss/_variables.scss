@@ -20,6 +20,7 @@ $primary-dark: #005f80;
 $secondary: $orange;
 $light: $gray-100;
 $dark: $gray-800;
+$border: $gray-200;
 
 $theme-colors: (
   'white': $white,
@@ -28,7 +29,8 @@ $theme-colors: (
   'primary-light': $primary-light,
   'secondary': $secondary,
   'light': $light,
-  'dark': $dark
+  'dark': $dark,
+  'border': $border
 );
 
 $yiq-text-dark: $gray-900;
@@ -46,7 +48,7 @@ $transition-base: all 0.15s ease-out;
 $body-bg: $white;
 $body-color: $gray-900;
 $border-width: 1px;
-$border-color: $gray-200;
+$border-color: $border;
 $rounded-pill: 99rem;
 
 $transition-collapse: height 0.2s ease-in-out;
