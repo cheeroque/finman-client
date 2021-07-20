@@ -2,9 +2,10 @@
   <div class="table-card">
     <transition :name="transition" mode="out-in">
       <b-table-lite
+        :details-td-class="detailsTdClass"
         :fields="fields"
-        :items="items"
         :fixed="fixed"
+        :items="items"
         :small="small"
         :table-class="tableClass"
         borderless
@@ -22,9 +23,13 @@
             ></component>
           </slot>
         </template>
-        <template v-for="field in fields" #[`cell(${field.key})`]="{ index, item, toggleDetails, unformatted, value }">
+        <template
+          v-for="field in fields"
+          #[`cell(${field.key})`]="{ detailsShowing, index, item, toggleDetails, unformatted, value }"
+        >
           <slot
             :name="`cell(${field.key})`"
+            :details-showing="detailsShowing"
             :index="index"
             :item="item"
             :toggleDetails="toggleDetails"
@@ -52,6 +57,12 @@ export default {
     BIconSortDown
   },
   props: {
+    detailsTdClass: {
+      type: [Array, Object, String],
+      default() {
+        return null
+      }
+    },
     fields: {
       type: Array,
       default() {
@@ -122,7 +133,7 @@ export default {
     line-height: 1.25;
   }
 
-  .table-cell-datetime {
+  .td-datetime {
     .time {
       font-size: 0.875em;
       color: $gray-500;
@@ -134,7 +145,7 @@ export default {
     }
   }
 
-  .table-cell-sum {
+  .td-sum {
     font-weight: $font-weight-bold;
     font-variant-numeric: tabular-nums;
   }
@@ -186,7 +197,7 @@ export default {
       }
     }
 
-    .table-cell-datetime {
+    .td-datetime {
       .time {
         display: none;
       }

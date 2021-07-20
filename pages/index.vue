@@ -55,14 +55,14 @@ export default {
           label: 'Дата',
           sortable: true,
           thClass: 'sortable',
-          tdClass: 'table-cell-datetime'
+          tdClass: 'td-datetime'
         },
         {
           key: 'sum',
           label: 'Сумма',
           sortable: true,
           thClass: 'sortable text-right',
-          tdClass: 'table-cell-sum text-right'
+          tdClass: 'td-sum text-right'
         },
         {
           key: 'category_id',
