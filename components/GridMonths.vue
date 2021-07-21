@@ -22,32 +22,38 @@
 export default {
   data() {
     return {
-      first: {}
+      locale: 'ru-RU'
     }
   },
   async fetch() {
-    await this.getFirstRecord()
+    await this.$store.dispatch('fetchFirstRecord')
   },
   computed: {
+    firstRecord() {
+      return this.$store.state.firstRecord
+    },
     months() {
       const months = []
-      const datestring = this.first.created_at
-      let date = new Date(datestring)
-      while (date <= new Date()) {
-        const month = {
-          year: date.getFullYear(),
-          month: date.getMonth() + 1,
-          monthName: date.toLocaleString('default', { month: 'long' })
+      const now = new Date()
+      let date = new Date(this.firstRecord.created_at)
+
+      if (this.$isValidDate(date)) {
+        while (this.getMonthStart(date) <= this.getMonthStart(now)) {
+          const month = {
+            year: date.getFullYear(),
+            month: date.getMonth() + 1,
+            monthName: date.toLocaleString(this.locale, { month: 'long' })
+          }
+          months.push(month)
+          date = new Date(date.setMonth(date.getMonth() + 1))
         }
-        months.push(month)
-        date = new Date(date.setMonth(date.getMonth() + 1))
       }
       return months.reverse()
     }
   },
   methods: {
-    async getFirstRecord() {
-      this.first = await this.$axios.$get('records/first')
+    getMonthStart(date) {
+      return new Date(date.getFullYear(), date.getMonth(), 1)
     }
   }
 }

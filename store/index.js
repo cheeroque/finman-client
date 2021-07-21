@@ -2,20 +2,24 @@
 
 export const state = () => ({
   categories: [],
+  error: false,
+  firstRecord: {},
   records: {},
   recordsByCategory: {},
   recordsByMonth: {},
   recordsByPeriod: {},
-  error: false,
   total: 0
 })
 
 export const mutations = {
-  SET_TOTAL(state, payload) {
-    state.total = payload
-  },
   SET_CATEGORIES(state, payload) {
     state.categories = payload
+  },
+  SET_ERROR(state, payload) {
+    state.error = payload
+  },
+  SET_FIRST_RECORD(state, payload) {
+    state.firstRecord = payload
   },
   SET_RECORDS(state, payload) {
     state.records = payload
@@ -29,8 +33,8 @@ export const mutations = {
   SET_RECORDS_BY_PERIOD(state, payload) {
     state.recordsByPeriod = payload
   },
-  SET_ERROR(state, payload) {
-    state.error = payload
+  SET_TOTAL(state, payload) {
+    state.total = payload
   }
 }
 
@@ -44,17 +48,17 @@ export const getters = {
 }
 
 export const actions = {
-  async fetchTotal({ commit }) {
-    const total = await this.$axios.$get('total').catch((error) => {
-      commit('SET_ERROR', { path: 'total', error })
-    })
-    commit('SET_TOTAL', total)
-  },
   async fetchCategories({ commit }) {
     const categories = await this.$axios.$get('categories').catch((error) => {
       commit('SET_ERROR', { path: 'categories', error })
     })
     commit('SET_CATEGORIES', categories)
+  },
+  async fetchFirstRecord({ commit }) {
+    const firstRecord = await this.$axios.$get('records/first').catch((error) => {
+      commit('SET_ERROR', { path: 'firstRecord', error })
+    })
+    commit('SET_FIRST_RECORD', firstRecord)
   },
   async fetchRecords({ commit }, params = { perPage: 50 }) {
     const records = await this.$axios.$get('records', { params }).catch((error) => {
@@ -73,5 +77,11 @@ export const actions = {
       commit('SET_ERROR', { path: 'recordsByPeriod', period, error })
     })
     commit('SET_RECORDS_BY_PERIOD', recordsByPeriod)
+  },
+  async fetchTotal({ commit }) {
+    const total = await this.$axios.$get('total').catch((error) => {
+      commit('SET_ERROR', { path: 'total', error })
+    })
+    commit('SET_TOTAL', total)
   }
 }
