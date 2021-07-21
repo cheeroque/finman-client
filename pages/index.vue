@@ -1,12 +1,14 @@
 <template>
   <b-container tag="main" class="px-0 px-lg-24" fluid>
     <CardTabs :active="$route.query.show || null" :tabs="tabs">
-      <DataTable
+      <TableCommon
         :fields="fields"
         :items="records && records.data"
         :order-by="$route.query.orderBy || orderByDefault"
         :order="$route.query.order || orderDefault"
         class="mb-lg-32"
+        fixed
+        responsive
         @sort-changed="onSortChanged"
         @sort-reset="onSortReset"
       >
@@ -26,12 +28,14 @@
           </b-link>
         </template>
         <template #cell(note)="{ item }">
-          <b-link class="text-reset row-details-toggle" @click="editRecord(item)">
-            <span class="caption">{{ item.note }}</span>
-            <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
+          <b-link class="d-flex align-items-center text-reset" @click="editRecord(item)">
+            <span class="flex-fill">{{ item.note }}</span>
+            <span class="align-self-start text-gray-300">
+              <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
+            </span>
           </b-link>
         </template>
-      </DataTable>
+      </TableCommon>
       <template #footer>
         <PaginationNav v-if="records && records.last_page" :number-of-pages="records.last_page" align="center" />
       </template>
