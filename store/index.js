@@ -5,6 +5,7 @@ export const state = () => ({
   records: {},
   recordsByCategory: {},
   recordsByMonth: {},
+  recordsByPeriod: {},
   error: false,
   total: 0
 })
@@ -24,6 +25,9 @@ export const mutations = {
   },
   SET_RECORDS_BY_MONTH(state, payload) {
     state.recordsByMonth = payload
+  },
+  SET_RECORDS_BY_PERIOD(state, payload) {
+    state.recordsByPeriod = payload
   },
   SET_ERROR(state, payload) {
     state.error = payload
@@ -59,10 +63,15 @@ export const actions = {
     commit('SET_RECORDS', records)
   },
   async fetchRecordsByCategory({ commit }, { categoryId, params = { perPage: 18 } }) {
-    console.log(categoryId)
     const recordsByCategory = await this.$axios.$get(`category/${categoryId}`, { params }).catch((error) => {
-      commit('SET_ERROR', { path: 'recordsByCategory', params, error })
+      commit('SET_ERROR', { path: 'recordsByCategory', categoryId, params, error })
     })
     commit('SET_RECORDS_BY_CATEGORY', recordsByCategory)
+  },
+  async fetchRecordsByPeriod({ commit }, { period }) {
+    const recordsByPeriod = await this.$axios.$get(`month/${period}`).catch((error) => {
+      commit('SET_ERROR', { path: 'recordsByPeriod', period, error })
+    })
+    commit('SET_RECORDS_BY_PERIOD', recordsByPeriod)
   }
 }
