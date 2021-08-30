@@ -19,7 +19,7 @@
       <b-nav-item to="/export" link-classes="text-reset"> Экспорт </b-nav-item>
 
       <b-nav-text class="mt-16"> Дата сверки </b-nav-text>
-      <b-nav-item to="/revise" link-classes="text-reset"> {{ reviseDate }} </b-nav-item>
+      <LatestRevise />
 
       <b-nav-item class="mt-auto" link-classes="text-reset" @click="logout">
         <span class="caption"> Выйти </span>
@@ -58,15 +58,6 @@ export default {
       set(newValue) {
         this.$emit('change', newValue)
       }
-    },
-    reviseDate() {
-      const date = new Date()
-      const dateOptions = {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-      }
-      return date.toLocaleString('ru-RU', dateOptions)
     }
   },
   methods: {

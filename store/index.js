@@ -4,6 +4,7 @@ export const state = () => ({
   categories: [],
   error: false,
   firstRecord: {},
+  latestRevise: {},
   records: {},
   recordsByCategory: {},
   recordsByMonth: {},
@@ -20,6 +21,9 @@ export const mutations = {
   },
   SET_FIRST_RECORD(state, payload) {
     state.firstRecord = payload
+  },
+  SET_LATEST_REVISE(state, payload) {
+    state.latestRevise = payload
   },
   SET_RECORDS(state, payload) {
     state.records = payload
@@ -59,6 +63,12 @@ export const actions = {
       commit('SET_ERROR', { path: 'firstRecord', error })
     })
     commit('SET_FIRST_RECORD', firstRecord)
+  },
+  async fetchLatestRevise({ commit }) {
+    const latestRevise = await this.$axios.$get('revise/latest').catch((error) => {
+      commit('SET_ERROR', { path: 'latestRevise', error })
+    })
+    commit('SET_LATEST_REVISE', latestRevise)
   },
   async fetchRecords({ commit }, params = { perPage: 50 }) {
     const records = await this.$axios.$get('records', { params }).catch((error) => {
