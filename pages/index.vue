@@ -1,7 +1,39 @@
 <template>
-  <main>
+  <main class="overflow-hidden">
     <ViewTabs :active="$route.query.show || null" :tabs="tabs" />
-    <CardTabs :active="$route.query.show || null" :tabs="tabs">
+    <TableData
+      :fields="fields"
+      :items="records && records.data"
+      :order="$route.query.order || orderDefault"
+      :order-by="$route.query.orderBy || orderByDefault"
+      @sort-changed="onSortChanged"
+      @sort-reset="onSortReset"
+    >
+      <template #cell(created_at)="{ item }">
+        <nuxt-link :to="`/month/${$monthApiLink(item.created_at)}`" class="text-reset">
+          <span class="date">
+            {{ $dateWithFormat(item.created_at, { day: '2-digit', month: '2-digit', year: '2-digit' }) }}
+          </span>
+          <span class="time">
+            {{ $dateWithFormat(item.created_at, { timeStyle: 'short' }) }}
+          </span>
+        </nuxt-link>
+      </template>
+      <template #cell(category_id)="{ value }">
+        <nuxt-link :to="`/category/${value}`" class="text-reset">
+          {{ categoryById(value).name }}
+        </nuxt-link>
+      </template>
+      <template #cell(note)="{ item }">
+        <a href="#" class="d-flex align-center text-reset" @click.prevent="$root.$emit('edit-record', item)">
+          <span class="flex-fill">{{ item.note }}</span>
+          <span class="d-flex flex-center align-self-start text-gray-300 ms-8">
+            <svg-icon name="edit-24" width="24" height="24" aria-label="Редактировать" />
+          </span>
+        </a>
+      </template>
+    </TableData>
+    <!-- <CardTabs :active="$route.query.show || null" :tabs="tabs">
       <TableCommon
         :fields="fields"
         :items="records && records.data"
@@ -40,8 +72,8 @@
       <template #footer>
         <PaginationNav v-if="records && records.last_page" :number-of-pages="records.last_page" align="center" />
       </template>
-    </CardTabs>
-    <ModalRecordEdit v-model="modalShow" :item="activeRecord" @record-change="refresh" />
+    </CardTabs> -->
+    <!-- <ModalRecordEdit v-model="modalShow" :item="activeRecord" @record-change="refresh" /> -->
   </main>
 </template>
 
@@ -51,7 +83,6 @@ import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      activeRecord: null,
       orderByDefault: 'created_at',
       orderDefault: 'DESC',
       fields: [
@@ -59,29 +90,28 @@ export default {
           key: 'created_at',
           label: 'Дата',
           sortable: true,
-          thClass: 'sortable',
+          thClass: 'w-20 w-lg-15',
           tdClass: 'td-datetime'
         },
         {
           key: 'sum',
           label: 'Сумма',
           sortable: true,
-          thClass: 'sortable text-right',
-          tdClass: 'td-sum text-right'
+          thClass: 'w-20 w-lg-15',
+          tdClass: 'td-sum'
         },
         {
           key: 'category_id',
           label: 'Категория',
-          thClass: 'sortable',
+          thClass: 'w-30',
           sortable: true
         },
         {
           key: 'note',
           label: 'Комментарий',
-          thClass: null
+          thClass: 'w-30 w-lg-40'
         }
       ],
-      modalShow: false,
       perPage: 50,
       tabs: [
         { value: null, text: 'Всё', icon: 'show-all-24' },
@@ -112,10 +142,6 @@ export default {
     }
   },
   methods: {
-    editRecord(record) {
-      this.activeRecord = record
-      this.modalShow = true
-    },
     onSortChanged({ orderBy, order }) {
       this.$router.push({
         query: { ...this.$route.query, orderBy, order }

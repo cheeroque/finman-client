@@ -44,6 +44,19 @@ $body-color: $gray-900;
 
 $spacer: 1rem;
 
+$spacers: (
+  '8': 0.5rem
+);
+
+$widths: (
+  '10': 10%,
+  '15': 15%,
+  '20': 20%,
+  '30': 30%,
+  '40': 40%,
+  '50': 50%
+);
+
 $border-width: 1px;
 $border-color: $gray-300;
 

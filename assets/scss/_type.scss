@@ -32,3 +32,15 @@
 .fw-bold {
   font-weight: $font-weight-bold;
 }
+
+@each $color, $value in $theme-colors {
+  .text-#{$color} {
+    color: $value;
+  }
+
+  a.text-#{$color} {
+    &:hover {
+      color: darken($value, 10%);
+    }
+  }
+}
