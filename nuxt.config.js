@@ -30,22 +30,10 @@ export default {
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/style-resources'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/auth-next', '@nuxtjs/axios', '@nuxtjs/svg-sprite', 'bootstrap-vue/nuxt'],
+  modules: ['@nuxtjs/auth-next', '@nuxtjs/axios', '@nuxtjs/svg-sprite'],
 
   styleResources: {
-    scss: [
-      '~/assets/scss/_variables.scss',
-      'bootstrap/scss/_functions.scss',
-      'bootstrap/scss/_mixins.scss',
-      'bootstrap/scss/_variables.scss'
-    ]
-  },
-
-  bootstrapVue: {
-    bootstrapVueCSS: false,
-    bootstrapCSS: false,
-    breakpoints: ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'],
-    components: ['BContainer', 'BRow', 'BCol', 'BButton', 'BLink']
+    scss: ['~/assets/scss/_variables.scss']
   },
 
   auth: {
