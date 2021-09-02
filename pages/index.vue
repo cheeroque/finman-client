@@ -1,5 +1,6 @@
 <template>
-  <b-container tag="main" class="px-0 px-lg-24" fluid>
+  <main>
+    <ViewTabs :active="$route.query.show || null" :tabs="tabs" />
     <CardTabs :active="$route.query.show || null" :tabs="tabs">
       <TableCommon
         :fields="fields"
@@ -41,7 +42,7 @@
       </template>
     </CardTabs>
     <ModalRecordEdit v-model="modalShow" :item="activeRecord" @record-change="refresh" />
-  </b-container>
+  </main>
 </template>
 
 <script>
@@ -83,9 +84,9 @@ export default {
       modalShow: false,
       perPage: 50,
       tabs: [
-        { value: null, text: 'Все записи' },
-        { value: 'expense', text: 'Расходы' },
-        { value: 'income', text: 'Доходы' }
+        { value: null, text: 'Всё', icon: 'show-all-24' },
+        { value: 'expense', text: 'Расходы', icon: 'show-expense-24' },
+        { value: 'income', text: 'Доходы', icon: 'show-income-24' }
       ]
     }
   },
