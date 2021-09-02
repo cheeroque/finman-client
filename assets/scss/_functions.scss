@@ -1,4 +1,4 @@
-$threshold: 150;
+$threshold: 170;
 
 @function color-contrast($color, $dark: $body-color, $light: $body-bg) {
   $r: red($color);

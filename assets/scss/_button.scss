@@ -13,7 +13,7 @@
   background-color: transparent;
   cursor: pointer;
   transition: $transition-base;
-  transition-property: color, border-color, background-color;
+  transition-property: color, border-color, background-color, box-shadow;
 }
 
 .btn-icon {

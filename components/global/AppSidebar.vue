@@ -120,6 +120,7 @@ export default {
     height: 100%;
     transition: $transition-base;
     transition-property: transform;
+    z-index: 1000;
   }
 
   .sidebar-content {
@@ -173,6 +174,7 @@ export default {
     display: block !important;
   }
 
+  .sidebar-toggle,
   .sidebar-backdrop {
     display: none;
   }
