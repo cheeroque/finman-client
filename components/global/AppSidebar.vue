@@ -172,6 +172,9 @@ export default {
 @media (min-width: 992px) {
   .app-sidebar {
     display: block !important;
+    flex: 0 0 400px;
+    min-height: 0;
+    overflow-y: auto;
   }
 
   .sidebar-toggle,

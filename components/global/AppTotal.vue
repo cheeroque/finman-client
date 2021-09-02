@@ -1,8 +1,12 @@
 <template>
-  <transition name="fade" mode="out-in">
-    <b-link v-if="total" :key="total" to="/" class="text-reset text-decoration-none"> {{ total }}&nbsp;₽ </b-link>
-    <span v-else>&nbsp;</span>
-  </transition>
+  <h1 class="app-total">
+    <transition name="fade" mode="out-in">
+      <nuxt-link v-if="total" :key="total" to="/" class="text-reset text-decoration-none">
+        {{ total }}&nbsp;₽
+      </nuxt-link>
+      <span v-else>&nbsp;</span>
+    </transition>
+  </h1>
 </template>
 
 <script>
@@ -17,3 +21,18 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.app-total {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: $font-weight-light;
+  line-height: 1;
+}
+
+@media (min-width: 992px) {
+  .app-total {
+    font-size: 4.5rem;
+  }
+}
+</style>

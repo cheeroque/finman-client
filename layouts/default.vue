@@ -32,8 +32,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-wrapper {
-  display: flex;
-  overflow: hidden;
+.app-content {
+  padding-bottom: calc(3.8125rem + 39px);
+}
+
+@media (min-width: 992px) {
+  .app-wrapper {
+    display: flex;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+
+  .app-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 0 1.5rem;
+    overflow-y: auto;
+  }
 }
 </style>
