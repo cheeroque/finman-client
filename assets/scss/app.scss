@@ -1,42 +1,21 @@
 /* Fonts */
 
-@import url('https://fonts.googleapis.com/css?family=Manrope:400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+
+/* Normalize */
+
+@import '../../node_modules/normalize.css/normalize.css';
 
 /* Custom variables */
 
 @import 'variables';
+@import 'functions';
 
-/* Bootstrap base */
-
-@import '~bootstrap/scss/functions';
-@import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/mixins';
-@import '~bootstrap/scss/root';
-@import '~bootstrap/scss/reboot';
-@import '~bootstrap/scss/images';
-@import '~bootstrap/scss/grid';
-@import '~bootstrap/scss/type';
-
-/* Bootstrap customization */
-
-@import 'buttons';
-@import 'button-group';
-@import 'dropdown';
-@import 'forms';
-@import 'input-group';
-@import 'modal';
-@import 'nav';
-@import 'navbar';
-@import 'pagination';
-@import 'tables';
-
-/* Custom styles */
-
+@import 'button';
+@import 'link';
 @import 'svg';
 @import 'transitions';
 @import 'type';
-@import 'utilities';
 
-/* Bootstrap-Vue */
-
-@import '~bootstrap-vue/src/index.scss';
+@import 'global';

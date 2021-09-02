@@ -1,0 +1,17 @@
+a {
+  color: $primary;
+  text-decoration: underline;
+  transition: $transition-base;
+
+  &:hover {
+    color: darken($primary, 15%);
+  }
+
+  &.text-reset {
+    color: inherit;
+
+    &:hover {
+      color: inherit;
+    }
+  }
+}

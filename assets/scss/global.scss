@@ -1,0 +1,45 @@
+*,
+html {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1rem;
+  font-family: $font-family-base;
+  line-height: $line-height-base;
+  color: $body-color;
+  background-color: $body-bg;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: $spacer;
+  font-family: $font-family-alternate;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-heading;
+}
+
+hr {
+  width: 100%;
+  margin: $spacer auto;
+  border-width: 0 0 $border-width;
+  border-style: solid;
+  border-color: $border-color;
+}
+
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: $spacer;
+  padding-left: 1em;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: $spacer;
+}

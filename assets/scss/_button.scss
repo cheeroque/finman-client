@@ -1,0 +1,45 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: $btn-input-padding-y $btn-input-padding-x;
+  font-family: $font-family-alternate;
+  font-size: $btn-input-font-size;
+  font-weight: $font-weight-medium;
+  line-height: $btn-input-line-height;
+  text-align: center;
+  border: $border-width solid transparent;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+  transition: $transition-base;
+  transition-property: color, border-color, background-color;
+}
+
+.btn-icon {
+  padding: 0.6875rem;
+}
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    color: color-contrast($value);
+    border-color: $value;
+    background-color: $value;
+
+    &:hover {
+      border-color: darken($value, 10%);
+      background-color: darken($value, 10%);
+    }
+  }
+
+  .btn-outline-#{$color} {
+    color: $value;
+    border-color: $value;
+    background-color: transparent;
+
+    &:hover {
+      color: color-contrast($value);
+      background-color: $value;
+    }
+  }
+}

@@ -1,62 +1,49 @@
 <template>
-  <b-sidebar
-    v-model="localVisible"
-    bg-variant="primary"
-    text-variant="white"
-    sidebar-class="app-sidebar"
-    width="280px"
-    backdrop
-  >
-    <template #header>
-      <h1 class="display-3 mb-0">
-        <AppTotal />
-      </h1>
-    </template>
-    <b-nav class="sidebar-nav" vertical>
-      <b-nav-text> Администрирование </b-nav-text>
-      <b-nav-item to="/categories" link-classes="text-reset"> Категории </b-nav-item>
-      <b-nav-item to="/users" link-classes="text-reset"> Пользователи </b-nav-item>
-      <b-nav-item to="/export" link-classes="text-reset"> Экспорт </b-nav-item>
+  <transition name="sidebar" duration="200">
+    <aside v-show="visible" class="app-sidebar">
+      <div class="sidebar-content">
+        <ul class="sidebar-nav">
+          <li class="nav-text">Администрирование</li>
+          <li class="nav-item">
+            <nuxt-link to="/categories" class="nav-link"> Категории </nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link to="/users" class="nav-link"> Пользователи </nuxt-link>
+          </li>
+          <li class="nav-item">
+            <nuxt-link to="/export" class="nav-link"> Экспорт данных </nuxt-link>
+          </li>
+        </ul>
 
-      <b-nav-text class="mt-16"> Дата сверки </b-nav-text>
-      <LatestRevise />
+        <ul class="sidebar-nav">
+          <li class="nav-text">Дата сверки</li>
+          <LatestRevise />
+        </ul>
 
-      <b-nav-item class="mt-auto" link-classes="text-reset" @click="logout">
-        <span class="caption"> Выйти </span>
-      </b-nav-item>
-    </b-nav>
-  </b-sidebar>
+        <hr class="sidebar-divider" />
+
+        <ul class="sidebar-nav">
+          <li class="nav-item">
+            <a href="#" class="nav-link" @click.prevent="logout"> Выйти </a>
+          </li>
+        </ul>
+
+        <button class="btn btn-icon sidebar-toggle" title="Скрыть боковое меню" @click="$emit('hide')">
+          <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
+        </button>
+      </div>
+      <div class="sidebar-backdrop" @click="$emit('hide')"></div>
+    </aside>
+  </transition>
 </template>
 
 <script>
-import { BSidebar, BNav, BNavText, BNavItem } from 'bootstrap-vue'
-
 export default {
-  components: {
-    BSidebar,
-    BNav,
-    BNavText,
-    BNavItem
-  },
-  model: {
-    prop: 'visible',
-    event: 'change'
-  },
   props: {
     visible: {
       type: Boolean,
       default() {
         return false
-      }
-    }
-  },
-  computed: {
-    localVisible: {
-      get() {
-        return this.visible
-      },
-      set(newValue) {
-        this.$emit('change', newValue)
       }
     }
   },
@@ -71,76 +58,123 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-::v-deep {
-  .app-sidebar {
-    background-image: linear-gradient(to top, $primary, $primary-dark);
+.sidebar-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  padding-top: 1.5rem;
+  color: $white;
+  background-color: $primary;
+}
 
-    .b-sidebar-header {
-      padding: 0.75rem $grid-gutter-width / 2;
-    }
+.sidebar-nav {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  padding: 0;
+  list-style: none;
 
-    .b-sidebar-body {
-      padding-top: 1rem;
-      padding-bottom: 1rem;
-    }
+  /deep/ {
+    .nav-link {
+      display: block;
+      padding: 0.375rem 1rem;
+      text-decoration: none;
+      color: inherit;
 
-    .sidebar-nav {
-      height: 100%;
-
-      .navbar-text {
-        padding: 0.5rem $grid-gutter-width / 2;
-        font-size: 0.75em;
-        font-weight: $font-weight-medium;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        opacity: 0.5;
-      }
-
-      .nav-link {
-        display: flex;
-        align-items: center;
-        padding: 0.5rem $grid-gutter-width / 2;
-
-        .icon {
-          flex: 0 0 auto;
-          margin-right: 0.5rem;
-        }
+      &:hover {
+        text-decoration: underline;
       }
     }
   }
 
-  @include media-breakpoint-up(lg) {
-    .b-sidebar-backdrop {
-      display: none;
+  .nav-text {
+    display: block;
+    padding: 0 1rem 0.5rem;
+    font-family: $font-family-alternate;
+    font-size: $font-size-1;
+    font-weight: $font-weight-medium;
+    line-height: $line-height-heading;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+}
+
+.sidebar-divider {
+  margin: 0 0 1.5rem;
+  border-color: rgba($white, 0.15);
+}
+
+.sidebar-toggle {
+  position: absolute;
+  left: 0.25rem;
+  bottom: 0.25rem;
+}
+
+@media (max-width: 991.98px) {
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: $transition-base;
+    transition-property: transform;
+  }
+
+  .sidebar-content {
+    position: relative;
+    width: 75%;
+    z-index: 1;
+  }
+
+  .sidebar-backdrop {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($black, 0.75);
+    opacity: 1;
+    cursor: pointer;
+    transition: $transition-base;
+    transition-property: opacity;
+  }
+
+  .sidebar-enter-active,
+  .sidebar-leave-active {
+    .sidebar-content {
+      transition: $transition-base;
+      transition-property: transform;
+      transition-duration: 0.2s;
     }
 
-    .app-sidebar {
-      display: flex !important;
-      position: static;
-      width: auto !important;
-      transform: none !important;
+    .sidebar-backdrop {
+      transition: $transition-base;
+      transition-property: opacity;
+      transition-duration: 0.1s;
+    }
+  }
 
-      .b-sidebar-header {
-        padding: 0.75rem 2rem;
-      }
+  .sidebar-enter,
+  .sidebar-leave-to {
+    .sidebar-content {
+      transform: translateX(-100%);
+    }
 
-      .sidebar-nav {
-        .navbar-text {
-          padding: 0.5rem 2rem;
-        }
-
-        .nav-link {
-          padding: 0.5rem 2rem;
-        }
-      }
+    .sidebar-backdrop {
+      opacity: 0;
     }
   }
 }
 
-@include media-breakpoint-up(lg) {
-  .b-sidebar-outer {
-    position: static;
-    height: auto;
+@media (min-width: 992px) {
+  .app-sidebar {
+    display: block !important;
+  }
+
+  .sidebar-backdrop {
+    display: none;
   }
 }
 </style>

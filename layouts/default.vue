@@ -1,8 +1,10 @@
 <template>
   <div class="app-wrapper">
-    <AppSidebar v-model="sidebarShow" />
-    <AppHeader />
-    <Nuxt class="app-content" />
+    <AppSidebar :visible="sidebarShow" @hide="sidebarShow = false" />
+    <div class="app-content">
+      <AppHeader />
+      <Nuxt />
+    </div>
     <AppControls @toggle-sidebar="sidebarShow = !sidebarShow" />
   </div>
 </template>
@@ -30,19 +32,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@include media-breakpoint-up(lg) {
-  .app-wrapper {
-    display: flex;
-    height: 100vh;
-    overflow: hidden;
-
-    ::v-deep {
-      .app-content {
-        min-height: 0;
-        padding: 1.5rem 0;
-        overflow-y: auto;
-      }
-    }
-  }
+.app-wrapper {
+  display: flex;
+  overflow: hidden;
 }
 </style>
