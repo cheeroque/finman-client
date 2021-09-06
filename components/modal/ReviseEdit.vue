@@ -1,19 +1,19 @@
 <template>
   <f-modal v-model="localVisible" title="Добавить дату сверки">
-    <b-form @submit.prevent="onSubmit">
-      <b-form-group>
-        <DateTimePicker v-model="localDateTime" :locale="locale" />
-      </b-form-group>
-      <b-form-group label="Комментарий">
-        <b-form-input v-model="form.note" type="text"></b-form-input>
-      </b-form-group>
-
-      <b-row>
-        <b-col cols="6" offset="6">
-          <b-button type="submit" variant="primary" block> Сохранить </b-button>
-        </b-col>
-      </b-row>
-    </b-form>
+    <form @submit.prevent>
+      <f-form-group label="Дата и время">
+        <f-datepicker v-model="createdAt" />
+      </f-form-group>
+      <f-form-group label="Комментарий" label-for="revise-edit-note" class="mb-0">
+        <f-input v-model="note" id="revise-edit-note" type="text" />
+      </f-form-group>
+    </form>
+    <template #modal-footer="{ close }">
+      <button class="btn btn-outline-danger" title="Отмена" aria-label="Отмена" @click="close">Отмена</button>
+      <button class="btn btn-primary ms-auto" title="Сохранить" aria-label="Сохранить" @click="onSubmit(close)">
+        Сохранить
+      </button>
+    </template>
   </f-modal>
 </template>
 
@@ -39,6 +39,8 @@ export default {
   },
   data() {
     return {
+      createdAt: null,
+      note: null,
       form: {
         created_at: null,
         note: null
@@ -47,14 +49,6 @@ export default {
     }
   },
   computed: {
-    localDateTime: {
-      get() {
-        return this.form.created_at ? new Date(this.form.created_at) : new Date()
-      },
-      set(newValue) {
-        this.form.created_at = newValue.toISOString()
-      }
-    },
     localVisible: {
       get() {
         return this.visible
@@ -64,14 +58,27 @@ export default {
       }
     }
   },
+  watch: {
+    item({ created_at, note }) {
+      this.createdAt = created_at ? new Date(created_at) : new Date()
+      this.note = note
+    }
+  },
   mounted() {
-    this.form = { ...this.item }
+    this.createdAt = this.item.created_at ? new Date(this.item.created_at) : new Date()
+    this.note = this.item.note
   },
   methods: {
-    async onSubmit() {
-      await this.$axios.$post('revises', this.form).then(() => {
-        this.$emit('revise-change')
-      })
+    async onSubmit(callback) {
+      await this.$axios
+        .$post('revises', {
+          created_at: this.createdAt.toISOString(),
+          note: this.note
+        })
+        .then(() => {
+          callback()
+          this.$root.$emit('revise-change')
+        })
     }
   }
 }

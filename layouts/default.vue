@@ -32,7 +32,7 @@ export default {
       }
     }
   },
-  mounted() {
+  beforeMount() {
     this.$root.$on('revise-edit', (event) => {
       this.modalReviseItem = event
       this.modalReviseVisible = true

@@ -12,6 +12,7 @@ module.exports = {
   // add your custom rules here
   rules: {
     // disable line length check in esLint to avoid conflicts with Prettier
-    'max-len': 0
+    'max-len': 0,
+    camelcase: 'off'
   }
 }

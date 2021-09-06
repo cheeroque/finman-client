@@ -32,11 +32,10 @@ export default {
       return this.$store.state.latestRevise
     }
   },
-  methods: {
-    refresh() {
-      this.modalShow = false
+  beforeMount() {
+    this.$root.$on('revise-change', (event) => {
       this.$fetch()
-    }
+    })
   }
 }
 </script>

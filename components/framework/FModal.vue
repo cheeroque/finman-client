@@ -12,6 +12,11 @@
         <section class="modal-body">
           <slot :close="close"></slot>
         </section>
+        <footer class="modal-footer">
+          <slot :close="close" name="modal-footer">
+            <button class="btn btn-primary" aria-label="Закрыть" title="Закрыть" @click="close">Закрыть</button>
+          </slot>
+        </footer>
       </div>
     </div>
   </transition>
@@ -90,6 +95,16 @@ export default {
 
 .modal-body {
   padding: 0.75rem 1.5rem;
+}
+
+.modal-footer {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 1.5rem;
+
+  & > * {
+    flex: 1 1 0;
+  }
 }
 
 .modal-enter-active,
