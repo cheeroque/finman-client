@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="localVisible" centered @hide="$emit('hide')">
+  <f-modal v-model="localVisible" title="Добавить дату сверки">
     <b-form @submit.prevent="onSubmit">
       <b-form-group>
         <DateTimePicker v-model="localDateTime" :locale="locale" />
@@ -14,7 +14,7 @@
         </b-col>
       </b-row>
     </b-form>
-  </b-modal>
+  </f-modal>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
   <nav class="pagination">
-    <FormSelect v-model="localPerPage" :options="pageOptions" />
+    <f-select v-model="localPerPage" :options="pageOptions" />
     <span class="pagination-label"> {{ currentPage }} из&nbsp;{{ numberOfPages }} </span>
     <div class="pagination-buttons">
       <nuxt-link

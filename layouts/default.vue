@@ -1,11 +1,13 @@
 <template>
   <div class="app-wrapper">
-    <AppSidebar :visible="sidebarShow" @hide="sidebarShow = false" />
+    <AppSidebar :visible="sidebarVisible" @hide="sidebarVisible = false" />
     <div class="app-content">
       <AppHeader />
       <Nuxt />
     </div>
-    <AppControls @toggle-sidebar="sidebarShow = !sidebarShow" />
+
+    <AppControls @toggle-sidebar="sidebarVisible = !sidebarVisible" />
+    <ModalReviseEdit v-model="modalReviseVisible" :item="modalReviseItem" />
   </div>
 </template>
 
@@ -13,7 +15,9 @@
 export default {
   data() {
     return {
-      sidebarShow: false
+      modalReviseItem: {},
+      modalReviseVisible: false,
+      sidebarVisible: false
     }
   },
   watch: {
@@ -27,6 +31,12 @@ export default {
         })
       }
     }
+  },
+  mounted() {
+    this.$root.$on('revise-edit', (event) => {
+      this.modalReviseItem = event
+      this.modalReviseVisible = true
+    })
   }
 }
 </script>

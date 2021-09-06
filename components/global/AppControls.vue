@@ -10,7 +10,7 @@
       <button
         class="btn btn-icon btn-secondary rounded-pill"
         title="Добавить запись"
-        @click="$root.$emit('add-record')"
+        @click="$root.$emit('record-add')"
       >
         <svg-icon name="plus-24" width="24" height="24" aria-hidden="true" />
       </button>

@@ -24,7 +24,7 @@ export default {
   plugins: ['~/plugins/mixins.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: ['~/components/', '~/components/global/', '~/components/form-controls/'],
+  components: ['~/components/', '~/components/global/', '~/components/framework/'],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/style-resources'],

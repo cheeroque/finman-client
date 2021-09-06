@@ -39,7 +39,7 @@
         <a
           href="#"
           class="d-flex align-center text-gray-700 text-hover-primary text-decoration-none"
-          @click.prevent="$root.$emit('edit-record', item)"
+          @click.prevent="$root.$emit('record-edit', item)"
         >
           <span class="flex-fill">{{ item.note }}</span>
           <span class="d-flex flex-center align-self-start text-gray-300 ms-8">
