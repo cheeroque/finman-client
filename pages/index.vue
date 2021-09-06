@@ -4,7 +4,7 @@
 
     <TableData
       :fields="fields"
-      :items="records && records.data"
+      :items="items"
       :order="$route.query.order || orderDefault"
       :order-by="$route.query.orderBy || orderByDefault"
       class="mb-lg-32"
@@ -12,22 +12,35 @@
       @sort-reset="onSortReset"
     >
       <template #cell(created_at)="{ item }">
-        <nuxt-link :to="`/month/${$monthApiLink(item.created_at)}`" class="text-reset">
+        <nuxt-link
+          :to="`/month/${$monthApiLink(item.created_at)}`"
+          class="text-body text-hover-primary text-decoration-none"
+        >
           <span class="date">
-            {{ $dateWithFormat(item.created_at, { day: '2-digit', month: '2-digit', year: '2-digit' }) }}
+            {{ $dateWithFormat(item.created_at, { day: '2-digit', month: '2-digit', year: 'numeric' }) }}
           </span>
           <span class="time">
             {{ $dateWithFormat(item.created_at, { timeStyle: 'short' }) }}
           </span>
         </nuxt-link>
       </template>
+      <template #cell(sum)="{ item }">
+        <span v-if="isIncome(item) && !$route.query.show" class="text-success">
+          +&nbsp;{{ $sumWithFormat(item.sum) }}
+        </span>
+        <span v-else>{{ $sumWithFormat(item.sum) }}</span>
+      </template>
       <template #cell(category_id)="{ value }">
-        <nuxt-link :to="`/category/${value}`" class="text-reset">
+        <nuxt-link :to="`/category/${value}`" class="text-body text-hover-primary text-decoration-none">
           {{ categoryById(value).name }}
         </nuxt-link>
       </template>
       <template #cell(note)="{ item }">
-        <a href="#" class="d-flex align-center text-reset" @click.prevent="$root.$emit('edit-record', item)">
+        <a
+          href="#"
+          class="d-flex align-center text-gray-700 text-hover-primary text-decoration-none"
+          @click.prevent="$root.$emit('edit-record', item)"
+        >
           <span class="flex-fill">{{ item.note }}</span>
           <span class="d-flex flex-center align-self-start text-gray-300 ms-8">
             <svg-icon name="edit-24" width="24" height="24" aria-label="Редактировать" />
@@ -99,6 +112,14 @@ export default {
     categories() {
       return this.$store.state.categories
     },
+    items() {
+      return this.records && this.records.data && this.records.data.length
+        ? this.records.data.map((record) => {
+            const category = this.categoryById(record.category_id)
+            return { ...record, rowVariant: category.is_income && !this.$route.query.show ? 'success' : null }
+          })
+        : []
+    },
     records() {
       return this.$store.state.records
     },
@@ -112,6 +133,10 @@ export default {
     }
   },
   methods: {
+    isIncome(item) {
+      const category = this.categoryById(item.category_id)
+      return category.is_income
+    },
     onPerPageChanged(event) {
       this.perPage = event
       this.refresh()

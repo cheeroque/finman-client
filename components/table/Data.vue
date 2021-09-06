@@ -26,8 +26,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(row, rowIndex) in items" :key="`row-${rowIndex}`">
-        <td v-for="cell in fields" :key="`cell-${cell.key}-${rowIndex}`">
+      <tr
+        v-for="(row, rowIndex) in items"
+        :key="`row-${rowIndex}`"
+        :class="row.rowVariant ? `table-${row.rowVariant}` : null"
+      >
+        <td v-for="cell in fields" :key="`cell-${cell.key}-${rowIndex}`" :class="cell.tdClass">
           <slot :name="`cell(${cell.key})`" :field="cell" :index="rowIndex" :item="row" :value="row[cell.key]">
             {{ row[cell.key] }}
           </slot>

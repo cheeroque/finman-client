@@ -33,6 +33,10 @@
   font-weight: $font-weight-bold;
 }
 
+.text-body {
+  color: $body-color;
+}
+
 @each $color, $value in $theme-colors {
   .text-#{$color} {
     color: $value;
@@ -41,6 +45,12 @@
   a.text-#{$color} {
     &:hover {
       color: darken($value, 10%);
+    }
+  }
+
+  a.text-hover-#{$color} {
+    &:hover {
+      color: $value;
     }
   }
 }

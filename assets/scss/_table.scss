@@ -65,3 +65,9 @@
     }
   }
 }
+
+@each $color, $value in $theme-colors {
+  .table-#{$color} {
+    background-color: rgba($value, 0.1) !important;
+  }
+}

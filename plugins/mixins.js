@@ -26,4 +26,8 @@ export default ({ app }, inject) => {
   inject('isValidDate', (date) => {
     return date instanceof Date && !isNaN(date)
   })
+
+  inject('sumWithFormat', (value, locale = 'ru-RU') => {
+    return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(value)
+  })
 }
