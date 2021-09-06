@@ -9,11 +9,21 @@
   line-height: $btn-input-line-height;
   text-align: center;
   border: $border-width solid transparent;
+  border-radius: $btn-input-border-radius;
   color: inherit;
   background-color: transparent;
   cursor: pointer;
   transition: $transition-base;
   transition-property: color, border-color, background-color, box-shadow;
+
+  &:disabled,
+  &.disabled {
+    color: $gray-500;
+    border-color: transparent;
+    background-color: transparent;
+    opacity: 0.5;
+    cursor: default;
+  }
 }
 
 .btn-icon {
@@ -26,9 +36,12 @@
     border-color: $value;
     background-color: $value;
 
-    &:hover {
-      border-color: darken($value, 10%);
-      background-color: darken($value, 10%);
+    &:not(:disabled):not(.disabled) {
+      &:hover {
+        color: color-contrast($value);
+        border-color: darken($value, 10%);
+        background-color: darken($value, 10%);
+      }
     }
   }
 
@@ -37,9 +50,11 @@
     border-color: $value;
     background-color: transparent;
 
-    &:hover {
-      color: color-contrast($value);
-      background-color: $value;
+    &:not(:disabled):not(.disabled) {
+      &:hover {
+        color: color-contrast($value);
+        background-color: $value;
+      }
     }
   }
 }

@@ -1,3 +1,5 @@
+// Color contrast
+
 $threshold: 170;
 
 @function color-contrast($color, $dark: $body-color, $light: $body-bg) {

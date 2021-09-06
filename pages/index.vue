@@ -1,11 +1,13 @@
 <template>
   <main class="overflow-hidden">
     <ViewTabs :active="$route.query.show || null" :tabs="tabs" />
+
     <TableData
       :fields="fields"
       :items="records && records.data"
       :order="$route.query.order || orderDefault"
       :order-by="$route.query.orderBy || orderByDefault"
+      class="mb-lg-32"
       @sort-changed="onSortChanged"
       @sort-reset="onSortReset"
     >
@@ -33,47 +35,15 @@
         </a>
       </template>
     </TableData>
-    <!-- <CardTabs :active="$route.query.show || null" :tabs="tabs">
-      <TableCommon
-        :fields="fields"
-        :items="records && records.data"
-        :order-by="$route.query.orderBy || orderByDefault"
-        :order="$route.query.order || orderDefault"
-        class="mb-lg-32"
-        fixed
-        responsive
-        @sort-changed="onSortChanged"
-        @sort-reset="onSortReset"
-      >
-        <template #cell(created_at)="{ item }">
-          <b-link :to="`/month/${$monthApiLink(item.created_at)}`" class="text-reset">
-            <span class="date">
-              {{ $dateWithFormat(item.created_at, { day: '2-digit', month: '2-digit', year: '2-digit' }) }}
-            </span>
-            <span class="time">
-              {{ $dateWithFormat(item.created_at, { timeStyle: 'short' }) }}
-            </span>
-          </b-link>
-        </template>
-        <template #cell(category_id)="{ value }">
-          <b-link :to="`/category/${value}`" class="text-reset">
-            {{ categoryById(value).name }}
-          </b-link>
-        </template>
-        <template #cell(note)="{ item }">
-          <b-link class="d-flex align-items-center text-reset" @click="editRecord(item)">
-            <span class="flex-fill">{{ item.note }}</span>
-            <span class="align-self-start text-gray-300">
-              <svg-icon name="edit-16" width="16" height="16" aria-label="Редактировать" />
-            </span>
-          </b-link>
-        </template>
-      </TableCommon>
-      <template #footer>
-        <PaginationNav v-if="records && records.last_page" :number-of-pages="records.last_page" align="center" />
-      </template>
-    </CardTabs> -->
-    <!-- <ModalRecordEdit v-model="modalShow" :item="activeRecord" @record-change="refresh" /> -->
+
+    <div class="d-lg-flex justify-lg-start px-16 px-lg-0">
+      <PaginationNav
+        v-if="records && records.data && records.data.length"
+        :per-page="perPage"
+        :number-of-pages="records.last_page"
+        @per-page-changed="onPerPageChanged"
+      />
+    </div>
   </main>
 </template>
 
@@ -122,7 +92,7 @@ export default {
   },
   async fetch() {
     await this.$store.dispatch('fetchCategories')
-    await this.$store.dispatch('fetchRecords')
+    await this.$store.dispatch('fetchRecords', this.query)
   },
   computed: {
     ...mapGetters(['categoryById', 'error']),
@@ -142,6 +112,10 @@ export default {
     }
   },
   methods: {
+    onPerPageChanged(event) {
+      this.perPage = event
+      this.refresh()
+    },
     onSortChanged({ orderBy, order }) {
       this.$router.push({
         query: { ...this.$route.query, orderBy, order }

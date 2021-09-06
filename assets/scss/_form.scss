@@ -1,0 +1,45 @@
+.form-control {
+  display: block;
+  width: 100%;
+  padding: $btn-input-padding-y $btn-input-padding-x;
+  font-size: $btn-input-font-size;
+  line-height: $btn-input-line-height;
+  border: $border-width solid $border-color;
+  border-radius: $input-border-radius;
+  color: inherit;
+  background-color: transparent;
+  transition: $transition-base;
+  transition-property: color, border-color, background-color, box-shadow;
+  appearance: none;
+
+  &:not(:disabled):not(.disabled) {
+    &:focus,
+    &.focus {
+      border-color: $input-border-color-focus;
+    }
+  }
+}
+
+.custom-select {
+  display: block;
+  position: relative;
+  width: 100%;
+
+  &::after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: $btn-input-padding-x;
+    border: ($btn-input-padding-x / 4) solid transparent;
+    border-top-color: $body-color;
+    transform: translateY(-25%);
+    pointer-events: none;
+  }
+
+  .form-control {
+    padding-left: $btn-input-padding-x * 0.75;
+    padding-right: $btn-input-padding-x * 1.5;
+    cursor: pointer;
+  }
+}

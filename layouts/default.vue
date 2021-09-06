@@ -39,14 +39,14 @@ export default {
 @media (min-width: 992px) {
   .app-wrapper {
     display: flex;
-    max-height: 100vh;
+    height: 100vh;
     overflow: hidden;
   }
 
   .app-content {
     flex: 1 1 auto;
     min-height: 0;
-    padding: 0 1.5rem;
+    padding: 0 1.5rem 1.5rem;
     overflow-y: auto;
   }
 }

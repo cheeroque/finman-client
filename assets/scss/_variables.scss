@@ -45,7 +45,11 @@ $body-color: $gray-900;
 $spacer: 1rem;
 
 $spacers: (
-  '8': 0.5rem
+  '0': 0,
+  '8': 0.5rem,
+  '16': 1rem,
+  '32': 2rem,
+  'auto': auto
 );
 
 $widths: (
@@ -99,3 +103,7 @@ $btn-input-padding-x: 1rem;
 $btn-input-padding-y: 0.4375rem;
 $btn-input-font-size: $font-size-base;
 $btn-input-line-height: 1.25;
+$btn-input-border-radius: 0.25rem;
+
+$input-border-radius: $btn-input-border-radius;
+$input-border-color-focus: darken($border-color, 10%);
