@@ -1,10 +1,6 @@
 <template>
   <nav class="pagination">
-    <div class="custom-select">
-      <select v-model="localPerPage" class="form-control">
-        <option v-for="option in pageOptions" :key="`per-page-${option}`" :value="option">{{ option }}</option>
-      </select>
-    </div>
+    <FormSelect v-model="localPerPage" :options="pageOptions" />
     <span class="pagination-label"> {{ currentPage }} из&nbsp;{{ numberOfPages }} </span>
     <div class="pagination-buttons">
       <nuxt-link
@@ -117,6 +113,10 @@ export default {
 @media (min-width: 992px) {
   .pagination {
     gap: 1.5rem;
+
+    .pagination-label {
+      font-size: $font-size-2;
+    }
   }
 }
 </style>
