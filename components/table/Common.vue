@@ -47,14 +47,7 @@
 </template>
 
 <script>
-import { BTableLite, BIconSortUp, BIconSortDown } from 'bootstrap-vue'
-
 export default {
-  components: {
-    BTableLite,
-    BIconSortUp,
-    BIconSortDown
-  },
   props: {
     detailsTdClass: {
       type: [Array, Object, String],

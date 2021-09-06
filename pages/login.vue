@@ -7,7 +7,7 @@
       <div>
         <input v-model="form.password" type="password" required />
       </div>
-      <b-button type="submit"> Войти </b-button>
+      <button type="submit">Войти</button>
     </form>
   </b-container>
 </template>

@@ -5,12 +5,7 @@
 </template>
 
 <script>
-import { BModal } from 'bootstrap-vue'
-
 export default {
-  components: {
-    BModal
-  },
   model: {
     prop: 'visible',
     event: 'change'

@@ -25,15 +25,7 @@
 </template>
 
 <script>
-import { BForm, BFormGroup, BFormInput, BFormSelect } from 'bootstrap-vue'
-
 export default {
-  components: {
-    BForm,
-    BFormGroup,
-    BFormInput,
-    BFormSelect
-  },
   props: {
     item: {
       type: Object,

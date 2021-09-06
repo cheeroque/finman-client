@@ -23,16 +23,7 @@
 </template>
 
 <script>
-import { BCard, BCardBody, BCardFooter, BNav, BNavItem } from 'bootstrap-vue'
-
 export default {
-  components: {
-    BCard,
-    BCardBody,
-    BCardFooter,
-    BNav,
-    BNavItem
-  },
   props: {
     active: {
       type: String,

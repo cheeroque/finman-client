@@ -26,15 +26,7 @@
 </template>
 
 <script>
-import { BInputGroup, BFormInput, BCalendar, BTime } from 'bootstrap-vue'
-
 export default {
-  components: {
-    BInputGroup,
-    BFormInput,
-    BCalendar,
-    BTime
-  },
   model: {
     prop: 'value',
     event: 'change'

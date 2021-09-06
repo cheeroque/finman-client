@@ -11,12 +11,7 @@
 </template>
 
 <script>
-import { BPaginationNav } from 'bootstrap-vue'
-
 export default {
-  components: {
-    BPaginationNav
-  },
   props: {
     align: {
       type: String,

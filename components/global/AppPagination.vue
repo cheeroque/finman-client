@@ -14,12 +14,7 @@
 </template>
 
 <script>
-import { BPagination } from 'bootstrap-vue'
-
 export default {
-  components: {
-    BPagination
-  },
   model: {
     prop: 'value',
     event: 'input'

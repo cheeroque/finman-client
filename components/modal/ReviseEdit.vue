@@ -18,15 +18,7 @@
 </template>
 
 <script>
-import { BModal, BForm, BFormGroup, BFormInput } from 'bootstrap-vue'
-
 export default {
-  components: {
-    BModal,
-    BForm,
-    BFormGroup,
-    BFormInput
-  },
   model: {
     prop: 'visible',
     event: 'change'
