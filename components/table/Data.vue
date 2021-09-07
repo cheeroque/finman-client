@@ -1,6 +1,6 @@
 <template>
   <table :aria-colcount="fields.length" class="table table-data table-striped table-fixed">
-    <thead>
+    <thead v-if="!hideThead">
       <tr>
         <th
           v-for="(field, index) in fields"
@@ -18,7 +18,7 @@
               :name="`sort-${order.toString().toLowerCase()}-24`"
               width="24"
               height="24"
-              class="ms-8"
+              class="icon-sort ms-8"
               aria-hidden="true"
             />
           </div>
@@ -59,6 +59,12 @@ export default {
       type: Array,
       default() {
         return []
+      }
+    },
+    hideThead: {
+      type: Boolean,
+      default() {
+        return false
       }
     },
     items: {

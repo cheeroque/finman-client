@@ -1,29 +1,31 @@
 <template>
-  <b-container tag="main" class="px-0 px-lg-24" fluid>
-    <h3 class="mb-32">Записи в&nbsp;категории &laquo;{{ categoryById(categoryId).name }}&raquo;</h3>
-    <b-row>
-      <b-col lg="6">
-        <TableCommon :fields="fields" :items="items" class="mb-lg-32" details-td-class="table-details-wrapper" fixed>
+  <main>
+    <h2 class="px-16 px-lg-0">Записи в&nbsp;категории &laquo;{{ categoryById(categoryId).name }}&raquo;</h2>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <TableData :fields="fields" :items="items" class="mb-lg-32">
           <template #cell(period)="{ value }">
-            <div class="d-flex align-items-center">
-              {{ formatPeriod(value) }}
-            </div>
+            <span class="month-long" v-text="$dateWithFormat(value, { month: 'long' })"></span>
+            <span class="month-numeric" v-text="`${$dateWithFormat(value, { month: '2-digit' })}.`"></span
+            ><span class="year-numeric" v-text="$dateWithFormat(value, { year: 'numeric' })"></span>
           </template>
-          <template #cell(sum)="{ detailsShowing, toggleDetails, item }">
-            <div class="d-flex align-items-center">
-              {{ getTotalSum(item) }}&nbsp;₽
-              <b-button
-                :class="{ open: detailsShowing }"
-                variant="link"
-                class="table-details-toggle ml-auto"
+          <template #cell(sum)="{ detailsVisible, toggleDetails, item }">
+            <div class="d-flex align-center position-relative">
+              <a href="#" role="button" class="flex-fill text-decoration-dotted" @click="toggleDetails">
+                {{ $sumWithFormat(getTotalSum(item)) }}
+              </a>
+              <button
+                :class="{ open: detailsVisible }"
+                :aria-label="detailsVisible ? 'Свернуть' : 'Развернуть'"
+                class="btn btn-toggle-details ms-auto"
                 @click="toggleDetails"
               >
-                <span class="sr-only" v-text="detailsShowing ? 'Свернуть' : 'Развернуть'"></span>
-              </b-button>
+                <svg-icon name="chevron-right-24" width="24" height="24" aria-hidden="true" />
+              </button>
             </div>
           </template>
           <template #row-details="{ item }">
-            <TableDetails :fields="detailFields" :items="item.items">
+            <TableData :fields="detailFields" :items="item.items" class="table-nested" hide-thead>
               <template #cell(created_at)="{ value }">
                 <span class="date">
                   {{ $dateWithFormat(value, { day: '2-digit', month: '2-digit', year: '2-digit' }) }}
@@ -32,13 +34,13 @@
                   {{ $dateWithFormat(value, { timeStyle: 'short' }) }}
                 </span>
               </template>
-            </TableDetails>
+            </TableData>
           </template>
-        </TableCommon>
+        </TableData>
         <PaginationNav v-if="numberOfPages" :number-of-pages="numberOfPages" align="center" />
-      </b-col>
-    </b-row>
-  </b-container>
+      </div>
+    </div>
+  </main>
 </template>
 
 <script>
@@ -48,28 +50,24 @@ export default {
   data() {
     return {
       fields: [
-        { key: 'period', label: 'Месяц', thClass: 'th-period', tdClass: 'td-period' },
-        { key: 'sum', label: 'Сумма', thClass: 'th-sum', tdClass: 'td-sum' }
+        { key: 'period', label: 'Месяц', thClass: 'w-30', tdClass: 'td-period' },
+        { key: 'sum', label: 'Сумма', tdClass: 'td-sum' }
       ],
       detailFields: [
         {
           key: 'created_at',
           label: 'Дата',
-          thClass: 'th-details-datetime',
-          tdClass: 'td-datetime td-details-datetime'
+          tdClass: 'td-datetime w-30'
         },
         {
           key: 'sum',
           label: 'Сумма',
-          thClass: 'th-details-sum',
-          tdClass: 'td-sum td-details-sum',
-          formatter: (value) => `${value}\xA0₽`
+          tdClass: 'td-sum w-20'
         },
         {
           key: 'note',
           label: 'Комментарий',
-          thClass: 'th-details-note',
-          tdClass: 'td-details-note'
+          tdClass: 'td-note text-gray-700'
         }
       ],
       locale: 'ru-RU',
@@ -93,11 +91,10 @@ export default {
     },
     items() {
       return this.records.data
-        ? Object.keys(this.records.data).map((key, index) => {
+        ? Object.keys(this.records.data).map((key) => {
             return {
               period: key,
               items: this.records.data[key]
-              // _showDetails: index === 0
             }
           })
         : []
@@ -115,15 +112,6 @@ export default {
     }
   },
   methods: {
-    formatPeriod(period) {
-      const date = new Date(period)
-      if (this.$isValidDate(date)) {
-        const year = date.toLocaleDateString(this.locale, { year: 'numeric' })
-        const month = date.toLocaleDateString(this.locale, { month: 'long' })
-
-        return `${month} ${year}`
-      } else return period
-    },
     getTotalSum(item) {
       return item.items ? item.items.map((item) => item.sum).reduce((acc, item) => acc + item, 0) : 0
     }
@@ -132,31 +120,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-content::v-deep {
-  .table {
-    th {
-      &.th-period {
-        width: 25%;
-      }
-
-      &.th-sum {
-        width: 75%;
+@media (max-width: 991.98px) {
+  /deep/ {
+    .td-period {
+      .month-long {
+        display: none;
       }
     }
+  }
+}
 
-    td {
-      vertical-align: middle;
-
-      &.td-period {
+@media (min-width: 992px) {
+  /deep/ {
+    .td-period {
+      .month-long {
         text-transform: capitalize;
       }
 
-      &.td-details-datetime {
-        width: 25%;
-      }
-
-      &.td-details-sum {
-        width: 20%;
+      .month-numeric {
+        display: none;
       }
     }
   }

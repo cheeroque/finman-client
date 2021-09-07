@@ -1,25 +1,27 @@
 <template>
   <main>
-    <h3 class="px-16 px-lg-0">Записи за&nbsp;{{ periodName }}</h3>
+    <h2 class="px-16 px-lg-0">Записи за&nbsp;{{ periodName }}</h2>
     <div class="row">
       <div class="col-12 col-lg-6">
-        <TableData :fields="fields" :items="items" class="mb-lg-32" details-td-class="table-details-wrapper" fixed>
+        <TableData :fields="fields" :items="items" class="mb-lg-32">
           <template #cell(category_id)="{ value }"> {{ categoryById(value).name }} </template>
           <template #cell(sum)="{ detailsVisible, toggleDetails, item }">
-            <div class="d-flex align-items-center">
-              {{ getTotalSum(item) }}&nbsp;₽
+            <div class="d-flex align-center position-relative">
+              <a href="#" role="button" class="flex-fill text-decoration-dotted" @click="toggleDetails">
+                {{ $sumWithFormat(getTotalSum(item)) }}
+              </a>
               <button
                 :class="{ open: detailsVisible }"
-                variant="link"
-                class="table-details-toggle ml-auto"
+                :aria-label="detailsVisible ? 'Свернуть' : 'Развернуть'"
+                class="btn btn-toggle-details ms-auto"
                 @click="toggleDetails"
               >
-                <span class="sr-only" v-text="detailsVisible ? 'Свернуть' : 'Развернуть'"></span>
+                <svg-icon name="chevron-right-24" width="24" height="24" aria-hidden="true" />
               </button>
             </div>
           </template>
           <template #row-details="{ item }">
-            <TableData :fields="detailFields" :items="item.items">
+            <TableData :fields="detailFields" :items="item.items" class="table-nested" hide-thead>
               <template #cell(created_at)="{ value }">
                 <span class="date">
                   {{ $dateWithFormat(value, { day: '2-digit', month: '2-digit', year: '2-digit' }) }}
@@ -27,6 +29,17 @@
                 <span class="time">
                   {{ $dateWithFormat(value, { timeStyle: 'short' }) }}
                 </span>
+              </template>
+              <template #cell(sum)="{ value }">
+                {{ $sumWithFormat(value) }}
+              </template>
+              <template #cell(note)="{ item }">
+                <a href="#" class="d-flex align-center" @click.prevent="$root.$emit('record-edit', item)">
+                  <span class="flex-fill">{{ item.note }}</span>
+                  <span class="d-flex flex-center align-self-start text-gray-300 ms-8">
+                    <svg-icon name="edit-24" width="24" height="24" aria-label="Редактировать" />
+                  </span>
+                </a>
               </template>
             </TableData>
           </template>
@@ -44,28 +57,24 @@ export default {
   data() {
     return {
       fields: [
-        { key: 'category_id', label: 'Категория', thClass: 'th-category', tdClass: 'td-category' },
-        { key: 'sum', label: 'Сумма', thClass: 'th-sum', tdClass: 'td-sum' }
+        { key: 'category_id', label: 'Категория', thClass: 'w-30' },
+        { key: 'sum', label: 'Сумма', tdClass: 'td-sum' }
       ],
       detailFields: [
         {
           key: 'created_at',
           label: 'Дата',
-          thClass: 'th-details-datetime',
-          tdClass: 'td-datetime td-details-datetime'
+          tdClass: 'td-datetime w-30'
         },
         {
           key: 'sum',
           label: 'Сумма',
-          thClass: 'th-details-sum',
-          tdClass: 'td-sum td-details-sum',
-          formatter: (value) => `${value}\xA0₽`
+          tdClass: 'td-sum w-20'
         },
         {
           key: 'note',
           label: 'Комментарий',
-          thClass: 'th-details-note',
-          tdClass: 'td-details-note'
+          tdClass: 'td-note text-gray-700'
         }
       ],
       locale: 'ru-RU'

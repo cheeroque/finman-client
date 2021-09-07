@@ -145,12 +145,21 @@
   overflow: hidden !important;
 }
 
+.position-relative {
+  position: relative;
+}
+
 .rounded-pill {
   border-radius: 99rem;
 }
 
 .shadow {
   box-shadow: $box-shadow;
+}
+
+.text-decoration-dotted {
+  text-decoration: underline !important;
+  text-decoration-style: dotted !important;
 }
 
 .text-decoration-none {

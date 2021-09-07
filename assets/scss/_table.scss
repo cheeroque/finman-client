@@ -28,6 +28,12 @@
       cursor: pointer;
     }
   }
+
+  .row-details {
+    & > td {
+      padding: 0;
+    }
+  }
 }
 
 .table-fixed {
@@ -52,13 +58,58 @@
   }
 }
 
+.table-nested {
+  margin: 0;
+  border-top: $border-width solid $border-color;
+  border-bottom: $border-width * 2 solid $border-color;
+}
+
+.btn-toggle-details {
+  position: absolute;
+  right: -0.5rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 99rem;
+  color: $gray-500;
+  transition-property: color, transform;
+
+  &:hover {
+    color: $primary;
+  }
+
+  &.open {
+    transform: rotate(90deg);
+  }
+}
+
+.td-datetime {
+  .time {
+    font-size: 0.75em;
+    color: $gray-500;
+  }
+}
+
+.td-sum {
+  font-family: $font-family-alternate;
+  font-weight: $font-weight-medium;
+}
+
 @media (max-width: 991.98px) {
-  .table {
-    th,
-    td {
-      .icon {
-        display: none;
-      }
+  th {
+    .icon-sort {
+      display: none;
+    }
+  }
+
+  .td-datetime {
+    .time {
+      display: none;
+    }
+  }
+
+  .td-note {
+    .icon {
+      display: none;
     }
   }
 }

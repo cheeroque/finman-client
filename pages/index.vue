@@ -86,7 +86,7 @@ export default {
           key: 'note',
           label: 'Комментарий',
           thClass: 'w-30 w-lg-40',
-          tdClass: 'text-gray-700'
+          tdClass: 'td-note text-gray-700'
         }
       ],
       tabs: [
