@@ -121,15 +121,11 @@ export default {
 .modal-enter-active,
 .modal-leave-active {
   .modal-backdrop {
-    transition: $transition-base;
-    transition-property: opacity;
-    transition-duration: 0.2s;
+    transition: opacity 0.2s ease-in;
   }
 
   .modal {
-    transition: $transition-base;
-    transition-property: transform;
-    transition-duration: 0.2s;
+    transition: transform 0.2s ease-out;
   }
 }
 
