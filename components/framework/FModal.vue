@@ -1,6 +1,6 @@
 <template>
   <transition name="modal" duration="200">
-    <div v-show="visible" class="modal-outer">
+    <div v-if="visible" class="modal-outer">
       <div class="modal-backdrop" @click="close"></div>
       <div :class="{ 'modal-lg': size === 'lg' }" class="modal" role="dialog">
         <header class="modal-header">
@@ -42,6 +42,12 @@ export default {
       default() {
         return false
       }
+    }
+  },
+  watch: {
+    visible(value) {
+      if (value) this.$emit('show')
+      else this.$emit('hide')
     }
   },
   mounted() {

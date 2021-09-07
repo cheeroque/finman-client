@@ -1,5 +1,5 @@
 <template>
-  <f-modal v-model="localVisible" title="Добавить дату сверки">
+  <f-modal v-model="localVisible" title="Добавить дату сверки" @show="onShow">
     <form @submit.prevent>
       <f-form-group label="Дата и время" label-for="revise-edit-datetime">
         <f-datepicker v-model="createdAt" id="revise-edit-datetime" />
@@ -54,23 +54,25 @@ export default {
     }
   },
   watch: {
-    item({ created_at, note }) {
-      this.createdAt = created_at ? new Date(created_at) : new Date()
-      this.note = note
+    item(value) {
+      this.initData(value)
     }
   },
-  mounted() {
-    this.createdAt = this.item.created_at ? new Date(this.item.created_at) : new Date()
-    this.note = this.item.note
-  },
   methods: {
+    initData(item) {
+      this.createdAt = item.created_at ? new Date(item.created_at) : new Date()
+      this.note = item.note
+    },
+    onShow() {
+      this.initData(this.item)
+    },
     async onSubmit(callback) {
       await this.$axios.$post('revises', {
         created_at: this.createdAt.toISOString(),
         note: this.note
       })
-      callback()
       this.$store.dispatch('fetchLatestRevise')
+      callback()
     }
   }
 }

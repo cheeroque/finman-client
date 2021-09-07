@@ -1,5 +1,5 @@
 <template>
-  <f-modal v-model="localVisible" :title="`${create ? 'Создать' : 'Редактировать'} запись`">
+  <f-modal v-model="localVisible" :title="`${create ? 'Создать' : 'Редактировать'} запись`" @show="onShow">
     <form @submit.prevent>
       <f-form-group label="Категория" label-for="record-edit-category">
         <f-select v-model="categoryId" id="record-edit-category" :options="categoryOptions" />
@@ -93,20 +93,20 @@ export default {
     }
   },
   watch: {
-    item({ category_id, created_at, note, sum }) {
-      this.categoryId = category_id
-      this.createdAt = created_at ? new Date(created_at) : new Date()
-      this.note = note
-      this.sum = sum
+    item(value) {
+      this.initData(value)
     }
   },
-  mounted() {
-    this.categoryId = this.item.category_id
-    this.createdAt = this.item.created_at ? new Date(this.item.created_at) : new Date()
-    this.note = this.item.note
-    this.sum = this.item.sum
-  },
   methods: {
+    initData(item) {
+      this.categoryId = item.category_id
+      this.createdAt = item.created_at ? new Date(item.created_at) : new Date()
+      this.note = item.note
+      this.sum = item.sum
+    },
+    onShow() {
+      this.initData(this.item)
+    },
     async deleteRecord(callback) {
       await this.$axios.$delete(`records/${this.item.id}`)
       this.$store.dispatch('fetchRecords', this.$route.query)
