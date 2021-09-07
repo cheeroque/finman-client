@@ -13,7 +13,7 @@
       </template>
     </date-picker>
     <template #append>
-      <button class="btn btn-gray-300" @click.prevent="setNow">Сейчас</button>
+      <button class="btn btn-gray-300" type="button" @click.prevent="setNow">Сейчас</button>
     </template>
   </f-input-group>
 </template>
