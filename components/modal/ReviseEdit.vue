@@ -65,15 +65,12 @@ export default {
   },
   methods: {
     async onSubmit(callback) {
-      await this.$axios
-        .$post('revises', {
-          created_at: this.createdAt.toISOString(),
-          note: this.note
-        })
-        .then(() => {
-          callback()
-          this.$root.$emit('revise-change')
-        })
+      await this.$axios.$post('revises', {
+        created_at: this.createdAt.toISOString(),
+        note: this.note
+      })
+      callback()
+      this.$store.dispatch('fetchLatestRevise')
     }
   }
 }

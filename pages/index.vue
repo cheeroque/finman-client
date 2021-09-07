@@ -89,7 +89,6 @@ export default {
           tdClass: 'text-gray-700'
         }
       ],
-      perPage: 50,
       tabs: [
         { value: null, text: 'Всё', icon: 'show-all-24' },
         { value: 'expense', text: 'Расходы', icon: 'show-expense-24' },
@@ -99,13 +98,10 @@ export default {
   },
   async fetch() {
     await this.$store.dispatch('fetchCategories')
-    await this.$store.dispatch('fetchRecords', this.query)
+    await this.$store.dispatch('fetchRecords', this.$route.query)
   },
   computed: {
-    ...mapGetters(['categoryById', 'error']),
-    categories() {
-      return this.$store.state.categories
-    },
+    ...mapGetters(['categoryById']),
     items() {
       return this.records && this.records.data && this.records.data.length
         ? this.records.data.map((record) => {
@@ -114,16 +110,16 @@ export default {
           })
         : []
     },
+    perPage() {
+      return this.$route.query.perPage || 50
+    },
     records() {
       return this.$store.state.records
-    },
-    query() {
-      return { ...this.$route.query, perPage: this.perPage }
     }
   },
   watch: {
     '$route.query'() {
-      this.refresh()
+      this.$fetch()
     }
   },
   methods: {
@@ -132,8 +128,9 @@ export default {
       return category.is_income
     },
     onPerPageChanged(event) {
-      this.perPage = event
-      this.refresh()
+      this.$router.push({
+        query: { ...this.$route.query, perPage: event }
+      })
     },
     onSortChanged({ orderBy, order }) {
       this.$router.push({
@@ -141,11 +138,10 @@ export default {
       })
     },
     onSortReset() {
-      this.$router.push({ query: null })
-    },
-    refresh() {
-      this.$store.dispatch('fetchTotal')
-      this.$store.dispatch('fetchRecords', this.query)
+      const query = { ...this.$route.query }
+      delete query.orderBy
+      delete query.order
+      this.$router.push({ query })
     }
   }
 }

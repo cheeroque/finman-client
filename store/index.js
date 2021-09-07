@@ -71,6 +71,7 @@ export const actions = {
     commit('SET_LATEST_REVISE', latestRevise)
   },
   async fetchRecords({ commit }, params = { perPage: 50 }) {
+    if (!params.perPage) params.perPage = 50
     const records = await this.$axios.$get('records', { params }).catch((error) => {
       commit('SET_ERROR', { path: 'records', params, error })
     })

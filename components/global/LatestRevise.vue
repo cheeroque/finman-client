@@ -22,20 +22,10 @@ export default {
   async fetch() {
     await this.$store.dispatch('fetchLatestRevise')
   },
-  data() {
-    return {
-      modalShow: false
-    }
-  },
   computed: {
     latestRevise() {
       return this.$store.state.latestRevise
     }
-  },
-  beforeMount() {
-    this.$root.$on('revise-change', (event) => {
-      this.$fetch()
-    })
   }
 }
 </script>

@@ -108,24 +108,26 @@ export default {
   },
   methods: {
     async deleteRecord(callback) {
-      await this.$axios.$delete(`records/${this.item.id}`).then(() => {
-        callback()
-        this.$root.$emit('record-change')
-      })
+      await this.$axios.$delete(`records/${this.item.id}`)
+      this.$store.dispatch('fetchRecords', this.$route.query)
+      this.$store.dispatch('fetchTotal')
+      callback()
     },
     async onSubmit(callback) {
-      const url = this.create ? 'records' : `records/${this.item.id}`
-      await this.$axios
-        .$post(url, {
-          category_id: this.categoryId,
-          created_at: this.createdAt.toISOString(),
-          note: this.note,
-          sum: this.sum
-        })
-        .then(() => {
-          callback()
-          this.$root.$emit('record-change')
-        })
+      const data = {
+        category_id: this.categoryId,
+        created_at: this.createdAt.toISOString(),
+        note: this.note,
+        sum: this.sum
+      }
+      if (this.create) {
+        await this.$axios.$post('records', data)
+      } else {
+        await this.$axios.$put(`records/${this.item.id}`, data)
+      }
+      this.$store.dispatch('fetchRecords', this.$route.query)
+      this.$store.dispatch('fetchTotal')
+      callback()
     }
   }
 }
