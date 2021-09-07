@@ -1,9 +1,9 @@
 <template>
-  <b-container tag="main" class="px-0 px-lg-24" fluid>
-    <h3 class="mb-32">Записи за&nbsp;{{ periodName }}</h3>
-    <b-row>
-      <b-col lg="6">
-        <TableCommon :fields="fields" :items="items" class="mb-lg-32" details-td-class="table-details-wrapper" fixed>
+  <main>
+    <h3 class="px-16 px-lg-0">Записи за&nbsp;{{ periodName }}</h3>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <TableData :fields="fields" :items="items" class="mb-lg-32" details-td-class="table-details-wrapper" fixed>
           <template #cell(category_id)="{ value }"> {{ categoryById(value).name }} </template>
           <template #cell(sum)="{ detailsShowing, toggleDetails, item }">
             <div class="d-flex align-items-center">
@@ -30,11 +30,11 @@
               </template>
             </TableDetails>
           </template>
-        </TableCommon>
-      </b-col>
-    </b-row>
+        </TableData>
+      </div>
+    </div>
     <GridMonths />
-  </b-container>
+  </main>
 </template>
 
 <script>

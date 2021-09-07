@@ -1,0 +1,35 @@
+.row {
+  display: grid;
+  column-gap: 1.5rem;
+  grid-template-columns: repeat(12, 1fr);
+}
+
+@for $count from 1 through 12 {
+  .col-#{$count} {
+    grid-column-end: span #{$count};
+  }
+
+  .col-start-#{$count} {
+    grid-column-start: #{$count};
+  }
+
+  .col-end-#{$count} {
+    grid-column-end: #{$count};
+  }
+}
+
+@media (min-width: 992px) {
+  @for $count from 1 through 12 {
+    .col-lg-#{$count} {
+      grid-column-end: span #{$count};
+    }
+
+    .col-lg-start-#{$count} {
+      grid-column-start: #{$count};
+    }
+
+    .col-lg-end-#{$count} {
+      grid-column-end: #{$count};
+    }
+  }
+}

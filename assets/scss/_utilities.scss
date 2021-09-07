@@ -91,6 +91,18 @@
   }
 }
 
+@each $size, $length in $spacers {
+  .g-#{$size} {
+    gap: $length !important;
+  }
+  .gx-#{$size} {
+    column-gap: $length !important;
+  }
+  .gy-#{$size} {
+    row-gap: $length !important;
+  }
+}
+
 @media (min-width: 992px) {
   @each $prop, $abbrev in (margin: m, padding: p) {
     @each $size, $length in $spacers {
@@ -113,6 +125,18 @@
       .#{$abbrev}x-lg-#{$size} {
         #{$prop}-left: $length !important;
       }
+    }
+  }
+
+  @each $size, $length in $spacers {
+    .g-lg-#{$size} {
+      gap: $length !important;
+    }
+    .gx-lg-#{$size} {
+      column-gap: $length !important;
+    }
+    .gy-lg-#{$size} {
+      row-gap: $length !important;
     }
   }
 }
