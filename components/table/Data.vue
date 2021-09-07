@@ -1,5 +1,5 @@
 <template>
-  <table :aria-colcount="fields.length" class="table table-striped table-fixed">
+  <table :aria-colcount="fields.length" class="table table-data table-striped table-fixed">
     <thead>
       <tr>
         <th

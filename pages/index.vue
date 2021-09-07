@@ -12,10 +12,7 @@
       @sort-reset="onSortReset"
     >
       <template #cell(created_at)="{ item }">
-        <nuxt-link
-          :to="`/month/${$monthApiLink(item.created_at)}`"
-          class="text-body text-hover-primary text-decoration-none"
-        >
+        <nuxt-link :to="`/month/${$monthApiLink(item.created_at)}`">
           <span class="date">
             {{ $dateWithFormat(item.created_at, { day: '2-digit', month: '2-digit', year: 'numeric' }) }}
           </span>
@@ -31,16 +28,12 @@
         <span v-else>{{ $sumWithFormat(item.sum) }}</span>
       </template>
       <template #cell(category_id)="{ value }">
-        <nuxt-link :to="`/category/${value}`" class="text-body text-hover-primary text-decoration-none">
+        <nuxt-link :to="`/category/${value}`">
           {{ categoryById(value).name }}
         </nuxt-link>
       </template>
       <template #cell(note)="{ item }">
-        <a
-          href="#"
-          class="d-flex align-center text-gray-700 text-hover-primary text-decoration-none"
-          @click.prevent="$root.$emit('record-edit', item)"
-        >
+        <a href="#" class="d-flex align-center" @click.prevent="$root.$emit('record-edit', item)">
           <span class="flex-fill">{{ item.note }}</span>
           <span class="d-flex flex-center align-self-start text-gray-300 ms-8">
             <svg-icon name="edit-24" width="24" height="24" aria-label="Редактировать" />
@@ -92,7 +85,8 @@ export default {
         {
           key: 'note',
           label: 'Комментарий',
-          thClass: 'w-30 w-lg-40'
+          thClass: 'w-30 w-lg-40',
+          tdClass: 'text-gray-700'
         }
       ],
       perPage: 50,
