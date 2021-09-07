@@ -3,6 +3,7 @@
     <date-picker
       v-model="localValue"
       :clearable="false"
+      format="DD.MM.YY HH:mm:ss"
       input-class="form-control"
       prefix-class="finman"
       type="datetime"
@@ -13,7 +14,15 @@
       </template>
     </date-picker>
     <template #append>
-      <button class="btn btn-gray-300" type="button" @click.prevent="setNow">Сейчас</button>
+      <button
+        class="btn btn-now btn-gray-300"
+        type="button"
+        aria-label="Установить текущее время"
+        @click.prevent="setNow"
+      >
+        <svg-icon name="clock-24" width="20" height="20" aria-hidden="true" />
+        <span class="caption">Сейчас</span>
+      </button>
     </template>
   </f-input-group>
 </template>
@@ -201,6 +210,27 @@ $input-color: $body-color;
   .finman-time-item {
     height: 40px;
     font-size: $font-size-2;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
+@media (max-width: 991.992px) {
+  .btn-now {
+    padding-left: $btn-input-padding-y;
+    padding-right: $btn-input-padding-y;
+
+    .caption {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .btn-now {
+    .icon {
+      display: none;
+    }
   }
 }
 </style>
