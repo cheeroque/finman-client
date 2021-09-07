@@ -1,7 +1,36 @@
 <template>
-  <b-modal v-model="localVisible" centered @hide="$emit('hide')">
-    <FormRecordEdit :item="item" @change="onRecordChange" />
-  </b-modal>
+  <f-modal v-model="localVisible" :title="`${create ? 'Создать' : 'Редактировать'} запись`">
+    <form @submit.prevent>
+      <f-form-group label="Категория" label-for="record-edit-category">
+        <f-select v-model="categoryId" id="record-edit-category" :options="categoryOptions" />
+      </f-form-group>
+      <f-form-group label="Сумма" label-for="record-edit-sum">
+        <f-input v-model="sum" id="record-edit-sum" type="number" />
+      </f-form-group>
+      <f-form-group label="Комментарий" label-for="record-edit-note">
+        <f-input v-model="note" id="record-edit-note" type="text" />
+      </f-form-group>
+      <f-form-group label="Дата и время" label-for="record-edit-datetime" class="mb-0">
+        <f-datepicker v-model="createdAt" id="record-edit-datetime" />
+      </f-form-group>
+    </form>
+    <template #modal-footer="{ close }">
+      <button v-if="create" class="btn btn-gray-300 w-lg-40" title="Отмена" aria-label="Отмена" @click="close">
+        Отмена
+      </button>
+      <button v-else class="btn btn-danger w-lg-40" title="Удалить" aria-label="Удалить" @click="deleteRecord(close)">
+        Удалить
+      </button>
+      <button
+        class="btn btn-primary w-lg-40 ms-lg-auto"
+        title="Сохранить"
+        aria-label="Сохранить"
+        @click="onSubmit(close)"
+      >
+        Сохранить
+      </button>
+    </template>
+  </f-modal>
 </template>
 
 <script>
@@ -11,6 +40,12 @@ export default {
     event: 'change'
   },
   props: {
+    create: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     visible: {
       type: Boolean,
       default() {
@@ -24,7 +59,30 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      categoryId: null,
+      createdAt: null,
+      note: null,
+      sum: 0
+    }
+  },
   computed: {
+    categories() {
+      return this.$store.state.categories
+    },
+    categoryOptions() {
+      const categories = this.categories.map((category) => {
+        return {
+          value: category.id,
+          text: category.name
+        }
+      })
+      if (this.create) {
+        categories.unshift({ value: null, text: 'Выберите категорию', disabled: true })
+      }
+      return categories
+    },
     localVisible: {
       get() {
         return this.visible
@@ -34,10 +92,40 @@ export default {
       }
     }
   },
+  watch: {
+    item({ category_id, created_at, note, sum }) {
+      this.categoryId = category_id
+      this.createdAt = created_at ? new Date(created_at) : new Date()
+      this.note = note
+      this.sum = sum
+    }
+  },
+  mounted() {
+    this.categoryId = this.item.category_id
+    this.createdAt = this.item.created_at ? new Date(this.item.created_at) : new Date()
+    this.note = this.item.note
+    this.sum = this.item.sum
+  },
   methods: {
-    onRecordChange() {
-      this.localVisible = false
-      this.$emit('record-change')
+    async deleteRecord(callback) {
+      await this.$axios.$delete(`records/${this.item.id}`).then(() => {
+        callback()
+        this.$root.$emit('record-change')
+      })
+    },
+    async onSubmit(callback) {
+      const url = this.create ? 'records' : `records/${this.item.id}`
+      await this.$axios
+        .$post(url, {
+          category_id: this.categoryId,
+          created_at: this.createdAt.toISOString(),
+          note: this.note,
+          sum: this.sum
+        })
+        .then(() => {
+          callback()
+          this.$root.$emit('record-change')
+        })
     }
   }
 }

@@ -100,11 +100,7 @@ export default {
 .modal-footer {
   display: flex;
   gap: 1rem;
-  padding: 0.5rem 1.5rem;
-
-  & > * {
-    flex: 1 1 0;
-  }
+  padding: 1.5rem 1.5rem 0.5rem;
 }
 
 .modal-enter-active,
@@ -130,6 +126,18 @@ export default {
 
   .modal {
     transform: translateY(-50vh);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .modal-footer {
+    flex-wrap: wrap;
+
+    /deep/ {
+      & > * {
+        flex: 1 1 auto;
+      }
+    }
   }
 }
 

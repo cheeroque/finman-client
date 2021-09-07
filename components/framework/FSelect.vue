@@ -46,8 +46,8 @@ export default {
     normalizedOptions() {
       return this.options.map((option) => {
         return {
-          value: option[this.valueField] || option,
-          text: option[this.textField] || option
+          value: option[this.valueField] === undefined ? option : option[this.valueField],
+          text: option[this.textField] === undefined ? option : option[this.textField]
         }
       })
     }

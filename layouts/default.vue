@@ -7,6 +7,7 @@
     </div>
 
     <AppControls @toggle-sidebar="sidebarVisible = !sidebarVisible" />
+    <ModalRecordEdit v-model="modalRecordVisible" :create="modalRecordIsCreate" :item="modalRecordItem" />
     <ModalReviseEdit v-model="modalReviseVisible" :item="modalReviseItem" />
   </div>
 </template>
@@ -15,6 +16,9 @@
 export default {
   data() {
     return {
+      modalRecordIsCreate: false,
+      modalRecordItem: {},
+      modalRecordVisible: false,
       modalReviseItem: {},
       modalReviseVisible: false,
       sidebarVisible: false
@@ -33,6 +37,16 @@ export default {
     }
   },
   beforeMount() {
+    this.$root.$on('record-add', (event) => {
+      this.modalRecordIsCreate = true
+      this.modalRecordItem = {}
+      this.modalRecordVisible = true
+    })
+    this.$root.$on('record-edit', (event) => {
+      this.modalRecordIsCreate = false
+      this.modalRecordItem = event
+      this.modalRecordVisible = true
+    })
     this.$root.$on('revise-edit', (event) => {
       this.modalReviseItem = event
       this.modalReviseVisible = true

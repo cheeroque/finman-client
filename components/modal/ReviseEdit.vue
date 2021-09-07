@@ -1,16 +1,16 @@
 <template>
   <f-modal v-model="localVisible" title="Добавить дату сверки">
     <form @submit.prevent>
-      <f-form-group label="Дата и время">
-        <f-datepicker v-model="createdAt" />
+      <f-form-group label="Дата и время" label-for="revise-edit-datetime">
+        <f-datepicker v-model="createdAt" id="revise-edit-datetime" />
       </f-form-group>
       <f-form-group label="Комментарий" label-for="revise-edit-note" class="mb-0">
         <f-input v-model="note" id="revise-edit-note" type="text" />
       </f-form-group>
     </form>
     <template #modal-footer="{ close }">
-      <button class="btn btn-outline-danger" title="Отмена" aria-label="Отмена" @click="close">Отмена</button>
-      <button class="btn btn-primary ms-auto" title="Сохранить" aria-label="Сохранить" @click="onSubmit(close)">
+      <button class="btn btn-gray-300 ms-auto" title="Отмена" aria-label="Отмена" @click="close">Отмена</button>
+      <button class="btn btn-primary" title="Сохранить" aria-label="Сохранить" @click="onSubmit(close)">
         Сохранить
       </button>
     </template>
@@ -40,12 +40,7 @@ export default {
   data() {
     return {
       createdAt: null,
-      note: null,
-      form: {
-        created_at: null,
-        note: null
-      },
-      locale: 'ru-RU'
+      note: null
     }
   },
   computed: {
