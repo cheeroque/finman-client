@@ -99,9 +99,9 @@ $input-color: $body-color;
 .finman-datepicker-main {
   font: inherit;
   color: $body-color;
-  border: $border-width solid $border-color;
+  border: none;
   border-radius: $border-radius;
-  box-shadow: $box-shadow;
+  box-shadow: $box-shadow-lg;
 
   .finman-calendar {
     width: 320px;
@@ -210,6 +210,14 @@ $input-color: $body-color;
   .finman-time-item {
     height: 40px;
     font-size: $font-size-2;
+  }
+}
+
+@media (max-width: 991.992px) {
+  .finman-datepicker-main {
+    position: fixed;
+    left: calc(50vw - 160px) !important;
+    right: calc(50vw - 160px) !important;
   }
 }
 </style>
