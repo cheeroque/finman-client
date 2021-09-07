@@ -26,17 +26,28 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        v-for="(row, rowIndex) in items"
-        :key="`row-${rowIndex}`"
-        :class="row.rowVariant ? `table-${row.rowVariant}` : null"
-      >
-        <td v-for="cell in fields" :key="`cell-${cell.key}-${rowIndex}`" :class="cell.tdClass">
-          <slot :name="`cell(${cell.key})`" :field="cell" :index="rowIndex" :item="row" :value="row[cell.key]">
-            {{ row[cell.key] }}
-          </slot>
-        </td>
-      </tr>
+      <template v-for="(row, rowIndex) in items">
+        <tr :key="`row-${rowIndex}`" :data-index="rowIndex" :class="row.rowVariant ? `table-${row.rowVariant}` : null">
+          <td v-for="cell in fields" :key="`cell-${cell.key}-${rowIndex}`" :class="cell.tdClass">
+            <slot
+              :name="`cell(${cell.key})`"
+              :details-visible="detailsVisible.includes(rowIndex)"
+              :field="cell"
+              :index="rowIndex"
+              :item="row"
+              :toggle-details="toggleDetails"
+              :value="row[cell.key]"
+            >
+              {{ row[cell.key] }}
+            </slot>
+          </td>
+        </tr>
+        <tr :key="`row-details-${rowIndex}`" v-if="detailsVisible.includes(rowIndex)" class="row-details">
+          <td :colspan="fields.length">
+            <slot name="row-details" :details-visible="detailsVisible.includes(rowIndex)" :item="row"></slot>
+          </td>
+        </tr>
+      </template>
     </tbody>
   </table>
 </template>
@@ -65,6 +76,11 @@ export default {
       default: null
     }
   },
+  data() {
+    return {
+      detailsVisible: []
+    }
+  },
   computed: {
     orderFull() {
       if (this.order === 'ASC') return 'ascending'
@@ -83,6 +99,13 @@ export default {
       } else {
         this.$emit('sort-reset')
       }
+    },
+    toggleDetails({ target }) {
+      const row = target.closest('tr')
+      const rowIndex = row ? parseInt(row.dataset.index) : -1
+      const index = this.detailsVisible.findIndex((i) => i === rowIndex)
+      if (index > -1) this.detailsVisible.splice(index, 1)
+      else this.detailsVisible.push(rowIndex)
     }
   }
 }

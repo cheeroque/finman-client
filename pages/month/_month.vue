@@ -5,21 +5,21 @@
       <div class="col-12 col-lg-6">
         <TableData :fields="fields" :items="items" class="mb-lg-32" details-td-class="table-details-wrapper" fixed>
           <template #cell(category_id)="{ value }"> {{ categoryById(value).name }} </template>
-          <template #cell(sum)="{ detailsShowing, toggleDetails, item }">
+          <template #cell(sum)="{ detailsVisible, toggleDetails, item }">
             <div class="d-flex align-items-center">
               {{ getTotalSum(item) }}&nbsp;₽
-              <b-button
-                :class="{ open: detailsShowing }"
+              <button
+                :class="{ open: detailsVisible }"
                 variant="link"
                 class="table-details-toggle ml-auto"
                 @click="toggleDetails"
               >
-                <span class="sr-only" v-text="detailsShowing ? 'Свернуть' : 'Развернуть'"></span>
-              </b-button>
+                <span class="sr-only" v-text="detailsVisible ? 'Свернуть' : 'Развернуть'"></span>
+              </button>
             </div>
           </template>
           <template #row-details="{ item }">
-            <TableDetails :fields="detailFields" :items="item.items">
+            <TableData :fields="detailFields" :items="item.items">
               <template #cell(created_at)="{ value }">
                 <span class="date">
                   {{ $dateWithFormat(value, { day: '2-digit', month: '2-digit', year: '2-digit' }) }}
@@ -28,7 +28,7 @@
                   {{ $dateWithFormat(value, { timeStyle: 'short' }) }}
                 </span>
               </template>
-            </TableDetails>
+            </TableData>
           </template>
         </TableData>
       </div>

@@ -35,7 +35,7 @@
 }
 
 .table-striped {
-  tbody tr:nth-of-type(even) {
+  tbody tr:not(.row-details):nth-of-type(even) {
     background-color: $gray-100;
   }
 }
