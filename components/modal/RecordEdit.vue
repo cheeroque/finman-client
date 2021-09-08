@@ -72,12 +72,15 @@ export default {
       return this.$store.state.categories
     },
     categoryOptions() {
-      const categories = this.categories.map((category) => {
-        return {
-          value: category.id,
-          text: category.name
-        }
-      })
+      const categories =
+        this.categories && this.categories.length
+          ? this.categories.map((category) => {
+              return {
+                value: category.id,
+                text: category.name
+              }
+            })
+          : []
       if (this.create) {
         categories.unshift({ value: null, text: 'Выберите категорию', disabled: true })
       }
