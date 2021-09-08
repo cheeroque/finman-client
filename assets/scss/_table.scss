@@ -34,6 +34,11 @@
       padding: 0;
     }
   }
+
+  .row-has-details {
+    color: $primary;
+    background-color: rgba($primary, 0.1);
+  }
 }
 
 .table-fixed {
@@ -41,7 +46,7 @@
 }
 
 .table-striped {
-  tbody tr:not(.row-details):nth-of-type(even) {
+  tbody tr:not(.row-details):not(.row-has-details):nth-of-type(even) {
     background-color: $gray-100;
   }
 }

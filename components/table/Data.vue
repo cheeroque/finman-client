@@ -26,12 +26,12 @@
       </tr>
     </thead>
     <tbody>
-      <template v-for="(row, rowIndex) in rows">
-        <tr :key="`row-${rowIndex}`" :data-index="rowIndex" :class="row.rowVariant ? `table-${row.rowVariant}` : null">
+      <template v-for="(row, rowIndex) in items">
+        <tr :key="`row-${rowIndex}`" :data-index="rowIndex" :class="getRowClasses(row, rowIndex)">
           <td v-for="cell in fields" :key="`cell-${cell.key}-${rowIndex}`" :class="cell.tdClass">
             <slot
               :name="`cell(${cell.key})`"
-              :details-visible="row.detailsVisible"
+              :details-visible="isDetailsVisible(rowIndex)"
               :field="cell"
               :index="rowIndex"
               :item="row"
@@ -42,10 +42,10 @@
             </slot>
           </td>
         </tr>
-        <tr :key="`row-details-${rowIndex}`" v-if="row.detailsVisible" class="row-details">
+        <tr :key="`row-details-${rowIndex}`" v-if="isDetailsVisible(rowIndex)" class="row-details">
           <td :colspan="fields.length">
-            <FCollapse :open="row.collapseOpen" :transition-duration="collapseTransitionDuration">
-              <slot name="row-details" :details-visible="row.detailsVisible" :item="row"></slot>
+            <FCollapse :open="isCollapseOpen(rowIndex)" :transition-duration="collapseTransitionDuration">
+              <slot name="row-details" :details-visible="isDetailsVisible(rowIndex)" :item="row"></slot>
             </FCollapse>
           </td>
         </tr>
@@ -90,7 +90,8 @@ export default {
   },
   data() {
     return {
-      rows: []
+      collapseOpen: [],
+      detailsVisible: []
     }
   },
   computed: {
@@ -100,12 +101,18 @@ export default {
       else return null
     }
   },
-  beforeMount() {
-    this.rows = this.items.map((item) => {
-      return { ...item, collapseOpen: false, detailsVisible: false }
-    })
-  },
   methods: {
+    getRowClasses(row, rowIndex) {
+      const cls = row.rowVariant ? [`table-${row.rowVariant}`] : []
+      if (this.isDetailsVisible(rowIndex)) cls.push('row-has-details')
+      return cls.join(' ')
+    },
+    isCollapseOpen(rowIndex) {
+      return this.collapseOpen.includes(rowIndex)
+    },
+    isDetailsVisible(rowIndex) {
+      return this.detailsVisible.includes(rowIndex)
+    },
     onHeadClick(field) {
       if (field.sortable) {
         if (field.key === this.orderBy) {
@@ -120,14 +127,18 @@ export default {
     toggleDetails({ target }) {
       const clickedRow = target.closest('tr')
       const rowIndex = clickedRow ? parseInt(clickedRow.dataset.index) : -1
-      if (this.rows[rowIndex].detailsVisible) {
-        this.rows[rowIndex].collapseOpen = false
+      const detailsIndex = this.detailsVisible.findIndex((i) => i === rowIndex)
+      const collapseIndex = this.collapseOpen.findIndex((i) => i === rowIndex)
+      if (detailsIndex > -1) {
+        this.collapseOpen.splice(collapseIndex, 1)
         setTimeout(() => {
-          this.rows[rowIndex].detailsVisible = false
+          this.detailsVisible.splice(detailsIndex, 1)
         }, this.collapseTransitionDuration)
       } else {
-        this.rows[rowIndex].detailsVisible = true
-        this.rows[rowIndex].collapseOpen = true
+        this.detailsVisible.push(rowIndex)
+        setTimeout(() => {
+          this.collapseOpen.push(rowIndex)
+        }, 1)
       }
     }
   }
