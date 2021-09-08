@@ -38,7 +38,7 @@
         </TableData>
       </div>
     </div>
-    <GridMonths />
+    <MonthGrid />
   </main>
 </template>
 
