@@ -2,16 +2,16 @@
   <f-modal v-model="localVisible" :title="`${create ? 'Создать' : 'Редактировать'} запись`" @show="onShow">
     <form @submit.prevent>
       <f-form-group label="Категория" label-for="record-edit-category">
-        <f-select v-model="categoryId" id="record-edit-category" :options="categoryOptions" />
+        <f-select id="record-edit-category" v-model="categoryId" :options="categoryOptions" />
       </f-form-group>
       <f-form-group label="Сумма" label-for="record-edit-sum">
-        <f-input v-model="sum" id="record-edit-sum" type="number" />
+        <f-input id="record-edit-sum" v-model="sum" type="number" />
       </f-form-group>
       <f-form-group label="Комментарий" label-for="record-edit-note">
-        <f-input v-model="note" id="record-edit-note" type="text" />
+        <f-input id="record-edit-note" v-model="note" type="text" />
       </f-form-group>
       <f-form-group label="Дата и время" label-for="record-edit-datetime" class="mb-0">
-        <f-datepicker v-model="createdAt" id="record-edit-datetime" />
+        <f-datepicker id="record-edit-datetime" v-model="createdAt" />
       </f-form-group>
     </form>
     <template #modal-footer="{ close }">

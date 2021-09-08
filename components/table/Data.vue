@@ -42,7 +42,7 @@
             </slot>
           </td>
         </tr>
-        <tr :key="`row-details-${rowIndex}`" v-if="isDetailsVisible(rowIndex)" class="row-details">
+        <tr v-if="isDetailsVisible(rowIndex)" :key="`row-details-${rowIndex}`" class="row-details">
           <td :colspan="fields.length">
             <FCollapse :open="isCollapseOpen(rowIndex)" :transition-duration="collapseTransitionDuration">
               <slot name="row-details" :details-visible="isDetailsVisible(rowIndex)" :item="row"></slot>

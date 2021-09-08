@@ -2,10 +2,10 @@
   <f-modal v-model="localVisible" title="Добавить дату сверки" @show="onShow">
     <form @submit.prevent>
       <f-form-group label="Дата и время" label-for="revise-edit-datetime">
-        <f-datepicker v-model="createdAt" id="revise-edit-datetime" />
+        <f-datepicker id="revise-edit-datetime" v-model="createdAt" />
       </f-form-group>
       <f-form-group label="Комментарий" label-for="revise-edit-note" class="mb-0">
-        <f-input v-model="note" id="revise-edit-note" type="text" />
+        <f-input id="revise-edit-note" v-model="note" type="text" />
       </f-form-group>
     </form>
     <template #modal-footer="{ close }">
