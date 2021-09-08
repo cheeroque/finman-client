@@ -21,7 +21,7 @@
             </div>
           </template>
           <template #row-details="{ item }">
-            <TableData :fields="detailFields" :items="item.items" class="table-nested" hide-thead>
+            <TableDetails :fields="detailFields" :items="item.items">
               <template #cell(created_at)="{ value }">
                 <span class="date">
                   {{ $dateWithFormat(value, { day: '2-digit', month: '2-digit', year: '2-digit' }) }}
@@ -33,15 +33,7 @@
               <template #cell(sum)="{ value }">
                 {{ $sumWithFormat(value) }}
               </template>
-              <template #cell(note)="{ item }">
-                <a href="#" class="d-flex align-center" @click.prevent="$root.$emit('record-edit', item)">
-                  <span class="flex-fill">{{ item.note }}</span>
-                  <span class="d-flex flex-center align-self-start text-gray-300 ms-8">
-                    <svg-icon name="edit-24" width="24" height="24" aria-label="Редактировать" />
-                  </span>
-                </a>
-              </template>
-            </TableData>
+            </TableDetails>
           </template>
         </TableData>
       </div>

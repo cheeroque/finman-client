@@ -25,7 +25,7 @@
             </div>
           </template>
           <template #row-details="{ item }">
-            <TableData :fields="detailFields" :items="item.items" class="table-nested" hide-thead>
+            <TableDetails :fields="detailFields" :items="item.items">
               <template #cell(created_at)="{ value }">
                 <span class="date">
                   {{ $dateWithFormat(value, { day: '2-digit', month: '2-digit', year: '2-digit' }) }}
@@ -34,7 +34,10 @@
                   {{ $dateWithFormat(value, { timeStyle: 'short' }) }}
                 </span>
               </template>
-            </TableData>
+              <template #cell(sum)="{ value }">
+                {{ $sumWithFormat(value) }}
+              </template>
+            </TableDetails>
           </template>
         </TableData>
         <PaginationNav v-if="numberOfPages" :number-of-pages="numberOfPages" align="center" />
