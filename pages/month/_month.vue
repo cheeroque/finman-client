@@ -39,6 +39,9 @@
           </template>
         </TableData>
       </div>
+      <div class="col-12 col-lg-6">
+        <MonthChart :chart-data="chartData" class="mt-16 mb-32" />
+      </div>
     </div>
     <MonthGrid />
   </main>
@@ -82,6 +85,20 @@ export default {
     ...mapGetters(['categoryById', 'error']),
     categories() {
       return this.$store.state.categories
+    },
+    chartData() {
+      const itemCategoryIds = this.items.map(({ category_id }) => category_id)
+      return {
+        labels: this.categories.filter(({ id }) => itemCategoryIds.includes(id.toString())).map(({ name }) => name),
+        datasets: [
+          {
+            data: this.items.map(({ items }) => items.map(({ sum }) => sum).reduce((acc, cur) => acc + cur, 0)),
+            backgroundColor: this.items.map(({ category_id }) => {
+              return `hsl(${category_id * 15}, 100%, 50%)`
+            })
+          }
+        ]
+      }
     },
     items() {
       return Object.keys(this.records).map((key) => {
