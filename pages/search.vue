@@ -1,11 +1,11 @@
 <template>
   <main>
-    <h2 class="page-header px-16 px-lg-0">
+    <h2 class="page-header">
       <transition name="fade" mode="out-in">
         <span v-if="$fetchState.pending" :key="`pending-${$fetchState.pending}`" class="text-gray-200"> ... </span>
         <span v-else>
           {{ totalRows }} {{ getDeclension(totalRows, 'результат,результата,результатов') }} поиска по&nbsp;запросу
-          <span class="text-primary">{{ $route.query.q }}</span>
+          <span class="fw-bold">{{ $route.query.q }}</span>
         </span>
       </transition>
     </h2>

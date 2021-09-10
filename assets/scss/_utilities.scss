@@ -165,19 +165,6 @@
   box-shadow: $box-shadow;
 }
 
-.text-center {
-  text-align: center;
-}
-
-.text-decoration-dotted {
-  text-decoration: underline !important;
-  text-decoration-style: dotted !important;
-}
-
-.text-decoration-none {
-  text-decoration: none !important;
-}
-
 @each $width, $value in $widths {
   .w-#{$width} {
     width: $value;
