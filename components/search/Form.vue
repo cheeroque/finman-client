@@ -37,6 +37,7 @@ export default {
     onSubmit() {
       this.$emit('submit')
       this.$router.push({ path: '/search', query: { q: this.query } })
+      this.query = null
     }
   }
 }
