@@ -1,6 +1,6 @@
 <template>
   <main>
-    <h2 class="px-16 px-lg-0">Записи за&nbsp;{{ periodName }}</h2>
+    <h2 class="page-header px-16 px-lg-0">Записи за&nbsp;{{ periodName }}</h2>
     <div class="row">
       <div class="col-12 col-lg-6">
         <TableData :fields="fields" :items="items" class="mb-lg-32">

@@ -6,9 +6,10 @@
       <Nuxt />
     </div>
 
-    <AppControls @toggle-sidebar="sidebarVisible = !sidebarVisible" />
+    <AppControls @toggle-sidebar="sidebarVisible = !sidebarVisible" @toggle-search="modalSearchVisible = true" />
     <ModalRecordEdit v-model="modalRecordVisible" :create="modalRecordIsCreate" :item="modalRecordItem" />
     <ModalReviseEdit v-model="modalReviseVisible" :item="modalReviseItem" />
+    <ModalSearch v-model="modalSearchVisible" />
   </div>
 </template>
 
@@ -21,6 +22,7 @@ export default {
       modalRecordVisible: false,
       modalReviseItem: {},
       modalReviseVisible: false,
+      modalSearchVisible: false,
       sidebarVisible: false
     }
   },

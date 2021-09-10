@@ -12,10 +12,16 @@
   transition-property: color, border-color, background-color, box-shadow;
   appearance: none;
 
+  &.form-control-lg {
+    padding: $btn-input-padding-y-lg $btn-input-padding-x-lg;
+  }
+
   &:not(:disabled):not(.disabled) {
     &:focus,
     &.focus {
       border-color: $input-border-color-focus;
+      outline: none;
+      box-shadow: 0 0 0 0.125rem rgba($primary, 0.1);
     }
   }
 }

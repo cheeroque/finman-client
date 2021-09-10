@@ -1,5 +1,10 @@
 <template>
-  <input v-model="localValue" :type="type" class="form-control" />
+  <input
+    v-model="localValue"
+    :type="type"
+    :class="{ 'form-control-sm': size === 'sm', 'form-control-lg': size === 'lg' }"
+    class="form-control"
+  />
 </template>
 
 <script>
@@ -9,6 +14,10 @@ export default {
     event: 'input'
   },
   props: {
+    size: {
+      type: String,
+      default: null
+    },
     type: {
       type: String,
       default: 'text'

@@ -14,10 +14,10 @@
   background-color: transparent;
   cursor: pointer;
   transition: $transition-base;
-  transition-property: color, border-color, background-color, box-shadow;
+  transition-property: color, border-color, background-color, box-shadow, opacity;
 
   &.btn-lg {
-    padding: $btn-input-padding-y * 1.5 $btn-input-padding-x * 1.5;
+    padding: $btn-input-padding-y-lg $btn-input-padding-x-lg;
   }
 
   &:disabled,
@@ -62,6 +62,14 @@
         border-color: darken($value, 10%);
         background-color: darken($value, 10%);
       }
+    }
+
+    &:disabled,
+    &.disabled {
+      color: color-contrast($value);
+      border-color: $value;
+      background-color: $value;
+      opacity: 0.5;
     }
   }
 

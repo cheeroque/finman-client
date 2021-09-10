@@ -1,7 +1,7 @@
 <template>
   <transition name="modal" duration="200">
     <div v-if="visible" class="modal-outer">
-      <div class="modal-backdrop" @click="close"></div>
+      <div class="modal-backdrop" tabindex="-1" @click="close"></div>
       <div :class="{ 'modal-lg': size === 'lg' }" class="modal" role="dialog">
         <header class="modal-header">
           <slot name="modal-header">{{ title }}</slot>
@@ -9,10 +9,10 @@
             <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
           </button>
         </header>
-        <section class="modal-body">
+        <section ref="modalBody" class="modal-body">
           <slot :close="close"></slot>
         </section>
-        <footer class="modal-footer">
+        <footer v-if="!hideFooter" class="modal-footer">
           <slot :close="close" name="modal-footer">
             <button class="btn btn-primary" aria-label="Закрыть" title="Закрыть" @click="close">Закрыть</button>
           </slot>
@@ -29,6 +29,12 @@ export default {
     event: 'change'
   },
   props: {
+    hideFooter: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     size: {
       type: String,
       default: null
@@ -46,8 +52,8 @@ export default {
   },
   watch: {
     visible(value) {
-      if (value) this.$emit('show')
-      else this.$emit('hide')
+      if (value) this.onShow()
+      else this.onHide()
     }
   },
   mounted() {
@@ -60,8 +66,22 @@ export default {
     close() {
       this.$emit('change', false)
     },
+    onHide() {
+      this.$emit('hide')
+    },
     onKeydown({ key }) {
       if (key === 'Escape') this.close()
+    },
+    onShow() {
+      this.$emit('show')
+      this.$nextTick(() => {
+        this.setFormFocus()
+      })
+    },
+    setFormFocus() {
+      const selectors = 'input[type=text], input[type=number], input[type=email], input[type=search], textarea, select'
+      const firstInput = this.$refs.modalBody.querySelector(selectors)
+      if (firstInput) firstInput.focus()
     }
   }
 }

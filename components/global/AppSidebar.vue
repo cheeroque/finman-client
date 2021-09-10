@@ -2,6 +2,7 @@
   <transition name="sidebar" duration="200">
     <aside v-show="visible" class="app-sidebar">
       <div class="sidebar-content">
+        <SidebarSearch />
         <ul class="sidebar-nav">
           <li class="nav-text">Администрирование</li>
           <li class="nav-item">
@@ -17,7 +18,7 @@
 
         <ul class="sidebar-nav">
           <li class="nav-text">Дата сверки</li>
-          <LatestRevise />
+          <SidebarRevise />
         </ul>
 
         <hr class="sidebar-divider" />
