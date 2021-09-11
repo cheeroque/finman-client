@@ -39,7 +39,7 @@
           </template>
         </TableData>
       </div>
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-6 px-lg-32">
         <MonthChart :chart-data="chartData" class="mt-16 mb-32" />
       </div>
     </div>
@@ -93,8 +93,10 @@ export default {
         datasets: [
           {
             data: this.items.map(({ items }) => items.map(({ sum }) => sum).reduce((acc, cur) => acc + cur, 0)),
-            backgroundColor: this.items.map(({ category_id }) => {
-              return `hsl(${category_id * 15}, 100%, 50%)`
+            backgroundColor: this.items.map(({ category_id }, index) => {
+              const step = Math.floor(360 / (this.items.length || 1))
+              return `hsl(${step * index}, 100%, 50%)`
+              // return `var(--category-bg-${category_id})`
             })
           }
         ]
