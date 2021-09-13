@@ -134,6 +134,20 @@
   }
 }
 
+.table-row-total {
+  font-family: $font-family-alternate;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  border-top: $border-width solid $border-color;
+
+  @each $color, $value in $theme-colors {
+    &.table-#{$color} {
+      color: darken($value, 10%);
+      border-top-color: rgba($value, 0.1);
+    }
+  }
+}
+
 @each $color, $value in $theme-colors {
   .table-#{$color} {
     background-color: rgba($value, 0.1) !important;

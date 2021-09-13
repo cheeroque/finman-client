@@ -5,12 +5,19 @@
     </h2>
     <div class="row">
       <div class="col-12 col-lg-6">
-        <TableData :fields="fields" :items="items" class="mb-lg-32">
-          <template #cell(category_id)="{ value }"> {{ categoryById(value).name }} </template>
+        <TableData :fields="fields" :items="tableItems" class="mb-lg-32">
+          <template #cell(category_id)="{ item, value }">
+            <template v-if="value">
+              {{ categoryById(value).name }}
+            </template>
+            <template v-else>
+              {{ item.text }}
+            </template>
+          </template>
           <template #cell(sum)="{ detailsVisible, toggleDetails, item }">
-            <div class="d-flex align-center position-relative">
+            <div v-if="item.category_id" class="d-flex align-center position-relative">
               <a href="#" role="button" class="flex-fill text-decoration-dotted" @click="toggleDetails">
-                {{ $sumWithFormat(getTotalSum(item)) }}
+                {{ $sumWithFormat(item.total) }}
               </a>
               <button
                 :class="{ open: detailsVisible }"
@@ -21,6 +28,7 @@
                 <svg-icon name="chevron-right-24" width="24" height="24" aria-hidden="true" />
               </button>
             </div>
+            <span v-else>{{ $sumWithFormat(item.total) }}</span>
           </template>
           <template #row-details="{ item }">
             <TableDetails :fields="detailFields" :items="item.items">
@@ -82,7 +90,7 @@ export default {
     await this.$store.dispatch('fetchRecordsByPeriod', { period: this.period })
   },
   computed: {
-    ...mapGetters(['categoryById', 'error']),
+    ...mapGetters(['categoryById', 'recordsByPeriod', 'error']),
     categories() {
       return this.$store.state.categories
     },
@@ -92,13 +100,13 @@ export default {
         labels: this.categories.filter(({ id }) => itemCategoryIds.includes(id.toString())).map(({ name }) => name),
         datasets: [
           {
-            data: this.items.map(({ items }) => items.map(({ sum }) => sum).reduce((acc, cur) => acc + cur, 0)),
-            backgroundColor: this.items.map(({ category_id }, index) => {
+            data: this.expenses.map(({ total }) => total),
+            backgroundColor: this.expenses.map(({ category_id }, index) => {
               const category = this.categoryById(category_id)
               if (category && category.color) {
                 return category.color
               } else {
-                const step = Math.floor(360 / (this.items.length || 1))
+                const step = Math.floor(360 / (this.expenses.length || 1))
                 return `hsl(${step * index}, 100%, 50%)`
               }
             })
@@ -106,11 +114,33 @@ export default {
         ]
       }
     },
+    expenses() {
+      return this.items
+        .filter(({ category_id }) => !this.categoryById(category_id).is_income)
+        .map((item) => {
+          return {
+            ...item,
+            total: this.getTotal(item.items, 'sum')
+          }
+        })
+        .sort((a, b) => b.total - a.total)
+    },
+    incomes() {
+      return this.items
+        .filter(({ category_id }) => this.categoryById(category_id).is_income)
+        .map((item) => {
+          return {
+            ...item,
+            total: this.getTotal(item.items, 'sum')
+          }
+        })
+        .sort((a, b) => b.total - a.total)
+    },
     items() {
-      return Object.keys(this.records).map((key) => {
+      return Object.keys(this.recordsByPeriod).map((key) => {
         return {
           category_id: key,
-          items: this.records[key]
+          items: this.recordsByPeriod[key]
         }
       })
     },
@@ -126,8 +156,44 @@ export default {
         return `${month} ${year}`
       } else return this.period
     },
-    records() {
-      return this.$store.state.recordsByPeriod
+    tableItems() {
+      const items = []
+      const incomesTotal = this.getTotal(this.incomes)
+      const expensesTotal = this.getTotal(this.expenses)
+      const balance = incomesTotal - expensesTotal
+
+      if (this.expenses) {
+        items.push(...this.expenses)
+      }
+      if (this.incomes) {
+        items.push(...this.incomes)
+      }
+      if (this.expenses && this.expenses.length > 1) {
+        items.push({
+          text: 'Всего расходов',
+          total: expensesTotal,
+          rowVariant: 'danger',
+          cellClass: {
+            category_id: 'fw-medium'
+          }
+        })
+      }
+      if (this.incomes && this.incomes.length > 1) {
+        items.push({
+          text: 'Всего доходов',
+          total: incomesTotal,
+          rowVariant: 'success',
+          cellClass: {
+            category_id: 'fw-medium'
+          }
+        })
+      }
+      items.push({
+        text: 'Итого:',
+        total: balance,
+        rowVariant: `${balance > 0 ? 'success' : 'danger'} table-row-total`
+      })
+      return items
     }
   },
   watch: {
@@ -136,8 +202,8 @@ export default {
     }
   },
   methods: {
-    getTotalSum(item) {
-      return item.items.map((item) => item.sum).reduce((acc, item) => acc + item, 0)
+    getTotal(arr, field = 'total') {
+      return arr.map((item) => item[field]).reduce((acc, cur) => acc + cur, 0)
     }
   }
 }

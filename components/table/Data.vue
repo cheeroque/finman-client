@@ -28,7 +28,11 @@
     <tbody>
       <template v-for="(row, rowIndex) in items">
         <tr :key="`row-${rowIndex}`" :data-index="rowIndex" :class="getRowClasses(row, rowIndex)">
-          <td v-for="cell in fields" :key="`cell-${cell.key}-${rowIndex}`" :class="cell.tdClass">
+          <td
+            v-for="cell in fields"
+            :key="`cell-${cell.key}-${rowIndex}`"
+            :class="[cell.tdClass, row.cellClass && row.cellClass[cell.key]].filter(Boolean).join(' ')"
+          >
             <slot
               :name="`cell(${cell.key})`"
               :details-visible="isDetailsVisible(rowIndex)"

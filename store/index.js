@@ -46,6 +46,9 @@ export const getters = {
   categoryById: (state) => (id) => {
     return state.categories.find((category) => category.id.toString() === id.toString()) || {}
   },
+  recordsByPeriod: (state) => {
+    return state.recordsByPeriod
+  },
   error: (state) => {
     return state.error
   }
