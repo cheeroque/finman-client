@@ -95,7 +95,7 @@ export default {
       return this.$store.state.categories
     },
     chartData() {
-      const itemCategoryIds = this.items.map(({ category_id }) => category_id)
+      const itemCategoryIds = this.expenses.map(({ category_id }) => category_id)
       return {
         labels: this.categories.filter(({ id }) => itemCategoryIds.includes(id.toString())).map(({ name }) => name),
         datasets: [
