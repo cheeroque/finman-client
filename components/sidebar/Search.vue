@@ -17,6 +17,10 @@
       border-bottom-right-radius: 0;
       background-color: rgba($white, 0.1);
 
+      &::placeholder {
+        color: rgba($white, 0.5);
+      }
+
       &:not(:disabled):not(.disabled) {
         &:focus,
         &.focus {
