@@ -7,9 +7,7 @@ export default {
   mixins: [reactiveProp],
   data() {
     return {
-      options: {
-        responsive: true
-      }
+      options: {}
     }
   },
   mounted() {

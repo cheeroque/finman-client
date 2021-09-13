@@ -21,7 +21,7 @@ export default {
   css: [{ src: '~assets/scss/app.scss', lang: 'scss' }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/mixins.js'],
+  plugins: ['~/plugins/chart.js', '~/plugins/mixins.js'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: ['~/components/', '~/components/global/', '~/components/framework/'],
