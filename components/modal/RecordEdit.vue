@@ -5,10 +5,10 @@
         <f-select id="record-edit-category" v-model="categoryId" :options="categoryOptions" />
       </f-form-group>
       <f-form-group label="Сумма" label-for="record-edit-sum">
-        <f-input id="record-edit-sum" v-model="sum" type="number" />
+        <f-input id="record-edit-sum" v-model="sum" type="number" required />
       </f-form-group>
       <f-form-group label="Комментарий" label-for="record-edit-note">
-        <f-input id="record-edit-note" v-model="note" type="text" />
+        <f-input id="record-edit-note" v-model="note" type="text" required />
       </f-form-group>
       <f-form-group label="Дата и время" label-for="record-edit-datetime" class="mb-0">
         <f-datepicker id="record-edit-datetime" v-model="createdAt" />
@@ -22,6 +22,7 @@
         Удалить
       </button>
       <button
+        :disabled="!isFormValid"
         class="btn btn-primary w-lg-40 ms-lg-auto"
         title="Сохранить"
         aria-label="Сохранить"
@@ -93,6 +94,9 @@ export default {
       set(newValue) {
         this.$emit('change', newValue)
       }
+    },
+    isFormValid() {
+      return !!this.categoryId && !!this.sum
     }
   },
   watch: {
@@ -126,19 +130,21 @@ export default {
       callback()
     },
     async onSubmit(callback) {
-      const data = {
-        category_id: this.categoryId,
-        created_at: this.createdAt.toISOString(),
-        note: this.note,
-        sum: this.sum
+      if (this.isFormValid) {
+        const data = {
+          category_id: this.categoryId,
+          created_at: this.createdAt.toISOString(),
+          note: this.note,
+          sum: this.sum
+        }
+        if (this.create) {
+          await this.$axios.$post('records', data)
+        } else {
+          await this.$axios.$put(`records/${this.item.id}`, data)
+        }
+        this.refresh()
+        callback()
       }
-      if (this.create) {
-        await this.$axios.$post('records', data)
-      } else {
-        await this.$axios.$put(`records/${this.item.id}`, data)
-      }
-      this.refresh()
-      callback()
     }
   }
 }
