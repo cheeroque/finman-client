@@ -94,9 +94,13 @@ export default {
           {
             data: this.items.map(({ items }) => items.map(({ sum }) => sum).reduce((acc, cur) => acc + cur, 0)),
             backgroundColor: this.items.map(({ category_id }, index) => {
-              const step = Math.floor(360 / (this.items.length || 1))
-              return `hsl(${step * index}, 100%, 50%)`
-              // return `var(--category-bg-${category_id})`
+              const category = this.categoryById(category_id)
+              if (category && category.color) {
+                return category.color
+              } else {
+                const step = Math.floor(360 / (this.items.length || 1))
+                return `hsl(${step * index}, 100%, 50%)`
+              }
             })
           }
         ]
