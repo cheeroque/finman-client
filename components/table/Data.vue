@@ -1,5 +1,9 @@
 <template>
-  <table :aria-colcount="fields.length" class="table table-data table-striped table-fixed">
+  <table
+    :aria-colcount="fields.length"
+    :class="{ 'table-fixed': fixed, 'table-striped': striped }"
+    class="table table-data"
+  >
     <thead v-if="!hideThead">
       <tr>
         <th
@@ -71,6 +75,12 @@ export default {
         return []
       }
     },
+    fixed: {
+      type: Boolean,
+      default() {
+        return true
+      }
+    },
     hideThead: {
       type: Boolean,
       default() {
@@ -90,6 +100,12 @@ export default {
     orderBy: {
       type: String,
       default: null
+    },
+    striped: {
+      type: Boolean,
+      default() {
+        return true
+      }
     }
   },
   data() {
