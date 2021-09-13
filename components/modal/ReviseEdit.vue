@@ -4,6 +4,9 @@
       <f-form-group label="Дата и время" label-for="revise-edit-datetime">
         <f-datepicker id="revise-edit-datetime" v-model="createdAt" />
       </f-form-group>
+      <f-form-group label="Текущий баланс" label-for="revise-edit-balance">
+        <f-input id="revise-edit-balance" v-model="balance" type="number" readonly />
+      </f-form-group>
       <f-form-group label="Комментарий" label-for="revise-edit-note" class="mb-0">
         <f-input id="revise-edit-note" v-model="note" type="text" />
       </f-form-group>
@@ -39,6 +42,7 @@ export default {
   },
   data() {
     return {
+      balance: null,
       createdAt: null,
       note: null
     }
@@ -59,7 +63,9 @@ export default {
     }
   },
   methods: {
-    initData(item) {
+    async initData(item) {
+      await this.$store.dispatch('fetchTotal')
+      this.balance = this.$store.state.total
       this.createdAt = item.created_at ? new Date(item.created_at) : new Date()
       this.note = item.note
     },
@@ -68,6 +74,7 @@ export default {
     },
     async onSubmit(callback) {
       await this.$axios.$post('revises', {
+        balance: this.balance,
         created_at: this.createdAt.toISOString(),
         note: this.note
       })
