@@ -1,8 +1,11 @@
 <template>
   <input
     v-model="localValue"
-    :type="type"
     :class="{ 'form-control-sm': size === 'sm', 'form-control-lg': size === 'lg' }"
+    :disabled="disabled"
+    :readonly="readonly"
+    :required="required"
+    :type="type"
     class="form-control"
   />
 </template>
@@ -14,6 +17,24 @@ export default {
     event: 'input'
   },
   props: {
+    disabled: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
+    readonly: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
+    required: {
+      type: Boolean,
+      default() {
+        return false
+      }
+    },
     size: {
       type: String,
       default: null

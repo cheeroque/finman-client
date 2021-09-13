@@ -4,7 +4,7 @@
       v-model="localValue"
       :clearable="false"
       format="DD.MM.YY HH:mm:ss"
-      input-class="form-control"
+      input-class="form-control form-control-datepicker"
       prefix-class="finman"
       type="datetime"
       value-type="date"

@@ -79,7 +79,16 @@ export default {
       })
     },
     setFormFocus() {
-      const selectors = 'input[type=text], input[type=number], input[type=email], input[type=search], textarea, select'
+      const inputs = [
+        'input[type=text]',
+        'input[type=number]',
+        'input[type=email]',
+        'input[type=search]',
+        'textarea',
+        'select'
+      ]
+      const modifiers = ':not([disabled]):not([readonly]):not(.form-control-datepicker)'
+      const selectors = inputs.map((input) => input + modifiers).join(',')
       const firstInput = this.$refs.modalBody.querySelector(selectors)
       if (firstInput) firstInput.focus()
     }
