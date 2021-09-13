@@ -90,10 +90,7 @@ export default {
     await this.$store.dispatch('fetchRecordsByPeriod', { period: this.period })
   },
   computed: {
-    ...mapGetters(['categoryById', 'recordsByPeriod', 'error']),
-    categories() {
-      return this.$store.state.categories
-    },
+    ...mapGetters(['categories', 'categoryById', 'recordsByPeriod', 'error']),
     chartData() {
       const itemCategoryIds = this.expenses.map(({ category_id }) => category_id)
       return {

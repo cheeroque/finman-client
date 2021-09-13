@@ -43,8 +43,14 @@ export const mutations = {
 }
 
 export const getters = {
+  categories: (state) => {
+    return state.categories
+  },
   categoryById: (state) => (id) => {
     return state.categories.find((category) => category.id.toString() === id.toString()) || {}
+  },
+  recordsByCategory: (state) => {
+    return state.recordsByCategory
   },
   recordsByPeriod: (state) => {
     return state.recordsByPeriod

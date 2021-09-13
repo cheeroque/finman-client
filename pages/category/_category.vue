@@ -14,7 +14,7 @@
           <template #cell(sum)="{ detailsVisible, toggleDetails, item }">
             <div class="d-flex align-center position-relative">
               <a href="#" role="button" class="flex-fill text-decoration-dotted" @click="toggleDetails">
-                {{ $sumWithFormat(getTotalSum(item)) }}
+                {{ $sumWithFormat(item.total) }}
               </a>
               <button
                 :class="{ open: detailsVisible }"
@@ -43,6 +43,9 @@
           </template>
         </TableData>
         <PaginationNav v-if="numberOfPages" :number-of-pages="numberOfPages" align="center" />
+      </div>
+      <div class="col-12 col-lg-6 px-lg-32">
+        <CategoryChart :chart-data="chartData" class="mt-16 mb-32" />
       </div>
     </div>
   </main>
@@ -75,6 +78,20 @@ export default {
           tdClass: 'td-note text-gray-700'
         }
       ],
+      monthColors: [
+        '#0057ff',
+        '#0c88b4',
+        '#15ab80',
+        '#1dcc4e',
+        '#25ed1a',
+        '#41ef00',
+        '#7ac700',
+        '#afa200',
+        '#e57c00',
+        '#f0572d',
+        '#d73977',
+        '#ab02fb'
+      ],
       locale: 'ru-RU',
       perPage: 18
     }
@@ -84,28 +101,42 @@ export default {
     await this.$store.dispatch('fetchRecordsByCategory', { categoryId: this.categoryId })
   },
   computed: {
-    ...mapGetters(['categoryById', 'error']),
-    categories() {
-      return this.$store.state.categories
-    },
+    ...mapGetters(['categories', 'categoryById', 'recordsByCategory', 'error']),
     categoryId() {
       return this.$route.params.category
     },
-    records() {
-      return this.$store.state.recordsByCategory
+    chartData() {
+      return {
+        labels: this.items.map(({ period }) => this.$dateWithFormat(period, { month: '2-digit', year: 'numeric' })),
+        datasets: [
+          {
+            data: this.items.map(({ total }) => total),
+            backgroundColor: this.items.map(({ period }) => {
+              const date = new Date(period)
+              const month = date.getUTCMonth()
+              return this.monthColors[month]
+            }),
+            barPercentage: 1,
+            categoryPercentage: 0.95
+          }
+        ]
+      }
     },
     items() {
-      return this.records.data
-        ? Object.keys(this.records.data).map((key) => {
+      return this.recordsByCategory.data
+        ? Object.keys(this.recordsByCategory.data).map((key) => {
             return {
               period: key,
-              items: this.records.data[key]
+              items: this.recordsByCategory.data[key],
+              total: this.getTotal(this.recordsByCategory.data[key], 'sum')
             }
           })
         : []
     },
     numberOfPages() {
-      return this.records && this.records.total ? Math.ceil(this.records.total / this.perPage) : 0
+      return this.recordsByCategory && this.recordsByCategory.total
+        ? Math.ceil(this.recordsByCategory.total / this.perPage)
+        : 0
     },
     query() {
       return { ...this.$route.query, perPage: this.perPage }
@@ -117,8 +148,8 @@ export default {
     }
   },
   methods: {
-    getTotalSum(item) {
-      return item.items ? item.items.map((item) => item.sum).reduce((acc, item) => acc + item, 0) : 0
+    getTotal(arr, field = 'total') {
+      return arr.map((item) => item[field]).reduce((acc, cur) => acc + cur, 0)
     }
   }
 }
