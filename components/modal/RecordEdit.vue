@@ -110,10 +110,19 @@ export default {
     onShow() {
       this.initData(this.item)
     },
+    refresh() {
+      if (this.$route.params.month) {
+        this.$store.dispatch('fetchRecordsByPeriod', { period: this.$route.params.month })
+      } else if (this.$route.params.category) {
+        this.$store.dispatch('fetchRecordsByCategory', { period: this.$route.params.category })
+      } else {
+        this.$store.dispatch('fetchRecords', this.$route.query)
+      }
+      this.$store.dispatch('fetchTotal')
+    },
     async deleteRecord(callback) {
       await this.$axios.$delete(`records/${this.item.id}`)
-      this.$store.dispatch('fetchRecords', this.$route.query)
-      this.$store.dispatch('fetchTotal')
+      this.refresh()
       callback()
     },
     async onSubmit(callback) {
@@ -128,8 +137,7 @@ export default {
       } else {
         await this.$axios.$put(`records/${this.item.id}`, data)
       }
-      this.$store.dispatch('fetchRecords', this.$route.query)
-      this.$store.dispatch('fetchTotal')
+      this.refresh()
       callback()
     }
   }
