@@ -128,7 +128,7 @@ export const actions = {
     commit('SET_RECORDS', records)
   },
   async fetchRecordsByCategory({ commit }, { categoryId, params = { perPage: 18 } }) {
-    const recordsByCategory = await this.$axios.$get(`category/${categoryId}`, { params }).catch((error) => {
+    const recordsByCategory = await this.$axios.$get(`category-/${categoryId}`, { params }).catch((error) => {
       commit('SET_ERROR', { path: 'recordsByCategory', categoryId, params, error })
     })
     commit('SET_RECORDS_BY_CATEGORY', recordsByCategory)

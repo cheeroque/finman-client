@@ -10,10 +10,14 @@
     <ModalRecordEdit v-model="modalRecordVisible" :create="modalRecordIsCreate" :item="modalRecordItem" />
     <ModalReviseEdit v-model="modalReviseVisible" :item="modalReviseItem" />
     <ModalSearch v-model="modalSearchVisible" />
+
+    <FToast :message="toastMessage" :title="toastTitle" :visible="toastVisible" />
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data() {
     return {
@@ -23,8 +27,14 @@ export default {
       modalReviseItem: {},
       modalReviseVisible: false,
       modalSearchVisible: false,
-      sidebarVisible: false
+      sidebarVisible: false,
+      toastMessage: null,
+      toastTitle: null,
+      toastVisible: false
     }
+  },
+  computed: {
+    ...mapGetters(['error'])
   },
   watch: {
     $route() {
@@ -36,10 +46,21 @@ export default {
           behavior: 'smooth'
         })
       }
+    },
+    error: {
+      immediate: true,
+      handler({ error, path }) {
+        console.log('error')
+        if (error && path)
+          this.$root.$emit('toast-show', {
+            title: 'Ошибка!',
+            message: `Действие: ${path}. Сообщение: ${error.message}`
+          })
+      }
     }
   },
   beforeMount() {
-    this.$root.$on('record-add', (event) => {
+    this.$root.$on('record-add', () => {
       this.modalRecordIsCreate = true
       this.modalRecordItem = {}
       this.modalRecordVisible = true
@@ -52,6 +73,12 @@ export default {
     this.$root.$on('revise-edit', (event) => {
       this.modalReviseItem = event
       this.modalReviseVisible = true
+    })
+
+    this.$root.$on('toast-show', ({ title, message }) => {
+      this.toastMessage = message
+      this.toastTitle = title
+      this.toastVisible = true
     })
   }
 }

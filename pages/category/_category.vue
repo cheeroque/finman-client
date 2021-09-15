@@ -130,7 +130,7 @@ export default {
       }
     },
     items() {
-      return this.recordsByCategory.data
+      return this.recordsByCategory && this.recordsByCategory.data
         ? Object.keys(this.recordsByCategory.data).map((key) => {
             return {
               period: key,
