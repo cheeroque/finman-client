@@ -63,8 +63,7 @@ export default {
     }
   },
   methods: {
-    async initData(item) {
-      await this.$store.dispatch('fetchTotal')
+    initData(item) {
       this.balance = this.$store.state.total
       this.createdAt = item.created_at ? new Date(item.created_at) : new Date()
       this.note = item.note
