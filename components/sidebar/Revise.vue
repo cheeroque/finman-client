@@ -18,14 +18,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   async fetch() {
     await this.$store.dispatch('fetchLatestRevise')
   },
   computed: {
-    latestRevise() {
-      return this.$store.state.latestRevise
-    }
+    ...mapGetters(['latestRevise'])
   }
 }
 </script>

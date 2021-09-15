@@ -21,10 +21,7 @@ export default {
     await this.$store.dispatch('fetchMonthly')
   },
   computed: {
-    ...mapGetters(['monthlyExpenses', 'monthlyIncomes']),
-    total() {
-      return this.$store.state.total
-    }
+    ...mapGetters(['monthlyExpenses', 'monthlyIncomes'])
   }
 }
 </script>

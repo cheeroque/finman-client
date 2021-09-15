@@ -101,7 +101,7 @@ export default {
     await this.$store.dispatch('fetchRecords', this.$route.query)
   },
   computed: {
-    ...mapGetters(['categoryById']),
+    ...mapGetters(['categoryById', 'records']),
     items() {
       return this.records && this.records.data && this.records.data.length
         ? this.records.data.map((record) => {
@@ -112,9 +112,6 @@ export default {
     },
     perPage() {
       return this.$route.query.perPage || 50
-    },
-    records() {
-      return this.$store.state.records
     }
   },
   watch: {

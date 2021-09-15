@@ -61,17 +61,26 @@ export const getters = {
   firstRecord: (state) => {
     return state.firstRecord
   },
+  latestRevise: (state) => {
+    return state.latestRevise
+  },
   monthlyExpenses: (state) => {
     return parseInt(state.monthly.expenses)
   },
   monthlyIncomes: (state) => {
     return parseInt(state.monthly.incomes)
   },
+  records: (state) => {
+    return state.records
+  },
   recordsByCategory: (state) => {
     return state.recordsByCategory
   },
   recordsByPeriod: (state) => {
     return state.recordsByPeriod
+  },
+  total: (state) => {
+    return state.total
   },
   error: (state) => {
     return state.error

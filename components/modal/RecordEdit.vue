@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   model: {
     prop: 'visible',
@@ -69,9 +71,7 @@ export default {
     }
   },
   computed: {
-    categories() {
-      return this.$store.state.categories
-    },
+    ...mapGetters(['categories']),
     categoryOptions() {
       const categories =
         this.categories && this.categories.length
