@@ -25,19 +25,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  data() {
-    return {
-      locale: 'ru-RU'
-    }
-  },
   async fetch() {
     await this.$store.dispatch('fetchFirstRecord')
   },
   computed: {
-    firstRecord() {
-      return this.$store.state.firstRecord
-    },
+    ...mapGetters(['firstRecord', 'error']),
     months() {
       const months = []
       const now = new Date()
@@ -85,7 +80,6 @@ export default {
 
 <style lang="scss" scoped>
 .month-grid {
-  padding: 0 1rem;
   overflow: hidden;
 }
 
@@ -124,6 +118,10 @@ export default {
 }
 
 @media (max-width: 991.98px) {
+  .month-grid {
+    padding: 0 1rem;
+  }
+
   .year-title {
     border-bottom: $border-width * 2 solid $gray-100;
   }

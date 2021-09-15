@@ -58,6 +58,9 @@ export const getters = {
       ? state.categories.find((category) => category.id.toString() === id.toString())
       : {}
   },
+  firstRecord: (state) => {
+    return state.firstRecord
+  },
   monthlyExpenses: (state) => {
     return parseInt(state.monthly.expenses)
   },

@@ -47,6 +47,7 @@
           :number-of-pages="numberOfPages"
           :page-options="pageOptions"
           :per-page="perPage"
+          class="mb-32"
           @per-page-changed="onPerPageChanged"
         />
       </div>
@@ -54,6 +55,7 @@
         <CategoryChart :chart-data="chartData" class="mt-16 mb-32" />
       </div>
     </div>
+    <CategoryGrid />
   </main>
 </template>
 
@@ -107,7 +109,7 @@ export default {
     await this.$store.dispatch('fetchRecordsByCategory', { categoryId: this.categoryId })
   },
   computed: {
-    ...mapGetters(['categories', 'categoryById', 'recordsByCategory', 'error']),
+    ...mapGetters(['categoryById', 'recordsByCategory', 'error']),
     categoryId() {
       return this.$route.params.category
     },
