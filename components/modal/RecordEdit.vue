@@ -123,6 +123,7 @@ export default {
         this.$store.dispatch('fetchRecords', this.$route.query)
       }
       this.$store.dispatch('fetchTotal')
+      this.$store.dispatch('fetchMonthly')
     },
     async deleteRecord(callback) {
       await this.$axios.$delete(`records/${this.item.id}`)

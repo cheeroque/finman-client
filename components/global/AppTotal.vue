@@ -1,7 +1,7 @@
 <template>
   <h1 class="app-total">
     <transition name="fade" mode="out-in">
-      <nuxt-link v-if="total" :key="total" to="/" class="text-reset text-decoration-none">
+      <nuxt-link v-if="total" :key="total" to="/" class="text-reset text-hover-primary text-decoration-none">
         {{ total }}&nbsp;₽
       </nuxt-link>
       <span v-else>&nbsp;</span>

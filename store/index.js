@@ -5,6 +5,10 @@ export const state = () => ({
   error: false,
   firstRecord: {},
   latestRevise: {},
+  monthly: {
+    expenses: 0,
+    incomes: 0
+  },
   records: {},
   recordsByCategory: {},
   recordsByMonth: {},
@@ -24,6 +28,9 @@ export const mutations = {
   },
   SET_LATEST_REVISE(state, payload) {
     state.latestRevise = payload
+  },
+  SET_MONTHLY(state, payload) {
+    state.monthly = payload
   },
   SET_RECORDS(state, payload) {
     state.records = payload
@@ -48,6 +55,12 @@ export const getters = {
   },
   categoryById: (state) => (id) => {
     return state.categories.find((category) => category.id.toString() === id.toString()) || {}
+  },
+  monthlyExpenses: (state) => {
+    return parseInt(state.monthly.expenses)
+  },
+  monthlyIncomes: (state) => {
+    return parseInt(state.monthly.incomes)
   },
   recordsByCategory: (state) => {
     return state.recordsByCategory
@@ -78,6 +91,12 @@ export const actions = {
       commit('SET_ERROR', { path: 'latestRevise', error })
     })
     commit('SET_LATEST_REVISE', latestRevise)
+  },
+  async fetchMonthly({ commit }) {
+    const monthly = await this.$axios.$get('monthly').catch((error) => {
+      commit('SET_ERROR', { path: 'monthly', error })
+    })
+    commit('SET_MONTHLY', monthly)
   },
   async fetchRecords({ commit }, params = { perPage: 50 }) {
     if (!params.perPage) params.perPage = 50
