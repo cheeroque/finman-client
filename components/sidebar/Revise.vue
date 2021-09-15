@@ -21,9 +21,6 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  async fetch() {
-    await this.$store.dispatch('fetchLatestRevise')
-  },
   computed: {
     ...mapGetters(['latestRevise'])
   }

@@ -88,6 +88,14 @@ export const getters = {
 }
 
 export const actions = {
+  async nuxtServerInit({ dispatch }, { query }) {
+    await dispatch('fetchTotal')
+    await dispatch('fetchMonthly')
+    await dispatch('fetchLatestRevise')
+    await dispatch('fetchCategories')
+    await dispatch('fetchRecords', query)
+  },
+
   async fetchCategories({ commit }) {
     const categories = await this.$axios.$get('categories').catch((error) => {
       commit('SET_ERROR', { path: 'categories', error })

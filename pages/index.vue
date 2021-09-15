@@ -96,10 +96,6 @@ export default {
       ]
     }
   },
-  async fetch() {
-    await this.$store.dispatch('fetchCategories')
-    await this.$store.dispatch('fetchRecords', this.$route.query)
-  },
   computed: {
     ...mapGetters(['categoryById', 'records']),
     items() {

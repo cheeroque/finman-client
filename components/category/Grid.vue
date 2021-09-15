@@ -15,9 +15,6 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  async fetch() {
-    await this.$store.dispatch('fetchCategories')
-  },
   computed: {
     ...mapGetters(['categories', 'error'])
   }

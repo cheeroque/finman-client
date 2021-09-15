@@ -17,9 +17,6 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  async fetch() {
-    await this.$store.dispatch('fetchMonthly')
-  },
   computed: {
     ...mapGetters(['monthlyExpenses', 'monthlyIncomes'])
   }

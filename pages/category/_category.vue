@@ -105,7 +105,6 @@ export default {
     }
   },
   async fetch() {
-    await this.$store.dispatch('fetchCategories')
     await this.$store.dispatch('fetchRecordsByCategory', { categoryId: this.categoryId })
   },
   computed: {

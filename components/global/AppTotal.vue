@@ -13,9 +13,6 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  async fetch() {
-    await this.$store.dispatch('fetchTotal')
-  },
   computed: {
     ...mapGetters(['total'])
   }

@@ -86,7 +86,6 @@ export default {
     }
   },
   async fetch() {
-    await this.$store.dispatch('fetchCategories')
     await this.$store.dispatch('fetchRecordsByPeriod', { period: this.period })
   },
   computed: {
@@ -191,11 +190,6 @@ export default {
         rowVariant: `${balance > 0 ? 'success' : 'danger'} table-row-total`
       })
       return items
-    }
-  },
-  watch: {
-    '$route.query'() {
-      this.$store.dispatch('fetchRecordsByPeriod', { period: this.period })
     }
   },
   methods: {
