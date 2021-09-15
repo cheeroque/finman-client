@@ -112,7 +112,8 @@ export default {
   },
   watch: {
     '$route.query'() {
-      this.$fetch()
+      this.$store.dispatch('fetchCategories')
+      this.$store.dispatch('fetchRecords', this.$route.query)
     }
   },
   methods: {
