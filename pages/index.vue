@@ -45,8 +45,8 @@
     <div class="d-lg-flex justify-lg-start px-16 px-lg-0">
       <PaginationNav
         v-if="records && records.data && records.data.length"
-        :per-page="perPage"
         :number-of-pages="records.last_page"
+        :per-page="perPage"
         @per-page-changed="onPerPageChanged"
       />
     </div>
@@ -129,7 +129,10 @@ export default {
     },
     onPerPageChanged(event) {
       this.$router.push({
-        query: { ...this.$route.query, perPage: event }
+        query: {
+          ...this.$route.query,
+          perPage: event
+        }
       })
     },
     onSortChanged({ orderBy, order }) {
