@@ -11,7 +11,7 @@
     <ModalReviseEdit v-model="modalReviseVisible" :item="modalReviseItem" />
     <ModalSearch v-model="modalSearchVisible" />
 
-    <FToast :message="toastMessage" :title="toastTitle" :visible="toastVisible" />
+    <FToast :message="toast.message" :title="toast.title" :variant="toast.variant" :visible="toastVisible" />
   </div>
 </template>
 
@@ -28,6 +28,11 @@ export default {
       modalReviseVisible: false,
       modalSearchVisible: false,
       sidebarVisible: false,
+      toast: {
+        message: null,
+        title: null,
+        variant: 'white'
+      },
       toastMessage: null,
       toastTitle: null,
       toastVisible: false
@@ -50,11 +55,11 @@ export default {
     error: {
       immediate: true,
       handler({ error, path }) {
-        console.log('error')
         if (error && path)
           this.$root.$emit('toast-show', {
             title: 'Ошибка!',
-            message: `Действие: ${path}. Сообщение: ${error.message}`
+            message: `Действие: ${path}. Сообщение: ${error.message}`,
+            variant: 'danger'
           })
       }
     }
@@ -75,10 +80,13 @@ export default {
       this.modalReviseVisible = true
     })
 
-    this.$root.$on('toast-show', ({ title, message }) => {
-      this.toastMessage = message
-      this.toastTitle = title
+    this.$root.$on('toast-show', ({ title, message, variant }) => {
+      this.toast = { message, title, variant }
       this.toastVisible = true
+    })
+
+    this.$root.$on('toast-hide', () => {
+      this.toastVisible = false
     })
   }
 }
