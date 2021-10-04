@@ -19,12 +19,18 @@ export default {
   methods: {
     async downloadFile() {
       this.loading = true
-      const path = await this.$axios.$get('export')
+
+      try {
+        const path = await this.$axios.$get('export')
+        const link = document.createElement('a')
+        link.href = `${process.env.PUBLIC_URL}${path}`
+        document.body.appendChild(link)
+        link.click()
+      } catch (error) {
+        this.$store.commit('SET_ERROR', { path: 'categories', error })
+      }
+
       this.loading = false
-      const link = document.createElement('a')
-      link.href = `${process.env.PUBLIC_URL}${path}`
-      document.body.appendChild(link)
-      link.click()
     }
   }
 }
