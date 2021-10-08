@@ -107,7 +107,7 @@ export default {
   .app-content {
     flex: 1 1 auto;
     min-height: 0;
-    padding: 0 1.5rem 1.5rem;
+    padding: 0 1.5rem calc(4.8125rem + 39px);
     overflow-y: auto;
   }
 }
