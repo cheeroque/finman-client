@@ -9,7 +9,16 @@
       :order-by="orderBy"
       @sort-changed="onSortChanged"
       @sort-reset="onSortReset"
-    />
+    >
+      <template #cell(name)="{ item, value }">
+        <nuxt-link :to="`/category/${item.id}`">
+          {{ value }}
+        </nuxt-link>
+      </template>
+      <template #cell(slug)="{ value }">
+        <code class="text-gray-600">{{ value }}</code>
+      </template>
+    </TableData>
   </main>
 </template>
 
