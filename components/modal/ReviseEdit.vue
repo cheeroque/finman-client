@@ -75,13 +75,17 @@ export default {
       this.initData(this.item)
     },
     async onSubmit(callback) {
-      await this.$axios.$post('revises', {
-        balance: this.balance,
-        created_at: this.createdAt.toISOString(),
-        note: this.note
-      })
-      this.$store.dispatch('fetchLatestRevise')
-      callback()
+      try {
+        await this.$axios.$post('revises', {
+          balance: this.balance,
+          created_at: this.createdAt.toISOString(),
+          note: this.note
+        })
+        this.$store.dispatch('fetchLatestRevise')
+        callback()
+      } catch (error) {
+        this.$store.commit('SET_ERROR', { path: 'revise', error })
+      }
     }
   }
 }

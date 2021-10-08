@@ -98,25 +98,33 @@ export default {
       this.$store.dispatch('fetchCategories')
     },
     async deleteCategory(callback) {
-      await this.$axios.$delete(`categories/${this.item.id}`)
-      this.refresh()
-      callback()
+      try {
+        await this.$axios.$delete(`categories/${this.item.id}`)
+        this.refresh()
+        callback()
+      } catch (error) {
+        this.$store.commit('SET_ERROR', { path: 'deleteCategory', error })
+      }
     },
     async onSubmit(callback) {
       if (this.isFormValid) {
-        const data = {
-          name: this.name,
-          slug: this.slug,
-          color: this.color,
-          is_income: this.isIncome
+        try {
+          const data = {
+            name: this.name,
+            slug: this.slug,
+            color: this.color,
+            is_income: this.isIncome
+          }
+          if (this.create) {
+            await this.$axios.$post('categories', data)
+          } else {
+            await this.$axios.$put(`categories/${this.item.id}`, data)
+          }
+          this.refresh()
+          callback()
+        } catch (error) {
+          this.$store.commit('SET_ERROR', { path: 'category', error })
         }
-        if (this.create) {
-          await this.$axios.$post('categories', data)
-        } else {
-          await this.$axios.$put(`categories/${this.item.id}`, data)
-        }
-        this.refresh()
-        callback()
       }
     }
   }

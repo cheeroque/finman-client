@@ -126,25 +126,33 @@ export default {
       this.$store.dispatch('fetchMonthly')
     },
     async deleteRecord(callback) {
-      await this.$axios.$delete(`records/${this.item.id}`)
-      this.refresh()
-      callback()
+      try {
+        await this.$axios.$delete(`records/${this.item.id}`)
+        this.refresh()
+        callback()
+      } catch (error) {
+        this.$store.commit('SET_ERROR', { path: 'deleteRecord', error })
+      }
     },
     async onSubmit(callback) {
       if (this.isFormValid) {
-        const data = {
-          category_id: this.categoryId,
-          created_at: this.createdAt.toISOString(),
-          note: this.note,
-          sum: this.sum
+        try {
+          const data = {
+            category_id: this.categoryId,
+            created_at: this.createdAt.toISOString(),
+            note: this.note,
+            sum: this.sum
+          }
+          if (this.create) {
+            await this.$axios.$post('records', data)
+          } else {
+            await this.$axios.$put(`records/${this.item.id}`, data)
+          }
+          this.refresh()
+          callback()
+        } catch (error) {
+          this.$store.commit('SET_ERROR', { path: 'record', error })
         }
-        if (this.create) {
-          await this.$axios.$post('records', data)
-        } else {
-          await this.$axios.$put(`records/${this.item.id}`, data)
-        }
-        this.refresh()
-        callback()
       }
     }
   }
