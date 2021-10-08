@@ -1,7 +1,19 @@
 // Flex
 
+.d-none {
+  display: none !important;
+}
+
 .d-flex {
-  display: flex;
+  display: flex !important;
+}
+
+.d-inline-flex {
+  display: inline-flex !important;
+}
+
+.d-table-cell {
+  display: table-cell !important;
 }
 
 .align-start {
@@ -48,8 +60,20 @@
 }
 
 @media (min-width: 992px) {
+  .d-lg-none {
+    display: none !important;
+  }
+
   .d-lg-flex {
-    display: flex;
+    display: flex !important;
+  }
+
+  .d-lg-inline-flex {
+    display: inline-flex !important;
+  }
+
+  .d-lg-table-cell {
+    display: table-cell !important;
   }
 
   .align-lg-center {
@@ -176,5 +200,11 @@
     .w-lg-#{$width} {
       width: $value;
     }
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .bg-#{$color} {
+    background-color: $value;
   }
 }

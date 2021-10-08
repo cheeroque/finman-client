@@ -54,6 +54,7 @@ $spacers: (
 );
 
 $widths: (
+  '0': 0,
   '10': 10%,
   '15': 15%,
   '20': 20%,
@@ -114,6 +115,8 @@ $btn-input-border-radius: $border-radius;
 
 $input-border-radius: $btn-input-border-radius;
 $input-border-color-focus: darken($border-color, 10%);
+
+$custom-control-indicator-size: 1rem;
 
 // Zindex
 

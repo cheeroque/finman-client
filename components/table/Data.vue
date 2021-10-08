@@ -15,8 +15,8 @@
           tabindex="0"
           @click="onHeadClick(field)"
         >
-          <div class="d-flex align-center">
-            {{ field.label }}
+          <div class="d-inline-flex align-center">
+            <span>{{ field.label }}</span>
             <svg-icon
               v-if="field.sortable && orderBy === field.key"
               :name="`sort-${order.toString().toLowerCase()}-24`"

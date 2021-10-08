@@ -8,6 +8,15 @@
     </button>
     <div class="fab">
       <button
+        v-if="isCategoriesRoute"
+        class="btn btn-icon btn-secondary rounded-pill"
+        title="Добавить категорию"
+        @click="$root.$emit('category-add')"
+      >
+        <svg-icon name="plus-24" width="24" height="24" aria-hidden="true" />
+      </button>
+      <button
+        v-else
         class="btn btn-icon btn-secondary rounded-pill"
         title="Добавить запись"
         @click="$root.$emit('record-add')"
@@ -17,6 +26,16 @@
     </div>
   </nav>
 </template>
+
+<script>
+export default {
+  computed: {
+    isCategoriesRoute() {
+      return this.$route.name === 'categories'
+    }
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .app-controls {

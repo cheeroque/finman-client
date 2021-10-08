@@ -50,6 +50,11 @@
   padding: 0.6875rem;
 }
 
+.btn-link {
+  padding: 0;
+  border: none;
+}
+
 @each $color, $value in $theme-colors {
   .btn-#{$color} {
     color: color-contrast($value);
