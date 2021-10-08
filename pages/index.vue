@@ -45,8 +45,8 @@
     <div class="d-lg-flex justify-lg-start px-16 px-lg-0">
       <PaginationNav
         v-if="records && records.data && records.data.length"
-        :per-page="perPage"
         :number-of-pages="records.last_page"
+        :per-page="perPage"
         @per-page-changed="onPerPageChanged"
       />
     </div>
@@ -96,12 +96,8 @@ export default {
       ]
     }
   },
-  async fetch() {
-    await this.$store.dispatch('fetchCategories')
-    await this.$store.dispatch('fetchRecords', this.$route.query)
-  },
   computed: {
-    ...mapGetters(['categoryById']),
+    ...mapGetters(['categoryById', 'records']),
     items() {
       return this.records && this.records.data && this.records.data.length
         ? this.records.data.map((record) => {
@@ -112,14 +108,12 @@ export default {
     },
     perPage() {
       return this.$route.query.perPage || 50
-    },
-    records() {
-      return this.$store.state.records
     }
   },
   watch: {
     '$route.query'() {
-      this.$fetch()
+      this.$store.dispatch('fetchCategories')
+      this.$store.dispatch('fetchRecords', this.$route.query)
     }
   },
   methods: {
@@ -129,7 +123,10 @@ export default {
     },
     onPerPageChanged(event) {
       this.$router.push({
-        query: { ...this.$route.query, perPage: event }
+        query: {
+          ...this.$route.query,
+          perPage: event
+        }
       })
     },
     onSortChanged({ orderBy, order }) {

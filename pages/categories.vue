@@ -39,9 +39,6 @@ export default {
       orderBy: 'id'
     }
   },
-  async fetch() {
-    await this.$store.dispatch('fetchCategories')
-  },
   computed: {
     ...mapGetters(['categories']),
     sortedItems() {

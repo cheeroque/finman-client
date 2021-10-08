@@ -1,6 +1,13 @@
 <template>
   <header class="app-header" fluid>
-    <AppTotal />
+    <div class="row align-end">
+      <div class="col-12 col-lg-3">
+        <AppTotal />
+      </div>
+      <div class="col-12 col-lg-9">
+        <AppMonthly />
+      </div>
+    </div>
   </header>
 </template>
 

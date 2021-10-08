@@ -10,7 +10,7 @@
       </transition>
     </h2>
 
-    <TableData :fields="fields" :items="records" class="mb-lg-32">
+    <TableData v-if="records && records.length" :fields="fields" :items="records" class="mb-lg-32">
       <template #cell(created_at)="{ item }">
         <nuxt-link :to="`/month/${$monthApiLink(item.created_at)}`">
           <span class="date">
@@ -83,10 +83,7 @@ export default {
     }
   },
   async fetch() {
-    await this.$store.dispatch('fetchCategories')
-
     const { data, last_page, total } = await this.$axios.$get(`/search`, { params: this.$route.query })
-
     this.records = data
     this.totalPages = last_page
     this.totalRows = total

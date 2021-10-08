@@ -5,6 +5,10 @@ export const state = () => ({
   error: false,
   firstRecord: {},
   latestRevise: {},
+  monthly: {
+    expenses: 0,
+    incomes: 0
+  },
   records: {},
   recordsByCategory: {},
   recordsByMonth: {},
@@ -24,6 +28,9 @@ export const mutations = {
   },
   SET_LATEST_REVISE(state, payload) {
     state.latestRevise = payload
+  },
+  SET_MONTHLY(state, payload) {
+    state.monthly = payload
   },
   SET_RECORDS(state, payload) {
     state.records = payload
@@ -47,7 +54,24 @@ export const getters = {
     return state.categories
   },
   categoryById: (state) => (id) => {
-    return state.categories.find((category) => category.id.toString() === id.toString()) || {}
+    return state.categories && state.categories.length
+      ? state.categories.find((category) => category.id.toString() === id.toString())
+      : {}
+  },
+  firstRecord: (state) => {
+    return state.firstRecord
+  },
+  latestRevise: (state) => {
+    return state.latestRevise
+  },
+  monthlyExpenses: (state) => {
+    return parseInt(state.monthly.expenses)
+  },
+  monthlyIncomes: (state) => {
+    return parseInt(state.monthly.incomes)
+  },
+  records: (state) => {
+    return state.records
   },
   recordsByCategory: (state) => {
     return state.recordsByCategory
@@ -55,12 +79,23 @@ export const getters = {
   recordsByPeriod: (state) => {
     return state.recordsByPeriod
   },
+  total: (state) => {
+    return state.total
+  },
   error: (state) => {
     return state.error
   }
 }
 
 export const actions = {
+  async nuxtServerInit({ dispatch }, { query }) {
+    await dispatch('fetchTotal')
+    await dispatch('fetchMonthly')
+    await dispatch('fetchLatestRevise')
+    await dispatch('fetchCategories')
+    await dispatch('fetchRecords', query)
+  },
+
   async fetchCategories({ commit }) {
     const categories = await this.$axios.$get('categories').catch((error) => {
       commit('SET_ERROR', { path: 'categories', error })
@@ -78,6 +113,12 @@ export const actions = {
       commit('SET_ERROR', { path: 'latestRevise', error })
     })
     commit('SET_LATEST_REVISE', latestRevise)
+  },
+  async fetchMonthly({ commit }) {
+    const monthly = await this.$axios.$get('monthly').catch((error) => {
+      commit('SET_ERROR', { path: 'monthly', error })
+    })
+    commit('SET_MONTHLY', monthly)
   },
   async fetchRecords({ commit }, params = { perPage: 50 }) {
     if (!params.perPage) params.perPage = 50

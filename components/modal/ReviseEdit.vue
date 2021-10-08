@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   model: {
     prop: 'visible',
@@ -48,6 +50,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['total']),
     localVisible: {
       get() {
         return this.visible
@@ -63,9 +66,8 @@ export default {
     }
   },
   methods: {
-    async initData(item) {
-      await this.$store.dispatch('fetchTotal')
-      this.balance = this.$store.state.total
+    initData(item) {
+      this.balance = this.total
       this.createdAt = item.created_at ? new Date(item.created_at) : new Date()
       this.note = item.note
     },

@@ -11,9 +11,7 @@
           <li class="nav-item">
             <nuxt-link to="/users" class="nav-link"> Пользователи </nuxt-link>
           </li>
-          <li class="nav-item">
-            <nuxt-link to="/export" class="nav-link"> Экспорт данных </nuxt-link>
-          </li>
+          <SidebarExport />
         </ul>
 
         <ul class="sidebar-nav">

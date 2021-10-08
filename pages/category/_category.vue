@@ -42,12 +42,20 @@
             </TableDetails>
           </template>
         </TableData>
-        <PaginationNav v-if="numberOfPages" :number-of-pages="numberOfPages" align="center" />
+        <PaginationNav
+          v-if="numberOfPages"
+          :number-of-pages="numberOfPages"
+          :page-options="pageOptions"
+          :per-page="perPage"
+          class="mb-32"
+          @per-page-changed="onPerPageChanged"
+        />
       </div>
       <div class="col-12 col-lg-6 px-lg-32">
         <CategoryChart :chart-data="chartData" class="mt-16 mb-32" />
       </div>
     </div>
+    <CategoryGrid />
   </main>
 </template>
 
@@ -93,15 +101,14 @@ export default {
         '#ab02fb'
       ],
       locale: 'ru-RU',
-      perPage: 18
+      pageOptions: ['12', '18', '24', '30']
     }
   },
   async fetch() {
-    await this.$store.dispatch('fetchCategories')
     await this.$store.dispatch('fetchRecordsByCategory', { categoryId: this.categoryId })
   },
   computed: {
-    ...mapGetters(['categories', 'categoryById', 'recordsByCategory', 'error']),
+    ...mapGetters(['categoryById', 'recordsByCategory', 'error']),
     categoryId() {
       return this.$route.params.category
     },
@@ -123,7 +130,7 @@ export default {
       }
     },
     items() {
-      return this.recordsByCategory.data
+      return this.recordsByCategory && this.recordsByCategory.data
         ? Object.keys(this.recordsByCategory.data).map((key) => {
             return {
               period: key,
@@ -138,18 +145,32 @@ export default {
         ? Math.ceil(this.recordsByCategory.total / this.perPage)
         : 0
     },
+    perPage() {
+      return this.$route.query.perPage || 18
+    },
     query() {
       return { ...this.$route.query, perPage: this.perPage }
     }
   },
   watch: {
     '$route.query'() {
-      this.$store.dispatch('fetchRecordsByCategory', { categoryId: this.categoryId, params: this.query })
+      this.$store.dispatch('fetchRecordsByCategory', {
+        categoryId: this.categoryId,
+        params: this.query
+      })
     }
   },
   methods: {
     getTotal(arr, field = 'total') {
       return arr.map((item) => item[field]).reduce((acc, cur) => acc + cur, 0)
+    },
+    onPerPageChanged(event) {
+      this.$router.push({
+        query: {
+          ...this.$route.query,
+          perPage: event
+        }
+      })
     }
   }
 }
