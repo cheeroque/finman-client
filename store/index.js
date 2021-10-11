@@ -65,10 +65,10 @@ export const getters = {
     return state.latestRevise
   },
   monthlyExpenses: (state) => {
-    return parseInt(state.monthly.expenses)
+    return state.monthly ? parseInt(state.monthly.expenses) : 0
   },
   monthlyIncomes: (state) => {
-    return parseInt(state.monthly.incomes)
+    return state.monthly ? parseInt(state.monthly.incomes) : 0
   },
   records: (state) => {
     return state.records
