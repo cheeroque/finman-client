@@ -122,7 +122,6 @@ export default {
   position: relative;
   flex: 0 0 auto;
   width: 320px;
-  max-width: calc(100vw - 2rem);
   padding: 0.75rem 0;
   border-radius: $border-radius;
   background-color: $body-bg;
@@ -170,6 +169,16 @@ export default {
 }
 
 @media (max-width: 991.98px) {
+  .modal {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+    border-radius: $border-radius * 2 $border-radius * 2 0 0;
+  }
+
   .modal-footer {
     flex-wrap: wrap;
 
@@ -177,6 +186,13 @@ export default {
       & > * {
         flex: 1 1 auto;
       }
+    }
+  }
+
+  .modal-enter,
+  .modal-leave-to {
+    .modal {
+      transform: translateY(100%);
     }
   }
 }
