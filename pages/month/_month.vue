@@ -91,20 +91,17 @@ export default {
   computed: {
     ...mapGetters(['categories', 'categoryById', 'recordsByPeriod', 'error']),
     chartData() {
-      const itemCategoryIds = this.expenses.map(({ category_id }) => category_id)
       return {
-        labels: this.categories.filter(({ id }) => itemCategoryIds.includes(id.toString())).map(({ name }) => name),
+        labels: this.expenses.map(({ category_id }) => {
+          const category = this.categoryById(category_id)
+          return category ? category.name : '?'
+        }),
         datasets: [
           {
             data: this.expenses.map(({ total }) => total),
             backgroundColor: this.expenses.map(({ category_id }, index) => {
               const category = this.categoryById(category_id)
-              if (category && category.color) {
-                return category.color
-              } else {
-                const step = Math.floor(360 / (this.expenses.length || 1))
-                return `hsl(${step * index}, 100%, 50%)`
-              }
+              return category && category.color
             })
           }
         ]
