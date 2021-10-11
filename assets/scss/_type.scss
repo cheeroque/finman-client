@@ -42,8 +42,9 @@
 }
 
 .text-decoration-dotted {
-  text-decoration: underline !important;
+  text-decoration-line: underline !important;
   text-decoration-style: dotted !important;
+  text-decoration-thickness: 1px !important;
 }
 
 .text-decoration-none {
