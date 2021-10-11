@@ -43,6 +43,7 @@ export default {
   },
   watch: {
     $route() {
+      this.sidebarVisible = false
       if (process.client) {
         const content = document.querySelector('.app-content')
         content.scrollTo({
