@@ -32,6 +32,7 @@ export default {
       await this.$auth
         .login({ data: this.form })
         .then((response) => {
+          console.log(response.data)
           this.error = null
           this.$auth.setUser(response.data.user)
           this.$router.push('/')

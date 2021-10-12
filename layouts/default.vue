@@ -89,6 +89,9 @@ export default {
     this.$root.$on('toast-hide', () => {
       this.toastVisible = false
     })
+  },
+  mounted() {
+    console.log(process.env.API_URL)
   }
 }
 </script>
