@@ -88,12 +88,11 @@ export const getters = {
 }
 
 export const actions = {
-  async nuxtServerInit({ dispatch }, { query }) {
+  async fetchGlobalData({ dispatch }) {
     await dispatch('fetchTotal')
     await dispatch('fetchMonthly')
     await dispatch('fetchLatestRevise')
     await dispatch('fetchCategories')
-    await dispatch('fetchRecords', query)
   },
 
   async fetchCategories({ commit }) {

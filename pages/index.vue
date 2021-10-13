@@ -96,6 +96,9 @@ export default {
       ]
     }
   },
+  async fetch() {
+    await this.$store.dispatch('fetchRecords', this.$route.query)
+  },
   computed: {
     ...mapGetters(['categoryById', 'records']),
     items() {
@@ -112,8 +115,7 @@ export default {
   },
   watch: {
     '$route.query'() {
-      this.$store.dispatch('fetchCategories')
-      this.$store.dispatch('fetchRecords', this.$route.query)
+      this.$fetch()
     }
   },
   methods: {

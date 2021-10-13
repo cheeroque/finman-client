@@ -38,6 +38,9 @@ export default {
       toastVisible: false
     }
   },
+  async fetch() {
+    await this.$store.dispatch('fetchGlobalData')
+  },
   computed: {
     ...mapGetters(['error'])
   },
@@ -89,9 +92,6 @@ export default {
     this.$root.$on('toast-hide', () => {
       this.toastVisible = false
     })
-  },
-  mounted() {
-    console.log(process.env.API_URL)
   }
 }
 </script>
