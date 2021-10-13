@@ -82,7 +82,7 @@ export default {
   computed: {
     ...mapGetters(['categories']),
     sortedItems() {
-      const categories = [...this.categories]
+      const categories = this.categories ? JSON.parse(JSON.stringify(this.categories)) : []
       return categories.sort((a, b) => {
         return this.order === 'ASC' ? a[this.orderBy] > b[this.orderBy] : b[this.orderBy] > a[this.orderBy]
       })
