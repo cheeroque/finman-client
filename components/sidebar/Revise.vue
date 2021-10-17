@@ -1,6 +1,6 @@
 <template>
   <li class="nav-item">
-    <a href="#" class="nav-link" @click="$root.$emit('revise-edit', latestRevise)">
+    <a href="#" class="nav-link" @click="modalVisible = true">
       <span v-if="latestRevise && latestRevise.created_at">
         {{
           $dateWithFormat(latestRevise.created_at, {
@@ -14,6 +14,7 @@
       </span>
       <span v-else class="text-muted">нет данных</span>
     </a>
+    <ModalReviseEdit v-model="modalVisible" :item="latestRevise" />
   </li>
 </template>
 
@@ -21,6 +22,11 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  data() {
+    return {
+      modalVisible: false
+    }
+  },
   computed: {
     ...mapGetters(['latestRevise'])
   }

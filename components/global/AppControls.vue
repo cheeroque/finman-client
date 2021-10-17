@@ -3,7 +3,7 @@
     <button class="btn btn-icon" title="Показать боковое меню" @click="$emit('toggle-sidebar')">
       <svg-icon name="menu-24" width="24" height="24" aria-hidden="true" />
     </button>
-    <button class="btn btn-icon" title="Поиск" @click="$emit('toggle-search')">
+    <button class="btn btn-icon" title="Поиск" @click="modalSearchVisible = true">
       <svg-icon name="search-24" width="24" height="24" aria-hidden="true" />
     </button>
     <div class="fab">
@@ -11,7 +11,7 @@
         v-if="isCategoriesRoute"
         class="btn btn-icon btn-secondary rounded-pill"
         title="Добавить категорию"
-        @click="$root.$emit('category-add')"
+        @click="modalCategoryVisible = true"
       >
         <svg-icon name="plus-24" width="24" height="24" aria-hidden="true" />
       </button>
@@ -19,16 +19,27 @@
         v-else
         class="btn btn-icon btn-secondary rounded-pill"
         title="Добавить запись"
-        @click="$root.$emit('record-add')"
+        @click="modalRecordVisible = true"
       >
         <svg-icon name="plus-24" width="24" height="24" aria-hidden="true" />
       </button>
     </div>
+
+    <ModalCategoryEdit v-model="modalCategoryVisible" create />
+    <ModalRecordEdit v-model="modalRecordVisible" create />
+    <ModalSearch v-model="modalSearchVisible" />
   </nav>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      modalCategoryVisible: false,
+      modalRecordVisible: false,
+      modalSearchVisible: false
+    }
+  },
   computed: {
     isCategoriesRoute() {
       return this.$route.name === 'categories'

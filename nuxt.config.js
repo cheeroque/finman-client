@@ -31,7 +31,7 @@ export default {
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/style-resources'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/auth-next', '@nuxtjs/axios', '@nuxtjs/svg-sprite'],
+  modules: ['@nuxtjs/auth-next', '@nuxtjs/axios', '@nuxtjs/svg-sprite', 'portal-vue/nuxt'],
 
   styleResources: {
     scss: ['~/assets/scss/_variables.scss']

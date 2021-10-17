@@ -33,7 +33,7 @@
         </nuxt-link>
       </template>
       <template #cell(note)="{ item }">
-        <a href="#" class="d-flex align-center" @click.prevent="$root.$emit('record-edit', item)">
+        <a href="#" class="d-flex align-center" @click.prevent="showModal(item)">
           <span class="flex-fill">{{ item.note }}</span>
           <span class="d-flex flex-center align-self-start text-gray-300 ms-8">
             <svg-icon name="edit-24" width="24" height="24" aria-label="Редактировать" />
@@ -50,6 +50,8 @@
         @per-page-changed="onPerPageChanged"
       />
     </div>
+
+    <ModalRecordEdit v-model="modalVisible" :item="modalItem" />
   </main>
 </template>
 
@@ -59,6 +61,8 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
+      modalItem: {},
+      modalVisible: false,
       orderByDefault: 'created_at',
       orderDefault: 'DESC',
       perPageDefault: 50,
@@ -142,6 +146,10 @@ export default {
       delete query.orderBy
       delete query.order
       this.$router.push({ query })
+    },
+    showModal(item) {
+      this.modalItem = item
+      this.modalVisible = true
     }
   }
 }

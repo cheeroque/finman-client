@@ -6,12 +6,11 @@
       <Nuxt />
     </div>
 
-    <AppControls @toggle-sidebar="sidebarVisible = !sidebarVisible" @toggle-search="modalSearchVisible = true" />
-    <ModalRecordEdit v-model="modalRecordVisible" :create="modalRecordIsCreate" :item="modalRecordItem" />
-    <ModalReviseEdit v-model="modalReviseVisible" :item="modalReviseItem" />
-    <ModalSearch v-model="modalSearchVisible" />
+    <AppControls @toggle-sidebar="sidebarVisible = !sidebarVisible" />
 
     <FToast :message="toast.message" :title="toast.title" :variant="toast.variant" :visible="toastVisible" />
+
+    <portal-target name="portal-modal" multiple />
   </div>
 </template>
 
@@ -21,12 +20,6 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      modalRecordIsCreate: false,
-      modalRecordItem: {},
-      modalRecordVisible: false,
-      modalReviseItem: {},
-      modalReviseVisible: false,
-      modalSearchVisible: false,
       sidebarVisible: false,
       toast: {
         message: null,
@@ -62,21 +55,6 @@ export default {
     }
   },
   beforeMount() {
-    this.$root.$on('record-add', () => {
-      this.modalRecordIsCreate = true
-      this.modalRecordItem = {}
-      this.modalRecordVisible = true
-    })
-    this.$root.$on('record-edit', (event) => {
-      this.modalRecordIsCreate = false
-      this.modalRecordItem = event
-      this.modalRecordVisible = true
-    })
-    this.$root.$on('revise-edit', (event) => {
-      this.modalReviseItem = event
-      this.modalReviseVisible = true
-    })
-
     this.$root.$on('toast-show', ({ title, message, variant }) => {
       this.toast = { message, title, variant }
       this.toastVisible = true

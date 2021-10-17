@@ -1,25 +1,27 @@
 <template>
-  <transition name="modal" duration="200">
-    <div v-if="visible" class="modal-outer">
-      <div class="modal-backdrop" tabindex="-1" @click="close"></div>
-      <div :class="{ 'modal-lg': size === 'lg' }" class="modal" role="dialog">
-        <header class="modal-header">
-          <slot name="modal-header">{{ title }}</slot>
-          <button class="btn btn-close" aria-label="Закрыть" title="Закрыть" @click="close">
-            <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
-          </button>
-        </header>
-        <section ref="modalBody" class="modal-body">
-          <slot :close="close"></slot>
-        </section>
-        <footer v-if="!hideFooter" class="modal-footer">
-          <slot :close="close" name="modal-footer">
-            <button class="btn btn-primary" aria-label="Закрыть" title="Закрыть" @click="close">Закрыть</button>
-          </slot>
-        </footer>
+  <portal to="portal-modal">
+    <transition name="modal" duration="200">
+      <div v-if="visible" class="modal-outer">
+        <div class="modal-backdrop" tabindex="-1" @click="close"></div>
+        <div :class="{ 'modal-lg': size === 'lg' }" class="modal" role="dialog">
+          <header class="modal-header">
+            <slot name="modal-header">{{ title }}</slot>
+            <button class="btn btn-close" aria-label="Закрыть" title="Закрыть" @click="close">
+              <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
+            </button>
+          </header>
+          <section ref="modalBody" class="modal-body">
+            <slot :close="close"></slot>
+          </section>
+          <footer v-if="!hideFooter" class="modal-footer">
+            <slot :close="close" name="modal-footer">
+              <button class="btn btn-primary" aria-label="Закрыть" title="Закрыть" @click="close">Закрыть</button>
+            </slot>
+          </footer>
+        </div>
       </div>
-    </div>
-  </transition>
+    </transition>
+  </portal>
 </template>
 
 <script>
@@ -75,7 +77,9 @@ export default {
     onShow() {
       this.$emit('show')
       this.$nextTick(() => {
-        this.setFormFocus()
+        this.$nextTick(() => {
+          this.setFormFocus()
+        })
       })
     },
     setFormFocus() {
@@ -89,7 +93,7 @@ export default {
       ]
       const modifiers = ':not([disabled]):not([readonly]):not(.form-control-datepicker)'
       const selectors = inputs.map((input) => input + modifiers).join(',')
-      const firstInput = this.$refs.modalBody.querySelector(selectors)
+      const firstInput = this.$refs.modalBody && this.$refs.modalBody.querySelector(selectors)
       if (firstInput) firstInput.focus()
     }
   }
