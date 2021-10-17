@@ -5,6 +5,20 @@ export const state = () => ({
   error: false,
   firstRecord: {},
   latestRevise: {},
+  monthColors: [
+    '#0057ff',
+    '#0c88b4',
+    '#15ab80',
+    '#1dcc4e',
+    '#25ed1a',
+    '#41ef00',
+    '#7ac700',
+    '#afa200',
+    '#e57c00',
+    '#f0572d',
+    '#d73977',
+    '#ab02fb'
+  ],
   monthly: {
     expenses: 0,
     incomes: 0
@@ -13,6 +27,7 @@ export const state = () => ({
   recordsByCategory: {},
   recordsByMonth: {},
   recordsByPeriod: {},
+  searchResults: [],
   total: 0
 })
 
@@ -44,6 +59,9 @@ export const mutations = {
   SET_RECORDS_BY_PERIOD(state, payload) {
     state.recordsByPeriod = payload
   },
+  SET_SEARCH_RESULTS(state, payload) {
+    state.searchResults = payload
+  },
   SET_TOTAL(state, payload) {
     state.total = payload
   }
@@ -53,16 +71,14 @@ export const getters = {
   categories: (state) => {
     return state.categories
   },
-  categoryById: (state) => (id) => {
-    return state.categories && state.categories.length
-      ? state.categories.find((category) => category.id.toString() === id.toString())
-      : {}
-  },
   firstRecord: (state) => {
     return state.firstRecord
   },
   latestRevise: (state) => {
     return state.latestRevise
+  },
+  monthColors: (state) => {
+    return state.monthColors
   },
   monthlyExpenses: (state) => {
     return state.monthly ? parseInt(state.monthly.expenses) : 0
@@ -78,6 +94,9 @@ export const getters = {
   },
   recordsByPeriod: (state) => {
     return state.recordsByPeriod
+  },
+  searchResults: (state) => {
+    return state.searchResults
   },
   total: (state) => {
     return state.total
@@ -119,14 +138,15 @@ export const actions = {
     })
     commit('SET_MONTHLY', monthly)
   },
-  async fetchRecords({ commit }, params = { perPage: 50 }) {
+  async fetchRecords({ commit }, params) {
     if (!params.perPage) params.perPage = 50
     const records = await this.$axios.$get('records', { params }).catch((error) => {
       commit('SET_ERROR', { path: 'records', params, error })
     })
     commit('SET_RECORDS', records)
   },
-  async fetchRecordsByCategory({ commit }, { categoryId, params = { perPage: 18 } }) {
+  async fetchRecordsByCategory({ commit }, { categoryId, params }) {
+    if (!params.perPage) params.perPage = 18
     const recordsByCategory = await this.$axios.$get(`category/${categoryId}`, { params }).catch((error) => {
       commit('SET_ERROR', { path: 'recordsByCategory', categoryId, params, error })
     })
@@ -137,6 +157,12 @@ export const actions = {
       commit('SET_ERROR', { path: 'recordsByPeriod', period, error })
     })
     commit('SET_RECORDS_BY_PERIOD', recordsByPeriod)
+  },
+  async fetchSearchResults({ commit }, params) {
+    const total = await this.$axios.$get('search', { params }).catch((error) => {
+      commit('SET_ERROR', { path: 'search', error })
+    })
+    commit('SET_SEARCH_RESULTS', total)
   },
   async fetchTotal({ commit }) {
     const total = await this.$axios.$get('total').catch((error) => {

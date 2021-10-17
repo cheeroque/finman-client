@@ -8,7 +8,7 @@
         <TableData :fields="fields" :items="tableItems" class="mb-lg-32">
           <template #cell(category_id)="{ item, value }">
             <template v-if="value">
-              {{ categoryById(value).name }}
+              {{ item.category && item.category.name }}
             </template>
             <template v-else>
               {{ item.text }}
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -86,21 +86,19 @@ export default {
     }
   },
   async fetch() {
-    await this.$store.dispatch('fetchRecordsByPeriod', { period: this.period })
+    await this.fetchRecordsByPeriod({ period: this.period })
   },
   computed: {
-    ...mapGetters(['categories', 'categoryById', 'recordsByPeriod', 'error']),
+    ...mapGetters(['categories', 'recordsByPeriod', 'error']),
     chartData() {
       return {
-        labels: this.expenses.map(({ category_id }) => {
-          const category = this.categoryById(category_id)
-          return category ? category.name : '?'
+        labels: this.expenses.map(({ category }) => {
+          return category && category.name
         }),
         datasets: [
           {
             data: this.expenses.map(({ total }) => total),
-            backgroundColor: this.expenses.map(({ category_id }, index) => {
-              const category = this.categoryById(category_id)
+            backgroundColor: this.expenses.map(({ category }) => {
               return category && category.color
             })
           }
@@ -109,7 +107,7 @@ export default {
     },
     expenses() {
       return this.items
-        .filter(({ category_id }) => !this.categoryById(category_id).is_income)
+        .filter(({ category }) => !(category && category.is_income))
         .map((item) => {
           return {
             ...item,
@@ -120,7 +118,7 @@ export default {
     },
     incomes() {
       return this.items
-        .filter(({ category_id }) => this.categoryById(category_id).is_income)
+        .filter(({ category }) => category && category.is_income)
         .map((item) => {
           return {
             ...item,
@@ -133,6 +131,7 @@ export default {
       return Object.keys(this.recordsByPeriod).map((key) => {
         return {
           category_id: key,
+          category: this.recordsByPeriod[key][0].category,
           items: this.recordsByPeriod[key]
         }
       })
@@ -190,6 +189,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['fetchRecordsByPeriod']),
     getTotal(arr, field = 'total') {
       return arr.map((item) => item[field]).reduce((acc, cur) => acc + cur, 0)
     }

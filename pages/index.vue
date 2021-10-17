@@ -22,14 +22,14 @@
         </nuxt-link>
       </template>
       <template #cell(sum)="{ item }">
-        <span v-if="isIncome(item) && !$route.query.show" class="text-success">
+        <span v-if="item.category.is_income && !$route.query.show" class="text-success">
           +&nbsp;{{ $sumWithFormat(item.sum) }}
         </span>
         <span v-else>{{ $sumWithFormat(item.sum) }}</span>
       </template>
-      <template #cell(category_id)="{ value }">
+      <template #cell(category_id)="{ item, value }">
         <nuxt-link :to="`/category/${value}`">
-          {{ categoryById(value).name }}
+          {{ item.category.name }}
         </nuxt-link>
       </template>
       <template #cell(note)="{ item }">
@@ -54,13 +54,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
       orderByDefault: 'created_at',
       orderDefault: 'DESC',
+      perPageDefault: 50,
       fields: [
         {
           key: 'created_at',
@@ -97,20 +98,22 @@ export default {
     }
   },
   async fetch() {
-    await this.$store.dispatch('fetchRecords', this.$route.query)
+    await this.fetchRecords(this.$route.query)
   },
   computed: {
-    ...mapGetters(['categoryById', 'records']),
+    ...mapGetters(['records']),
     items() {
       return this.records && this.records.data && this.records.data.length
         ? this.records.data.map((record) => {
-            const category = this.categoryById(record.category_id)
-            return { ...record, rowVariant: category.is_income && !this.$route.query.show ? 'success' : null }
+            if (record.category && record.category.is_income && !this.$route.query.show) {
+              record.rowVariant = 'success'
+            }
+            return record
           })
         : []
     },
     perPage() {
-      return this.$route.query.perPage || 50
+      return this.$route.query.perPage || this.perPageDefault
     }
   },
   watch: {
@@ -119,17 +122,15 @@ export default {
     }
   },
   methods: {
-    isIncome(item) {
-      const category = this.categoryById(item.category_id)
-      return category.is_income
-    },
+    ...mapActions(['fetchRecords']),
     onPerPageChanged(event) {
-      this.$router.push({
-        query: {
-          ...this.$route.query,
-          perPage: event
-        }
-      })
+      const query = { ...this.$route.query }
+      if (!event || event === this.perPageDefault) {
+        delete query.perPage
+      } else {
+        query.perPage = event
+      }
+      this.$router.push({ query })
     },
     onSortChanged({ orderBy, order }) {
       this.$router.push({

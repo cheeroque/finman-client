@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -39,7 +39,7 @@ export default {
     }
   },
   async fetch() {
-    await this.$store.dispatch('fetchGlobalData')
+    await this.fetchGlobalData()
   },
   computed: {
     ...mapGetters(['error'])
@@ -47,14 +47,7 @@ export default {
   watch: {
     $route() {
       this.sidebarVisible = false
-      if (process.client) {
-        const content = document.querySelector('.app-content')
-        content.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: 'smooth'
-        })
-      }
+      this.scrollToTop()
     },
     error: {
       immediate: true,
@@ -92,6 +85,21 @@ export default {
     this.$root.$on('toast-hide', () => {
       this.toastVisible = false
     })
+  },
+  methods: {
+    ...mapActions(['fetchGlobalData']),
+    scrollToTop() {
+      if (process.client) {
+        const content = document.querySelector('.app-content')
+        if (content) {
+          content.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          })
+        }
+      }
+    }
   }
 }
 </script>

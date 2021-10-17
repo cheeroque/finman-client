@@ -1,7 +1,7 @@
 <template>
   <main>
     <h2 class="page-header">
-      Записи в&nbsp;категории <span class="fw-bold">{{ categoryById(categoryId).name }}</span>
+      Записи в&nbsp;категории <span class="fw-bold">{{ category.name }}</span>
     </h2>
     <div class="row">
       <div class="col-12 col-lg-6">
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -86,29 +86,18 @@ export default {
           tdClass: 'td-note text-gray-700'
         }
       ],
-      monthColors: [
-        '#0057ff',
-        '#0c88b4',
-        '#15ab80',
-        '#1dcc4e',
-        '#25ed1a',
-        '#41ef00',
-        '#7ac700',
-        '#afa200',
-        '#e57c00',
-        '#f0572d',
-        '#d73977',
-        '#ab02fb'
-      ],
       locale: 'ru-RU',
       pageOptions: ['12', '18', '24', '30']
     }
   },
   async fetch() {
-    await this.$store.dispatch('fetchRecordsByCategory', { categoryId: this.categoryId })
+    await this.fetchRecordsByCategory({ categoryId: this.categoryId, params: this.$route.query })
   },
   computed: {
-    ...mapGetters(['categoryById', 'recordsByCategory', 'error']),
+    ...mapGetters(['monthColors', 'recordsByCategory', 'error']),
+    category() {
+      return this.recordsByCategory && this.recordsByCategory.category
+    },
     categoryId() {
       return this.$route.params.category
     },
@@ -154,13 +143,11 @@ export default {
   },
   watch: {
     '$route.query'() {
-      this.$store.dispatch('fetchRecordsByCategory', {
-        categoryId: this.categoryId,
-        params: this.query
-      })
+      this.$fetch()
     }
   },
   methods: {
+    ...mapActions(['fetchRecordsByCategory']),
     getTotal(arr, field = 'total') {
       return arr.map((item) => item[field]).reduce((acc, cur) => acc + cur, 0)
     },

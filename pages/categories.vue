@@ -4,7 +4,7 @@
     <TableData
       :fields="fields"
       :fixed="false"
-      :items="sortedItems"
+      :items="sortedCategories"
       :order="order"
       :order-by="orderBy"
       @sort-changed="onSortChanged"
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -79,9 +79,12 @@ export default {
       orderBy: 'id'
     }
   },
+  async fetch() {
+    await this.fetchCategories()
+  },
   computed: {
     ...mapGetters(['categories']),
-    sortedItems() {
+    sortedCategories() {
       const categories = this.categories ? JSON.parse(JSON.stringify(this.categories)) : []
       return categories.sort((a, b) => {
         return this.order === 'ASC' ? a[this.orderBy] > b[this.orderBy] : b[this.orderBy] > a[this.orderBy]
@@ -94,6 +97,7 @@ export default {
     })
   },
   methods: {
+    ...mapActions(['fetchCategories']),
     onSortChanged({ orderBy, order }) {
       this.orderBy = orderBy
       this.order = order

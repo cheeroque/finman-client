@@ -22,12 +22,12 @@
         </nuxt-link>
       </template>
       <template #cell(sum)="{ item }">
-        <span v-if="isIncome(item)" class="text-success"> +&nbsp;{{ $sumWithFormat(item.sum) }} </span>
+        <span v-if="item.category.is_income" class="text-success"> +&nbsp;{{ $sumWithFormat(item.sum) }} </span>
         <span v-else>{{ $sumWithFormat(item.sum) }}</span>
       </template>
-      <template #cell(category_id)="{ value }">
+      <template #cell(category_id)="{ item, value }">
         <nuxt-link :to="`/category/${value}`">
-          {{ categoryById(value).name }}
+          {{ item.category.name }}
         </nuxt-link>
       </template>
       <template #cell(note)="{ item }">
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data() {
@@ -77,21 +77,25 @@ export default {
           tdClass: 'td-note text-gray-700'
         }
       ],
-      records: [],
-      totalPages: 0,
-      totalRows: 0
+      perPageDefault: 50
     }
   },
   async fetch() {
-    const { data, last_page, total } = await this.$axios.$get(`/search`, { params: this.$route.query })
-    this.records = data
-    this.totalPages = last_page
-    this.totalRows = total
+    await this.fetchSearchResults(this.$route.query)
   },
   computed: {
-    ...mapGetters(['categoryById']),
+    ...mapGetters(['searchResults']),
     perPage() {
-      return this.$route.query.perPage || 50
+      return this.$route.query.perPage || this.perPageDefault
+    },
+    records() {
+      return (this.searchResults && this.searchResults.data) || []
+    },
+    totalPages() {
+      return (this.searchResults && this.searchResults.last_page) || 1
+    },
+    totalRows() {
+      return (this.searchResults && this.searchResults.total) || 0
     }
   },
   watch: {
@@ -100,15 +104,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['fetchSearchResults']),
     getDeclension(number, strings) {
       const cases = [2, 0, 1, 1, 1, 2]
       const titles = strings.split(',')
 
       return titles[number % 100 > 4 && number % 100 < 20 ? 2 : cases[number % 10 < 5 ? number % 10 : 5]]
-    },
-    isIncome(item) {
-      const category = this.categoryById(item.category_id)
-      return category.is_income
     }
   }
 }
