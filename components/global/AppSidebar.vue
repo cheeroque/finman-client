@@ -4,7 +4,10 @@
       <div class="sidebar-content">
         <SidebarSearch />
         <ul class="sidebar-nav">
-          <li class="nav-text">Администрирование</li>
+          <li class="nav-text">Меню</li>
+          <li class="nav-item">
+            <nuxt-link to="/" class="nav-link"> Главная страница </nuxt-link>
+          </li>
           <li class="nav-item">
             <nuxt-link to="/categories" class="nav-link"> Категории </nuxt-link>
           </li>
