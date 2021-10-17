@@ -8,9 +8,10 @@
 
     <AppControls @toggle-sidebar="sidebarVisible = !sidebarVisible" />
 
-    <FToast :message="toast.message" :title="toast.title" :variant="toast.variant" :visible="toastVisible" />
+    <FToast v-model="toastVisible" :message="errorMessage" title="Ошибка!" variant="danger" />
 
     <portal-target name="portal-modal" multiple />
+    <portal-target name="portal-toast" multiple />
   </div>
 </template>
 
@@ -21,13 +22,6 @@ export default {
   data() {
     return {
       sidebarVisible: false,
-      toast: {
-        message: null,
-        title: null,
-        variant: 'white'
-      },
-      toastMessage: null,
-      toastTitle: null,
       toastVisible: false
     }
   },
@@ -35,7 +29,10 @@ export default {
     await this.fetchGlobalData()
   },
   computed: {
-    ...mapGetters(['error'])
+    ...mapGetters(['error']),
+    errorMessage() {
+      return this.error && this.error.path && `Действие: ${this.error.path}. Сообщение: ${this.error.error.message}`
+    }
   },
   watch: {
     $route() {
@@ -45,12 +42,9 @@ export default {
     error: {
       immediate: true,
       handler({ error, path }) {
-        if (error && path)
-          this.$root.$emit('toast-show', {
-            title: 'Ошибка!',
-            message: `Действие: ${path}. Сообщение: ${error.message}`,
-            variant: 'danger'
-          })
+        if (error && path) {
+          this.toastVisible = true
+        }
       }
     }
   },

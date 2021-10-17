@@ -1,25 +1,31 @@
 <template>
-  <transition name="toast" duration="200">
-    <div v-if="visible" :class="`toast-${variant}`" class="toast">
-      <div v-if="hasHeader" class="toast-header">
-        <slot name="header">
-          {{ title }}
-        </slot>
-        <button class="btn btn-close" aria-label="Закрыть" title="Закрыть" @click="$root.$emit('toast-hide')">
-          <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
-        </button>
+  <portal to="portal-toast">
+    <transition name="toast" duration="200">
+      <div v-if="visible" :class="`toast-${variant}`" class="toast">
+        <div v-if="hasHeader" class="toast-header">
+          <slot name="header">
+            {{ title }}
+          </slot>
+          <button class="btn btn-close" aria-label="Закрыть" title="Закрыть" @click="$emit('change', false)">
+            <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
+          </button>
+        </div>
+        <div class="toast-body">
+          <slot>
+            {{ message }}
+          </slot>
+        </div>
       </div>
-      <div class="toast-body">
-        <slot>
-          {{ message }}
-        </slot>
-      </div>
-    </div>
-  </transition>
+    </transition>
+  </portal>
 </template>
 
 <script>
 export default {
+  model: {
+    prop: 'visible',
+    event: 'change'
+  },
   props: {
     message: {
       type: String,
@@ -56,7 +62,7 @@ export default {
         let timer
         if (value && this.timeout) {
           timer = setTimeout(() => {
-            this.$root.$emit('toast-hide')
+            this.$emit('change', false)
           }, parseInt(this.timeout))
         } else {
           clearTimeout(timer)
