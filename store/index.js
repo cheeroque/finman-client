@@ -127,7 +127,7 @@ export const actions = {
     commit('SET_FIRST_RECORD', firstRecord)
   },
   async fetchLatestRevise({ commit }) {
-    const latestRevise = await this.$axios.$get('revise/latest').catch((error) => {
+    const latestRevise = await this.$axios.$get('revises/latest').catch((error) => {
       commit('SET_ERROR', { path: 'latestRevise', error })
     })
     commit('SET_LATEST_REVISE', latestRevise)
