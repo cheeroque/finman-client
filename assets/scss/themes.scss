@@ -1,0 +1,206 @@
+/* Default theme -- light */
+
+@mixin theme-light() {
+  // body
+  --body-bg: #{$secondary-90};
+  --body-color: #{$neutral-10};
+  --border-color: #{$neutral-variant-80};
+
+  // card
+  --card-bg: #{$neutral-variant-99};
+  --card-color: #{$neutral-10};
+  --card-color-accent: #{$primary-10};
+  --card-color-muted: #{$secondary-50};
+
+  --card-active-bg: #{$primary-95};
+  --card-active-color: #{$neutral-variant-10};
+  --card-active-color-accent: #{$primary-40};
+  --card-active-color-muted: #{$secondary-40};
+
+  // dialog
+  --dialog-body-bg: #{$neutral-variant-99};
+
+  --dialog-button-bg: #{$neutral-variant-95};
+  --dialog-button-active-bg: #{$primary-90};
+  --dialog-button-color: #{$primary-40};
+
+  // drawer
+  --drawer-bg: #{$tertiary-90};
+  --drawer-color: #{$neutral-variant-10};
+  --drawer-color-accent: #{$tertiary-10};
+
+  --drawer-active-bg: #{$tertiary-95};
+  --drawer-active-color: #{$tertiary-20};
+
+  // FAB
+  --fab-bg: #{$tertiary-40};
+  --fab-color: #{$tertiary-99};
+
+  // form
+  --form-button-bg: #{$neutral-variant-90};
+  --form-button-color: #{$neutral-10};
+
+  --form-control-bg: transparent;
+  --form-control-border-color: #{$neutral-variant-80};
+  --form-control-color: #{$neutral-10};
+
+  --form-label-color: #{$neutral-variant-80};
+
+  //header
+  --header-bg: #{$secondary-90};
+  --header-color: #{$primary-10};
+  --header-accent-color: #{$primary-40};
+
+  // navigation bar
+  --navbar-bg: #{$primary-95};
+  --navbar-color: #{$neutral-10};
+
+  --navbar-active-bg: #{$primary-90};
+  --navbar-active-color: #{$neutral-10};
+
+  // table
+  --table-bg: transparent;
+  --table-color: #{$neutral-10};
+
+  --table-head-bg: transparent;
+  --table-head-color: #{$primary-10};
+  --table-head-border-color: #{$neutral-variant-80};
+
+  --table-row-bg: transparent;
+  --table-row-alternate-bg: #{$neutral-variant-95};
+  --table-row-expanded-bg: #{$secondary-90};
+  --table-row-expanded-color: #{$primary-10};
+  --table-row-expanded-border-color: #{$neutral-variant-80};
+
+  // category card
+  --card-category-expense-color: #{$tertiary-60};
+  --card-category-income-color: #{$success-60};
+
+  // calendar
+  --calendar-bg: transparent;
+  --calendar-head-color: #{$primary-10};
+  --calendar-head-color-accent: #{$primary-40};
+
+  --calendar-month-bg: #{$primary-95};
+  --calendar-month-color: #{$neutral-variant-10};
+
+  --calendar-month-active-bg: #{$primary-80};
+  --calendar-month-active-color: #{$primary-20};
+
+  --calendar-month-disabled-bg: transparent;
+  --calendar-month-disabled-color: #{$neutral-variant-90};
+}
+
+html,
+:root.theme-light {
+  @include theme-light();
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @include theme-light();
+  }
+}
+
+/* Default theme -- dark */
+
+@mixin theme-dark() {
+  // body
+  --body-bg: #{$neutral-variant-10};
+  --body-color: #{$neutral-95};
+  --border-color: #{$neutral-variant-50};
+
+  // card
+  --card-bg: #{$neutral-variant-20};
+  --card-color: #{$neutral-95};
+  --card-color-accent: #{$primary-90};
+  --card-color-muted: #{$secondary-80};
+
+  --card-active-bg: #{$secondary-30};
+  --card-active-color: #{$neutral-99};
+  --card-active-color-accent: #{$primary-90};
+  --card-active-color-muted: #{$secondary-90};
+
+  // dialog
+  --dialog-body-bg: #{$neutral-variant-20};
+
+  --dialog-button-bg: #{$neutral-variant-30};
+  --dialog-button-active-bg: #{$primary-30};
+  --dialog-button-color: #{$primary-80};
+
+  // drawer
+  --drawer-bg: #{$primary-20};
+  --drawer-color: #{$neutral-variant-95};
+  --drawer-color-accent: #{$primary-90};
+
+  --drawer-active-bg: #{$primary-30};
+  --drawer-active-color: #{$neutral-variant-95};
+
+  // FAB
+  --fab-bg: #{$tertiary-80};
+  --fab-color: #{$tertiary-10};
+
+  // form
+  --form-button-bg: #{$secondary-30};
+  --form-button-color: #{$neutral-90};
+
+  --form-control-bg: transparent;
+  --form-control-border-color: #{$neutral-variant-50};
+  --form-control-color: #{$neutral-95};
+
+  --form-label-color: #{$neutral-variant-50};
+
+  //header
+  --header-bg: #{$neutral-variant-10};
+  --header-color: #{$primary-80};
+  --header-accent-color: #{$primary-60};
+
+  // navigation bar
+  --navbar-bg: #{$secondary-10};
+  --navbar-color: #{$neutral-95};
+
+  --navbar-active-bg: #{$primary-20};
+  --navbar-active-color: #{$neutral-95};
+
+  // table
+  --table-bg: transparent;
+  --table-color: #{$neutral-95};
+
+  --table-head-bg: transparent;
+  --table-head-color: #{$primary-90};
+  --table-head-border-color: #{$neutral-variant-50};
+
+  --table-row-bg: transparent;
+  --table-row-alternate-bg: #{$neutral-variant-30};
+  --table-row-expanded-bg: #{$secondary-30};
+  --table-row-expanded-color: #{$primary-90};
+  --table-row-expanded-border-color: #{$neutral-variant-50};
+
+  // category card
+  --card-category-expense-color: #{$tertiary-80};
+  --card-category-income-color: #{$success-80};
+
+  // calendar
+  --calendar-bg: transparent;
+  --calendar-head-color: #{$primary-90};
+  --calendar-head-color-accent: #{$primary-80};
+
+  --calendar-month-bg: #{$neutral-variant-30};
+  --calendar-month-color: #{$neutral-95};
+
+  --calendar-month-active-bg: #{$secondary-40};
+  --calendar-month-active-color: #{$secondary-90};
+
+  --calendar-month-disabled-bg: transparent;
+  --calendar-month-disabled-color: #{$neutral-variant-30};
+}
+
+:root.theme-dark {
+  @include theme-dark();
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include theme-dark();
+  }
+}

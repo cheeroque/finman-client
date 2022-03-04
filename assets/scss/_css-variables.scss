@@ -1,0 +1,17 @@
+:root {
+  --spacer: #{$spacer};
+  --fs: #{$font-size-base};
+  --h1-fs: calc(var(--fs) * #{$h1-multiplier});
+  --h2-fs: calc(var(--fs) * #{$h2-multiplier});
+  --h3-fs: calc(var(--fs) * #{$h3-multiplier});
+  --h4-fs: calc(var(--fs) * #{$h4-multiplier});
+  --h5-fs: calc(var(--fs) * #{$h5-multiplier});
+  --h6-fs: calc(var(--fs) * #{$h6-multiplier});
+}
+
+@include media-max-width('md') {
+  :root {
+    --spacer: calc(#{$spacer} * 0.875);
+    --fs: calc(#{$font-size-base} * 0.875);
+  }
+}

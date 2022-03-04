@@ -1,74 +1,59 @@
-.fs-0 {
-  font-size: $font-size-0 !important;
-}
-.fs-1 {
-  font-size: $font-size-1 !important;
-}
-.fs-2 {
-  font-size: $font-size-2 !important;
-}
-.fs-3 {
-  font-size: $font-size-3 !important;
-}
-.fs-4 {
-  font-size: $font-size-4 !important;
-}
-.fs-5 {
-  font-size: $font-size-5 !important;
-}
-.fs-6 {
-  font-size: $font-size-6 !important;
-}
-
-.fw-light {
-  font-weight: $font-weight-light;
-}
-.fw-normal {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin-top: 0;
+  margin-bottom: var(--spacer);
+  font-family: $font-family-alternate;
   font-weight: $font-weight-normal;
+  line-height: $line-height-heading;
 }
-.fw-medium {
-  font-weight: $font-weight-medium;
+h1,
+.h1 {
+  font-size: var(--h1-fs);
 }
-.fw-bold {
-  font-weight: $font-weight-bold;
+h2,
+.h2 {
+  font-size: var(--h2-fs);
 }
-
-.lh-0 {
-  line-height: 0;
+h3,
+.h3 {
+  font-size: var(--h3-fs);
 }
-
-.text-center {
-  text-align: center;
+h4,
+.h4 {
+  font-size: var(--h4-fs);
 }
-
-.text-decoration-dotted {
-  text-decoration-line: underline !important;
-  text-decoration-style: dotted !important;
-  text-decoration-thickness: 1px !important;
+h5,
+.h5 {
+  font-size: var(--h5-fs);
 }
-
-.text-decoration-none {
-  text-decoration: none !important;
-}
-
-.text-body {
-  color: $body-color;
+h6,
+.h6 {
+  font-size: var(--h6-fs);
 }
 
-@each $color, $value in $theme-colors {
-  .text-#{$color} {
-    color: $value;
-  }
+ol,
+ul {
+  margin-top: 0;
+  margin-bottom: var(--spacer);
+  padding-left: 1em;
+}
 
-  a.text-#{$color} {
-    &:hover {
-      color: darken($value, 10%);
-    }
-  }
+p {
+  margin-top: 0;
+  margin-bottom: var(--spacer);
+}
 
-  a.text-hover-#{$color} {
-    &:hover {
-      color: $value;
-    }
-  }
+code,
+pre {
+  font-family: $font-family-monospace;
 }

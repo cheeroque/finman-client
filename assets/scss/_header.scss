@@ -1,0 +1,19 @@
+.header {
+  color: var(--header-color);
+  background-color: var(--header-bg);
+
+  .btn {
+    color: var(--header-accent-color);
+  }
+}
+
+.header-main {
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+.header-secondary {
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem 0;
+}

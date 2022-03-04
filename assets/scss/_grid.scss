@@ -1,3 +1,7 @@
+.container {
+  padding: 0 var(--spacer);
+}
+
 .row {
   display: grid;
   column-gap: 1.5rem;
