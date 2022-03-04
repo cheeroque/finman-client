@@ -186,7 +186,7 @@ export default {
   .modal-footer {
     flex-wrap: wrap;
 
-    /deep/ {
+    ::v-deep {
       & > * {
         flex: 1 1 auto;
       }

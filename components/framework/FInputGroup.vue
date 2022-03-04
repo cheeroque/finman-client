@@ -28,7 +28,7 @@ export default {
   display: flex;
 
   &.has-append {
-    /deep/ {
+    ::v-deep {
       .form-control {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
@@ -37,7 +37,7 @@ export default {
   }
 
   .input-group-append {
-    /deep/ {
+    ::v-deep {
       .btn,
       .input-group-text {
         border-top-left-radius: 0;
@@ -47,7 +47,7 @@ export default {
   }
 
   &.has-prepend {
-    /deep/ {
+    ::v-deep {
       .form-control {
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
@@ -56,7 +56,7 @@ export default {
   }
 
   .input-group-prepend {
-    /deep/ {
+    ::v-deep {
       .btn,
       .input-group-text {
         border-top-right-radius: 0;

@@ -77,7 +77,7 @@ export default {
   padding: 0;
   list-style: none;
 
-  /deep/ {
+  ::v-deep {
     .nav-link {
       display: block;
       padding: 0.375rem 1rem;

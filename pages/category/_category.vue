@@ -165,7 +165,7 @@ export default {
 
 <style lang="scss" scoped>
 @media (max-width: 991.98px) {
-  /deep/ {
+  ::v-deep {
     .td-period {
       .month-long {
         display: none;
@@ -175,7 +175,7 @@ export default {
 }
 
 @media (min-width: 992px) {
-  /deep/ {
+  ::v-deep {
     .td-period {
       .month-long {
         text-transform: capitalize;

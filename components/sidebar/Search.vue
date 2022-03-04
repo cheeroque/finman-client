@@ -7,7 +7,7 @@
   margin-bottom: 1.875rem;
   padding: 0 1rem;
 
-  /deep/ {
+  ::v-deep {
     .form-control {
       border-color: transparent;
       border-right-width: 0;
