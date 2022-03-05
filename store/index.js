@@ -1,10 +1,9 @@
-/* eslint-disable no-console */
-
 export const state = () => ({
   categories: [],
   error: false,
   firstRecord: {},
   latestRevise: {},
+  locale: 'ru',
   monthColors: [
     '#0057ff',
     '#0c88b4',
@@ -17,18 +16,18 @@ export const state = () => ({
     '#e57c00',
     '#f0572d',
     '#d73977',
-    '#ab02fb'
+    '#ab02fb',
   ],
   monthly: {
     expenses: 0,
-    incomes: 0
+    incomes: 0,
   },
   records: {},
   recordsByCategory: {},
   recordsByMonth: {},
   recordsByPeriod: {},
   searchResults: [],
-  total: 0
+  total: 0,
 })
 
 export const mutations = {
@@ -64,46 +63,23 @@ export const mutations = {
   },
   SET_TOTAL(state, payload) {
     state.total = payload
-  }
+  },
 }
 
 export const getters = {
-  categories: (state) => {
-    return state.categories
-  },
-  firstRecord: (state) => {
-    return state.firstRecord
-  },
-  latestRevise: (state) => {
-    return state.latestRevise
-  },
-  monthColors: (state) => {
-    return state.monthColors
-  },
-  monthlyExpenses: (state) => {
-    return state.monthly ? parseInt(state.monthly.expenses) : 0
-  },
-  monthlyIncomes: (state) => {
-    return state.monthly ? parseInt(state.monthly.incomes) : 0
-  },
-  records: (state) => {
-    return state.records
-  },
-  recordsByCategory: (state) => {
-    return state.recordsByCategory
-  },
-  recordsByPeriod: (state) => {
-    return state.recordsByPeriod
-  },
-  searchResults: (state) => {
-    return state.searchResults
-  },
-  total: (state) => {
-    return state.total
-  },
-  error: (state) => {
-    return state.error
-  }
+  categories: (state) => state.categories,
+  firstRecord: (state) => state.firstRecord,
+  latestRevise: (state) => state.latestRevise,
+  locale: (state) => state.locale,
+  monthColors: (state) => state.monthColors,
+  monthlyExpenses: (state) => parseInt(state.monthly?.expenses || 0),
+  monthlyIncomes: (state) => parseInt(state.monthly?.incomes || 0),
+  records: (state) => state.records,
+  recordsByCategory: (state) => state.recordsByCategory,
+  recordsByPeriod: (state) => state.recordsByPeriod,
+  searchResults: (state) => state.searchResults,
+  total: (state) => state.total,
+  error: (state) => state.error,
 }
 
 export const actions = {
@@ -169,5 +145,5 @@ export const actions = {
       commit('SET_ERROR', { path: 'total', error })
     })
     commit('SET_TOTAL', total)
-  }
+  },
 }

@@ -1,6 +1,6 @@
 <template>
   <header class="header header-main">
-    <h1>{{ formatSum(total) }}&nbsp;₽</h1>
+    <h1 class="mb-0">{{ formatSum(total, locale) }}&nbsp;₽</h1>
   </header>
 </template>
 
@@ -10,7 +10,7 @@ import { formatSum } from '@/utils'
 
 export default {
   computed: {
-    ...mapGetters(['total']),
+    ...mapGetters(['locale', 'total']),
   },
   methods: {
     formatSum,
