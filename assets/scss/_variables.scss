@@ -111,6 +111,7 @@ $h6-multiplier: 1;
 /* Options */
 
 $border-width: 1px;
+$transition: all 0.2s ease-in-out;
 
 /* Shadows */
 
@@ -125,6 +126,13 @@ $shadow-12: 0px 7px 8px rgba(0, 0, 0, 0.2), 0px 5px 22px rgba(0, 0, 0, 0.12), 0p
 $shadow-16: 0px 8px 10px rgba(0, 0, 0, 0.2), 0px 6px 30px rgba(0, 0, 0, 0.12), 0px 16px 24px rgba(0, 0, 0, 0.14);
 $shadow-24: 0px 11px 15px rgba(0, 0, 0, 0.2), 0px 9px 46px rgba(0, 0, 0, 0.12), 0px 24px 38px rgba(0, 0, 0, 0.14);
 
+/* Cards */
+
+$card-margin-bottom: 0.5rem;
+$card-padding-x: 1rem;
+$card-padding-y: 0.75rem;
+$card-border-radius: 0.75rem;
+
 /* Grid */
 
 $breakpoints: (
@@ -132,7 +140,12 @@ $breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1200px
+  xl: 1200px,
 );
 
 $spacer: 1rem;
+$spacers: (
+  0: 0,
+  4: 0.25rem,
+  8: 0.5rem,
+);

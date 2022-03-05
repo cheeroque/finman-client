@@ -57,3 +57,27 @@ code,
 pre {
   font-family: $font-family-monospace;
 }
+
+a {
+  transition: $transition;
+  transition-property: color;
+
+  &:link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:visited {
+    color: inherit;
+  }
+
+  &:active {
+    text-decoration: none;
+    color: var(--link-active-color);
+  }
+
+  &:hover {
+    text-decoration: underline;
+    color: var(--link-hover-color);
+  }
+}

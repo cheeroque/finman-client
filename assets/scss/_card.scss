@@ -1,0 +1,30 @@
+.card {
+  display: block;
+  margin-bottom: $card-margin-bottom;
+  padding: $card-padding-y $card-padding-x;
+  border-radius: $card-border-radius;
+  color: var(--card-color);
+  background-color: var(--card-bg);
+  transition: $transition;
+
+  .card-text-muted {
+    color: var(--card-color-muted);
+  }
+
+  .card-text-accent {
+    color: var(--card-color-accent);
+  }
+
+  &.active {
+    color: var(--card-active-color);
+    background-color: var(--card-active-bg);
+
+    .card-text-muted {
+      color: var(--card-active-color-muted);
+    }
+
+    .card-text-accent {
+      color: var(--card-active-color-accent);
+    }
+  }
+}

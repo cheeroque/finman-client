@@ -6,6 +6,10 @@
   --body-color: #{$neutral-10};
   --border-color: #{$neutral-variant-80};
 
+  --link-color: #{$neutral-10};
+  --link-active-color: #{$primary-10};
+  --link-hover-color: #{$primary-40};
+
   // card
   --card-bg: #{$neutral-variant-99};
   --card-color: #{$neutral-10};
@@ -109,6 +113,10 @@ html,
   --body-bg: #{$neutral-variant-10};
   --body-color: #{$neutral-95};
   --border-color: #{$neutral-variant-50};
+
+  --link-color: #{$neutral-95};
+  --link-active-color: #{$primary-90};
+  --link-hover-color: #{$primary-90};
 
   // card
   --card-bg: #{$neutral-variant-20};

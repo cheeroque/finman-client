@@ -2,7 +2,7 @@
   <div class="app-wrapper">
     <!-- <NavDrawer /> -->
     <Nuxt />
-    <NavBar />
+    <!-- <NavBar /> -->
   </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
     await this.fetchGlobalData()
   },
   methods: {
-    ...mapActions(['fetchGlobalData'])
-  }
+    ...mapActions(['fetchGlobalData']),
+  },
 }
 </script>

@@ -1,103 +1,4 @@
-// Flex
-
-.d-none {
-  display: none !important;
-}
-
-.d-flex {
-  display: flex !important;
-}
-
-.d-inline-flex {
-  display: inline-flex !important;
-}
-
-.d-table-cell {
-  display: table-cell !important;
-}
-
-.align-start {
-  align-items: flex-start;
-}
-
-.align-center {
-  align-items: center;
-}
-
-.align-end {
-  align-items: flex-end;
-}
-
-.align-self-start {
-  align-self: flex-start;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.flex-center {
-  @extend .align-center;
-  @extend .justify-center;
-}
-
-.flex-fill {
-  flex: 1 1 100%;
-}
-
-@for $order from 1 through 6 {
-  .order-#{$order} {
-    order: $order;
-  }
-}
-
-@media (min-width: 992px) {
-  @for $order from 1 through 6 {
-    .order-lg-#{$order} {
-      order: $order;
-    }
-  }
-}
-
-@media (min-width: 992px) {
-  .d-lg-none {
-    display: none !important;
-  }
-
-  .d-lg-flex {
-    display: flex !important;
-  }
-
-  .d-lg-inline-flex {
-    display: inline-flex !important;
-  }
-
-  .d-lg-table-cell {
-    display: table-cell !important;
-  }
-
-  .align-lg-center {
-    align-items: center;
-  }
-
-  .align-self-lg-start {
-    align-self: flex-start;
-  }
-
-  .justify-lg-start {
-    justify-content: flex-start;
-  }
-
-  .justify-lg-center {
-    justify-content: center;
-  }
-
-  .flex-lg-fill {
-    flex: 1 1 100%;
-  }
-}
-
-// Spacing
+/* Spacing */
 
 @each $prop, $abbrev in (margin: m, padding: p) {
   @each $size, $length in $spacers {
@@ -135,76 +36,42 @@
   }
 }
 
-@media (min-width: 992px) {
-  @each $prop, $abbrev in (margin: m, padding: p) {
+@each $breakpoint, $width in $breakpoints {
+  @include media-min-width($breakpoint) {
+    @each $prop, $abbrev in (margin: m, padding: p) {
+      @each $size, $length in $spacers {
+        .#{$abbrev}-#{$breakpoint}-#{$size} {
+          #{$prop}: $length !important;
+        }
+        .#{$abbrev}t-#{$breakpoint}-#{$size},
+        .#{$abbrev}y-#{$breakpoint}-#{$size} {
+          #{$prop}-top: $length !important;
+        }
+        .#{$abbrev}e-#{$breakpoint}-#{$size},
+        .#{$abbrev}x-#{$breakpoint}lg-#{$size} {
+          #{$prop}-right: $length !important;
+        }
+        .#{$abbrev}b-#{$breakpoint}-#{$size},
+        .#{$abbrev}y-#{$breakpoint}-#{$size} {
+          #{$prop}-bottom: $length !important;
+        }
+        .#{$abbrev}s-#{$breakpoint}-#{$size},
+        .#{$abbrev}x-#{$breakpoint}-#{$size} {
+          #{$prop}-left: $length !important;
+        }
+      }
+    }
+
     @each $size, $length in $spacers {
-      .#{$abbrev}-lg-#{$size} {
-        #{$prop}: $length !important;
+      .g-#{$breakpoint}-#{$size} {
+        gap: $length !important;
       }
-      .#{$abbrev}t-lg-#{$size},
-      .#{$abbrev}y-lg-#{$size} {
-        #{$prop}-top: $length !important;
+      .gx-#{$breakpoint}-#{$size} {
+        column-gap: $length !important;
       }
-      .#{$abbrev}e-lg-#{$size},
-      .#{$abbrev}x-lg-#{$size} {
-        #{$prop}-right: $length !important;
-      }
-      .#{$abbrev}b-lg-#{$size},
-      .#{$abbrev}y-lg-#{$size} {
-        #{$prop}-bottom: $length !important;
-      }
-      .#{$abbrev}s-lg-#{$size},
-      .#{$abbrev}x-lg-#{$size} {
-        #{$prop}-left: $length !important;
+      .gy-#{$breakpoint}-#{$size} {
+        row-gap: $length !important;
       }
     }
-  }
-
-  @each $size, $length in $spacers {
-    .g-lg-#{$size} {
-      gap: $length !important;
-    }
-    .gx-lg-#{$size} {
-      column-gap: $length !important;
-    }
-    .gy-lg-#{$size} {
-      row-gap: $length !important;
-    }
-  }
-}
-
-.overflow-hidden {
-  overflow: hidden !important;
-}
-
-.position-relative {
-  position: relative;
-}
-
-.rounded-pill {
-  border-radius: 99rem;
-}
-
-.shadow {
-  box-shadow: $box-shadow;
-}
-
-@each $width, $value in $widths {
-  .w-#{$width} {
-    width: $value;
-  }
-}
-
-@media (min-width: 992px) {
-  @each $width, $value in $widths {
-    .w-lg-#{$width} {
-      width: $value;
-    }
-  }
-}
-
-@each $color, $value in $theme-colors {
-  .bg-#{$color} {
-    background-color: $value;
   }
 }
