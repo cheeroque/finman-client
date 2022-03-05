@@ -6,15 +6,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { formatSum } from '@/utils'
 
 export default {
   computed: {
-    ...mapGetters(['total'])
+    ...mapGetters(['total']),
   },
   methods: {
-    formatSum(number) {
-      return parseInt(number || 0).toLocaleString(undefined, { maximumFractionDigits: 0 })
-    }
-  }
+    formatSum,
+  },
 }
 </script>
