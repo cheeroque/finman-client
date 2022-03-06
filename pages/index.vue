@@ -1,9 +1,7 @@
 <template>
   <div class="container">
     <HeaderMain />
-
     <RecordCard v-for="(record, index) in records.data" :key="`record-${index}`" :record="record" />
-
     <FloatingButton title="Добавить запись" />
   </div>
 </template>

@@ -1,8 +1,8 @@
 <template>
   <div class="app-wrapper">
-    <!-- <NavDrawer /> -->
+    <NavDrawer :visible="drawerVisible" @close="hideDrawer" />
     <Nuxt />
-    <NavBar />
+    <NavBar @drawer-show="showDrawer" />
   </div>
 </template>
 
@@ -13,8 +13,19 @@ export default {
   async fetch() {
     await this.fetchGlobalData()
   },
+  data() {
+    return {
+      drawerVisible: false,
+    }
+  },
   methods: {
     ...mapActions(['fetchGlobalData']),
+    hideDrawer() {
+      this.drawerVisible = false
+    },
+    showDrawer() {
+      this.drawerVisible = true
+    },
   },
 }
 </script>
