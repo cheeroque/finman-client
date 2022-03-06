@@ -3,6 +3,8 @@
     <HeaderMain />
 
     <RecordCard v-for="(record, index) in records.data" :key="`record-${index}`" :record="record" />
+
+    <FloatingButton />
   </div>
 </template>
 

@@ -20,10 +20,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$navbar-height: calc(
+  #{$navbar-padding-y * 2} + #{$navbar-icon-padding-y * 2} + #{$navbar-icon-spacer} + #{$line-height-base} * var(--rem) +
+    24px
+);
 .app-wrapper {
-  padding-bottom: calc(
-    #{$navbar-padding-y * 2} + #{$navbar-icon-padding-y * 2} + #{$navbar-icon-spacer} + #{$line-height-base} *
-      var(--rem) + 24px
-  );
+  padding-bottom: $navbar-height;
+
+  ::v-deep {
+    .btn-fab {
+      bottom: calc(#{$navbar-height} + var(--spacer));
+    }
+  }
 }
 </style>

@@ -2,27 +2,22 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: $btn-input-padding-y $btn-input-padding-x;
+  padding: $btn-padding-y $btn-padding-x;
   font-family: $font-family-alternate;
-  font-size: $btn-input-font-size;
-  font-weight: $font-weight-medium;
-  line-height: $btn-input-line-height;
+  font-size: var(--rem);
+  font-weight: $font-weight-normal;
+  line-height: $line-height-base;
   text-align: center;
   border: $border-width solid transparent;
-  border-radius: $btn-input-border-radius;
+  border-radius: $btn-border-radius;
   color: inherit;
   background-color: transparent;
   cursor: pointer;
-  transition: $transition-base;
+  transition: $transition;
   transition-property: color, border-color, background-color, box-shadow, opacity;
-
-  &.btn-lg {
-    padding: $btn-input-padding-y-lg $btn-input-padding-x-lg;
-  }
 
   &:disabled,
   &.disabled {
-    color: $gray-500;
     border-color: transparent;
     background-color: transparent;
     opacity: 0.5;
@@ -33,61 +28,4 @@
 .btn-block {
   display: flex;
   width: 100%;
-}
-
-.btn-close {
-  margin-left: auto;
-  padding: 0.25rem;
-  border: none;
-  border-radius: 99rem;
-
-  &:hover {
-    color: $primary;
-  }
-}
-
-.btn-icon {
-  padding: 0.6875rem;
-}
-
-.btn-link {
-  padding: 0;
-  border: none;
-}
-
-@each $color, $value in $theme-colors {
-  .btn-#{$color} {
-    color: color-contrast($value);
-    border-color: $value;
-    background-color: $value;
-
-    &:not(:disabled):not(.disabled) {
-      &:hover {
-        color: color-contrast($value);
-        border-color: darken($value, 10%);
-        background-color: darken($value, 10%);
-      }
-    }
-
-    &:disabled,
-    &.disabled {
-      color: color-contrast($value);
-      border-color: $value;
-      background-color: $value;
-      opacity: 0.5;
-    }
-  }
-
-  .btn-outline-#{$color} {
-    color: $value;
-    border-color: $value;
-    background-color: transparent;
-
-    &:not(:disabled):not(.disabled) {
-      &:hover {
-        color: color-contrast($value);
-        background-color: $value;
-      }
-    }
-  }
 }
