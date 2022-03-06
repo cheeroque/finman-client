@@ -5,7 +5,11 @@ export function formatSum(number, locale = 'ru', precision = 0) {
   })
 }
 
-export function formatDate(datestring, locale = 'ru', options = { dateStyle: 'short' }) {
+export function formatDate(
+  datestring,
+  locale = 'ru',
+  options = { dateStyle: 'short' }
+) {
   const timestamp = Date.parse(datestring)
   const date = isNaN(timestamp) ? new Date() : new Date(timestamp)
   return date.toLocaleString(locale, options)

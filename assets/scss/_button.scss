@@ -14,7 +14,8 @@
   background-color: transparent;
   cursor: pointer;
   transition: $transition;
-  transition-property: color, border-color, background-color, box-shadow, opacity;
+  transition-property: color, border-color, background-color, box-shadow,
+    opacity;
 
   &:disabled,
   &.disabled {

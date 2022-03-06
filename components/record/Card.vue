@@ -2,7 +2,12 @@
   <div class="card record-card">
     <p class="record-date">
       <nuxt-link :to="monthLink">
-        {{ formatDate(record.created_at, locale, { dateStyle: 'long', timeStyle: 'short' }) }}
+        {{
+          formatDate(record.created_at, locale, {
+            dateStyle: 'long',
+            timeStyle: 'short',
+          })
+        }}
       </nuxt-link>
     </p>
     <p class="record-category card-text-muted">
@@ -12,7 +17,9 @@
     </p>
     <p class="record-note">{{ record.note }}</p>
     <p class="record-sum h3 card-text-accent">
-      <a href="#" @click.prevent="$emit('record-edit', record)"> {{ formatSum(record.sum, locale) }}&nbsp;₽ </a>
+      <a href="#" @click.prevent="$emit('record-edit', record)">
+        {{ formatSum(record.sum, locale) }}&nbsp;₽
+      </a>
     </p>
   </div>
 </template>

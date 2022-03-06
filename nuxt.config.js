@@ -1,21 +1,21 @@
 export default {
   env: {
     API_URL: process.env.API_URL || 'http://127.0.0.1:8000/api',
-    PUBLIC_URL: process.env.PUBLIC_URL || 'http://127.0.0.1:8000'
+    PUBLIC_URL: process.env.PUBLIC_URL || 'http://127.0.0.1:8000',
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'finman-client',
     htmlAttrs: {
-      lang: 'ru'
+      lang: 'ru',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' }
+      { hid: 'description', name: 'description', content: '' },
     ],
-    link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }]
+    link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -25,58 +25,67 @@ export default {
   plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: ['~/components', '~/components/global/', '~/components/framework/'],
+  components: [
+    '~/components',
+    '~/components/global/',
+    '~/components/framework/',
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/style-resources'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/auth-next', '@nuxtjs/axios', '@nuxtjs/svg-sprite', 'portal-vue/nuxt'],
+  modules: [
+    '@nuxtjs/auth-next',
+    '@nuxtjs/axios',
+    '@nuxtjs/svg-sprite',
+    'portal-vue/nuxt',
+  ],
 
   styleResources: {
-    scss: ['~/assets/scss/_variables.scss']
+    scss: ['~/assets/scss/_variables.scss'],
   },
 
   auth: {
     strategies: {
       local: {
         token: {
-          property: 'access_token'
+          property: 'access_token',
         },
         user: {
-          property: false
+          property: false,
         },
         endpoints: {
           login: { url: '/login', method: 'post' },
           logout: { url: '/logout', method: 'post' },
-          user: false
-        }
-      }
+          user: false,
+        },
+      },
     },
     redirect: {
-      logout: '/login'
-    }
+      logout: '/login',
+    },
   },
 
   axios: {
     baseURL: process.env.API_URL,
     headers: {
-      Accept: 'application/json'
-    }
+      Accept: 'application/json',
+    },
   },
 
   svgSprite: {
-    input: '~/assets/images/icons'
+    input: '~/assets/images/icons',
   },
 
   generate: {
-    crawler: false
+    crawler: false,
   },
 
   router: {
-    middleware: ['auth']
+    middleware: ['auth'],
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {}
+  build: {},
 }

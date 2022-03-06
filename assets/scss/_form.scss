@@ -77,7 +77,9 @@
 
 .custom-control-label {
   position: relative;
-  padding-left: calc(#{$btn-input-padding-x / 2} + #{$custom-control-indicator-size});
+  padding-left: calc(
+    #{$btn-input-padding-x / 2} + #{$custom-control-indicator-size}
+  );
   font-size: $btn-input-font-size;
   line-height: $btn-input-line-height;
 
@@ -93,7 +95,10 @@
 
   &::before {
     left: 0;
-    top: calc(#{$btn-input-font-size * $btn-input-line-height / 2} - #{$custom-control-indicator-size / 2});
+    top: calc(
+      #{$btn-input-font-size * $btn-input-line-height / 2} - #{$custom-control-indicator-size /
+        2}
+    );
     width: $custom-control-indicator-size;
     height: $custom-control-indicator-size;
     border: 2px solid $gray-400;
@@ -102,7 +107,10 @@
 
   &::after {
     left: 0.25rem;
-    top: calc(#{$btn-input-font-size * $btn-input-line-height / 2} - #{$custom-control-indicator-size / 2} + 0.25rem);
+    top: calc(
+      #{$btn-input-font-size * $btn-input-line-height / 2} - #{$custom-control-indicator-size /
+        2} + 0.25rem
+    );
     width: calc(#{$custom-control-indicator-size} - 0.5rem);
     height: calc(#{$custom-control-indicator-size} - 0.5rem);
     background-color: transparent;

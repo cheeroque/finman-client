@@ -4,23 +4,46 @@
       <li role="presentation">
         <button class="nav-item" @click="$emit('drawer-show')">
           <span class="nav-item-icon">
-            <svg-icon name="menu-24" width="24" height="24" aria-hidden="true" />
+            <svg-icon
+              name="menu-24"
+              width="24"
+              height="24"
+              aria-hidden="true"
+            />
           </span>
           Меню
         </button>
       </li>
       <li role="presentation">
-        <nuxt-link :class="{ active: isActive(['/expenses', '/']) }" to="/" class="nav-item">
+        <nuxt-link
+          :class="{ active: isActive(['/expenses', '/']) }"
+          to="/"
+          class="nav-item"
+        >
           <span class="nav-item-icon">
-            <svg-icon name="cart-24" width="24" height="24" aria-hidden="true" />
+            <svg-icon
+              name="cart-24"
+              width="24"
+              height="24"
+              aria-hidden="true"
+            />
           </span>
           Расходы
         </nuxt-link>
       </li>
       <li role="presentation">
-        <nuxt-link :class="{ active: isActive(['/incomes']) }" to="/incomes" class="nav-item">
+        <nuxt-link
+          :class="{ active: isActive(['/incomes']) }"
+          to="/incomes"
+          class="nav-item"
+        >
           <span class="nav-item-icon">
-            <svg-icon name="card-24" width="24" height="24" aria-hidden="true" />
+            <svg-icon
+              name="card-24"
+              width="24"
+              height="24"
+              aria-hidden="true"
+            />
           </span>
           Доходы
         </nuxt-link>
@@ -28,7 +51,12 @@
       <li role="presentation">
         <button class="nav-item" @click="$emit('search-show')">
           <span class="nav-item-icon">
-            <svg-icon name="search-24" width="24" height="24" aria-hidden="true" />
+            <svg-icon
+              name="search-24"
+              width="24"
+              height="24"
+              aria-hidden="true"
+            />
           </span>
           Поиск
         </button>

@@ -97,15 +97,19 @@ export const actions = {
     commit('SET_CATEGORIES', categories)
   },
   async fetchFirstRecord({ commit }) {
-    const firstRecord = await this.$axios.$get('records/first').catch((error) => {
-      commit('SET_ERROR', { path: 'firstRecord', error })
-    })
+    const firstRecord = await this.$axios
+      .$get('records/first')
+      .catch((error) => {
+        commit('SET_ERROR', { path: 'firstRecord', error })
+      })
     commit('SET_FIRST_RECORD', firstRecord)
   },
   async fetchLatestRevise({ commit }) {
-    const latestRevise = await this.$axios.$get('revises/latest').catch((error) => {
-      commit('SET_ERROR', { path: 'latestRevise', error })
-    })
+    const latestRevise = await this.$axios
+      .$get('revises/latest')
+      .catch((error) => {
+        commit('SET_ERROR', { path: 'latestRevise', error })
+      })
     commit('SET_LATEST_REVISE', latestRevise)
   },
   async fetchMonthly({ commit }) {
@@ -116,28 +120,41 @@ export const actions = {
   },
   async fetchRecords({ commit }, params) {
     if (!params.perPage) params.perPage = 50
-    const records = await this.$axios.$get('records', { params }).catch((error) => {
-      commit('SET_ERROR', { path: 'records', params, error })
-    })
+    const records = await this.$axios
+      .$get('records', { params })
+      .catch((error) => {
+        commit('SET_ERROR', { path: 'records', params, error })
+      })
     commit('SET_RECORDS', records)
   },
   async fetchRecordsByCategory({ commit }, { categoryId, params }) {
     if (!params.perPage) params.perPage = 18
-    const recordsByCategory = await this.$axios.$get(`category/${categoryId}`, { params }).catch((error) => {
-      commit('SET_ERROR', { path: 'recordsByCategory', categoryId, params, error })
-    })
+    const recordsByCategory = await this.$axios
+      .$get(`category/${categoryId}`, { params })
+      .catch((error) => {
+        commit('SET_ERROR', {
+          path: 'recordsByCategory',
+          categoryId,
+          params,
+          error,
+        })
+      })
     commit('SET_RECORDS_BY_CATEGORY', recordsByCategory)
   },
   async fetchRecordsByPeriod({ commit }, { period }) {
-    const recordsByPeriod = await this.$axios.$get(`month/${period}`).catch((error) => {
-      commit('SET_ERROR', { path: 'recordsByPeriod', period, error })
-    })
+    const recordsByPeriod = await this.$axios
+      .$get(`month/${period}`)
+      .catch((error) => {
+        commit('SET_ERROR', { path: 'recordsByPeriod', period, error })
+      })
     commit('SET_RECORDS_BY_PERIOD', recordsByPeriod)
   },
   async fetchSearchResults({ commit }, params) {
-    const total = await this.$axios.$get('search', { params }).catch((error) => {
-      commit('SET_ERROR', { path: 'search', error })
-    })
+    const total = await this.$axios
+      .$get('search', { params })
+      .catch((error) => {
+        commit('SET_ERROR', { path: 'search', error })
+      })
     commit('SET_SEARCH_RESULTS', total)
   },
   async fetchTotal({ commit }) {
