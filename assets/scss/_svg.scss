@@ -1,18 +1,6 @@
 .icon {
   flex: 0 0 auto;
   fill: currentColor;
-  transition: $transition-base;
+  transition: $transition;
   transition-property: fill;
-}
-
-@each $color, $value in $theme-colors {
-  .fill-#{$color},
-  .fill-#{$color} .icon {
-    fill: $value !important;
-  }
-
-  .stroke-#{$color},
-  .stroke-#{$color} .icon {
-    stroke: $value !important;
-  }
 }

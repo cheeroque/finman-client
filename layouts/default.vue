@@ -2,7 +2,7 @@
   <div class="app-wrapper">
     <!-- <NavDrawer /> -->
     <Nuxt />
-    <!-- <NavBar /> -->
+    <NavBar />
   </div>
 </template>
 
@@ -18,3 +18,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.app-wrapper {
+  padding-bottom: calc(
+    #{$navbar-padding-y * 2} + #{$navbar-icon-padding-y * 2} + #{$navbar-icon-spacer} + #{$line-height-base} *
+      var(--rem) + 24px
+  );
+}
+</style>
