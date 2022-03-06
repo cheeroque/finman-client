@@ -38,3 +38,22 @@
 .drawer-backdrop-leave-to {
   opacity: 0;
 }
+
+/* Dialog: fullscreen */
+
+.dialog-fullscreen-enter-active,
+.dialog-fullscreen-leave-active {
+  transition: $transition;
+  transition-property: opacity, transform;
+  transition-duration: 0.3s;
+}
+.dialog-fullscreen-enter {
+  border-radius: 1rem;
+  overflow: hidden;
+  transform: translate(100%, 100%) scale(0);
+  transform-origin: bottom right;
+}
+.dialog-fullscreen-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}

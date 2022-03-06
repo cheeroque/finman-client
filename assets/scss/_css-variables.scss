@@ -1,5 +1,4 @@
 :root {
-  --spacer: #{$spacer};
   --rem: #{$font-size-base};
   --h1-fs: calc(var(--rem) * #{$h1-multiplier});
   --h2-fs: calc(var(--rem) * #{$h2-multiplier});
@@ -11,7 +10,6 @@
 
 @include media-max-width('md') {
   :root {
-    --spacer: calc(#{$spacer} * 0.875);
     --rem: calc(#{$font-size-base} * 0.875);
   }
 }

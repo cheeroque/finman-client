@@ -10,13 +10,13 @@
 import { mapActions } from 'vuex'
 
 export default {
-  async fetch() {
-    await this.fetchGlobalData()
-  },
   data() {
     return {
       drawerVisible: false,
     }
+  },
+  async fetch() {
+    await this.fetchGlobalData()
   },
   methods: {
     ...mapActions(['fetchGlobalData']),
@@ -41,7 +41,7 @@ $navbar-height: calc(
 
   ::v-deep {
     .btn-fab {
-      bottom: calc(#{$navbar-height} + var(--spacer));
+      bottom: calc(#{$navbar-height} + 1rem);
     }
   }
 }

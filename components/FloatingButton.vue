@@ -1,5 +1,10 @@
 <template>
-  <button :title="title" :aria-label="title" class="btn btn-fab">
+  <button
+    :title="title"
+    :aria-label="title"
+    class="btn btn-fab"
+    @click="$emit('click')"
+  >
     <svg-icon name="edit-24" width="24" height="24" aria-hidden="true" />
   </button>
 </template>
@@ -18,8 +23,8 @@ export default {
 <style lang="scss" scoped>
 .btn-fab {
   position: fixed;
-  right: var(--spacer);
-  bottom: var(--spacer);
+  right: 1rem;
+  bottom: 1rem;
   padding: 1rem;
   border-radius: 1rem;
   border: none;
