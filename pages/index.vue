@@ -4,7 +4,7 @@
 
     <RecordCard v-for="(record, index) in records.data" :key="`record-${index}`" :record="record" />
 
-    <FloatingButton />
+    <FloatingButton title="Добавить запись" />
   </div>
 </template>
 
