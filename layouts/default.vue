@@ -33,7 +33,7 @@ export default {
 <style lang="scss" scoped>
 $navbar-height: calc(
   #{$navbar-padding-y * 2} + #{$navbar-icon-padding-y * 2} + #{$navbar-icon-spacer} +
-    #{$line-height-base} * var(--rem) + 24px
+    #{$line-height-base * $font-size-base} + 24px
 );
 
 .app-wrapper {
@@ -41,7 +41,7 @@ $navbar-height: calc(
 
   ::v-deep {
     .btn-fab {
-      bottom: calc(#{$navbar-height} + 1rem);
+      bottom: calc(#{$navbar-height} + #{$grid-gap * 0.5});
     }
   }
 }

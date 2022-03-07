@@ -18,27 +18,27 @@ h6,
 }
 h1,
 .h1 {
-  font-size: var(--h1-fs);
+  font-size: $h1-multiplier * $font-size-base;
 }
 h2,
 .h2 {
-  font-size: var(--h2-fs);
+  font-size: $h2-multiplier * $font-size-base;
 }
 h3,
 .h3 {
-  font-size: var(--h3-fs);
+  font-size: $h3-multiplier * $font-size-base;
 }
 h4,
 .h4 {
-  font-size: var(--h4-fs);
+  font-size: $h4-multiplier * $font-size-base;
 }
 h5,
 .h5 {
-  font-size: var(--h5-fs);
+  font-size: $h5-multiplier * $font-size-base;
 }
 h6,
 .h6 {
-  font-size: var(--h6-fs);
+  font-size: $h6-multiplier * $font-size-base;
 }
 
 ol,

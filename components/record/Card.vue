@@ -59,7 +59,8 @@ export default {
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: repeat(3, auto);
-  gap: 0.25rem 1rem;
+  gap: 0.25rem $grid-gap;
+  font-size: $font-size-base * 0.875;
 
   p {
     margin-bottom: 0;

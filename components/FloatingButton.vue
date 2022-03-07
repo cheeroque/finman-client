@@ -23,7 +23,7 @@ export default {
 <style lang="scss" scoped>
 .btn-fab {
   position: fixed;
-  right: 1rem;
+  right: #{$grid-gap * 0.5};
   bottom: 1rem;
   padding: 1rem;
   border-radius: 1rem;
