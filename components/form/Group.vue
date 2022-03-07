@@ -1,5 +1,10 @@
 <template>
-  <div ref="group" class="form-group" role="group">
+  <div
+    ref="group"
+    :class="{ 'form-group-no-label': !label }"
+    class="form-group"
+    role="group"
+  >
     <label v-if="label" :for="controlId" class="form-group-label">
       <span>{{ label }}</span>
     </label>

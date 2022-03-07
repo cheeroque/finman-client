@@ -7,14 +7,28 @@
   >
     <form @submit.prevent="updateRecord">
       <FormGroup label="Комментарий">
-        <FormInput v-model="record.note" placeholder="Введите комментарий" />
+        <FormInput
+          v-model="record.sum"
+          append="₽"
+          placeholder="Введите сумму"
+        />
       </FormGroup>
       <div class="form-row">
         <FormGroup label="Дата и время" column-count="2">
-          <FormInput v-model="record.note" placeholder="Введите комментарий" />
+          <FormInput v-model="record.created_at" placeholder="Выберите дату">
+            <template #append> asdasd </template>
+          </FormInput>
         </FormGroup>
         <button type="button" class="btn btn-form-control">Сейчас</button>
       </div>
+      <FormGroup label="Дата и время" column-count="2">
+        <FormInput v-model="record.created_at" placeholder="Выберите дату" />
+      </FormGroup>
+      <FormGroup column-count="2">
+        <FormInput v-model="record.created_at" placeholder="Выберите дату">
+          <template #append> asdasd </template>
+        </FormInput>
+      </FormGroup>
     </form>
   </DialogFullscreen>
 </template>

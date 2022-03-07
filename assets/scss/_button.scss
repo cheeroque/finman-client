@@ -3,10 +3,10 @@
   align-items: center;
   justify-content: center;
   padding: $btn-padding-y $btn-padding-x;
-  font-family: $font-family-alternate;
-  font-size: $font-size-base;
-  font-weight: $font-weight-normal;
-  line-height: $line-height-base;
+  font-family: $btn-font-family;
+  font-size: $btn-font-size;
+  font-weight: $btn-font-weight;
+  line-height: $btn-line-height;
   text-align: center;
   border: $border-width solid transparent;
   border-radius: $btn-border-radius;

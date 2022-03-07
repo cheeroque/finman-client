@@ -48,15 +48,18 @@
   --fab-hover-color: #{$tertiary-99};
 
   // form
-  --form-button-bg: #{$neutral-variant-90};
+  --form-button-bg: #{$secondary-90};
   --form-button-color: #{$neutral-10};
 
-  --form-control-bg: transparent;
-  --form-control-border-color: #{$neutral-variant-80};
+  --form-control-bg: #{$neutral-variant-95};
+  --form-control-border-color: #{$neutral-10};
   --form-control-color: #{$neutral-10};
-  --form-control-focus-bg: #{$neutral-95};
 
-  --form-label-color: #{$neutral-variant-80};
+  --form-control-focus-bg: #{$secondary-90};
+  --form-control-focus-border-color: #{$primary-40};
+  --form-control-focus-color: #{$neutral-10};
+
+  --form-label-color: #{$primary-40};
   --form-placeholder-color: #{$neutral-variant-80};
 
   //header
@@ -168,13 +171,16 @@ html,
   --form-button-bg: #{$secondary-30};
   --form-button-color: #{$neutral-90};
 
-  --form-control-bg: transparent;
-  --form-control-border-color: #{$neutral-variant-50};
-  --form-control-color: #{$neutral-95};
-  --form-control-focus-bg: #{$neutral-variant-30};
+  --form-control-bg: #{$neutral-variant-30};
+  --form-control-border-color: #{$neutral-90};
+  --form-control-color: #{$neutral-90};
 
-  --form-label-color: #{$neutral-variant-50};
-  --form-placeholder-color: #{$neutral-variant-50};
+  --form-control-focus-bg: #{$secondary-30};
+  --form-control-focus-border-color: #{$primary-80};
+  --form-control-focus-color: #{$neutral-90};
+
+  --form-label-color: #{$primary-80};
+  --form-placeholder-color: #{$neutral-40};
 
   //header
   --header-bg: #{$neutral-variant-10};
