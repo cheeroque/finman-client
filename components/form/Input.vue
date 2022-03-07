@@ -3,16 +3,14 @@
     <input
       v-model="localValue"
       ref="input"
+      :max="max"
+      :min="min"
       :placeholder="placeholder"
+      :step="step"
       :type="type"
       class="form-control-input"
     />
-    <div
-      v-if="hasAppend"
-      ref="append"
-      class="form-control-append"
-      @click="focusInput"
-    >
+    <div v-if="hasAppend" class="form-control-append" @click="focusInput">
       <slot name="append">
         {{ append }}
       </slot>
@@ -29,6 +27,18 @@ export default {
     },
     placeholder: {
       type: String,
+      default: null,
+    },
+    max: {
+      type: Number,
+      default: null,
+    },
+    min: {
+      type: Number,
+      default: null,
+    },
+    step: {
+      type: Number,
       default: null,
     },
     type: {
