@@ -30,15 +30,15 @@ export default {
       default: null,
     },
     max: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
     min: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
     step: {
-      type: Number,
+      type: [Number, String],
       default: null,
     },
     type: {

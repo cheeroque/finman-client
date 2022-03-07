@@ -21,6 +21,10 @@
   --card-active-color-accent: #{$primary-40};
   --card-active-color-muted: #{$secondary-40};
 
+  // datepicker calendar
+  --datepicker-calendar-active-color: #{$primary-40};
+  --datepicker-calendar-today-color: #{$primary-90};
+
   // dialog
   --dialog-body-bg: #{$neutral-variant-99};
 
@@ -49,7 +53,7 @@
 
   // form
   --form-button-bg: #{$secondary-90};
-  --form-button-color: #{$neutral-10};
+  --form-button-color: #{$primary-40};
 
   --form-control-bg: #{$neutral-variant-95};
   --form-control-border-color: #{$neutral-10};
@@ -66,6 +70,9 @@
   --header-bg: #{$secondary-90};
   --header-color: #{$primary-10};
   --header-color-accent: #{$primary-40};
+
+  // modal dialog
+  --modal-body-bg: #{$neutral-variant-95};
 
   // navigation bar
   --navbar-bg: #{$primary-95};
@@ -141,6 +148,10 @@ html,
   --card-active-color-accent: #{$primary-90};
   --card-active-color-muted: #{$secondary-90};
 
+  // datepicker calendar
+  --datepicker-calendar-active-color: #{$primary-80};
+  --datepicker-calendar-today-color: #{$secondary-40};
+
   // dialog
   --dialog-body-bg: #{$neutral-variant-20};
 
@@ -169,7 +180,7 @@ html,
 
   // form
   --form-button-bg: #{$secondary-30};
-  --form-button-color: #{$neutral-90};
+  --form-button-color: #{$primary-80};
 
   --form-control-bg: #{$neutral-variant-30};
   --form-control-border-color: #{$neutral-90};
@@ -186,6 +197,9 @@ html,
   --header-bg: #{$neutral-variant-10};
   --header-color: #{$primary-80};
   --header-color-accent: #{$primary-60};
+
+  // modal dialog
+  --modal-body-bg: #{$neutral-variant-30};
 
   // navigation bar
   --navbar-bg: #{$secondary-10};

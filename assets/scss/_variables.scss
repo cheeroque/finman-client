@@ -153,11 +153,14 @@ $spacers: (
   0: 0,
   4: 0.25rem,
   8: 0.5rem,
+  12: 0.75rem,
+  16: 1rem,
+  24: 1.5rem,
 );
 
 /* Buttons */
 
-$btn-padding-y: 0.5625rem;
+$btn-padding-y: 0.4375rem;
 $btn-padding-x: 0.75rem;
 $btn-font-family: $font-family-alternate;
 $btn-font-size: $font-size-base;
@@ -198,6 +201,12 @@ $nav-drawer-padding-x: #{$grid-gap * 0.5};
 $nav-drawer-padding-y: 0.75rem;
 $nav-drawer-item-padding-x: 0.75rem;
 $nav-drawer-item-padding-y: 1rem;
+
+/* Dialog: modal */
+
+$dialog-modal-padding-x: 1.5rem;
+$dialog-modal-padding-y: 1.5rem;
+$dialog-modal-border-radius: 1.5rem;
 
 /* Dialog: fullscreen */
 

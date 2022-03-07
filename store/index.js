@@ -118,6 +118,13 @@ export const actions = {
     })
     commit('SET_MONTHLY', monthly)
   },
+  async fetchRecordById({ commit }, id) {
+    const record = await this.$axios.$get(`records/${id}`).catch((error) => {
+      commit('SET_ERROR', { path: 'record', error })
+    })
+    record.created_at = new Date(record.created_at)
+    return record
+  },
   async fetchRecords({ commit }, params) {
     if (!params.perPage) params.perPage = 50
     const records = await this.$axios

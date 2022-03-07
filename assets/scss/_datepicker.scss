@@ -1,0 +1,282 @@
+@import '~vue2-datepicker/scss';
+
+.mx-icon-calendar,
+.mx-icon-clear {
+  display: none;
+}
+
+.mx-input-wrapper {
+  display: flex;
+}
+
+.mx-datepicker-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  margin: 0;
+  padding: $grid-gap * 0.5;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  border: none;
+  color: inherit;
+  background-color: rgba($black, 0.75);
+  box-shadow: none;
+  z-index: 1010;
+}
+
+.mx-datepicker-header {
+  padding: 0 0 1rem;
+  border: none;
+}
+
+.mx-datepicker-content {
+  padding: $dialog-modal-padding-y $dialog-modal-padding-x;
+  border-radius: $dialog-modal-border-radius;
+  background-color: var(--modal-body-bg);
+}
+
+.mx-datepicker-footer {
+  padding: 1rem 0 0;
+  border: none;
+
+  .mx-btn {
+    padding: $btn-padding-y $btn-padding-x;
+    font-family: $btn-font-family;
+    font-size: $btn-font-size;
+    font-weight: $btn-font-weight;
+    line-height: $btn-line-height;
+    border-radius: 99rem;
+    border: none;
+    color: var(--dialog-button-color);
+    background-color: var(--dialog-button-bg);
+  }
+}
+
+.mx-calendar {
+  width: 17.5rem;
+  padding: 0;
+}
+
+.mx-calendar-header {
+  display: flex;
+  height: auto;
+  line-height: inherit;
+
+  .mx-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0.25rem;
+    font-size: inherit;
+    font-weight: inherit;
+    color: inherit;
+    transition: $transition;
+    transition-property: color;
+
+    &:hover {
+      color: var(--link-hover-color);
+    }
+  }
+
+  & > .mx-btn {
+    &::before,
+    &::after {
+      position: absolute;
+      top: 0.25rem;
+      right: 0.25rem;
+      display: block;
+      content: '';
+      width: 1.5rem;
+      height: 1.5rem;
+      background-color: currentColor;
+    }
+
+    &::before {
+      opacity: 1;
+    }
+
+    &::after {
+      opacity: 0;
+    }
+
+    & > [class*='mx-icon'] {
+      width: 1.5rem;
+      height: 1.5rem;
+
+      &::before,
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .mx-btn-icon-double-left {
+    order: 0;
+
+    &::before,
+    &::after {
+      clip-path: path(
+        'm18.41 7.41-1.41-1.41-6 6 6 6 1.41-1.41-4.58-4.59 4.58-4.59zm-6 0-1.41-1.41-6 6 6 6 1.41-1.41-4.58-4.59 4.58-4.59z'
+      );
+    }
+  }
+
+  .mx-btn-icon-left {
+    order: 1;
+
+    &::before,
+    &::after {
+      clip-path: path(
+        'm15.41 16.58-4.58-4.58 4.58-4.59-1.41-1.41-6 6 6 6 1.41-1.42z'
+      );
+    }
+  }
+
+  .mx-calendar-header-label {
+    display: flex;
+    flex: 1 1 auto;
+    justify-content: center;
+    order: 2;
+    font-family: $font-family-alternate;
+    font-size: $font-size-base * $h5-multiplier;
+    font-weight: $font-weight-normal;
+    color: var(--body-color);
+
+    .mx-btn {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .mx-btn-icon-right {
+    order: 3;
+
+    &::before,
+    &::after {
+      clip-path: path(
+        'M8.59 16.58L13.17 12L8.59 7.41L10 6L16 12L10 18L8.59 16.58Z'
+      );
+    }
+  }
+
+  .mx-btn-icon-double-right {
+    order: 4;
+
+    &::before,
+    &::after {
+      clip-path: path(
+        'm5.59 7.41 1.41-1.41 6 6-6 6-1.41-1.41 4.58-4.59-4.58-4.59zm6 0 1.41-1.41 6 6-6 6-1.41-1.41 4.58-4.59-4.58-4.59z'
+      );
+    }
+  }
+}
+
+.mx-calendar-content {
+  height: auto;
+}
+
+.mx-table-date {
+  th {
+    font-family: $font-family-alternate;
+    font-weight: $font-weight-medium;
+  }
+
+  td,
+  th {
+    height: 2.25rem;
+    font-size: $font-size-base * 0.875;
+  }
+
+  .cell {
+    & > * {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 99rem;
+    }
+
+    &.today {
+      font-weight: $font-weight-medium;
+      color: var(--datepicker-calendar-active-color);
+
+      & > * {
+        background-color: var(--datepicker-calendar-today-color);
+      }
+    }
+
+    &.active {
+      font-weight: $font-weight-medium;
+      color: var(--modal-body-bg);
+      background-color: transparent;
+
+      & > * {
+        background-color: var(--datepicker-calendar-active-color);
+      }
+    }
+
+    &.not-current-month {
+      color: inherit;
+      opacity: 0.25;
+    }
+  }
+}
+
+.mx-calendar-time {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--modal-body-bg);
+}
+
+.mx-time-header {
+  display: flex;
+  flex: 0 0 auto;
+  justify-content: center;
+  font-family: $font-family-alternate;
+  font-size: $font-size-base * $h5-multiplier;
+  font-weight: $font-weight-normal;
+  border: none;
+  color: var(--body-color);
+
+  .mx-btn {
+    padding-top: 0.15625rem;
+    padding-bottom: 0.15625rem;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.mx-time-content {
+  flex: 1 1 auto;
+}
+
+.mx-time-column {
+  border: none;
+
+  .mx-time-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.25rem;
+    font-size: $font-size-base * 0.875;
+    border-radius: 99rem;
+
+    &.active {
+      color: var(--datepicker-calendar-active-color);
+      background-color: var(--datepicker-calendar-today-color);
+    }
+  }
+}
