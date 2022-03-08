@@ -107,8 +107,8 @@ export default {
   max-width: 90%;
   padding: $nav-drawer-padding-y $nav-drawer-padding-x;
   border-radius: 0 1rem 1rem 0;
-  color: var(--drawer-color);
-  background-color: var(--drawer-bg);
+  color: var(--on-tertiary-container);
+  background-color: var(--tertiary-container);
   overflow-y: auto;
   z-index: 1010;
 }
@@ -138,8 +138,8 @@ export default {
     }
 
     &.active {
-      color: var(--drawer-active-color);
-      background-color: var(--drawer-active-bg);
+      color: var(--on-tertiary-light);
+      background-color: var(--tertiary-light);
     }
   }
 }

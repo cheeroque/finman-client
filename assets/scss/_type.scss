@@ -73,11 +73,11 @@ a {
 
   &:active {
     text-decoration: none;
-    color: var(--link-active-color);
+    color: var(--secondary);
   }
 
   &:hover {
     text-decoration: underline;
-    color: var(--link-hover-color);
+    color: var(--primary);
   }
 }

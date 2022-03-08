@@ -1,117 +1,44 @@
 /* Default theme -- light */
 
 @mixin theme-light() {
-  // body
-  --body-bg: #{$secondary-90};
-  --body-color: #{$neutral-10};
-  --border-color: #{$neutral-variant-80};
+  /* GLOBAL */
 
-  --link-color: #{$neutral-10};
-  --link-active-color: #{$primary-10};
-  --link-hover-color: #{$primary-40};
+  --background: #{$neutral-99};
+  --on-background: #{$neutral-10};
 
-  // card
-  --card-bg: #{$neutral-variant-99};
-  --card-color: #{$neutral-10};
-  --card-color-accent: #{$primary-10};
-  --card-color-muted: #{$secondary-50};
+  --primary: #{$primary-40};
+  --on-primary: #{$primary-99};
 
-  --card-active-bg: #{$primary-95};
-  --card-active-color: #{$neutral-variant-10};
-  --card-active-color-accent: #{$primary-40};
-  --card-active-color-muted: #{$secondary-40};
+  --primary-container: #{$primary-95};
+  --on-primary-container: #{$primary-10};
 
-  // datepicker calendar
-  --datepicker-calendar-active-color: #{$primary-40};
-  --datepicker-calendar-today-color: #{$primary-90};
+  --secondary: #{$secondary-40};
+  --on-secondary: #{$secondary-99};
 
-  // dialog
-  --dialog-body-bg: #{$neutral-variant-99};
+  --secondary-container: #{$secondary-90};
+  --on-secondary-container: #{$secondary-10};
 
-  --dialog-header-bg: #{$secondary-90};
-  --dialog-header-color: #{$primary-10};
-  --dialog-header-color-accent: #{$primary-40};
+  --tertiary: #{$tertiary-40};
+  --on-tertiary: #{$tertiary-99};
 
-  --dialog-button-bg: #{$neutral-variant-95};
-  --dialog-button-active-bg: #{$primary-90};
-  --dialog-button-color: #{$primary-40};
+  --tertiary-container: #{$tertiary-90};
+  --on-tertiary-container: #{$tertiary-10};
 
-  // drawer
-  --drawer-bg: #{$tertiary-90};
-  --drawer-color: #{$neutral-variant-10};
-  --drawer-color-accent: #{$tertiary-10};
+  --tertiary-light: #{$tertiary-60};
+  --on-tertiary-light: #{$tertiary-99};
 
-  --drawer-active-bg: #{$tertiary-95};
-  --drawer-active-color: #{$tertiary-20};
+  --surface: #{$neutral-99};
+  --on-surface: #{$neutral-10};
 
-  // FAB
-  --fab-bg: #{$tertiary-40};
-  --fab-color: #{$tertiary-99};
+  --surface-variant: #{$neutral-variant-90};
+  --on-surface-variant: #{$neutral-variant-30};
 
-  --fab-hover-bg: #{$tertiary-50};
-  --fab-hover-color: #{$tertiary-99};
+  --surface-variant-light: #{$neutral-variant-95};
+  --on-surface-variant-light: #{$neutral-variant-40};
 
-  // form
-  --form-button-bg: #{$secondary-90};
-  --form-button-color: #{$primary-40};
+  --outline: #{$neutral-variant-50};
 
-  --form-control-bg: #{$neutral-variant-95};
-  --form-control-border-color: #{$neutral-10};
-  --form-control-color: #{$neutral-10};
-
-  --form-control-focus-bg: #{$secondary-90};
-  --form-control-focus-border-color: #{$primary-40};
-  --form-control-focus-color: #{$neutral-10};
-
-  --form-label-color: #{$primary-40};
-  --form-placeholder-color: #{$neutral-variant-80};
-
-  //header
-  --header-bg: #{$secondary-90};
-  --header-color: #{$primary-10};
-  --header-color-accent: #{$primary-40};
-
-  // modal dialog
-  --modal-body-bg: #{$neutral-variant-95};
-
-  // navigation bar
-  --navbar-bg: #{$primary-95};
-  --navbar-color: #{$neutral-10};
-
-  --navbar-active-bg: #{$primary-90};
-  --navbar-active-color: #{$neutral-10};
-
-  // table
-  --table-bg: transparent;
-  --table-color: #{$neutral-10};
-
-  --table-head-bg: transparent;
-  --table-head-color: #{$primary-10};
-  --table-head-border-color: #{$neutral-variant-80};
-
-  --table-row-bg: transparent;
-  --table-row-alternate-bg: #{$neutral-variant-95};
-  --table-row-expanded-bg: #{$secondary-90};
-  --table-row-expanded-color: #{$primary-10};
-  --table-row-expanded-border-color: #{$neutral-variant-80};
-
-  // category card
-  --card-category-expense-color: #{$tertiary-60};
-  --card-category-income-color: #{$success-60};
-
-  // calendar
-  --calendar-bg: transparent;
-  --calendar-head-color: #{$primary-10};
-  --calendar-head-color-accent: #{$primary-40};
-
-  --calendar-month-bg: #{$primary-95};
-  --calendar-month-color: #{$neutral-variant-10};
-
-  --calendar-month-active-bg: #{$primary-80};
-  --calendar-month-active-color: #{$primary-20};
-
-  --calendar-month-disabled-bg: transparent;
-  --calendar-month-disabled-color: #{$neutral-variant-90};
+  --muted: #{$secondary-50};
 }
 
 html,
@@ -128,117 +55,43 @@ html,
 /* Default theme -- dark */
 
 @mixin theme-dark() {
-  // body
-  --body-bg: #{$neutral-variant-10};
-  --body-color: #{$neutral-95};
-  --border-color: #{$neutral-variant-50};
+  /* GLOBAL */
+  --background: #{$neutral-10};
+  --on-background: #{$neutral-80};
 
-  --link-color: #{$neutral-95};
-  --link-active-color: #{$primary-90};
-  --link-hover-color: #{$primary-90};
+  --primary: #{$primary-80};
+  --on-primary: #{$primary-20};
 
-  // card
-  --card-bg: #{$neutral-variant-20};
-  --card-color: #{$neutral-95};
-  --card-color-accent: #{$primary-90};
-  --card-color-muted: #{$secondary-80};
+  --primary-container: #{$primary-20};
+  --on-primary-container: #{$primary-90};
 
-  --card-active-bg: #{$secondary-30};
-  --card-active-color: #{$neutral-99};
-  --card-active-color-accent: #{$primary-90};
-  --card-active-color-muted: #{$secondary-90};
+  --secondary: #{$secondary-80};
+  --on-secondary: #{$secondary-20};
 
-  // datepicker calendar
-  --datepicker-calendar-active-color: #{$primary-80};
-  --datepicker-calendar-today-color: #{$secondary-40};
+  --secondary-container: #{$secondary-30};
+  --on-secondary-container: #{$secondary-90};
 
-  // dialog
-  --dialog-body-bg: #{$neutral-variant-20};
+  --tertiary: #{$tertiary-80};
+  --on-tertiary: #{$tertiary-20};
 
-  --dialog-header-bg: #{$neutral-variant-10};
-  --dialog-header-color: #{$primary-80};
-  --dialog-header-color-accent: #{$primary-60};
+  --tertiary-container: #{$tertiary-30};
+  --on-tertiary-container: #{$tertiary-90};
 
-  --dialog-button-bg: #{$neutral-variant-30};
-  --dialog-button-active-bg: #{$primary-30};
-  --dialog-button-color: #{$primary-80};
+  --tertiary-light: #{$tertiary-60};
+  --on-tertiary-light: #{$tertiary-20};
 
-  // drawer
-  --drawer-bg: #{$primary-20};
-  --drawer-color: #{$neutral-variant-95};
-  --drawer-color-accent: #{$primary-90};
+  --surface: #{$neutral-10};
+  --on-surface: #{$neutral-80};
 
-  --drawer-active-bg: #{$primary-30};
-  --drawer-active-color: #{$neutral-variant-95};
+  --surface-variant: #{$neutral-variant-30};
+  --on-surface-variant: #{$neutral-variant-80};
 
-  // FAB
-  --fab-bg: #{$tertiary-80};
-  --fab-color: #{$tertiary-10};
+  --surface-variant-light: #{$neutral-variant-30};
+  --on-surface-variant-light: #{$neutral-variant-80};
 
-  --fab-hover-bg: #{$tertiary-60};
-  --fab-hover-color: #{$tertiary-10};
+  --outline: #{$neutral-variant-60};
 
-  // form
-  --form-button-bg: #{$secondary-30};
-  --form-button-color: #{$primary-80};
-
-  --form-control-bg: #{$neutral-variant-30};
-  --form-control-border-color: #{$neutral-90};
-  --form-control-color: #{$neutral-90};
-
-  --form-control-focus-bg: #{$secondary-30};
-  --form-control-focus-border-color: #{$primary-80};
-  --form-control-focus-color: #{$neutral-90};
-
-  --form-label-color: #{$primary-80};
-  --form-placeholder-color: #{$neutral-40};
-
-  //header
-  --header-bg: #{$neutral-variant-10};
-  --header-color: #{$primary-80};
-  --header-color-accent: #{$primary-60};
-
-  // modal dialog
-  --modal-body-bg: #{$neutral-variant-30};
-
-  // navigation bar
-  --navbar-bg: #{$secondary-10};
-  --navbar-color: #{$neutral-95};
-
-  --navbar-active-bg: #{$primary-20};
-  --navbar-active-color: #{$neutral-95};
-
-  // table
-  --table-bg: transparent;
-  --table-color: #{$neutral-95};
-
-  --table-head-bg: transparent;
-  --table-head-color: #{$primary-90};
-  --table-head-border-color: #{$neutral-variant-50};
-
-  --table-row-bg: transparent;
-  --table-row-alternate-bg: #{$neutral-variant-30};
-  --table-row-expanded-bg: #{$secondary-30};
-  --table-row-expanded-color: #{$primary-90};
-  --table-row-expanded-border-color: #{$neutral-variant-50};
-
-  // category card
-  --card-category-expense-color: #{$tertiary-80};
-  --card-category-income-color: #{$success-80};
-
-  // calendar
-  --calendar-bg: transparent;
-  --calendar-head-color: #{$primary-90};
-  --calendar-head-color-accent: #{$primary-80};
-
-  --calendar-month-bg: #{$neutral-variant-30};
-  --calendar-month-color: #{$neutral-95};
-
-  --calendar-month-active-bg: #{$secondary-40};
-  --calendar-month-active-color: #{$secondary-90};
-
-  --calendar-month-disabled-bg: transparent;
-  --calendar-month-disabled-color: #{$neutral-variant-30};
+  --muted: #{$secondary-80};
 }
 
 :root.theme-dark {

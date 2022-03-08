@@ -28,13 +28,13 @@ export default {
   padding: 1rem;
   border-radius: 1rem;
   border: none;
-  color: var(--fab-color);
-  background-color: var(--fab-bg);
+  color: var(--on-tertiary);
+  background-color: var(--tertiary);
   box-shadow: $shadow-2;
 
   &:hover {
-    color: var(--fab-hover-color);
-    background-color: var(--fab-hover-bg);
+    color: var(--on-tertiary-light);
+    background-color: var(--tertiary-light);
     box-shadow: $shadow-6;
   }
 }

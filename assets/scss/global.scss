@@ -7,8 +7,8 @@ body {
   font-size: $font-size-base;
   font-family: $font-family-base;
   line-height: $line-height-base;
-  color: var(--body-color);
-  background-color: var(--body-bg);
+  color: var(--on-secondary-container);
+  background-color: var(--secondary-container);
 }
 
 hr {
@@ -16,5 +16,5 @@ hr {
   margin: 1rem auto;
   border-width: 0 0 $border-width;
   border-style: solid;
-  border-color: var(--border-color);
+  border-color: var(--outline);
 }

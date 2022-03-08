@@ -39,7 +39,7 @@
 .mx-datepicker-content {
   padding: $dialog-modal-padding-y $dialog-modal-padding-x;
   border-radius: $dialog-modal-border-radius;
-  background-color: var(--modal-body-bg);
+  background-color: var(--secondary-container);
 }
 
 .mx-datepicker-footer {
@@ -54,8 +54,8 @@
     line-height: $btn-line-height;
     border-radius: 99rem;
     border: none;
-    color: var(--dialog-button-color);
-    background-color: var(--dialog-button-bg);
+    color: var(--on-primary);
+    background-color: var(--primary);
   }
 }
 
@@ -83,7 +83,7 @@
     transition-property: color;
 
     &:hover {
-      color: var(--link-hover-color);
+      color: var(--primary);
     }
   }
 
@@ -149,7 +149,7 @@
     font-family: $font-family-alternate;
     font-size: $font-size-base * $h5-multiplier;
     font-weight: $font-weight-normal;
-    color: var(--body-color);
+    color: var(--on-secondary-container);
 
     .mx-btn {
       padding-top: 0;
@@ -208,20 +208,20 @@
 
     &.today {
       font-weight: $font-weight-medium;
-      color: var(--datepicker-calendar-active-color);
+      color: var(--primary);
 
       & > * {
-        background-color: var(--datepicker-calendar-today-color);
+        background-color: var(--on-primary);
       }
     }
 
     &.active {
       font-weight: $font-weight-medium;
-      color: var(--modal-body-bg);
+      color: var(--on-primary);
       background-color: transparent;
 
       & > * {
-        background-color: var(--datepicker-calendar-active-color);
+        background-color: var(--primary);
       }
     }
 
@@ -229,13 +229,22 @@
       color: inherit;
       opacity: 0.25;
     }
+
+    &:hover {
+      color: var(--primary);
+      background-color: transparent;
+
+      & > * {
+        background-color: transparent;
+      }
+    }
   }
 }
 
 .mx-calendar-time {
   display: flex;
   flex-direction: column;
-  background-color: var(--modal-body-bg);
+  background-color: var(--secondary-container);
 }
 
 .mx-time-header {
@@ -246,7 +255,7 @@
   font-size: $font-size-base * $h5-multiplier;
   font-weight: $font-weight-normal;
   border: none;
-  color: var(--body-color);
+  color: var(--on-secondary-container);
 
   .mx-btn {
     padding-top: 0.15625rem;
@@ -275,8 +284,8 @@
     border-radius: 99rem;
 
     &.active {
-      color: var(--datepicker-calendar-active-color);
-      background-color: var(--datepicker-calendar-today-color);
+      color: var(--primary);
+      background-color: transparent;
     }
   }
 }

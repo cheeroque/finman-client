@@ -78,7 +78,7 @@ export default {
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: var(--dialog-body-bg);
+  background-color: var(--background);
   z-index: 990;
 }
 
@@ -87,8 +87,8 @@ export default {
   align-items: center;
   padding: calc(#{$dialog-fullscreen-padding-y} - 0.5rem)
     calc(#{$dialog-fullscreen-padding-x} - 0.5rem);
-  color: var(--dialog-header-color);
-  background-color: var(--dialog-header-bg);
+  color: var(--on-primary-container);
+  background-color: var(--secondary-container);
 }
 
 .dialog-title {
@@ -105,7 +105,7 @@ export default {
   margin: 0.25em 0 0 auto;
   padding: 0.5rem;
   border: 0;
-  color: var(--dialog-header-color-accent);
+  color: var(--primary);
 }
 
 .dialog-body {

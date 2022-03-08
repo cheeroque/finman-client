@@ -148,11 +148,12 @@ export default {
   gap: 0.5rem;
 
   .btn {
-    color: var(--dialog-button-color);
+    color: var(--primary);
   }
 
   .btn-submit {
-    background-color: var(--dialog-button-bg);
+    color: var(--on-primary);
+    background-color: var(--primary);
   }
 }
 </style>

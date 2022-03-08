@@ -24,9 +24,9 @@
   font-weight: $input-font-weight;
   line-height: $input-line-height;
   border-radius: $input-border-radius $input-border-radius 0 0;
-  border-bottom: $border-width solid var(--form-control-border-color);
-  color: var(--form-control-color);
-  background-color: var(--form-control-bg);
+  border-bottom: $border-width solid var(--on-surface-variant-light);
+  color: var(--on-surface-variant-light);
+  background-color: var(--surface-variant-light);
   transition: $transition;
   transition-property: border-color, background-color;
 
@@ -42,6 +42,7 @@
     font-weight: inherit;
     line-height: inherit;
     border: none;
+    color: inherit;
     background-color: transparent;
     appearance: textfield;
 
@@ -52,13 +53,13 @@
     }
 
     &:focus {
-      color: var(--form-control-focus-color);
+      color: var(--on-secondary-container);
       box-shadow: none;
       outline: none;
     }
 
     &::placeholder {
-      color: var(--form-placeholder-color);
+      color: var(--muted);
     }
   }
 
@@ -80,7 +81,7 @@
       right: $input-padding-x;
       width: 0.5rem;
       height: 0.375rem;
-      background-color: var(--form-label-color);
+      background-color: var(--primary);
       transform: translateY(-50%);
       transition: $transition;
       transition-property: transform;
@@ -96,14 +97,14 @@
     bottom: 0;
     left: 0;
     height: $border-width * 2;
-    background-color: var(--form-control-border-color);
+    background-color: var(--on-surface-variant-light);
     transform: scaleX(0);
     transition: $transition;
     transition-property: background-color, transform;
   }
 
   &:focus-within {
-    background-color: var(--form-control-focus-bg);
+    background-color: var(--secondary-container);
 
     &.form-control-select {
       &::before {
@@ -112,7 +113,7 @@
     }
 
     &::after {
-      background-color: var(--form-control-focus-border-color);
+      background-color: var(--primary);
       transform: scaleX(1);
     }
   }
@@ -127,7 +128,7 @@
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
-  color: var(--form-label-color);
+  color: var(--primary);
 }
 
 .form-group-label {
@@ -136,13 +137,13 @@
   left: $input-padding-x;
   right: $input-padding-x;
   font-size: $label-font-size;
-  color: var(--form-label-color);
+  color: var(--primary);
 }
 
 .btn-form-control {
   padding: $input-padding-y $input-padding-x;
-  color: var(--form-button-color);
-  background-color: var(--form-button-bg);
+  color: var(--on-secondary-container);
+  background-color: var(--secondary-container);
 }
 
 .form-group-no-label {
@@ -156,153 +157,3 @@
     padding-bottom: $input-padding-y;
   }
 }
-
-// .form-control {
-//   display: block;
-//   width: 100%;
-//   padding: $btn-input-padding-y $btn-input-padding-x;
-//   font-size: $btn-input-font-size;
-//   line-height: $btn-input-line-height;
-//   border: $border-width solid $border-color;
-//   border-radius: $input-border-radius;
-//   color: inherit;
-//   background-color: transparent;
-//   transition: $transition-base;
-//   transition-property: color, border-color, background-color, box-shadow;
-//   appearance: none;
-
-//   &.form-control-lg {
-//     padding: $btn-input-padding-y-lg $btn-input-padding-x-lg;
-//   }
-
-//   &:not(:disabled):not(.disabled) {
-//     &:focus,
-//     &.focus {
-//       border-color: $input-border-color-focus;
-//       outline: none;
-//       box-shadow: 0 0 0 0.125rem rgba($primary, 0.1);
-//     }
-//   }
-
-//   &:disabled,
-//   &.disabled {
-//     color: $gray-600;
-//     border-color: $border-color;
-//     background-color: $border-color;
-//   }
-
-//   &[readonly],
-//   &.readonly {
-//     color: $gray-600;
-//     border-color: $border-color;
-//     background-color: $gray-200;
-//     appearance: textfield;
-//   }
-// }
-
-// .custom-select {
-//   display: block;
-//   position: relative;
-//   width: 100%;
-
-//   &::after {
-//     display: block;
-//     content: '';
-//     position: absolute;
-//     top: 50%;
-//     right: $btn-input-padding-x;
-//     border: ($btn-input-padding-x / 4) solid transparent;
-//     border-top-color: $body-color;
-//     transform: translateY(-25%);
-//     pointer-events: none;
-//   }
-
-//   .form-control {
-//     padding-left: $btn-input-padding-x * 0.75;
-//     padding-right: $btn-input-padding-x * 1.5;
-//     cursor: pointer;
-//   }
-// }
-
-// .custom-control-input {
-//   position: absolute;
-//   opacity: 0;
-//   width: 0;
-//   height: 0;
-//   padding: 0;
-//   border: none;
-//   appearance: none;
-// }
-
-// .custom-control-label {
-//   position: relative;
-//   padding-left: calc(
-//     #{$btn-input-padding-x / 2} + #{$custom-control-indicator-size}
-//   );
-//   font-size: $btn-input-font-size;
-//   line-height: $btn-input-line-height;
-
-//   &::before,
-//   &::after {
-//     display: block;
-//     content: '';
-//     position: absolute;
-//     box-sizing: border-box;
-//     transition: $transition-base;
-//     transition-property: border-color, background-color;
-//   }
-
-//   &::before {
-//     left: 0;
-//     top: calc(
-//       #{$btn-input-font-size * $btn-input-line-height / 2} - #{$custom-control-indicator-size /
-//         2}
-//     );
-//     width: $custom-control-indicator-size;
-//     height: $custom-control-indicator-size;
-//     border: 2px solid $gray-400;
-//     background-color: $white;
-//   }
-
-//   &::after {
-//     left: 0.25rem;
-//     top: calc(
-//       #{$btn-input-font-size * $btn-input-line-height / 2} - #{$custom-control-indicator-size /
-//         2} + 0.25rem
-//     );
-//     width: calc(#{$custom-control-indicator-size} - 0.5rem);
-//     height: calc(#{$custom-control-indicator-size} - 0.5rem);
-//     background-color: transparent;
-//   }
-// }
-
-// .custom-control-input:checked ~ .custom-control-label {
-//   &::before {
-//     border-color: $primary;
-//   }
-
-//   &::after {
-//     background-color: $primary;
-//   }
-// }
-
-// .custom-checkbox {
-//   .custom-control-label {
-//     &::before {
-//       border-radius: $btn-input-border-radius;
-//     }
-
-//     &::after {
-//       border-radius: $btn-input-border-radius / 2;
-//     }
-//   }
-// }
-
-// .custom-radio {
-//   .custom-control-label {
-//     &::before,
-//     &::after {
-//       border-radius: 99rem;
-//     }
-//   }
-// }

@@ -19,14 +19,14 @@
     text-align: center;
     text-decoration: none;
     border: none;
-    color: var(--link-color);
+    color: inherit;
     background-color: transparent;
     transition: $transition;
     transition-property: color;
 
     &:hover {
       text-decoration: none;
-      color: var(--link-hover-color);
+      color: var(--primary);
     }
   }
 }

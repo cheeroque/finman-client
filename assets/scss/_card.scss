@@ -3,28 +3,20 @@
   margin-bottom: $card-margin-bottom;
   padding: $card-padding-y $card-padding-x;
   border-radius: $card-border-radius;
-  color: var(--card-color);
-  background-color: var(--card-bg);
+  color: var(--on-surface);
+  background-color: var(--surface);
   transition: $transition;
 
   .card-text-muted {
-    color: var(--card-color-muted);
+    color: var(--muted);
   }
 
   .card-text-accent {
-    color: var(--card-color-accent);
+    color: var(--primary);
   }
 
   &.active {
-    color: var(--card-active-color);
-    background-color: var(--card-active-bg);
-
-    .card-text-muted {
-      color: var(--card-active-color-muted);
-    }
-
-    .card-text-accent {
-      color: var(--card-active-color-accent);
-    }
+    color: var(--on-primary-container);
+    background-color: var(--primary-container);
   }
 }

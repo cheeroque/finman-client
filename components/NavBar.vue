@@ -89,8 +89,8 @@ export default {
   right: 0;
   bottom: 0;
   padding: $navbar-padding-y $navbar-padding-x;
-  color: var(--navbar-color);
-  background-color: var(--navbar-bg);
+  color: var(--on-primary-container);
+  background-color: var(--primary-container);
   z-index: 1000;
 }
 
@@ -117,8 +117,8 @@ export default {
 
     &.active {
       .nav-item-icon {
-        color: var(--navbar-active-color);
-        background-color: var(--navbar-active-bg);
+        color: var(--on-primary);
+        background-color: var(--primary);
       }
     }
   }
