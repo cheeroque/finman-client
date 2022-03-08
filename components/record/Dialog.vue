@@ -6,6 +6,9 @@
     @action="onFormSubmit"
   >
     <form @submit.prevent="onFormSubmit">
+      <FormGroup label="Категория">
+        <FormSelect v-model="record.category_id" :options="categoryOptions" />
+      </FormGroup>
       <FormGroup label="Сумма">
         <FormInput
           v-model="record.sum"
@@ -25,7 +28,9 @@
             placeholder="Выберите дату"
           />
         </FormGroup>
-        <button type="button" class="btn btn-form-control">Сейчас</button>
+        <button type="button" class="btn btn-form-control" @click="setNow">
+          Сейчас
+        </button>
       </div>
       <div class="dialog-controls">
         <button type="button" class="btn" @click="cancel">Отменить</button>
@@ -60,7 +65,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['activeRecord']),
+    ...mapGetters(['categories']),
     localVisible: {
       get() {
         return this.visible
@@ -75,6 +80,12 @@ export default {
     dialogActionTitle() {
       return this.recordId ? 'Обновить' : 'Сохранить'
     },
+    categoryOptions() {
+      return (
+        this.categories?.map(({ id, name }) => ({ value: id, text: name })) ||
+        []
+      )
+    },
   },
   watch: {
     visible: {
@@ -88,8 +99,7 @@ export default {
     ...mapActions(['fetchRecordById']),
     async getRecord() {
       this.loading = true
-      const record = await this.fetchRecordById(this.recordId)
-      this.record = record
+      this.record = await this.fetchRecordById(this.recordId)
       this.loading = false
     },
     async storeRecord() {
@@ -123,6 +133,9 @@ export default {
     onFormSubmit() {
       if (!this.recordId) this.storeRecord()
       else this.updateRecord()
+    },
+    setNow() {
+      this.record.created_at = new Date()
     },
   },
 }
