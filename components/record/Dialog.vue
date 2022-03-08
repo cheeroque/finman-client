@@ -81,10 +81,13 @@ export default {
       return this.recordId ? 'Обновить' : 'Сохранить'
     },
     categoryOptions() {
-      return (
-        this.categories?.map(({ id, name }) => ({ value: id, text: name })) ||
-        []
+      const options = [
+        { value: null, text: 'Категория не выбрана', disabled: true },
+      ]
+      this.categories?.forEach(({ id, name }) =>
+        options.push({ value: id, text: name })
       )
+      return options
     },
   },
   watch: {

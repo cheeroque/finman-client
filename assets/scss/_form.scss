@@ -77,7 +77,7 @@
       display: block;
       content: '';
       position: absolute;
-      top: 50%;
+      bottom: $input-padding-y;
       right: $input-padding-x;
       width: 0.5rem;
       height: 0.375rem;

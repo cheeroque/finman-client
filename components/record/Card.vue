@@ -86,7 +86,6 @@ export default {
     justify-self: end;
     grid-column: 2 / 3;
     grid-row: 1 / 4;
-    // margin-left: auto;
     text-align: right;
 
     a:hover {

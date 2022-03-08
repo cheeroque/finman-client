@@ -4,6 +4,7 @@
       <option
         v-for="(option, index) in options"
         :key="`option-${index}`"
+        :disabled="option.disabled"
         :value="getValue(option)"
       >
         {{ getText(option) }}
