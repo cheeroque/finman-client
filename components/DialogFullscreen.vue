@@ -34,6 +34,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   model: {
     prop: 'visible',
@@ -63,7 +65,16 @@ export default {
       },
     },
   },
+  watch: {
+    visible: {
+      immediate: true,
+      handler(value) {
+        this.setDialogOpen(value)
+      },
+    },
+  },
   methods: {
+    ...mapActions(['setDialogOpen']),
     hide() {
       this.localVisible = false
     },

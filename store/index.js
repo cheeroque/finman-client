@@ -1,23 +1,11 @@
 export const state = () => ({
   categories: [],
+  dialogOpen: false,
+  drawerOpen: false,
   error: false,
   firstRecord: {},
   latestRevise: {},
   locale: 'ru',
-  monthColors: [
-    '#0057ff',
-    '#0c88b4',
-    '#15ab80',
-    '#1dcc4e',
-    '#25ed1a',
-    '#41ef00',
-    '#7ac700',
-    '#afa200',
-    '#e57c00',
-    '#f0572d',
-    '#d73977',
-    '#ab02fb',
-  ],
   monthly: {
     expenses: 0,
     incomes: 0,
@@ -33,6 +21,12 @@ export const state = () => ({
 export const mutations = {
   SET_CATEGORIES(state, payload) {
     state.categories = payload
+  },
+  SET_DIALOG_OPEN(state, payload) {
+    state.dialogOpen = payload
+  },
+  SET_DRAWER_OPEN(state, payload) {
+    state.drawerOpen = payload
   },
   SET_ERROR(state, payload) {
     state.error = payload
@@ -67,11 +61,11 @@ export const mutations = {
 }
 
 export const getters = {
+  bodyFixed: (state) => state.dialogOpen || state.drawerOpen,
   categories: (state) => state.categories,
   firstRecord: (state) => state.firstRecord,
   latestRevise: (state) => state.latestRevise,
   locale: (state) => state.locale,
-  monthColors: (state) => state.monthColors,
   monthlyExpenses: (state) => parseInt(state.monthly?.expenses || 0),
   monthlyIncomes: (state) => parseInt(state.monthly?.incomes || 0),
   records: (state) => state.records,
@@ -169,5 +163,12 @@ export const actions = {
       commit('SET_ERROR', { path: 'total', error })
     })
     commit('SET_TOTAL', total)
+  },
+
+  setDialogOpen({ commit }, payload) {
+    commit('SET_DIALOG_OPEN', payload)
+  },
+  setDrawerOpen({ commit }, payload) {
+    commit('SET_DRAWER_OPEN', payload)
   },
 }
