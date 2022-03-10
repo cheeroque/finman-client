@@ -66,12 +66,20 @@
   transition: $transition;
   transition-property: background-color, background-size;
 
+  &::placeholder {
+    color: $form-placeholder-color;
+  }
+
   &:focus {
     color: $form-control-active-color;
     background-color: $form-control-active-bg;
     background-size: 100% $border-width, 100% $border-width * 2;
     box-shadow: none;
     outline: none;
+
+    &::placeholder {
+      color: $form-placeholder-active-color;
+    }
   }
 }
 
