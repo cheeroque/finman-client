@@ -1,3 +1,21 @@
+/* Display */
+
+@each $key, $value in $displays {
+  .d-#{$key} {
+    display: #{$value} !important;
+  }
+}
+
+@each $breakpoint, $width in $breakpoints {
+  @include media-min-width($breakpoint) {
+    @each $key, $value in $displays {
+      .d-#{$breakpoint}-#{$key} {
+        display: #{$value} !important;
+      }
+    }
+  }
+}
+
 /* Spacing */
 
 @each $prop, $abbrev in (margin: m, padding: p) {

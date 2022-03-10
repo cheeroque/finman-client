@@ -1,6 +1,6 @@
 <template>
-  <div class="form-control form-control-select">
-    <select v-model="localValue" class="form-control-input">
+  <div class="form-select">
+    <select v-model="localValue" class="form-control">
       <option
         v-for="(option, index) in options"
         :key="`option-${index}`"

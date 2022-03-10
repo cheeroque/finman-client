@@ -1,30 +1,19 @@
 <template>
-  <div class="form-control">
-    <input
-      v-model="localValue"
-      ref="input"
-      :max="max"
-      :min="min"
-      :placeholder="placeholder"
-      :step="step"
-      :type="type"
-      class="form-control-input"
-    />
-    <div v-if="hasAppend" class="form-control-append" @click="focusInput">
-      <slot name="append">
-        {{ append }}
-      </slot>
-    </div>
-  </div>
+  <input
+    v-model="localValue"
+    ref="input"
+    :max="max"
+    :min="min"
+    :placeholder="placeholder"
+    :step="step"
+    :type="type"
+    class="form-control"
+  />
 </template>
 
 <script>
 export default {
   props: {
-    append: {
-      type: String,
-      default: null,
-    },
     placeholder: {
       type: String,
       default: null,
@@ -51,9 +40,6 @@ export default {
     },
   },
   computed: {
-    hasAppend() {
-      return this.$slots.append || this.append
-    },
     localValue: {
       get() {
         return this.value
@@ -61,12 +47,6 @@ export default {
       set(value) {
         this.$emit('input', value)
       },
-    },
-  },
-  methods: {
-    focusInput() {
-      if (!this.$refs.input) return
-      this.$refs.input.focus()
     },
   },
 }

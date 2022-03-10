@@ -10,25 +10,27 @@
         <FormSelect v-model="record.category_id" :options="categoryOptions" />
       </FormGroup>
       <FormGroup label="Сумма">
-        <FormInput
-          v-model="record.sum"
-          append="₽"
-          min="0"
-          placeholder="0"
-          type="number"
-        />
+        <InputGroup append="₽">
+          <input
+            ref="sumInput"
+            :value="record.sum"
+            class="form-control"
+            @blur="updateSum"
+            @input.prevent="filterValue"
+          />
+        </InputGroup>
       </FormGroup>
       <FormGroup label="Комментарий">
         <FormInput v-model="record.note" placeholder="Введите комментарий" />
       </FormGroup>
-      <div class="form-row mb-24">
-        <FormGroup label="Дата и время" column-count="2">
+      <div class="d-flex g-8 mb-24">
+        <FormGroup label="Дата и время" class="mb-0">
           <FormInputDate
             v-model="record.created_at"
             placeholder="Выберите дату"
           />
         </FormGroup>
-        <button type="button" class="btn btn-form-control" @click="setNow">
+        <button type="button" class="btn form-button" @click="setNow">
           Сейчас
         </button>
       </div>
@@ -117,6 +119,19 @@ export default {
       this.loading = false
       this.localVisible = false
     },
+    filterValue({ target }) {
+      const pattern = /[^\d+-]/
+      const filteredValue = `${target.value}`.replace(pattern, '')
+      target.value = filteredValue || 0
+    },
+    updateSum({ target }) {
+      const matches = target.value.match(/([+-]{0,}\d{1,})/gi) || []
+      const total = matches.reduce((total, match) => {
+        total += parseInt(match)
+        return total
+      }, 0)
+      this.record.sum = total
+    },
     cancel() {
       this.localVisible = false
     },
@@ -134,6 +149,7 @@ export default {
       }
     },
     onFormSubmit() {
+      this.updateSum({ target: this.$refs.sumInput })
       if (!this.recordId) this.storeRecord()
       else this.updateRecord()
     },

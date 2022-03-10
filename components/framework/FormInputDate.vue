@@ -1,5 +1,5 @@
 <template>
-  <div class="form-control">
+  <div class="input-group">
     <DatePicker
       v-model="localValue"
       :clearable="false"
@@ -8,7 +8,7 @@
       :placeholder="placeholder"
       confirm-text="Применить"
       format="DD.MM.YYYY, HH:mm"
-      input-class="form-control-input"
+      input-class="form-control"
       time-title-format="DD.MM.YYYY"
       type="datetime"
       confirm
