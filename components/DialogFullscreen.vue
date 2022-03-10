@@ -6,7 +6,7 @@
           title="Назад"
           aria-label="Назад"
           class="btn dialog-header-back"
-          @click="hide"
+          @click="cancel"
         >
           <svg-icon
             name="arrow-left-24"
@@ -28,7 +28,7 @@
       </header>
       <div class="dialog-body">
         <div class="card">
-          <slot></slot>
+          <slot :cancel="cancel" :ok="ok"></slot>
         </div>
       </div>
     </div>
@@ -71,13 +71,19 @@ export default {
     visible: {
       immediate: true,
       handler(value) {
+        this.$emit(value ? 'show' : 'hide')
         this.setDialogOpen(value)
       },
     },
   },
   methods: {
     ...mapActions(['setDialogOpen']),
-    hide() {
+    cancel() {
+      this.$emit('cancel')
+      this.localVisible = false
+    },
+    ok() {
+      this.$emit('ok')
       this.localVisible = false
     },
   },
