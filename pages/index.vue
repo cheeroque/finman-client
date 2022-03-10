@@ -5,6 +5,7 @@
       v-for="(record, index) in records.data"
       :key="`record-${index}`"
       :record="record"
+      class="mb-8"
       @record-edit="editRecord"
     />
     <RecordDialog v-model="dialogVisible" :record-id="recordId" />

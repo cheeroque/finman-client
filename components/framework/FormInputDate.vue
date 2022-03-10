@@ -16,7 +16,15 @@
       @focus="openPopup"
     >
       <template #header>
-        <h4 class="mb-0">Выбор даты</h4>
+        <h4 class="mb-0">Дата и время</h4>
+        <button
+          class="btn btn-close"
+          title="Закрыть"
+          aria-label="Закрыть"
+          @click="closePopup"
+        >
+          <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
+        </button>
       </template>
     </DatePicker>
   </div>

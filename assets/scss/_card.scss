@@ -1,22 +1,16 @@
 .card {
   display: block;
-  margin-bottom: $card-margin-bottom;
   padding: $card-padding-y $card-padding-x;
   border-radius: $card-border-radius;
-  color: var(--on-surface);
-  background-color: var(--surface);
+  color: $card-color;
+  background-color: $card-bg;
   transition: $transition;
 
   .card-text-muted {
-    color: var(--muted);
+    color: $card-color-muted;
   }
 
   .card-text-accent {
-    color: var(--primary);
-  }
-
-  &.active {
-    color: var(--on-primary-container);
-    background-color: var(--primary-container);
+    color: $card-color-accent;
   }
 }

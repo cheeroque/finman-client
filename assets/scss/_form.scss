@@ -8,6 +8,12 @@
   );
   margin-bottom: 1rem;
 
+  &:focus-within {
+    .form-group-label {
+      color: $form-label-active-color;
+    }
+  }
+
   &.form-group-no-label {
     .form-control {
       padding-top: $input-padding-y;
@@ -33,7 +39,7 @@
   right: $input-padding-x;
   font-size: $label-font-size;
   line-height: $line-height-base;
-  color: var(--primary);
+  color: $form-label-color;
   z-index: 1;
 }
 
@@ -46,14 +52,14 @@
   line-height: $input-line-height;
   border: none;
   border-radius: $input-border-radius $input-border-radius 0 0;
-  color: var(--on-surface-variant-light);
-  background-color: var(--surface-variant-light);
+  color: $form-control-color;
+  background-color: $form-control-bg;
   background-image: linear-gradient(
       to top,
-      var(--on-surface-variant-light),
-      var(--on-surface-variant-light)
+      $form-control-color,
+      $form-control-color
     ),
-    linear-gradient(to top, var(--primary), var(--primary));
+    linear-gradient(to top, $form-label-active-color, $form-label-active-color);
   background-position: bottom, bottom;
   background-repeat: no-repeat, no-repeat;
   background-size: 100% $border-width, 0 $border-width * 2;
@@ -61,7 +67,8 @@
   transition-property: background-color, background-size;
 
   &:focus {
-    color: var(--on-secondary-container);
+    color: $form-control-active-color;
+    background-color: $form-control-active-bg;
     background-size: 100% $border-width, 100% $border-width * 2;
     box-shadow: none;
     outline: none;
@@ -117,6 +124,6 @@
 .form-button {
   padding: calc(#{$input-padding-y} - #{$border-width})
     calc(#{$input-padding-x} - #{$border-width});
-  color: var(--on-secondary-container);
-  background-color: var(--secondary-container);
+  color: $form-button-color;
+  background-color: $form-button-bg;
 }

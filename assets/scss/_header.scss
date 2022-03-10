@@ -1,9 +1,9 @@
 .header {
-  color: var(--on-primary-container);
-  background-color: var(--secondary-container);
+  color: $header-color;
+  background-color: $header-bg;
 
   .btn {
-    color: var(--primary);
+    color: $header-color-accent;
   }
 }
 

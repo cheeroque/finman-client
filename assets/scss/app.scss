@@ -2,7 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&display=swap');
 
 /* Normalize */
 
@@ -23,9 +22,12 @@
 
 @import 'button';
 @import 'card';
+@import 'dialog';
+@import 'drawer';
 @import 'datepicker';
 @import 'form';
 @import 'header';
 @import 'nav';
+@import 'navbar';
 
 @import 'global';

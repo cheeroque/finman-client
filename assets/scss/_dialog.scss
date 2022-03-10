@@ -1,0 +1,68 @@
+.dialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: $dialog-border-radius;
+  color: $dialog-color;
+  background-color: $dialog-bg;
+
+  .btn {
+    color: $dialog-color;
+  }
+
+  .dialog-header {
+    display: flex;
+    align-items: center;
+    padding: $dialog-padding-y $dialog-padding-x;
+  }
+
+  .dialog-body {
+    padding: 0 $dialog-padding-x $dialog-padding-y;
+  }
+
+  .dialog-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 $dialog-padding-x $dialog-padding-y;
+
+    & > * + * {
+      margin-left: 0.5rem;
+    }
+  }
+
+  .dialog-submit {
+    color: $dialog-button-color;
+    background-color: $dialog-button-bg;
+  }
+}
+
+.dialog-fullscreen {
+  color: $body-color;
+  background-color: $body-bg;
+  z-index: $zindex-dialog;
+
+  .dialog-header {
+    padding: $dialog-padding-y calc(#{$dialog-padding-x} - 0.5rem);
+  }
+
+  .dialog-header-back {
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+    border: none;
+  }
+
+  .dialog-header-action {
+    align-self: flex-end;
+    margin-left: auto;
+    padding: 0.375rem 0.5rem;
+    border: none;
+    color: $dialog-color-accent;
+  }
+
+  .dialog-footer {
+    padding: $dialog-padding-y 0 0;
+  }
+}

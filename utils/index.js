@@ -14,3 +14,13 @@ export function formatDate(
   const date = isNaN(timestamp) ? new Date() : new Date(timestamp)
   return date.toLocaleString(locale, options)
 }
+
+export function isRouteActive(routes = [], currentRoute) {
+  if (!routes || !routes.length) return
+  const results = []
+  routes.forEach((route) => {
+    if (route === '/') results.push(route === currentRoute)
+    else results.push(currentRoute.startsWith(route))
+  })
+  return results.some((result) => Boolean(result))
+}

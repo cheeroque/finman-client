@@ -1,4 +1,6 @@
-/* Color system */
+/*** COLOR SYSTEM ***/
+
+/* Color palette */
 
 $white: #ffffff;
 $black: #000;
@@ -15,29 +17,29 @@ $primary-90: #eaddff;
 $primary-95: #f6edff;
 $primary-99: #fffbfe;
 
-$secondary-10: #1d192b;
-$secondary-20: #332d41;
-$secondary-30: #4a4458;
-$secondary-40: #625b71;
-$secondary-50: #7a7289;
-$secondary-60: #958da5;
-$secondary-70: #b0a7c0;
-$secondary-80: #ccc2dc;
-$secondary-90: #e8def8;
-$secondary-95: #f6edff;
-$secondary-99: #fffbfe;
+$secondary-10: #172539;
+$secondary-20: #263e5f;
+$secondary-30: #355684;
+$secondary-40: #4875b4;
+$secondary-50: #678fc7;
+$secondary-60: #94b0d7;
+$secondary-70: #aec4e1;
+$secondary-80: #c9d7eb;
+$secondary-90: #dbe5f2;
+$secondary-95: #edf2f8;
+$secondary-99: #f6f8fc;
 
-$tertiary-10: #31111d;
-$tertiary-20: #492532;
-$tertiary-30: #633b48;
-$tertiary-40: #7d5260;
-$tertiary-50: #986977;
-$tertiary-60: #b58392;
-$tertiary-70: #d29dac;
-$tertiary-80: #efb8c8;
-$tertiary-90: #ffd8e4;
-$tertiary-95: #ffecf1;
-$tertiary-99: #fffbfa;
+$tertiary-10: #401910;
+$tertiary-20: #5f2518;
+$tertiary-30: #943925;
+$tertiary-40: #c94e32;
+$tertiary-50: #da6c53;
+$tertiary-60: #e38f7c;
+$tertiary-70: #eaa99a;
+$tertiary-80: #f0c2b8;
+$tertiary-90: #f6dcd7;
+$tertiary-95: #fbeeeb;
+$tertiary-99: #fdf6f5;
 
 $neutral-10: #1c1b1f;
 $neutral-20: #313033;
@@ -85,11 +87,114 @@ $category-transportation: #008080;
 $category-communication: #008000;
 $category-misc-incomes: #00ff40;
 
+/* Body colors */
+
+$body-bg: var(--primary-container);
+$body-color: var(--on-primary-container);
+
+$backdrop-color: rgba($black, 0.75);
+
+/* Card colors */
+
+$card-bg: var(--background);
+$card-color: var(--on-background);
+$card-color-accent: var(--primary);
+$card-color-muted: var(--outline);
+
+/* Datepicker colors */
+
+$datepicker-active-bg: var(--primary-container);
+$datepicker-active-color: var(--on-primary-container);
+
+$datepicker-selected-bg: var(--primary);
+$datepicker-selected-color: var(--on-primary);
+
+$datepicker-today-bg: var(--secondary);
+$datepicker-today-color: var(--on-secondary);
+
+$datepicker-weekend-bg: transparent;
+$datepicker-weekend-color: var(--tertiary);
+
+/* Dialog colors */
+
+$dialog-bg: var(--surface);
+$dialog-color: var(--on-surface);
+
+$dialog-color-accent: var(--primary);
+
+$dialog-button-bg: var(--primary-container);
+$dialog-button-color: var(--on-primary-container);
+
+/* Drawer colors */
+
+$drawer-bg: var(--secondary-container);
+$drawer-color: var(--on-secondary-container);
+
+$drawer-active-bg: var(--secondary);
+$drawer-active-color: var(--on-secondary);
+
+/* FAB colors */
+
+$fab-bg: var(--tertiary);
+$fab-color: var(--on-tertiary);
+
+$fab-active-bg: var(--tertiary-container);
+$fab-active-color: var(--on-tertiary-container);
+
+/* Form colors */
+
+$form-button-bg: var(--primary-container);
+$form-button-color: var(--on-primary-container);
+
+$form-control-bg: var(--surface);
+$form-control-color: var(--on-surface);
+
+$form-control-active-bg: var(--secondary-container);
+$form-control-active-color: var(--on-secondary-container);
+
+$form-label-color: var(--primary);
+$form-label-active-color: var(--secondary);
+
+$fab-bg: var(--tertiary);
+$fab-color: var(--on-tertiary);
+
+/* Header colors */
+
+$header-bg: $body-bg;
+$header-color: $body-color;
+$header-color-accent: var(--primary);
+
+/* Navbar colors */
+
+$navbar-bg: var(--surface);
+$navbar-color: var(--on-surface);
+
+$navbar-active-bg: var(--primary-container);
+$navbar-active-color: var(--on-primary-container);
+
+/* Table colors */
+
+$table-bg: $card-bg;
+$table-color: $card-color;
+$table-color-accent: var(--primary);
+
+$table-alternate-bg: var(--surface);
+$table-alternate-color: var(--on-surface);
+
+$table-active-alternate-bg: var(--surface-variant);
+$table-active-alternate-color: var(--on-surface-variant);
+
+$table-active-bg: var(--secondary-container);
+$table-active-color: var(--on-secondary-container);
+$table-active-color-accent: var(--secondary);
+
+$table-disabled-bg: $card-bg;
+$table-disabled-color: var(--primary-container);
+
 /* Typography */
 
 $font-family-base: 'Roboto', sans-serif;
 $font-family-alternate: 'Rubik', sans-serif;
-$font-family-monospace: 'Fira Code', monospace;
 
 $font-size-base: 1rem;
 
@@ -123,6 +228,13 @@ $displays: (
   inline-grid: 'inline-grid',
   none: 'none',
 );
+
+/* Z-index */
+
+$zindex-dialog: 990;
+$zindex-drawer: 1010;
+$zindex-navbar: 1000;
+$zindex-modal: 1020;
 
 /* Shadows */
 
@@ -169,17 +281,38 @@ $spacers: (
   24: 1.5rem,
 );
 
-/* Buttons */
+/* Button */
 
 $btn-padding-y: 0.4375rem;
 $btn-padding-x: 0.75rem;
 $btn-font-family: $font-family-alternate;
-$btn-font-size: $font-size-base;
+$btn-font-size: $font-size-base * 0.875;
 $btn-font-weight: $font-weight-normal;
 $btn-line-height: $line-height-base;
 $btn-border-radius: 0.25rem;
 
-/* Forms */
+/* Card */
+
+$card-padding-x: 0.75rem;
+$card-padding-y: 0.75rem;
+$card-border-radius: 0.75rem;
+
+/* Dialog */
+
+$dialog-padding-x: #{$grid-gap * 0.5};
+$dialog-padding-y: #{$grid-gap * 0.5};
+$dialog-content-padding-x: 1rem;
+$dialog-content-padding-y: 1rem;
+$dialog-border-radius: 1rem;
+
+/* Drawer */
+
+$drawer-padding-x: #{$grid-gap * 0.5};
+$drawer-padding-y: 0.75rem;
+$drawer-item-padding-x: 0.75rem;
+$drawer-item-padding-y: 1rem;
+
+/* Form */
 
 $input-padding-x: 1rem;
 $input-padding-y: 1rem;
@@ -188,15 +321,7 @@ $input-font-size: $font-size-base;
 $input-font-weight: $font-weight-normal;
 $input-line-height: $line-height-base;
 $input-border-radius: 0.25rem;
-
 $label-font-size: $font-size-base * 0.75;
-
-/* Cards */
-
-$card-margin-bottom: 0.5rem;
-$card-padding-x: 1rem;
-$card-padding-y: 0.75rem;
-$card-border-radius: 0.75rem;
 
 /* Navbar */
 
@@ -206,20 +331,4 @@ $navbar-icon-padding-x: 0.25rem;
 $navbar-icon-padding-y: 0.25rem;
 $navbar-icon-spacer: 0.25rem;
 
-/* Nav drawer */
-
-$nav-drawer-padding-x: #{$grid-gap * 0.5};
-$nav-drawer-padding-y: 0.75rem;
-$nav-drawer-item-padding-x: 0.75rem;
-$nav-drawer-item-padding-y: 1rem;
-
-/* Dialog: modal */
-
-$dialog-modal-padding-x: 1.5rem;
-$dialog-modal-padding-y: 1.5rem;
-$dialog-modal-border-radius: 1.5rem;
-
-/* Dialog: fullscreen */
-
-$dialog-fullscreen-padding-x: #{$grid-gap * 0.5};
-$dialog-fullscreen-padding-y: 1.25rem;
+$navbar-font-family: $btn-font-family;

@@ -1,0 +1,68 @@
+.drawer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 90%;
+  padding: $drawer-padding-y $drawer-padding-x;
+  border-radius: 0 1rem 1rem 0;
+  color: $drawer-color;
+  background-color: $drawer-bg;
+  overflow-y: auto;
+  z-index: $zindex-drawer;
+
+  .drawer-nav {
+    flex-direction: column;
+
+    & > * {
+      flex: 0 0 auto;
+    }
+
+    .nav-item-header {
+      margin-bottom: 0;
+      padding: $drawer-item-padding-y $drawer-item-padding-x;
+      font-weight: $font-weight-medium;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: $drawer-item-padding-y $drawer-item-padding-x;
+      border-radius: 99rem;
+
+      .icon {
+        margin-right: 0.5rem;
+      }
+
+      &:hover {
+        color: $drawer-active-bg;
+      }
+
+      &.active {
+        color: $drawer-active-color;
+        background-color: $drawer-active-bg;
+      }
+    }
+  }
+}
+
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $backdrop-color;
+  cursor: pointer;
+  z-index: 1009;
+}
+
+.btn-drawer-close {
+  position: absolute;
+  left: $drawer-padding-x;
+  bottom: 1.5rem;
+  padding: $drawer-item-padding-y $drawer-item-padding-x;
+  border: none;
+}

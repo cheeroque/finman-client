@@ -1,64 +1,42 @@
 <template>
   <nav class="navbar">
     <ul class="nav navbar-nav">
-      <li role="presentation">
-        <button class="nav-item" @click="$emit('drawer-show')">
-          <span class="nav-item-icon">
-            <svg-icon
-              name="menu-24"
-              width="24"
-              height="24"
-              aria-hidden="true"
-            />
-          </span>
-          Меню
-        </button>
-      </li>
-      <li role="presentation">
+      <li
+        v-for="(item, index) in navbarItems"
+        :key="`navbar-item-${index}`"
+        role="presentation"
+      >
         <nuxt-link
-          :class="{ active: isActive(['/expenses', '/']) }"
-          to="/"
+          v-if="item.link"
+          :class="{
+            active: isRouteActive(
+              item.matchLinks || [item.link],
+              $route.fullPath
+            ),
+          }"
+          :to="item.link"
           class="nav-item"
         >
           <span class="nav-item-icon">
             <svg-icon
-              name="cart-24"
+              :name="item.icon"
               width="24"
               height="24"
               aria-hidden="true"
             />
           </span>
-          Расходы
+          {{ item.text }}
         </nuxt-link>
-      </li>
-      <li role="presentation">
-        <nuxt-link
-          :class="{ active: isActive(['/incomes']) }"
-          to="/incomes"
-          class="nav-item"
-        >
+        <button v-else class="nav-item" @click="$emit(item.action)">
           <span class="nav-item-icon">
             <svg-icon
-              name="card-24"
+              :name="item.icon"
               width="24"
               height="24"
               aria-hidden="true"
             />
           </span>
-          Доходы
-        </nuxt-link>
-      </li>
-      <li role="presentation">
-        <button class="nav-item" @click="$emit('search-show')">
-          <span class="nav-item-icon">
-            <svg-icon
-              name="search-24"
-              width="24"
-              height="24"
-              aria-hidden="true"
-            />
-          </span>
-          Поиск
+          {{ item.text }}
         </button>
       </li>
     </ul>
@@ -66,8 +44,38 @@
 </template>
 
 <script>
+import { isRouteActive } from '@/utils'
+
 export default {
+  data() {
+    return {
+      navbarItems: [
+        {
+          action: 'drawer-show',
+          icon: 'menu-24',
+          text: 'Меню',
+        },
+        {
+          icon: 'cart-24',
+          link: '/',
+          matchLinks: ['/expenses', '/'],
+          text: 'Расходы',
+        },
+        {
+          icon: 'card-24',
+          link: '/incomes',
+          text: 'Доходы',
+        },
+        {
+          action: 'search',
+          icon: 'search-24',
+          text: 'Поиск',
+        },
+      ],
+    }
+  },
   methods: {
+    isRouteActive,
     isActive(routes = []) {
       if (!routes || !routes.length) return
       const results = []
@@ -81,46 +89,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.navbar {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: $navbar-padding-y $navbar-padding-x;
-  color: var(--on-primary-container);
-  background-color: var(--primary-container);
-  z-index: 1000;
-}
-
-.navbar-nav {
-  gap: 1.5rem;
-  font-family: $font-family-alternate;
-
-  .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    padding: 0;
-
-    .nav-item-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: $navbar-icon-spacer;
-      padding: $navbar-icon-padding-y $navbar-icon-padding-x;
-      border-radius: 99rem;
-      transition: $transition;
-      transition-property: color, background-color;
-    }
-
-    &.active {
-      .nav-item-icon {
-        color: var(--on-primary);
-        background-color: var(--primary);
-      }
-    }
-  }
-}
-</style>

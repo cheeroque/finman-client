@@ -34,9 +34,9 @@
           Сейчас
         </button>
       </div>
-      <div class="dialog-controls">
+      <div class="dialog-footer">
         <button type="button" class="btn" @click="cancel">Отменить</button>
-        <button type="submit" class="btn btn-submit">Сохранить</button>
+        <button type="submit" class="btn dialog-submit">Сохранить</button>
       </div>
     </form>
   </DialogFullscreen>

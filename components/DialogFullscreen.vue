@@ -1,11 +1,11 @@
 <template>
   <transition name="dialog-fullscreen">
-    <div v-if="visible" class="dialog-fullscreen">
+    <div v-if="visible" class="dialog dialog-fullscreen">
       <header class="dialog-header">
         <button
           title="Назад"
           aria-label="Назад"
-          class="btn btn-dialog-back"
+          class="btn dialog-header-back"
           @click="hide"
         >
           <svg-icon
@@ -15,19 +15,21 @@
             aria-hidden="true"
           />
         </button>
-        <h4 class="dialog-title">
+        <h4 class="dialog-title mb-0">
           <slot name="dialog-title">
             {{ title }}
           </slot>
         </h4>
-        <button class="btn btn-dialog-action" @click="$emit('action')">
+        <button class="btn dialog-header-action" @click="$emit('action')">
           <slot name="dialog-action">
             {{ actionTitle }}
           </slot>
         </button>
       </header>
       <div class="dialog-body">
-        <slot></slot>
+        <div class="card">
+          <slot></slot>
+        </div>
       </div>
     </div>
   </transition>
@@ -81,45 +83,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.dialog-fullscreen {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: var(--background);
-  z-index: 990;
-}
-
-.dialog-header {
-  display: flex;
-  align-items: center;
-  padding: calc(#{$dialog-fullscreen-padding-y} - 0.5rem)
-    calc(#{$dialog-fullscreen-padding-x} - 0.5rem);
-  color: var(--on-primary-container);
-  background-color: var(--secondary-container);
-}
-
-.dialog-title {
-  margin-bottom: 0;
-}
-
-.btn-dialog-back {
-  margin-right: 0.5rem;
-  padding: 0.5rem;
-  border: none;
-}
-
-.btn-dialog-action {
-  margin: 0.25em 0 0 auto;
-  padding: 0.5rem;
-  border: 0;
-  color: var(--primary);
-}
-
-.dialog-body {
-  padding: $dialog-fullscreen-padding-y $dialog-fullscreen-padding-x;
-}
-</style>

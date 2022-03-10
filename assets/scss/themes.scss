@@ -7,38 +7,30 @@
   --on-background: #{$neutral-10};
 
   --primary: #{$primary-40};
-  --on-primary: #{$primary-99};
+  --on-primary: #{$white};
 
-  --primary-container: #{$primary-95};
+  --primary-container: #{$primary-90};
   --on-primary-container: #{$primary-10};
 
   --secondary: #{$secondary-40};
-  --on-secondary: #{$secondary-99};
+  --on-secondary: #{$white};
 
   --secondary-container: #{$secondary-90};
   --on-secondary-container: #{$secondary-10};
 
   --tertiary: #{$tertiary-40};
-  --on-tertiary: #{$tertiary-99};
+  --on-tertiary: #{$white};
 
   --tertiary-container: #{$tertiary-90};
   --on-tertiary-container: #{$tertiary-10};
 
-  --tertiary-light: #{$tertiary-60};
-  --on-tertiary-light: #{$tertiary-99};
+  --surface: #{$primary-95};
+  --on-surface: #{$primary-10};
 
-  --surface: #{$neutral-99};
-  --on-surface: #{$neutral-10};
+  --surface-variant: #{$secondary-95};
+  --on-surface-variant: #{$secondary-10};
 
-  --surface-variant: #{$neutral-variant-90};
-  --on-surface-variant: #{$neutral-variant-30};
-
-  --surface-variant-light: #{$neutral-variant-95};
-  --on-surface-variant-light: #{$neutral-variant-30};
-
-  --outline: #{$neutral-variant-50};
-
-  --muted: #{$secondary-50};
+  --outline: #{$neutral-50};
 }
 
 html,
@@ -57,12 +49,12 @@ html,
 @mixin theme-dark() {
   /* GLOBAL */
   --background: #{$neutral-10};
-  --on-background: #{$neutral-80};
+  --on-background: #{$neutral-90};
 
   --primary: #{$primary-80};
   --on-primary: #{$primary-20};
 
-  --primary-container: #{$primary-20};
+  --primary-container: #{$primary-30};
   --on-primary-container: #{$primary-90};
 
   --secondary: #{$secondary-80};
@@ -77,21 +69,13 @@ html,
   --tertiary-container: #{$tertiary-30};
   --on-tertiary-container: #{$tertiary-90};
 
-  --tertiary-light: #{$tertiary-60};
-  --on-tertiary-light: #{$tertiary-20};
+  --surface: #{$primary-10};
+  --on-surface: #{$primary-90};
 
-  --surface: #{$neutral-10};
-  --on-surface: #{$neutral-80};
+  --surface-variant: #{$secondary-20};
+  --on-surface-variant: #{$secondary-95};
 
-  --surface-variant: #{$neutral-variant-30};
-  --on-surface-variant: #{$neutral-variant-80};
-
-  --surface-variant-light: #{$neutral-variant-30};
-  --on-surface-variant-light: #{$neutral-variant-80};
-
-  --outline: #{$neutral-variant-60};
-
-  --muted: #{$secondary-80};
+  --outline: #{$neutral-60};
 }
 
 :root.theme-dark {

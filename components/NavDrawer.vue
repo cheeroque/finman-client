@@ -1,68 +1,40 @@
 <template>
   <div>
     <transition name="drawer">
-      <nav v-if="visible" class="nav-drawer">
-        <ul class="nav nav-drawer-nav">
-          <li role="presentation">
-            <p class="nav-item-header h5">Меню</p>
-          </li>
-          <li role="presentation">
-            <nuxt-link to="/" class="nav-item">
+      <nav v-if="visible" class="drawer">
+        <ul class="nav drawer-nav">
+          <li
+            v-for="(item, index) in drawerItems"
+            :key="`nav-item-${index}`"
+            role="presentation"
+          >
+            <component v-if="item.component" :is="item.component" />
+            <p v-else-if="item.isHeader" class="nav-item-header h5">
+              {{ item.text }}
+            </p>
+            <nuxt-link
+              v-else-if="item.link"
+              :to="item.link"
+              :class="{ active: isRouteActive([item.link], $route.fullPath) }"
+              class="nav-item"
+            >
               <svg-icon
-                name="home-24"
+                :name="item.icon"
                 width="24"
                 height="24"
                 aria-hidden="true"
               />
-              Главная страница
+              {{ item.text }}
             </nuxt-link>
-          </li>
-          <li role="presentation">
-            <nuxt-link to="/categories" class="nav-item">
+            <button v-else class="nav-item" @click="$emit(item.action)">
               <svg-icon
-                name="categories-24"
+                :name="item.icon"
                 width="24"
                 height="24"
                 aria-hidden="true"
               />
-              Категории
-            </nuxt-link>
-          </li>
-          <li role="presentation">
-            <nuxt-link to="/users" class="nav-item">
-              <svg-icon
-                name="user-24"
-                width="24"
-                height="24"
-                aria-hidden="true"
-              />
-              Пользователи
-            </nuxt-link>
-          </li>
-          <li role="presentation">
-            <a href="#" class="nav-item" @click="$emit('export')">
-              <svg-icon
-                name="export-24"
-                width="24"
-                height="24"
-                aria-hidden="true"
-              />
-              Экспорт данных
-            </a>
-          </li>
-          <li role="presentation">
-            <p class="nav-item-header h5">Дата сверки</p>
-          </li>
-          <li role="presentation">
-            <a href="#" class="nav-item" @click="$emit('revise-show')">
-              <svg-icon
-                name="datetime-24"
-                width="24"
-                height="24"
-                aria-hidden="true"
-              />
-              дата
-            </a>
+              {{ item.text }}
+            </button>
           </li>
         </ul>
         <button
@@ -78,7 +50,7 @@
     <transition name="drawer-backdrop">
       <div
         v-if="visible"
-        class="nav-drawer-backdrop"
+        class="drawer-backdrop"
         aria-hidden="true"
         @click="$emit('close')"
       ></div>
@@ -87,6 +59,8 @@
 </template>
 
 <script>
+import { isRouteActive } from '@/utils'
+
 export default {
   props: {
     visible: {
@@ -94,72 +68,45 @@ export default {
       default: false,
     },
   },
+  data() {
+    return {
+      drawerItems: [
+        {
+          isHeader: true,
+          text: 'Меню',
+        },
+        {
+          icon: 'home-24',
+          link: '/',
+          text: 'Главная страница',
+        },
+        {
+          icon: 'categories-24',
+          link: '/categories',
+          text: 'Категории',
+        },
+        {
+          icon: 'user-24',
+          link: '/users',
+          text: 'Пользователи',
+        },
+        {
+          action: 'export',
+          icon: 'export-24',
+          text: 'Экспорт данных',
+        },
+        {
+          isHeader: true,
+          text: 'Снапшоты',
+        },
+        {
+          component: 'DrawerSnapshots',
+        },
+      ],
+    }
+  },
+  methods: {
+    isRouteActive,
+  },
 }
 </script>
-
-<style lang="scss" scoped>
-.nav-drawer {
-  position: fixed;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  max-width: 90%;
-  padding: $nav-drawer-padding-y $nav-drawer-padding-x;
-  border-radius: 0 1rem 1rem 0;
-  color: var(--on-tertiary-container);
-  background-color: var(--tertiary-container);
-  overflow-y: auto;
-  z-index: 1010;
-}
-
-.nav-drawer-nav {
-  flex-direction: column;
-
-  & > * {
-    flex: 0 0 auto;
-  }
-
-  .nav-item-header {
-    margin-bottom: 0;
-    padding: $nav-drawer-item-padding-y $nav-drawer-item-padding-x;
-    font-weight: $font-weight-medium;
-  }
-
-  .nav-item {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: $nav-drawer-item-padding-y $nav-drawer-item-padding-x;
-    border-radius: 99rem;
-
-    .icon {
-      margin-right: 0.5rem;
-    }
-
-    &.active {
-      color: var(--on-tertiary-light);
-      background-color: var(--tertiary-light);
-    }
-  }
-}
-
-.nav-drawer-backdrop {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba($black, 0.75);
-  cursor: pointer;
-  z-index: 1009;
-}
-
-.btn-drawer-close {
-  position: absolute;
-  left: $nav-drawer-padding-x;
-  bottom: 1.5rem;
-  padding: $nav-drawer-item-padding-y $nav-drawer-item-padding-x;
-  border: none;
-}
-</style>

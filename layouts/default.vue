@@ -1,6 +1,6 @@
 <template>
   <div class="app-wrapper">
-    <NavDrawer :visible="drawerVisible" @close="hideDrawer" />
+    <NavDrawer :visible="drawerVisible" @close="hideDrawer" v-on="$listeners" />
     <Nuxt />
     <NavBar @drawer-show="showDrawer" />
   </div>
