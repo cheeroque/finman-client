@@ -8,12 +8,6 @@
 }
 
 .header-main {
-  padding: 1.5rem 0;
+  padding: 1.5rem $grid-gap * 0.5;
   text-align: center;
-}
-
-.header-secondary {
-  display: flex;
-  align-items: flex-end;
-  padding: 1.25rem 0;
 }

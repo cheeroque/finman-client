@@ -31,6 +31,8 @@
   --on-surface-variant: #{$secondary-10};
 
   --outline: #{$neutral-50};
+  --success: #{$success-60};
+  --danger: #{$error-60};
 }
 
 html,
@@ -76,6 +78,8 @@ html,
   --on-surface-variant: #{$secondary-95};
 
   --outline: #{$neutral-60};
+  --success: #{$success-80};
+  --danger: #{$error-80};
 }
 
 :root.theme-dark {

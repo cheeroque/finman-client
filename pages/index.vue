@@ -1,13 +1,15 @@
 <template>
-  <div class="container">
+  <div>
     <HeaderMain />
-    <RecordCard
-      v-for="(record, index) in records.data"
-      :key="`record-${index}`"
-      :record="record"
-      class="mb-8"
-      @record-edit="editRecord"
-    />
+    <main class="container mb-12">
+      <RecordCard
+        v-for="(record, index) in records.data"
+        :key="`record-${index}`"
+        :record="record"
+        class="mb-8"
+        @record-edit="editRecord"
+      />
+    </main>
     <RecordDialog v-model="dialogVisible" :record-id="recordId" />
     <FloatingButton title="Добавить запись" @click="editRecord(null)" />
   </div>

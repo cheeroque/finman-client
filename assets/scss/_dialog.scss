@@ -11,32 +11,32 @@
   .btn {
     color: $dialog-color;
   }
+}
 
-  .dialog-header {
-    display: flex;
-    align-items: center;
-    padding: $dialog-padding-y $dialog-padding-x;
+.dialog-header {
+  display: flex;
+  align-items: center;
+  padding: $dialog-padding-y $dialog-padding-x;
+}
+
+.dialog-body {
+  padding: 0 $dialog-padding-x $dialog-padding-y;
+}
+
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 $dialog-padding-x $dialog-padding-y;
+
+  & > * + * {
+    margin-left: 0.5rem;
   }
+}
 
-  .dialog-body {
-    padding: 0 $dialog-padding-x $dialog-padding-y;
-  }
-
-  .dialog-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 $dialog-padding-x $dialog-padding-y;
-
-    & > * + * {
-      margin-left: 0.5rem;
-    }
-  }
-
-  .dialog-submit {
-    color: $dialog-button-color;
-    background-color: $dialog-button-bg;
-  }
+.dialog-submit {
+  color: $dialog-button-color;
+  background-color: $dialog-button-bg;
 }
 
 .dialog-fullscreen {

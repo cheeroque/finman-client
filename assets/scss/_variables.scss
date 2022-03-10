@@ -93,6 +93,8 @@ $body-bg: var(--primary-container);
 $body-color: var(--on-primary-container);
 
 $backdrop-color: rgba($black, 0.75);
+$success: var(--success);
+$danger: var(--danger);
 
 /* Card colors */
 
@@ -299,15 +301,15 @@ $card-border-radius: 0.75rem;
 
 /* Dialog */
 
-$dialog-padding-x: #{$grid-gap * 0.5};
-$dialog-padding-y: #{$grid-gap * 0.5};
+$dialog-padding-x: $grid-gap * 0.5;
+$dialog-padding-y: $grid-gap * 0.5;
 $dialog-content-padding-x: 1rem;
 $dialog-content-padding-y: 1rem;
 $dialog-border-radius: 1rem;
 
 /* Drawer */
 
-$drawer-padding-x: #{$grid-gap * 0.5};
+$drawer-padding-x: $grid-gap * 0.5;
 $drawer-padding-y: 0.75rem;
 $drawer-item-padding-x: 0.75rem;
 $drawer-item-padding-y: 1rem;
@@ -325,7 +327,7 @@ $label-font-size: $font-size-base * 0.75;
 
 /* Navbar */
 
-$navbar-padding-x: #{$grid-gap * 0.5};
+$navbar-padding-x: $grid-gap * 0.5;
 $navbar-padding-y: 0.625rem;
 $navbar-icon-padding-x: 0.25rem;
 $navbar-icon-padding-y: 0.25rem;
