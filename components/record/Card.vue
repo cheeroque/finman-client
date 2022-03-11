@@ -82,14 +82,20 @@ export default {
 
   .record-sum {
     display: flex;
-    align-items: flex-end;
-    justify-self: end;
     grid-column: 2 / 3;
     grid-row: 1 / 4;
     text-align: right;
 
-    a:hover {
-      text-decoration: none;
+    & > a {
+      display: flex;
+      flex: 1 1 100%;
+      align-items: flex-end;
+      justify-content: end;
+      text-align: right;
+
+      &:hover {
+        text-decoration: none;
+      }
     }
   }
 }
