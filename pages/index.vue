@@ -2,7 +2,7 @@
   <div>
     <HeaderMain />
     <main class="container mb-12">
-      <RecordCard
+      <CardRecord
         v-for="(record, index) in records"
         :key="`record-${index}`"
         :record="record"

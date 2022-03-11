@@ -13,7 +13,7 @@
     </header>
 
     <main class="container mb-12">
-      <CategoryCard
+      <CardCategory
         v-for="(category, index) in categories"
         :key="`category-${index}`"
         :category="category"
