@@ -65,17 +65,17 @@ $neutral-variant-90: #e7e0ec;
 $neutral-variant-95: #f5eefa;
 $neutral-variant-99: #fffbfe;
 
-$error-10: #410e0b;
-$error-20: #601410;
-$error-30: #8c1d18;
-$error-40: #b3261e;
-$error-50: #dc362e;
-$error-60: #e46962;
-$error-70: #ec928e;
-$error-80: #f2b8b5;
-$error-90: #f9dedc;
-$error-95: #fceeee;
-$error-99: #fffbf9;
+$danger-10: #410e0b;
+$danger-20: #601410;
+$danger-30: #8c1d18;
+$danger-40: #b3261e;
+$danger-50: #dc362e;
+$danger-60: #e46962;
+$danger-70: #ec928e;
+$danger-80: #f2b8b5;
+$danger-90: #f9dedc;
+$danger-95: #fceeee;
+$danger-99: #fffbf9;
 
 $success-60: #83b588;
 $success-80: #b8efbd;
@@ -94,6 +94,7 @@ $body-color: var(--on-primary-container);
 
 $backdrop-color: rgba($black, 0.75);
 $success: var(--success);
+
 $danger: var(--danger);
 
 /* Card colors */

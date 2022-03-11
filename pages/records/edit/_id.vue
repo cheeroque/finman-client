@@ -7,16 +7,10 @@ export default {
   transition: {
     name: 'dialog-page',
   },
-  async asyncData({ store, error }) {
+  async asyncData({ params, store, error }) {
     const loading = false
-    const record = {
-      category_id: null,
-      created_at: new Date(),
-      id: null,
-      note: null,
-      sum: 0,
-    }
     try {
+      const record = await store.dispatch('fetchRecordById', params.id)
       const categories = await store.dispatch('fetchCategories')
       return { categories, loading, record }
     } catch (e) {

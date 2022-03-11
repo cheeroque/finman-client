@@ -24,6 +24,12 @@
   --tertiary-container: #{$tertiary-90};
   --on-tertiary-container: #{$tertiary-10};
 
+  --danger: #{$danger-40};
+  --on-danger: #{$white};
+
+  --danger-container: #{$danger-90};
+  --on-danger-container: #{$danger-10};
+
   --surface: #{$primary-95};
   --on-surface: #{$primary-10};
 
@@ -32,7 +38,6 @@
 
   --outline: #{$neutral-50};
   --success: #{$success-60};
-  --danger: #{$error-60};
 }
 
 html,
@@ -71,6 +76,12 @@ html,
   --tertiary-container: #{$tertiary-30};
   --on-tertiary-container: #{$tertiary-90};
 
+  --danger: #{$danger-80};
+  --on-danger: #{$danger-20};
+
+  --danger-container: #{$danger-30};
+  --on-danger-container: #{$danger-90};
+
   --surface: #{$primary-10};
   --on-surface: #{$primary-90};
 
@@ -79,7 +90,6 @@ html,
 
   --outline: #{$neutral-60};
   --success: #{$success-80};
-  --danger: #{$error-80};
 }
 
 :root.theme-dark {

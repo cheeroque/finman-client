@@ -81,7 +81,19 @@ export const actions = {
   },
 
   async storeRecord(_, payload) {
-    await this.$axios.$post(`/records`, payload).catch((error) => {
+    await this.$axios.$post('/records', payload).catch((error) => {
+      throw error
+    })
+  },
+
+  async updateRecord(_, payload) {
+    await this.$axios.$put(`/records/${payload.id}`, payload).catch((error) => {
+      throw error
+    })
+  },
+
+  async deleteRecord(_, id) {
+    await this.$axios.$delete(`/records/${id}`).catch((error) => {
       throw error
     })
   },

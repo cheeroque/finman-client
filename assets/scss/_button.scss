@@ -30,3 +30,13 @@
   display: flex;
   width: 100%;
 }
+
+.btn-danger {
+  color: var(--on-danger-container) !important;
+  background-color: var(--danger-container) !important;
+}
+
+.btn-secondary {
+  color: var(--on-secondary-container) !important;
+  background-color: var(--secondary-container) !important;
+}
