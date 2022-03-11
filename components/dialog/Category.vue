@@ -11,8 +11,10 @@
       <FormGroup label="Слаг">
         <FormInput v-model="form.slug" placeholder="Введите слаг" />
       </FormGroup>
+
       <FormGroup label="Цвет">
-        <FormInput v-model="form.color" placeholder="Выберите цвет" />
+        <FormInputColor v-model="form.color" />
+        <!-- <FormInput v-model="form.color" placeholder="Выберите цвет" /> -->
       </FormGroup>
       <input type="checkbox" />
       <div class="dialog-footer">
