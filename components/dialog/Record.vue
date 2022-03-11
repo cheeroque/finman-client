@@ -5,15 +5,7 @@
         <FormSelect v-model="form.category_id" :options="categoryOptions" />
       </FormGroup>
       <FormGroup label="Сумма">
-        <InputGroup append="₽">
-          <input
-            ref="sumInput"
-            :value="form.sum"
-            class="form-control"
-            @blur="updateSum"
-            @input.prevent="filterValue"
-          />
-        </InputGroup>
+        <FormInputCalc v-model="form.sum" />
       </FormGroup>
       <FormGroup label="Комментарий">
         <FormInput v-model="form.note" placeholder="Введите комментарий" />
@@ -99,7 +91,6 @@ export default {
   },
   methods: {
     async submit() {
-      this.updateSum({ target: this.$refs.sumInput })
       const action = this.isEdit ? 'updateRecord' : 'storeRecord'
       try {
         await this.$store.dispatch(action, this.form)
@@ -115,19 +106,6 @@ export default {
       } catch (error) {
         console.log(`error toast: ${error}`)
       }
-    },
-    filterValue({ target }) {
-      const pattern = /[^\d+-]/
-      const filteredValue = `${target.value}`.replace(pattern, '')
-      target.value = filteredValue || 0
-    },
-    updateSum({ target }) {
-      const matches = target.value.match(/([+-]{0,}\d{1,})/gi) || []
-      const total = matches.reduce((total, match) => {
-        total += parseInt(match)
-        return total
-      }, 0)
-      this.form.sum = total
     },
     setNow() {
       this.form.created_at = new Date()
