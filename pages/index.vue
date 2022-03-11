@@ -11,7 +11,7 @@
       />
     </main>
     <RecordDialog v-model="dialogVisible" :record-id="recordId" />
-    <FloatingButton title="Добавить запись" @click="editRecord(null)" />
+    <FloatingButton link="/records/create" title="Добавить запись" />
   </div>
 </template>
 

@@ -1,17 +1,23 @@
 <template>
-  <button
+  <component
+    :is="link ? 'nuxt-link' : 'button'"
+    :to="link"
     :title="title"
     :aria-label="title"
     class="btn btn-fab"
     @click="$emit('click')"
   >
     <svg-icon name="edit-24" width="24" height="24" aria-hidden="true" />
-  </button>
+  </component>
 </template>
 
 <script>
 export default {
   props: {
+    link: {
+      type: String,
+      default: null,
+    },
     title: {
       type: String,
       default: '',

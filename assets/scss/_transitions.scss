@@ -39,7 +39,7 @@
   opacity: 0;
 }
 
-/* Dialog: fullscreen */
+/* Fullscreen dialog */
 
 .dialog-fullscreen-enter-active,
 .dialog-fullscreen-leave-active {
@@ -55,5 +55,20 @@
 }
 .dialog-fullscreen-leave-to {
   opacity: 0;
+  transform: translateX(-100%);
+}
+
+/* Dialog page */
+
+.dialog-page-enter-active,
+.dialog-page-leave-active {
+  transition: $transition;
+  transition-property: transform;
+  transition-duration: 0.15s;
+}
+.dialog-page-enter {
+  transform: translateX(-100%);
+}
+.dialog-page-leave-to {
   transform: translateX(-100%);
 }
