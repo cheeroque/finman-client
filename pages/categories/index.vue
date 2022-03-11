@@ -18,33 +18,20 @@
         :key="`category-${index}`"
         :category="category"
         class="mb-8"
-        @category-edit="editCategory"
       />
     </main>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
-  async asyncData({ store }) {
-    await store.dispatch('fetchCategories')
-  },
-  data() {
-    return {
-      categoryId: null,
-      dialogVisible: false,
+  async asyncData({ store, error }) {
+    try {
+      const categories = await store.dispatch('fetchCategories')
+      return { categories }
+    } catch (e) {
+      return error({ statusCode: e?.response?.status || 500 })
     }
-  },
-  computed: {
-    ...mapGetters(['categories']),
-  },
-  methods: {
-    editRecord(categoryId) {
-      this.categoryId = categoryId
-      this.dialogVisible = true
-    },
   },
 }
 </script>

@@ -14,19 +14,10 @@
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  async fetch() {
-    await this.fetchGlobalData()
-  },
   computed: {
     ...mapGetters(['bodyFixed', 'drawerOpen']),
   },
   watch: {
-    $route: {
-      deep: true,
-      handler() {
-        this.setDrawerOpen(false)
-      },
-    },
     bodyFixed: {
       immediate: true,
       handler(value) {
@@ -35,7 +26,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['fetchGlobalData', 'setDrawerOpen']),
+    ...mapActions(['setDrawerOpen']),
     setBodyFixed(isFixed = false) {
       if (process.client) {
         if (isFixed) {
