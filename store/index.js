@@ -63,6 +63,7 @@ export const mutations = {
 export const getters = {
   bodyFixed: (state) => state.dialogOpen || state.drawerOpen,
   categories: (state) => state.categories,
+  drawerOpen: (state) => state.drawerOpen,
   firstRecord: (state) => state.firstRecord,
   latestRevise: (state) => state.latestRevise,
   locale: (state) => state.locale,
