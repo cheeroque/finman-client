@@ -11,11 +11,28 @@
     <p :class="categoryTypeClass" class="category-type">
       {{ categoryTypeText }}
     </p>
-    <span :style="{ backgroundColor: category.color }" class="category-color" />
+    <nuxt-link
+      :to="`/categories/${category.id}/edit`"
+      :style="{
+        color: getContrastColor(
+          category.color,
+          'var(--on-background)',
+          'var(--background)'
+        ),
+        backgroundColor: category.color,
+      }"
+      title="Редактировать категорию"
+      aria-label="Редактировать категорию"
+      class="category-color"
+    >
+      <svg-icon name="edit-24" width="16" height="16" aria-hidden="true" />
+    </nuxt-link>
   </div>
 </template>
 
 <script>
+import { getContrastColor } from '@/utils'
+
 export default {
   props: {
     category: {
@@ -34,6 +51,9 @@ export default {
     categoryTypeText() {
       return this.category.is_income ? 'Доходы' : 'Расходы'
     },
+  },
+  methods: {
+    getContrastColor,
   },
 }
 </script>
@@ -74,7 +94,9 @@ export default {
 
   .category-color {
     display: flex;
+    align-items: center;
     align-self: start;
+    justify-content: center;
     justify-self: end;
     grid-column: 2 / 3;
     grid-row: 1 / 4;

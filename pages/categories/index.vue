@@ -20,6 +20,7 @@
         class="mb-8"
       />
     </main>
+    <FloatingButton link="/categories/create" title="Добавить категорию" />
   </div>
 </template>
 

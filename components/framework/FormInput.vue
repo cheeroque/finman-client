@@ -7,6 +7,7 @@
     :placeholder="placeholder"
     :step="step"
     :type="type"
+    autocomplete="off"
     class="form-control"
   />
 </template>

@@ -17,7 +17,7 @@
     </p>
     <p class="record-note">{{ record.note }}</p>
     <p class="record-sum h3 card-text-accent">
-      <nuxt-link :to="`/records/edit/${record.id}`">
+      <nuxt-link :to="`/records/${record.id}`">
         {{ formatSum(record.sum, locale) }}&nbsp;₽
       </nuxt-link>
     </p>

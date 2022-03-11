@@ -81,19 +81,19 @@ export const actions = {
   },
 
   async storeRecord(_, payload) {
-    await this.$axios.$post('/records', payload).catch((error) => {
+    await this.$axios.$post('records', payload).catch((error) => {
       throw error
     })
   },
 
   async updateRecord(_, payload) {
-    await this.$axios.$put(`/records/${payload.id}`, payload).catch((error) => {
+    await this.$axios.$put(`records/${payload.id}`, payload).catch((error) => {
       throw error
     })
   },
 
   async deleteRecord(_, id) {
-    await this.$axios.$delete(`/records/${id}`).catch((error) => {
+    await this.$axios.$delete(`records/${id}`).catch((error) => {
       throw error
     })
   },
@@ -103,6 +103,35 @@ export const actions = {
       throw error
     })
     return categories
+  },
+
+  async fetchCategoryById(_, id) {
+    const categories = await this.$axios
+      .$get(`categories/${id}`)
+      .catch((error) => {
+        throw error
+      })
+    return categories
+  },
+
+  async storeCategory(_, payload) {
+    await this.$axios.$post('categories', payload).catch((error) => {
+      throw error
+    })
+  },
+
+  async updateCategory(_, payload) {
+    await this.$axios
+      .$put(`categories/${payload.id}`, payload)
+      .catch((error) => {
+        throw error
+      })
+  },
+
+  async deleteCategory(_, id) {
+    await this.$axios.$delete(`categories/${id}`).catch((error) => {
+      throw error
+    })
   },
 
   async fetchLatestShapshot({ commit }) {
