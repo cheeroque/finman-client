@@ -56,9 +56,13 @@ export default {
           text: 'Меню',
         },
         {
-          icon: 'cart-24',
+          icon: 'home-24',
           link: '/',
-          matchLinks: ['/expenses', '/'],
+          text: 'Главная',
+        },
+        {
+          icon: 'cart-24',
+          link: '/expenses',
           text: 'Расходы',
         },
         {
@@ -66,26 +70,11 @@ export default {
           link: '/incomes',
           text: 'Доходы',
         },
-        {
-          action: 'search',
-          icon: 'search-24',
-          text: 'Поиск',
-        },
       ],
     }
   },
   methods: {
     isRouteActive,
-    isActive(routes = []) {
-      if (!routes || !routes.length) return
-      const results = []
-      routes.forEach((route) => {
-        const currentRoute = this.$route.fullPath
-        if (route === '/') results.push(route === currentRoute)
-        else results.push(currentRoute.startsWith(route))
-      })
-      return results.some((result) => Boolean(result))
-    },
   },
 }
 </script>
