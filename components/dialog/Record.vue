@@ -5,7 +5,9 @@
         <FormSelect v-model="form.category_id" :options="categoryOptions" />
       </FormGroup>
       <FormGroup label="Сумма">
-        <FormInputCalc v-model="form.sum" />
+        <InputGroup append="₽">
+          <FormInputCalc v-model="form.sum" />
+        </InputGroup>
       </FormGroup>
       <FormGroup label="Комментарий">
         <FormInput v-model="form.note" placeholder="Введите комментарий" />
