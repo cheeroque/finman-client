@@ -125,7 +125,10 @@
   min-height: calc(
     #{$label-font-size * $line-height-base} + #{$input-padding-y}
   );
-  margin-bottom: 1rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  border: none;
+  appearance: none;
 
   &:focus-within {
     .form-group-label {

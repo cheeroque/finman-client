@@ -11,8 +11,8 @@
       {{ labelText }}
     </label>
     <input
-      v-model="localValue"
       :id="customControlId"
+      v-model="localValue"
       type="color"
       autocomplete="off"
       class="custom-color-input"
