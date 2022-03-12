@@ -89,6 +89,20 @@ export const actions = {
     return records
   },
 
+  async fetchFirstRecord() {
+    const record = await this.$axios.$get('records/first').catch((error) => {
+      throw error
+    })
+    return record
+  },
+
+  async fetchMonthly({ commit, dispatch }) {
+    const monthly = await this.$axios.$get('monthly').catch((error) => {
+      dispatch('setError', { path: 'monthly', error })
+    })
+    commit('SET_MONTHLY', monthly)
+  },
+
   async storeRecord(_, payload) {
     await this.$axios.$post('records', payload).catch((error) => {
       throw error
@@ -166,21 +180,6 @@ export const actions = {
   },
 
   /* To rework */
-
-  // async fetchFirstRecord({ commit, dispatch }) {
-  //   const firstRecord = await this.$axios
-  //     .$get('records/first')
-  //     .catch((error) => {
-  //       dispatch('setError', { path: 'firstRecord', error })
-  //     })
-  //   commit('SET_FIRST_RECORD', firstRecord)
-  // },
-  // async fetchMonthly({ commit, dispatch }) {
-  //   const monthly = await this.$axios.$get('monthly').catch((error) => {
-  //     dispatch('setError', { path: 'monthly', error })
-  //   })
-  //   commit('SET_MONTHLY', monthly)
-  // },
 
   // async fetchRecordsByCategory({ commit, dispatch }, { categoryId, params }) {
   //   if (!params.perPage) params.perPage = 18

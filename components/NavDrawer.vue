@@ -86,6 +86,11 @@ export default {
           text: 'Категории',
         },
         {
+          icon: 'calendar-24',
+          link: '/months',
+          text: 'Календарь',
+        },
+        {
           icon: 'user-24',
           link: '/users',
           text: 'Пользователи',
