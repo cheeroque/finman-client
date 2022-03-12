@@ -32,9 +32,7 @@ export default {
   methods: {
     calculateValue({ target }) {
       const matches = target.value.match(/([+-]{0,}\d{1,})/gi) || []
-      console.log(matches)
       const total = matches.reduce((total, match) => {
-        console.log(total, parseInt(match))
         total += parseInt(match)
         return total
       }, 0)
