@@ -1,5 +1,5 @@
 <template>
-  <InputGroup class="form-control custom-color">
+  <InputGroup class="custom-color">
     <template #append>
       <span
         :style="{ backgroundColor: localValue }"
@@ -7,11 +7,9 @@
         aria-hidden="true"
       />
     </template>
-    <label :for="customControlId" class="custom-color-label">
-      {{ labelText }}
-    </label>
+    <FormInput v-model="localValue" @focus="handleInputFocus" />
     <input
-      :id="customControlId"
+      ref="colorInput"
       v-model="localValue"
       type="color"
       autocomplete="off"
@@ -32,12 +30,6 @@ export default {
     },
   },
   computed: {
-    customControlId() {
-      return `custom-control-${this._uid}`
-    },
-    labelText() {
-      return this.value || this.placeholder
-    },
     localValue: {
       get() {
         return this.value
@@ -45,6 +37,11 @@ export default {
       set(value) {
         this.$emit('input', value)
       },
+    },
+  },
+  methods: {
+    handleInputFocus() {
+      if (this.$refs.colorInput) this.$refs.colorInput.click()
     },
   },
 }

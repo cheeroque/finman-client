@@ -72,26 +72,18 @@
 .custom-color {
   position: relative;
   overflow: hidden;
-  height: calc(
-    #{$input-padding-y * 2} + #{$input-line-height * $input-font-size}
-  );
 
   .custom-color-input {
     position: absolute;
-    left: -1rem;
-    top: -1rem;
-    width: 0;
-    height: 0;
-    visibility: hidden;
-  }
-
-  .custom-color-label {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
     left: 0;
-    padding: $input-padding-y $input-padding-x;
+    top: 100%;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    visibility: hidden;
+    appearance: none;
   }
 }
 

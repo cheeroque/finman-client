@@ -9,6 +9,7 @@
     :type="type"
     autocomplete="off"
     class="form-control"
+    @focus="$emit('focus', $event)"
   />
 </template>
 
