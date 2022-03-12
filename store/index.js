@@ -80,6 +80,15 @@ export const actions = {
     return record
   },
 
+  async fetchRecordsByCategory(_, { categoryId, params }) {
+    const records = await this.$axios
+      .$get(`category/${categoryId}`, { params })
+      .catch((error) => {
+        throw error
+      })
+    return records
+  },
+
   async storeRecord(_, payload) {
     await this.$axios.$post('records', payload).catch((error) => {
       throw error

@@ -5,6 +5,7 @@
   color: $card-color;
   background-color: $card-bg;
   transition: $transition;
+  overflow: hidden;
 
   .card-text-muted {
     color: $card-color-muted;

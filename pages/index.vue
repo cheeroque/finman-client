@@ -15,11 +15,11 @@
 
 <script>
 export default {
-  async asyncData({ params, store, error }) {
-    const order = params.order || 'DESC'
-    const orderBy = params.orderBy || 'created_at'
-    const perPage = params.perPage || 50
-    const show = params.show || null
+  async asyncData({ query, store, error }) {
+    const order = query.order || 'DESC'
+    const orderBy = query.orderBy || 'created_at'
+    const perPage = query.perPage || 50
+    const show = query.show || null
     try {
       const { data, total } = await store.dispatch('fetchRecords', {
         order,

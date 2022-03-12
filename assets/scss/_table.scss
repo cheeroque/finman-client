@@ -1,0 +1,114 @@
+.table {
+  width: 100%;
+  margin-bottom: $spacer;
+  font-size: $table-font-size;
+  border: none;
+  border-collapse: collapse;
+  color: $table-color;
+  background-color: $table-bg;
+
+  th,
+  td {
+    padding: $table-padding-y $table-padding-x;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th {
+    font-size: $table-font-size * 0.875;
+    font-weight: $font-weight-medium;
+    border-bottom: $border-width solid $table-color;
+  }
+
+  .caret {
+    color: $table-color-accent;
+    transform: rotate(-180deg);
+    transition: $transition;
+    transition-property: color, transform;
+  }
+
+  .collapsed {
+    .caret {
+      transform: rotate(0);
+    }
+  }
+
+  .row-details-td {
+    padding: 0;
+  }
+
+  .cell-details-toggle {
+    padding: 0;
+  }
+
+  .cell-sum {
+    font-family: $font-family-alternate;
+    font-weight: $font-weight-medium;
+  }
+
+  tbody {
+    tr {
+      transition: $transition;
+      transition-property: color, background-color;
+
+      &:nth-of-type(4n + 3) {
+        color: $table-alternate-color;
+        background-color: $table-alternate-bg;
+      }
+
+      &.details-open {
+        color: $table-active-color;
+        background-color: $table-active-bg;
+
+        .caret {
+          color: $table-active-color-accent;
+        }
+      }
+    }
+  }
+
+  &.table-details {
+    border-bottom: $border-width solid $table-active-color-accent;
+
+    tbody {
+      tr {
+        color: initial;
+        background-color: initial;
+
+        &:nth-of-type(even) {
+          color: $table-active-alternate-color;
+          background-color: $table-active-alternate-bg;
+        }
+      }
+    }
+  }
+}
+
+.table-wrapper {
+  max-width: 100%;
+  margin-bottom: $spacer;
+  overflow-x: auto;
+
+  .table {
+    margin-bottom: 0;
+  }
+}
+
+.btn-details-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+  padding: $table-padding-y $table-padding-x;
+  font-weight: inherit;
+  line-height: inherit;
+  border: none;
+  color: inherit;
+  background-color: transparent;
+  appearance: none;
+
+  .caret {
+    margin-left: auto;
+  }
+}

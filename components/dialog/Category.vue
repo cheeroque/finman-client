@@ -15,7 +15,12 @@
       <FormGroup label="Цвет">
         <FormInputColor v-model="form.color" />
       </FormGroup>
-      <FormCheckbox v-model="form.is_income" :value="1" :unchecked-value="0">
+      <FormCheckbox
+        v-model="form.is_income"
+        :value="1"
+        :unchecked-value="0"
+        class="mb-16"
+      >
         Доход
       </FormCheckbox>
       <div class="dialog-footer">

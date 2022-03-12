@@ -11,7 +11,7 @@
       </nuxt-link>
     </p>
     <p class="record-category card-text-muted">
-      <nuxt-link :to="`/category/${record.category_id}`">
+      <nuxt-link :to="`/categories/${record.category_id}`">
         {{ record.category && record.category.name }}
       </nuxt-link>
     </p>
