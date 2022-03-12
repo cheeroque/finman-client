@@ -14,9 +14,10 @@
 
       <FormGroup label="Цвет">
         <FormInputColor v-model="form.color" />
-        <!-- <FormInput v-model="form.color" placeholder="Выберите цвет" /> -->
       </FormGroup>
-      <input type="checkbox" />
+      <FormCheckbox v-model="form.is_income" :value="1" :unchecked-value="0">
+        Доход
+      </FormCheckbox>
       <div class="dialog-footer">
         <button
           v-if="isEdit"
