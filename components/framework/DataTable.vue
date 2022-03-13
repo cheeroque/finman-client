@@ -1,49 +1,78 @@
 <template>
   <div class="table-wrapper">
-    <table class="table">
-      <thead>
-        <tr>
+    <table :class="tableClass" role="grid" class="table">
+      <thead v-if="!disableHead" role="rowgroup">
+        <tr role="row">
           <th
-            v-for="(field, index) in fields"
-            :key="`head-${index}`"
+            v-for="field in fields"
+            :key="`head-${field.key}`"
             :class="field.thClass"
+            role="columnheader"
           >
-            {{ field.label }}
+            <span class="cell-content">
+              {{ field.label }}
+            </span>
           </th>
         </tr>
       </thead>
-      <tbody>
-        <template v-for="(item, rowIndex) in items">
+      <tbody role="rowgroup">
+        <template v-for="(item, index) in items">
           <tr
-            :key="`row-${rowIndex}`"
-            :class="{ 'details-open': rowDetailsOpen[rowIndex] }"
+            :key="`row-${index}`"
+            :class="{ 'details-open': openRowIndex === index }"
+            role="row"
           >
             <td
-              v-for="(field, colIndex) in fields"
-              :key="`cell-${rowIndex}-${colIndex}`"
-              :class="field.tdClass"
+              v-for="field in fields"
+              :key="`cell-${index}-${field.key}`"
+              :class="[
+                field.tdClass,
+                hasDetails(item, field) ? 'cell-details-toggle' : null,
+              ]"
             >
-              <slot
-                :name="`cell-${field.key}`"
-                :details-open="rowDetailsOpen[rowIndex]"
-                :field="field"
-                :index="rowIndex"
-                :item="item"
-                :toggle-details="toggleDetails"
-                :value="item[field.key]"
+              <button
+                v-if="hasDetails(item, field)"
+                :class="{ collapsed: openRowIndex !== index }"
+                class="btn btn-details-toggle cell-content"
+                @click="toggleDetails(index)"
               >
-                {{ item[field.key] }}
-              </slot>
+                <span>{{ getValue(item, field) }}</span>
+                <svg-icon
+                  name="caret"
+                  width="10"
+                  height="6"
+                  class="caret"
+                  aria-hidden="true"
+                />
+              </button>
+              <span v-else class="cell-content">
+                <slot :name="`cell-${field.key}`" :field="field" :item="item">
+                  {{ getValue(item, field) }}
+                </slot>
+              </span>
             </td>
           </tr>
           <tr
-            v-if="item.children && item.children.length"
-            v-show="rowDetailsOpen[rowIndex]"
-            :key="`row-details-${rowIndex}`"
+            v-if="hasDetails(item)"
+            v-show="openRowIndex === index"
+            :key="`row-details-${index}`"
+            role="row"
             class="row-details"
           >
-            <td :colspan="fields.length" class="row-details-td">
-              <slot name="row-details" :item="item"> </slot>
+            <td :colspan="fields.length" class="row-details-cell">
+              <DataTable
+                :fields="childrenFields"
+                :items="item.children"
+                table-class="table-details"
+                class="mb-0"
+                disable-head
+              >
+                <template #cell-note="{ item }">
+                  <nuxt-link :to="`/records/${item.id}`">
+                    {{ item.note }}
+                  </nuxt-link>
+                </template>
+              </DataTable>
             </td>
           </tr>
         </template>
@@ -55,6 +84,16 @@
 <script>
 export default {
   props: {
+    childrenFields: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    disableHead: {
+      type: Boolean,
+      default: false,
+    },
     fields: {
       type: Array,
       default() {
@@ -67,22 +106,39 @@ export default {
         return []
       },
     },
+    tableClass: {
+      type: String,
+      default: null,
+    },
   },
   data() {
     return {
-      rowDetailsOpen: [],
+      openRowIndex: -1,
     }
   },
-  created() {
-    this.populateRowDetails()
-  },
   methods: {
-    populateRowDetails() {
-      this.items.forEach(() => this.rowDetailsOpen.push(false))
+    getValue(item, field) {
+      if (field.itemFormatter && typeof field.itemFormatter === 'function') {
+        return field.itemFormatter(item)
+      } else if (field.formatter && typeof field.formatter === 'function') {
+        return field.formatter(item[field.key])
+      } else {
+        return item[field.key]
+      }
+    },
+    hasDetails(item, field) {
+      return (
+        item.children &&
+        item.children.length &&
+        (!field || field.isDetailsToggle)
+      )
     },
     toggleDetails(index) {
-      const oldValue = this.rowDetailsOpen[index]
-      this.rowDetailsOpen.splice(index, 1, !oldValue)
+      if (this.openRowIndex !== index) {
+        this.openRowIndex = index
+      } else {
+        this.openRowIndex = -1
+      }
     },
   },
 }

@@ -1,47 +1,10 @@
 <template>
-  <div class="card p-0">
-    <DataTable
-      :fields="tableFields"
-      :items="tableItems"
-      class="table-category-records"
-    >
-      <template #cell-date="{ value }">
-        {{ formatPeriod(value) }}
-      </template>
-      <template #cell-sum="{ detailsOpen, index, value, toggleDetails }">
-        <button
-          :class="{ collapsed: !detailsOpen }"
-          class="btn btn-details-toggle"
-          @click="toggleDetails(index)"
-        >
-          <span>{{ formatSum(value, locale) }}&nbsp;₽</span>
-          <svg-icon
-            name="caret"
-            width="10"
-            height="6"
-            class="caret"
-            aria-hidden="true"
-          />
-        </button>
-      </template>
-      <template #row-details="{ item }">
-        <TableCategoryRecordChildren
-          :fields="tableDetailsFields"
-          :items="item.children"
-        >
-          <template #cell-created_at="{ value }">
-            {{ formatChildDate(value) }}
-          </template>
-          <template #cell-sum="{ value }">
-            {{ formatSum(value, locale) }}&nbsp;₽
-          </template>
-          <template #cell-note="{ item, value }">
-            <nuxt-link :to="`/records/${item.id}`">{{ value }}</nuxt-link>
-          </template>
-        </TableCategoryRecordChildren>
-      </template>
-    </DataTable>
-  </div>
+  <DataTable
+    :children-fields="tableChildrenFields"
+    :fields="tableFields"
+    :items="tableItems"
+    class="table-category-records mb-0"
+  />
 </template>
 
 <script>
@@ -59,24 +22,37 @@ export default {
   },
   data() {
     return {
+      tableChildrenFields: [
+        {
+          key: 'created_at',
+          tdClass: 'cell-date',
+          formatter: this.formatChildDate,
+        },
+        {
+          key: 'sum',
+          tdClass: 'cell-sum',
+          formatter: this.formatSumWithCurrency,
+        },
+        {
+          key: 'note',
+          tdClass: 'cell-note',
+        },
+      ],
       tableFields: [
         {
           key: 'date',
           label: 'Дата',
           thClass: 'cell-date',
           tdClass: 'cell-date',
+          formatter: this.formatPeriod,
         },
         {
           key: 'sum',
           label: 'Сумма',
           thClass: 'cell-sum',
-          tdClass: 'cell-sum cell-details-toggle',
+          tdClass: 'cell-sum',
+          isDetailsToggle: true,
         },
-      ],
-      tableDetailsFields: [
-        { key: 'created_at', tdClass: 'cell-date' },
-        { key: 'sum', tdClass: 'cell-sum' },
-        { key: 'note', tdClass: 'cell-note' },
       ],
     }
   },
@@ -84,15 +60,18 @@ export default {
     ...mapGetters(['locale']),
     tableItems() {
       if (!this.records) return []
-      return Object.keys(this.records).map((key) => ({
-        date: key,
-        children: this.records[key] || [],
-        sum:
+      return Object.keys(this.records).map((key) => {
+        const sum =
           this.records[key]?.reduce(
             (total, record) => (total += parseInt(record.sum || 0)),
             0
-          ) || 0,
-      }))
+          ) || 0
+        return {
+          date: key,
+          children: this.records[key] || [],
+          sum: this.formatSumWithCurrency(sum),
+        }
+      })
     },
   },
   methods: {
@@ -111,6 +90,9 @@ export default {
       const YY = date.toLocaleString(this.locale, { year: '2-digit' })
       const MM = date.toLocaleString(this.locale, { month: 'long' })
       return `${MM} ${YY}`
+    },
+    formatSumWithCurrency(sum) {
+      return `${this.formatSum(sum)}\xA0₽`
     },
   },
 }

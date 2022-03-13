@@ -16,7 +16,9 @@
     </header>
 
     <main class="container mb-12">
-      <TableCategoryRecords :records="records" />
+      <div class="card p-0">
+        <TableCategoryRecords :records="records" />
+      </div>
     </main>
   </div>
 </template>
