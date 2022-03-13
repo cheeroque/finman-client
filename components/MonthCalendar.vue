@@ -65,9 +65,9 @@
 export default {
   props: {
     items: {
-      type: Array,
+      type: Object,
       default() {
-        return []
+        return {}
       },
     },
   },

@@ -97,7 +97,7 @@ export default {
     align-items: center;
     align-self: start;
     justify-content: center;
-    justify-self: end;
+    justify-self: flex-end;
     grid-column: 2 / 3;
     grid-row: 1 / 4;
     width: 2.5rem;

@@ -90,7 +90,7 @@ export default {
       display: flex;
       flex: 1 1 100%;
       align-items: flex-end;
-      justify-content: end;
+      justify-content: flex-end;
       text-align: right;
 
       &:hover {
