@@ -319,3 +319,26 @@
     }
   }
 }
+
+.mx-zoom-in-down-enter-active,
+.mx-zoom-in-down-leave-active {
+  opacity: 1;
+  transition: $transition;
+  transition-property: opacity;
+
+  .mx-datepicker-content {
+    transform: translateY(0);
+    transition: $transition;
+    transition-property: transform;
+  }
+}
+
+.mx-zoom-in-down-enter,
+.mx-zoom-in-down-enter-from,
+.mx-zoom-in-down-leave-to {
+  opacity: 0;
+
+  .mx-datepicker-content {
+    transform: translateY(100vh);
+  }
+}
