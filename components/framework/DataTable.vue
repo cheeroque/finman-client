@@ -19,7 +19,7 @@
         <template v-for="(item, index) in items">
           <tr
             :key="`row-${index}`"
-            :class="{ 'details-open': openRowIndex === index }"
+            :class="{ 'details-open': isDetailsVisible(index) }"
             role="row"
           >
             <td
@@ -32,7 +32,7 @@
             >
               <button
                 v-if="hasDetails(item, field)"
-                :class="{ collapsed: openRowIndex !== index }"
+                :class="{ collapsed: !isDetailsVisible(index) }"
                 class="btn btn-details-toggle cell-content"
                 @click="toggleDetails(index)"
               >
@@ -53,16 +53,15 @@
             </td>
           </tr>
           <tr
-            v-if="hasDetails(item)"
-            v-show="openRowIndex === index"
+            v-show="isDetailsVisible(index)"
             :key="`row-details-${index}`"
             role="row"
             class="row-details"
           >
             <td :colspan="fields.length" class="row-details-cell">
               <Collapse
-                :open="openCollapseIndex === index"
-                @closed="onCollapseClosed"
+                :open="isCollapseOpen(index)"
+                @closed="onCollapseClosed(index)"
               >
                 <DataTable
                   :fields="childrenFields"
@@ -118,8 +117,8 @@ export default {
   },
   data() {
     return {
-      openRowIndex: -1,
-      openCollapseIndex: -1,
+      detailsVisible: [],
+      collapseOpen: [],
     }
   },
   methods: {
@@ -139,15 +138,24 @@ export default {
         (!field || field.isDetailsToggle)
       )
     },
-    onCollapseClosed() {
-      this.openRowIndex = -1
+    isCollapseOpen(rowIndex) {
+      return this.collapseOpen.includes(rowIndex)
+    },
+    isDetailsVisible(index) {
+      return this.detailsVisible.includes(index)
+    },
+    onCollapseClosed(index) {
+      const detailsIndex = this.detailsVisible.findIndex((i) => i === index)
+      this.detailsVisible.splice(detailsIndex, 1)
     },
     toggleDetails(index) {
-      if (this.openRowIndex !== index) {
-        this.openRowIndex = index
-        this.openCollapseIndex = index
+      const detailsIndex = this.detailsVisible.findIndex((i) => i === index)
+      const collapseIndex = this.collapseOpen.findIndex((i) => i === index)
+      if (detailsIndex > -1) {
+        this.collapseOpen.splice(collapseIndex, 1)
       } else {
-        this.openCollapseIndex = -1
+        this.detailsVisible.push(index)
+        this.collapseOpen.push(index)
       }
     },
   },
