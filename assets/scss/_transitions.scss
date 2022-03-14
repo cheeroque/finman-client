@@ -2,8 +2,9 @@
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity $transition;
+  transition: $transition;
   transition-property: opacity;
+  transition-duration: 0.1s;
 }
 .fade-enter,
 .fade-leave-to {

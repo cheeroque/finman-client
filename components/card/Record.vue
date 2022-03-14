@@ -1,5 +1,8 @@
 <template>
-  <div class="card record-card">
+  <div
+    :class="{ 'record-card-income': displayVariant && isIncome }"
+    class="card record-card"
+  >
     <p class="record-date">
       <nuxt-link :to="monthLink">
         {{
@@ -30,6 +33,10 @@ import { formatDate, formatSum } from '@/utils'
 
 export default {
   props: {
+    displayVariant: {
+      type: Boolean,
+      default: false,
+    },
     record: {
       type: Object,
       default() {
@@ -39,6 +46,9 @@ export default {
   },
   computed: {
     ...mapGetters(['locale']),
+    isIncome() {
+      return Boolean(this.record?.category?.is_income)
+    },
     monthLink() {
       const timestamp = Date.parse(this.record.created_at)
       const date = isNaN(timestamp) ? new Date() : new Date(timestamp)
@@ -97,6 +107,16 @@ export default {
         text-decoration: none;
       }
     }
+  }
+}
+
+.record-card-income {
+  color: var(--on-success-container);
+  background-color: var(--success-container);
+
+  .card-text-muted,
+  .card-text-accent {
+    color: $success;
   }
 }
 </style>

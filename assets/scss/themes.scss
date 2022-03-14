@@ -30,6 +30,12 @@
   --danger-container: #{$danger-90};
   --on-danger-container: #{$danger-10};
 
+  --success: #{$success-40};
+  --on-success: #{$white};
+
+  --success-container: #{$success-90};
+  --on-success-container: #{$success-10};
+
   --surface: #{$primary-95};
   --on-surface: #{$primary-10};
 
@@ -37,7 +43,6 @@
   --on-surface-variant: #{$secondary-10};
 
   --outline: #{$neutral-50};
-  --success: #{$success-60};
 }
 
 html,
@@ -81,6 +86,12 @@ html,
 
   --danger-container: #{$danger-30};
   --on-danger-container: #{$danger-90};
+
+  --success: #{$success-80};
+  --on-success: #{$success-20};
+
+  --success-container: #{$success-30};
+  --on-success-container: #{$success-90};
 
   --surface: #{$primary-10};
   --on-surface: #{$primary-90};
