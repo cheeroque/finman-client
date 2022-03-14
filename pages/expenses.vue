@@ -11,11 +11,14 @@
       </nuxt-link>
       <h4 class="dialog-title mb-0">Расходы</h4>
     </header>
-    <transition name="fade" mode="out-in">
-      <main :key="$route.fullPath" class="container mb-12">
-        <ListRecords :records="records" />
-      </main>
-    </transition>
+
+    <main class="container mb-24">
+      <transition name="fade" mode="out-in">
+        <ListRecords :key="$route.fullPath" :records="records" class="mb-24" />
+      </transition>
+      <PaginationNav :total-pages="totalPages" />
+    </main>
+
     <FloatingButton
       link="/records/create?type=expense"
       title="Добавить пункт расходов"
@@ -42,12 +45,14 @@ export default {
         perPage,
         show,
       })
+      const totalPages = Math.ceil(total / perPage)
       return {
         order,
         orderBy,
         page,
         perPage,
         records: data,
+        totalPages,
         totalRows: total,
       }
     } catch (e) {
@@ -79,6 +84,7 @@ export default {
         })
         this.records = data
         this.totalRows = total
+        if (process.client) scrollTo({ top: 0, behavior: 'smooth' })
       } catch (e) {
         return this.$error({ statusCode: e?.response?.status || 500 })
       }
