@@ -97,9 +97,9 @@
 
   .custom-control-input {
     display: inline-block;
-    width: 0.875em;
-    height: 0.875em;
-    margin: 0.25em 0.5em 0 0;
+    width: 0.875rem;
+    height: 0.875rem;
+    margin: 0.25rem 0.5rem 0 0;
     border: $border-width solid $form-label-color;
     background-color: transparent;
     background-position: center;
@@ -116,10 +116,71 @@
 
   &.custom-checkbox {
     .custom-control-input {
-      border-radius: 0.125em;
+      border-radius: 0.125rem;
 
       &:checked {
         background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' version='1.1' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m9 20.42-6.21-6.21 2.83-2.83 3.38 3.39 9.88-9.89 2.83 2.83-12.71 12.71z' fill='%23fff'/%3E%3C/svg%3E");
+      }
+    }
+
+    &.custom-switch {
+      position: relative;
+
+      .custom-control-label {
+        position: relative;
+        padding-left: 2rem;
+
+        &::before,
+        &::after {
+          display: block;
+          content: '';
+          position: absolute;
+          left: 0;
+          border-radius: 99rem;
+          transition: $transition;
+          transition-property: background-color, opacity, transform;
+        }
+
+        &::before {
+          top: calc(50% - 0.3125rem);
+          width: 1.5rem;
+          height: 0.625rem;
+          background-color: var(--outline);
+          opacity: 0.25;
+        }
+
+        &::after {
+          top: calc(50% - 0.4375rem);
+          width: 0.875rem;
+          height: 0.875rem;
+          background-color: var(--outline);
+          transform: translateX(0);
+        }
+      }
+
+      .custom-control-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0 0.5em 0 0;
+        border: none;
+        background-color: transparent;
+        background-image: none;
+        visibility: hidden;
+
+        &:checked ~ .custom-control-label {
+          &::before {
+            background-color: var(--primary-container);
+            opacity: 1;
+          }
+
+          &::after {
+            background-color: var(--primary);
+            transform: translateX(0.625rem);
+          }
+        }
       }
     }
   }

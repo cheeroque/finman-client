@@ -1,5 +1,5 @@
 <template>
-  <div class="custom-control custom-checkbox">
+  <div :class="componentClass" class="custom-control custom-checkbox">
     <input
       :id="customControlId"
       v-model="localChecked"
@@ -29,6 +29,10 @@ export default {
       type: String,
       default: null,
     },
+    switch: {
+      type: Boolean,
+      default: false,
+    },
     uncheckedValue: {
       type: null,
       default: false,
@@ -39,6 +43,9 @@ export default {
     },
   },
   computed: {
+    componentClass() {
+      return this.switch ? 'custom-switch' : null
+    },
     customControlId() {
       return `custom-control-${this._uid}`
     },

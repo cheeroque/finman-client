@@ -20,6 +20,7 @@
         :value="1"
         :unchecked-value="0"
         class="mb-16"
+        switch
       >
         Доход
       </FormCheckbox>
