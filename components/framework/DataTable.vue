@@ -60,19 +60,24 @@
             class="row-details"
           >
             <td :colspan="fields.length" class="row-details-cell">
-              <DataTable
-                :fields="childrenFields"
-                :items="item.children"
-                table-class="table-details"
-                class="mb-0"
-                disable-head
+              <Collapse
+                :open="openCollapseIndex === index"
+                @closed="onCollapseClosed"
               >
-                <template #cell-note="{ item }">
-                  <nuxt-link :to="`/records/${item.id}`">
-                    {{ item.note }}
-                  </nuxt-link>
-                </template>
-              </DataTable>
+                <DataTable
+                  :fields="childrenFields"
+                  :items="item.children"
+                  table-class="table-details"
+                  class="mb-0"
+                  disable-head
+                >
+                  <template #cell-note="{ item: detailsItem }">
+                    <nuxt-link :to="`/records/${detailsItem.id}`">
+                      {{ detailsItem.note }}
+                    </nuxt-link>
+                  </template>
+                </DataTable>
+              </Collapse>
             </td>
           </tr>
         </template>
@@ -114,6 +119,7 @@ export default {
   data() {
     return {
       openRowIndex: -1,
+      openCollapseIndex: -1,
     }
   },
   methods: {
@@ -133,11 +139,15 @@ export default {
         (!field || field.isDetailsToggle)
       )
     },
+    onCollapseClosed() {
+      this.openRowIndex = -1
+    },
     toggleDetails(index) {
       if (this.openRowIndex !== index) {
         this.openRowIndex = index
+        this.openCollapseIndex = index
       } else {
-        this.openRowIndex = -1
+        this.openCollapseIndex = -1
       }
     },
   },
