@@ -53,6 +53,7 @@
             </td>
           </tr>
           <tr
+            v-if="!disableDetails"
             v-show="isDetailsVisible(index)"
             :key="`row-details-${index}`"
             role="row"
@@ -68,6 +69,7 @@
                   :items="item.children"
                   table-class="table-details"
                   class="mb-0"
+                  disable-details
                   disable-head
                 >
                   <template #cell-note="{ item: detailsItem }">
@@ -100,6 +102,10 @@ export default {
       default() {
         return []
       },
+    },
+    disableDetails: {
+      type: Boolean,
+      default: false,
     },
     disableHead: {
       type: Boolean,
