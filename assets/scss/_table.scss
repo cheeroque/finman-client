@@ -85,8 +85,8 @@
 
     tbody {
       tr {
-        color: initial;
-        background-color: initial;
+        color: inherit;
+        background-color: inherit;
 
         &:nth-of-type(2n) {
           color: $table-active-alternate-color;
