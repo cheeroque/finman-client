@@ -46,6 +46,11 @@
     font-weight: $font-weight-medium;
   }
 
+  .table-empty-cell {
+    text-align: center;
+    color: $table-disabled-color;
+  }
+
   tbody {
     tr {
       transition: $transition;

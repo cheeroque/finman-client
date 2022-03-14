@@ -15,7 +15,7 @@
           </th>
         </tr>
       </thead>
-      <tbody role="rowgroup">
+      <tbody v-if="items && items.length" role="rowgroup">
         <template v-for="(item, index) in items">
           <tr
             :key="`row-${index}`"
@@ -80,6 +80,13 @@
             </td>
           </tr>
         </template>
+      </tbody>
+      <tbody v-else role="rowgroup">
+        <tr role="row">
+          <td :colspan="fields.length" class="table-empty-cell">
+            Нет&nbsp;данных для&nbsp;отображения.
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
