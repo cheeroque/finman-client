@@ -7,6 +7,10 @@
     :placeholder="placeholder"
     :step="step"
     :type="type"
+    :class="{
+      'form-control-valid': state === true,
+      'form-control-invalid': state === false,
+    }"
     autocomplete="off"
     class="form-control"
     @focus="$emit('focus', $event)"
@@ -26,6 +30,10 @@ export default {
     },
     min: {
       type: [Number, String],
+      default: null,
+    },
+    state: {
+      type: Boolean,
       default: null,
     },
     step: {

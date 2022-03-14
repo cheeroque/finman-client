@@ -2,7 +2,11 @@
   <component
     :is="isSimpleGroup ? 'div' : 'fieldset'"
     ref="group"
-    :class="{ 'form-group-no-label': !label }"
+    :class="{
+      'form-group-no-label': !label,
+      'form-group-invalid': state === false,
+      'form-group-valid': state === true,
+    }"
     :role="isSimpleGroup ? 'group' : null"
     class="form-group"
   >

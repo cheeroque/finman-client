@@ -10,6 +10,7 @@
     <FormInput
       v-model="localValue"
       :placeholder="placeholder"
+      :state="state"
       @focus="handleInputFocus"
     />
     <input
@@ -26,6 +27,10 @@ export default {
   props: {
     placeholder: {
       type: String,
+      default: null,
+    },
+    state: {
+      type: Boolean,
       default: null,
     },
     value: {

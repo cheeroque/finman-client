@@ -164,6 +164,12 @@ $form-control-color: var(--on-surface);
 $form-control-active-bg: var(--secondary-container);
 $form-control-active-color: var(--on-secondary-container);
 
+$form-control-invalid-bg: var(--danger-container);
+$form-control-invalid-color: var(--on-danger-container);
+
+$form-control-valid-bg: var(--success-container);
+$form-control-valid-color: var(--on-success-container);
+
 $form-label-color: var(--primary);
 $form-label-active-color: var(--secondary);
 
