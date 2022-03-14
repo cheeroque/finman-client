@@ -44,7 +44,7 @@ export default {
       const date = isNaN(timestamp) ? new Date() : new Date(timestamp)
       const year = date.getFullYear()
       const month = date.getMonth() + 1
-      return `/month/${year}-${month}`
+      return `/months/${year}-${month}`
     },
   },
   methods: {

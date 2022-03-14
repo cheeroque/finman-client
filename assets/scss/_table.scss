@@ -82,6 +82,10 @@
       }
     }
   }
+
+  &.table-fixed {
+    table-layout: fixed;
+  }
 }
 
 .table-wrapper {

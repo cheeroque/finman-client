@@ -1,16 +1,12 @@
 export const state = () => ({
   dialogOpen: false,
   drawerOpen: false,
-  firstRecord: {},
   latestSnapshot: {},
   locale: 'ru',
   // monthly: {
   //   expenses: 0,
   //   incomes: 0,
   // },
-  // recordsByCategory: {},
-  // recordsByMonth: {},
-  // recordsByPeriod: {},
   // searchResults: [],
   total: 0,
 })
@@ -22,23 +18,11 @@ export const mutations = {
   SET_DRAWER_OPEN(state, payload) {
     state.drawerOpen = payload
   },
-  // SET_FIRST_RECORD(state, payload) {
-  //   state.firstRecord = payload
-  // },
   SET_LATEST_SNAPSHOT(state, payload) {
     state.latestSnapshot = payload
   },
   // SET_MONTHLY(state, payload) {
   //   state.monthly = payload
-  // },
-  // SET_RECORDS_BY_CATEGORY(state, payload) {
-  //   state.recordsByCategory = payload
-  // },
-  // SET_RECORDS_BY_MONTH(state, payload) {
-  //   state.recordsByMonth = payload
-  // },
-  // SET_RECORDS_BY_PERIOD(state, payload) {
-  //   state.recordsByPeriod = payload
   // },
   // SET_SEARCH_RESULTS(state, payload) {
   //   state.searchResults = payload
@@ -51,13 +35,10 @@ export const mutations = {
 export const getters = {
   bodyFixed: (state) => state.dialogOpen || state.drawerOpen,
   drawerOpen: (state) => state.drawerOpen,
-  // firstRecord: (state) => state.firstRecord,
   latestSnapshot: (state) => state.latestSnapshot,
   locale: (state) => state.locale,
   // monthlyExpenses: (state) => parseInt(state.monthly?.expenses || 0),
   // monthlyIncomes: (state) => parseInt(state.monthly?.incomes || 0),
-  // recordsByCategory: (state) => state.recordsByCategory,
-  // recordsByPeriod: (state) => state.recordsByPeriod,
   // searchResults: (state) => state.searchResults,
   total: (state) => state.total,
 }
@@ -86,6 +67,13 @@ export const actions = {
       .catch((error) => {
         throw error
       })
+    return records
+  },
+
+  async fetchRecordsByPeriod(_, { period }) {
+    const records = await this.$axios.$get(`month/${period}`).catch((error) => {
+      throw error
+    })
     return records
   },
 
@@ -181,28 +169,6 @@ export const actions = {
 
   /* To rework */
 
-  // async fetchRecordsByCategory({ commit, dispatch }, { categoryId, params }) {
-  //   if (!params.perPage) params.perPage = 18
-  //   const recordsByCategory = await this.$axios
-  //     .$get(`category/${categoryId}`, { params })
-  //     .catch((error) => {
-  //       dispatch('setError', {
-  //         path: 'recordsByCategory',
-  //         categoryId,
-  //         params,
-  //         error,
-  //       })
-  //     })
-  //   commit('SET_RECORDS_BY_CATEGORY', recordsByCategory)
-  // },
-  // async fetchRecordsByPeriod({ commit, dispatch }, { period }) {
-  //   const recordsByPeriod = await this.$axios
-  //     .$get(`month/${period}`)
-  //     .catch((error) => {
-  //       dispatch('setError', { path: 'recordsByPeriod', period, error })
-  //     })
-  //   commit('SET_RECORDS_BY_PERIOD', recordsByPeriod)
-  // },
   // async fetchSearchResults({ commit, dispatch }, params) {
   //   const total = await this.$axios
   //     .$get('search', { params })

@@ -15,6 +15,21 @@ export function formatDate(
   return date.toLocaleString(locale, options)
 }
 
+export function formatPeriod(period, locale, yearDigits = 2) {
+  if (!period) return
+  const periodArr = `${period}`.split('-')
+  const year = periodArr[0]
+  const month = periodArr[1] || 1
+  const date = new Date(parseInt(year), parseInt(month) - 1)
+
+  const YY = date.toLocaleString(locale, {
+    year: yearDigits === 2 ? '2-digit' : 'numeric',
+  })
+  let MM = date.toLocaleString(locale, { month: 'long' })
+  MM = MM.charAt(0).toUpperCase() + MM.slice(1)
+  return `${MM} ${YY}`
+}
+
 export function isRouteActive(routes = [], currentRoute) {
   if (!routes || !routes.length) return
   const results = []

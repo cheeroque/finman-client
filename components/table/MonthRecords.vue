@@ -8,11 +8,17 @@
 </template>
 
 <script>
-import { formatPeriod, formatSum } from '@/utils'
+import { formatSum } from '@/utils'
 import { mapGetters } from 'vuex'
 
 export default {
   props: {
+    categories: {
+      type: [Array, Object],
+      default() {
+        return []
+      },
+    },
     records: {
       type: [Array, Object],
       default() {
@@ -40,11 +46,11 @@ export default {
       ],
       tableFields: [
         {
-          key: 'date',
-          label: 'Дата',
-          thClass: 'cell-date',
-          tdClass: 'cell-date',
-          formatter: (value) => this.formatPeriod(value, this.locale),
+          key: 'category_id',
+          label: 'Категория',
+          thClass: 'cell-category',
+          tdClass: 'cell-category',
+          formatter: this.getCategoryName,
         },
         {
           key: 'sum',
@@ -67,7 +73,7 @@ export default {
             0
           ) || 0
         return {
-          date: key,
+          category_id: key,
           children: this.records[key] || [],
           sum: this.formatSumWithCurrency(sum),
         }
@@ -75,8 +81,13 @@ export default {
     },
   },
   methods: {
-    formatPeriod,
     formatSum,
+    getCategoryName(categoryId) {
+      const category = this.categories.find(
+        ({ id }) => parseInt(id) === parseInt(categoryId)
+      )
+      return category && category.name
+    },
     formatChildDate(datestring) {
       const date = new Date(datestring)
       return date.toLocaleString(this.locale, { dateStyle: 'short' })
@@ -90,9 +101,8 @@ export default {
 
 <style lang="scss" scoped>
 ::v-deep {
-  .cell-date {
+  .cell-category {
     width: 35%;
-    text-transform: capitalize;
   }
 
   .cell-sum {
