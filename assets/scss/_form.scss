@@ -47,6 +47,11 @@
     appearance: none;
   }
 
+  option {
+    color: $card-color;
+    background-color: $card-bg;
+  }
+
   &::before {
     display: block;
     content: '';
