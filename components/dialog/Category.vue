@@ -4,41 +4,88 @@
     :title="dialogTitle"
     link-back="/categories"
   >
-    <form @submit.prevent="submit">
-      <FormGroup label="Имя">
-        <FormInput v-model="form.name" placeholder="Введите имя" />
-      </FormGroup>
-      <FormGroup label="Слаг">
-        <FormInput v-model="form.slug" placeholder="Введите слаг" />
-      </FormGroup>
-
-      <FormGroup label="Цвет">
-        <FormInputColor v-model="form.color" />
-      </FormGroup>
-      <FormCheckbox
-        v-model="form.is_income"
-        :value="1"
-        :unchecked-value="0"
-        class="mb-16"
-        switch
-      >
-        Доход
-      </FormCheckbox>
-      <div class="dialog-footer">
-        <button
-          v-if="isEdit"
-          type="button"
-          class="btn btn-danger"
-          @click="deleteCategory"
+    <ValidationObserver v-slot="{ handleSubmit }" slim>
+      <form @submit.prevent="handleSubmit(submit)">
+        <ValidationProvider
+          v-slot="{ valid, validate, validated }"
+          name="name"
+          rules="required"
         >
-          Удалить
-        </button>
-        <nuxt-link v-else to="/categories" class="btn">Отменить</nuxt-link>
-        <button type="submit" class="btn btn-secondary">
-          {{ actionTitle }}
-        </button>
-      </div>
-    </form>
+          <FormGroup
+            label="Имя"
+            :state="valid || !validated ? null : false"
+            invalid-feedback="Поле необходимо заполнить"
+          >
+            <FormInput
+              v-model="form.name"
+              :state="valid || !validated ? null : false"
+              placeholder="Введите имя"
+              @input="validateOnInput($event, validate)"
+            />
+          </FormGroup>
+        </ValidationProvider>
+        <ValidationProvider
+          v-slot="{ valid, validate, validated }"
+          name="slug"
+          rules="required"
+        >
+          <FormGroup
+            label="Слаг"
+            :state="valid || !validated ? null : false"
+            invalid-feedback="Поле необходимо заполнить"
+          >
+            <FormInput
+              v-model="form.slug"
+              :state="valid || !validated ? null : false"
+              placeholder="Введите слаг"
+              @input="validateOnInput($event, validate)"
+            />
+          </FormGroup>
+        </ValidationProvider>
+
+        <ValidationProvider
+          v-slot="{ valid, validate, validated }"
+          name="slug"
+          rules="required"
+        >
+          <FormGroup
+            label="Цвет"
+            :state="valid || !validated ? null : false"
+            invalid-feedback="Поле необходимо заполнить"
+          >
+            <FormInputColor
+              v-model="form.color"
+              :state="valid || !validated ? null : false"
+              placeholder="Выберите цвет"
+              @input="validateOnInput($event, validate)"
+            />
+          </FormGroup>
+        </ValidationProvider>
+        <FormCheckbox
+          v-model="form.is_income"
+          :value="1"
+          :unchecked-value="0"
+          class="mb-16"
+          switch
+        >
+          Доход
+        </FormCheckbox>
+        <div class="dialog-footer">
+          <button
+            v-if="isEdit"
+            type="button"
+            class="btn btn-danger"
+            @click="deleteCategory"
+          >
+            Удалить
+          </button>
+          <nuxt-link v-else to="/categories" class="btn">Отменить</nuxt-link>
+          <button type="submit" class="btn btn-secondary">
+            {{ actionTitle }}
+          </button>
+        </div>
+      </form>
+    </ValidationObserver>
   </DialogPage>
 </template>
 
@@ -94,6 +141,9 @@ export default {
       } catch (error) {
         console.log(`error toast: ${error}`)
       }
+    },
+    validateOnInput(event, validate) {
+      if (event) validate(event)
     },
   },
 }

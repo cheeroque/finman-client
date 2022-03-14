@@ -23,7 +23,7 @@ export default {
   css: [{ src: '~assets/scss/app.scss', lang: 'scss' }],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: ['~/plugins/validate'],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [

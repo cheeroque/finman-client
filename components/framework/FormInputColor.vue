@@ -7,7 +7,11 @@
         aria-hidden="true"
       />
     </template>
-    <FormInput v-model="localValue" @focus="handleInputFocus" />
+    <FormInput
+      v-model="localValue"
+      :placeholder="placeholder"
+      @focus="handleInputFocus"
+    />
     <input
       ref="colorInput"
       v-model="localValue"

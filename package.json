@@ -19,6 +19,7 @@
     "normalize.css": "^8.0.1",
     "nuxt": "^2.15.3",
     "portal-vue": "^2.1.7",
+    "vee-validate": "3",
     "vue-chartjs": "^3.5.1",
     "vue2-datepicker": "^3.10.4"
   },
