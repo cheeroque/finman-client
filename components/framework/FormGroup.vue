@@ -16,14 +16,27 @@
       <span>{{ label }}</span>
     </component>
     <slot></slot>
+    <transition name="form-feedback">
+      <p v-if="state === false" class="form-invalid-feedback">
+        {{ invalidFeedback }}
+      </p>
+    </transition>
   </component>
 </template>
 
 <script>
 export default {
   props: {
+    invalidFeedback: {
+      type: String,
+      default: 'Поле необходимо заполнить',
+    },
     label: {
       type: String,
+      default: null,
+    },
+    state: {
+      type: Boolean,
       default: null,
     },
   },

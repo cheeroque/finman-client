@@ -73,3 +73,17 @@
 .dialog-page-leave-to {
   transform: translateX(-100%);
 }
+
+/* Form feedback text */
+
+.form-feedback-enter-active,
+.form-feedback-leave-active {
+  transition: $transition;
+  transition-property: opacity;
+  transition-duration: 0.15s;
+}
+.form-feedback-enter,
+.form-feedback-leave-to {
+  opacity: 0;
+}
+
