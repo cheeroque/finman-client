@@ -9,10 +9,7 @@
         <nuxt-link
           v-if="item.link"
           :class="{
-            active: isRouteActive(
-              item.matchLinks || [item.link],
-              $route.fullPath
-            ),
+            active: isRouteActive(item.matchLinks || [item.link], $route.path),
           }"
           :to="item.link"
           class="nav-item"
