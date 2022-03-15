@@ -12,9 +12,9 @@
       <h4 class="dialog-title mb-0">Доходы</h4>
     </header>
 
-    <main class="container mb-24">
+    <main class="container mb-16">
       <transition name="fade" mode="out-in">
-        <ListRecords :key="$route.fullPath" :records="records" class="mb-24" />
+        <ListRecords :key="$route.fullPath" :records="records" class="mb-16" />
       </transition>
 
       <PaginationNav :total-pages="totalPages" />

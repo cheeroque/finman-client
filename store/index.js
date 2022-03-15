@@ -8,6 +8,7 @@ export const state = () => ({
   //   incomes: 0,
   // },
   // searchResults: [],
+  scrolledToBottom: false,
   total: 0,
 })
 
@@ -27,6 +28,9 @@ export const mutations = {
   // SET_SEARCH_RESULTS(state, payload) {
   //   state.searchResults = payload
   // },
+  SET_SCROLLED_TO_BOTTOM(state, payload) {
+    state.scrolledToBottom = payload
+  },
   SET_TOTAL(state, payload) {
     state.total = payload
   },
@@ -40,6 +44,7 @@ export const getters = {
   // monthlyExpenses: (state) => parseInt(state.monthly?.expenses || 0),
   // monthlyIncomes: (state) => parseInt(state.monthly?.incomes || 0),
   // searchResults: (state) => state.searchResults,
+  scrolledToBottom: (state) => state.scrolledToBottom,
   total: (state) => state.total,
 }
 
@@ -165,6 +170,10 @@ export const actions = {
 
   setDrawerOpen({ commit }, payload) {
     commit('SET_DRAWER_OPEN', payload)
+  },
+
+  setScrolledToBottom({ commit }, payload) {
+    commit('SET_SCROLLED_TO_BOTTOM', payload)
   },
 
   /* To rework */

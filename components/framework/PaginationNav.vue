@@ -1,12 +1,11 @@
 <template>
-  <nav v-if="totalPages > 1" class="pagination">
+  <nav v-if="totalPages > 1" ref="pagination" class="pagination">
     <ul class="nav pagination-nav">
       <li role="presentation">
         <component
           :is="isBeginning ? 'span' : 'nuxt-link'"
           :to="isBeginning ? null : getPageLink(1)"
-          :class="{ 'nav-item-disabled': isBeginning }"
-          :disabled="isBeginning"
+          :class="{ disabled: isBeginning }"
           aria-label="В начало"
           class="btn nav-item nav-item-first"
         >
@@ -18,50 +17,26 @@
           />
         </component>
       </li>
-      <li role="presentation">
+      <li
+        v-for="page in visiblePages"
+        :key="`page-${page}`"
+        role="presentation"
+      >
         <component
-          :is="isBeginning ? 'span' : 'nuxt-link'"
-          :to="isBeginning ? null : getPageLink(pagePrevious)"
-          :class="{ 'nav-item-disabled': isBeginning }"
-          :disabled="isBeginning"
-          aria-label="Назад"
-          class="btn nav-item nav-item-previous"
+          :is="page === currentPage ? 'span' : 'nuxt-link'"
+          :to="page === currentPage ? null : getPageLink(page)"
+          :class="{ active: page === currentPage }"
+          :aria-label="`На страницу ${page}`"
+          class="btn nav-item"
         >
-          <svg-icon
-            name="chevron-left-24"
-            width="24"
-            height="24"
-            aria-hidden="true"
-          />
-        </component>
-      </li>
-      <li role="presentation">
-        <span class="nav-item-text">
-          {{ currentPage }} / {{ totalPages }}
-        </span>
-      </li>
-      <li role="presentation">
-        <component
-          :is="isEnd ? 'span' : 'nuxt-link'"
-          :to="isEnd ? null : getPageLink(pageNext)"
-          :class="{ 'nav-item-disabled': isEnd }"
-          :disabled="isEnd"
-          aria-label="Вперед"
-          class="btn nav-item nav-item-next"
-        >
-          <svg-icon
-            name="chevron-right-24"
-            width="24"
-            height="24"
-            aria-hidden="true"
-          />
+          {{ page }}
         </component>
       </li>
       <li role="presentation">
         <component
-          :is="isEnd ? 'span' : 'nuxt-link'"
+          :is="isEnd ? 'button' : 'nuxt-link'"
           :to="isEnd ? null : getPageLink(totalPages)"
-          :class="{ 'nav-item-disabled': isEnd }"
+          :class="{ disabled: isEnd }"
           :disabled="isEnd"
           aria-label="В конец"
           class="btn nav-item nav-item-last"
@@ -79,6 +54,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: {
     linkGen: {
@@ -89,6 +65,11 @@ export default {
       type: [Number, String],
       default: null,
     },
+  },
+  data() {
+    return {
+      observer: null,
+    }
   },
   computed: {
     currentPage() {
@@ -108,13 +89,66 @@ export default {
         ? this.currentPage + 1
         : this.totalPages
     },
+    visiblePages() {
+      const pages = []
+      let start, end
+      if (this.totalPages <= 5) {
+        start = 1
+        end = this.totalPages
+      } else {
+        start = this.currentPage > 3 ? this.currentPage - 2 : 1
+        end = start + 4
+        if (end > this.totalPages) {
+          const diff = end - this.totalPages
+          end -= diff
+          start -= diff
+        }
+      }
+      for (let i = start; i <= end; i++) pages.push(i)
+      return pages
+    },
+  },
+  mounted() {
+    this.setObserver()
+  },
+  beforeDestroy() {
+    this.removeObserver()
   },
   methods: {
+    ...mapActions(['setScrolledToBottom']),
+    getOffsetTop() {
+      if (!process.client) return
+      return Math.max(
+        window.pageYOffset,
+        document.documentElement.scrollTop,
+        document.body.scrollTop
+      )
+    },
     getPageLink(pageNumber) {
       if (pageNumber === 1) return this.$route.path
       return typeof this.linkGen === 'function'
         ? this.linkGen(pageNumber)
         : `${this.$route.path}?page=${pageNumber}`
+    },
+    removeObserver() {
+      if (
+        this.$refs.pagination &&
+        this.observer instanceof IntersectionObserver
+      ) {
+        this.observer.unobserve(this.$refs.pagination)
+      }
+    },
+    setObserver() {
+      if ('IntersectionObserver' in window) {
+        if (!this.$refs.pagination) return
+        this.observer = new IntersectionObserver(([{ isIntersecting }]) => {
+          const offsetTop = this.getOffsetTop()
+          if (offsetTop > 0) {
+            this.setScrolledToBottom(isIntersecting)
+          }
+        })
+        this.observer.observe(this.$refs.pagination)
+      }
     },
   },
 }
@@ -122,47 +156,28 @@ export default {
 
 <style lang="scss" scoped>
 .pagination-nav {
-  & > li {
-    flex: 0 1 auto;
-
-    &:first-child {
-      .nav-item {
-        border-radius: $card-border-radius 0 0 $card-border-radius;
-      }
-    }
-
-    &:last-child {
-      .nav-item {
-        border-radius: 0 $card-border-radius $card-border-radius 0;
-      }
-    }
-  }
+  gap: 0.5rem;
 
   .nav-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.375rem;
-    border-radius: 0;
-    color: var(--primary-container);
-    background-color: var(--primary);
+    height: 100%;
+    padding: 0.5rem;
+    font-size: $btn-font-size;
+    border-radius: $card-border-radius;
+    color: var(--on-surface);
+    background-color: var(--surface);
 
     &:disabled,
-    &.nav-item-disabled {
-      opacity: 0.25;
+    &.disabled {
+      opacity: 0.5;
     }
-  }
 
-  .nav-item-text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    padding: 0.375rem 1rem;
-    font-family: $font-family-alternate;
-    text-align: center;
-    color: var(--on-primary);
-    background-color: var(--primary);
+    &.active {
+      color: var(--on-primary);
+      background-color: var(--primary);
+    }
   }
 }
 </style>

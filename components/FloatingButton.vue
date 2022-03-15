@@ -4,6 +4,7 @@
     :to="link"
     :title="title"
     :aria-label="title"
+    :class="{ offscreen: scrolledToBottom }"
     class="btn btn-fab"
     @click="$emit('click')"
   >
@@ -12,6 +13,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     link: {
@@ -22,6 +25,9 @@ export default {
       type: String,
       default: '',
     },
+  },
+  computed: {
+    ...mapGetters(['scrolledToBottom']),
   },
 }
 </script>
@@ -37,11 +43,20 @@ export default {
   color: $fab-color;
   background-color: $fab-bg;
   box-shadow: $shadow-2;
+  opacity: 1;
+  transform: translateX(0);
+  transition: $transition;
+  transition-property: opacity, transform;
 
   &:hover {
     color: $fab-active-color;
     background-color: $fab-active-bg;
     box-shadow: $shadow-6;
+  }
+
+  &.offscreen {
+    opacity: 0;
+    transform: translateX(150%);
   }
 }
 </style>
