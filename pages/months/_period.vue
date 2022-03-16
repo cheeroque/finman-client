@@ -18,8 +18,12 @@
     </header>
 
     <main class="container mb-12">
-      <div class="card p-0">
+      <div class="card mb-24 p-0">
         <TableMonthRecords :categories="categories" :records="records" />
+      </div>
+
+      <div class="card">
+        <ChartBar :items="chartData" />
       </div>
     </main>
   </div>
@@ -43,6 +47,25 @@ export default {
   },
   computed: {
     ...mapGetters(['locale']),
+    chartData() {
+      const result = []
+      Object.keys(this.records).forEach((key) => {
+        const category = this.categories.find(
+          ({ id }) => parseInt(id) === parseInt(key)
+        )
+        if (!category.is_income)
+          result.push({
+            label: category?.name,
+            color: category?.color,
+            value:
+              this.records[key]?.reduce(
+                (total, record) => (total += parseInt(record.sum || 0)),
+                0
+              ) || 0,
+          })
+      })
+      return result
+    },
   },
   methods: {
     formatPeriod,
