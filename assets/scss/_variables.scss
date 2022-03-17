@@ -209,6 +209,20 @@ $table-active-color-accent: var(--secondary);
 $table-disabled-bg: $card-bg;
 $table-disabled-color: var(--primary-container);
 
+/* Toast colors */
+
+$toast-bg: var(--background);
+$toast-color: var(--on-background);
+
+$toast-secondary-bg: var(--secondary-container);
+$toast-secondary-color: var(--on-secondary-container);
+
+$toast-success-bg: var(--success-container);
+$toast-success-color: var(--on-success-container);
+
+$toast-danger-bg: var(--danger-container);
+$toast-danger-color: var(--on-danger-container);
+
 /* Typography */
 
 $font-family-base: 'Roboto', sans-serif;
@@ -360,3 +374,18 @@ $table-padding-x: 1rem;
 $table-padding-y: 0.75rem;
 
 $table-font-size: $font-size-base * 0.875;
+
+/* Toast */
+
+$toast-padding-x: 0.75rem;
+$toast-padding-y: 0.75rem;
+$toast-margin-bottom: $grid-gap * 0.5;
+$toast-font-size: $font-size-base * 0.875;
+$toast-border-radius: 0.5rem;
+
+/* Misc */
+
+$navbar-height: calc(
+  #{$navbar-padding-y * 2} + #{$navbar-icon-padding-y * 2} + #{$navbar-icon-spacer} +
+    #{$line-height-base * $font-size-base} + 24px
+);

@@ -87,3 +87,16 @@
   opacity: 0;
 }
 
+/* Toast */
+
+.toast-enter-active,
+.toast-leave-active {
+  transition: $transition;
+  transition-property: box-shadow, transform;
+  transition-duration: 0.15s;
+}
+.toast-enter,
+.toast-leave-to {
+  transform: translateX(101vw);
+  box-shadow: none;
+}

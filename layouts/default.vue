@@ -7,6 +7,7 @@
     />
     <Nuxt />
     <NavBar @drawer-show="setDrawerOpen(true)" />
+    <ToastMessage :timeout="false" />
   </div>
 </template>
 
@@ -43,11 +44,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$navbar-height: calc(
-  #{$navbar-padding-y * 2} + #{$navbar-icon-padding-y * 2} + #{$navbar-icon-spacer} +
-    #{$line-height-base * $font-size-base} + 24px
-);
-
 .app-wrapper {
   padding-bottom: $navbar-height;
 
