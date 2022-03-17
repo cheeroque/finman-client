@@ -117,7 +117,11 @@ export default {
         document.body.appendChild(link)
         link.click()
       } catch (error) {
-        console.log(`error toast: ${error}`)
+        this.$store.dispatch('toast/showToast', {
+          message: error?.response?.statusText,
+          title: `Ошибка ${error?.response?.status}`,
+          variant: 'danger',
+        })
       }
       this.loading = false
     },

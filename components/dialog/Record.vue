@@ -98,7 +98,11 @@ export default {
         await this.$store.dispatch(action, this.form)
         this.$router.push('/')
       } catch (error) {
-        console.log(`error toast: ${error}`)
+        this.$store.dispatch('toast/showToast', {
+          message: error?.response?.statusText,
+          title: `Ошибка ${error?.response?.status}`,
+          variant: 'danger',
+        })
       }
     },
     async deleteRecord() {
@@ -106,7 +110,11 @@ export default {
         await this.$store.dispatch('deleteRecord', this.form.id)
         this.$router.push('/')
       } catch (error) {
-        console.log(`error toast: ${error}`)
+        this.$store.dispatch('toast/showToast', {
+          message: error?.response?.statusText,
+          title: `Ошибка ${error?.response?.status}`,
+          variant: 'danger',
+        })
       }
     },
     setNow() {

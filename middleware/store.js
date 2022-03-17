@@ -1,4 +1,4 @@
-export default async function ({ $auth, store, error }) {
+export default async function ({ $auth, store }) {
   /* Get global data */
   if ($auth.$state.loggedIn) {
     await store.dispatch('fetchTotal')
