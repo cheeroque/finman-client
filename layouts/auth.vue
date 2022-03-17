@@ -1,0 +1,24 @@
+<template>
+  <div class="app-wrapper">
+    <Nuxt class="app-content" />
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+@include media-min-width('lg') {
+  .app-wrapper {
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .app-content {
+    width: 400px;
+    margin: 0 auto;
+  }
+}
+</style>

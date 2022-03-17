@@ -1,16 +1,26 @@
 <template>
-  <main class="container py-24">
-    <h1 class="mb-24">Авторизация</h1>
-    <form @submit.prevent="onSubmit">
-      <FormGroup label="Имя">
-        <FormInput v-model="form.name" placeholder="Введите имя" />
-      </FormGroup>
-      <FormGroup label="Пароль">
-        <FormInput v-model="form.password" type="password" />
-      </FormGroup>
-      <button type="submit" class="btn">Войти</button>
-    </form>
-  </main>
+  <div class="dialog dialog-fullscreen dialog-page">
+    <header class="dialog-header">
+      <h4 class="dialog-title mb-0">Авторизация</h4>
+    </header>
+    <main class="container">
+      <div class="card">
+        <form @submit.prevent="onSubmit">
+          <FormGroup label="Имя">
+            <FormInput v-model="form.name" placeholder="Введите имя" />
+          </FormGroup>
+          <FormGroup label="Пароль">
+            <FormInput v-model="form.password" type="password" />
+          </FormGroup>
+          <div class="d-flex">
+            <button type="submit" class="btn btn-primary ms-auto px-24">
+              Войти
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
@@ -44,5 +54,11 @@ export default {
 .form-login {
   flex: 1 1 auto;
   max-width: 320px;
+}
+
+.dialog-header {
+  min-height: calc(24px + 2.5rem);
+  padding-left: $grid-gap * 0.5;
+  padding-right: $grid-gap * 0.5;
 }
 </style>
