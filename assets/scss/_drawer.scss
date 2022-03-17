@@ -25,15 +25,20 @@
       font-weight: $font-weight-medium;
     }
 
+    .nav-item-divider {
+      width: auto;
+      margin: ($drawer-item-padding-y * 0.5) $drawer-item-padding-x;
+    }
+
     .nav-item {
       display: flex;
       align-items: center;
       justify-content: flex-start;
       padding: $drawer-item-padding-y $drawer-item-padding-x;
-      border-radius: 99rem;
+      border-radius: $drawer-item-border-radius;
 
       .icon {
-        margin-right: 0.5rem;
+        margin-right: $drawer-item-icon-spacing;
       }
 
       &:hover {
