@@ -93,3 +93,8 @@
     }
   }
 }
+
+.container-danger {
+  color: var(--on-danger-container);
+  background-color: var(--danger-container);
+}
