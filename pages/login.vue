@@ -59,7 +59,7 @@ export default {
     }
   },
   methods: {
-    async onSubmit() {
+    async submit() {
       try {
         const response = await this.$auth.login({ data: this.form })
         await this.$auth.setUser(response.data.user)
