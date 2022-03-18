@@ -1,19 +1,48 @@
 <template>
   <DialogPage title="Авторизация" disable-back>
     <div class="card">
-      <form @submit.prevent="onSubmit">
-        <FormGroup label="Имя">
-          <FormInput v-model="form.name" placeholder="Введите имя" />
-        </FormGroup>
-        <FormGroup label="Пароль">
-          <FormInput v-model="form.password" type="password" />
-        </FormGroup>
-        <div class="d-flex">
-          <button type="submit" class="btn btn-primary ms-auto px-24">
-            Войти
-          </button>
-        </div>
-      </form>
+      <ValidationObserver v-slot="{ handleSubmit }" slim>
+        <form @submit.prevent="handleSubmit(submit)">
+          <ValidationProvider
+            v-slot="{ valid, validate, validated }"
+            name="name"
+            rules="required"
+            slim
+          >
+            <FormGroup :state="valid || !validated ? null : false" label="Имя">
+              <FormInput
+                v-model="form.name"
+                :state="valid || !validated ? null : false"
+                placeholder="Введите имя"
+                @input="validateOnInput($event, validate)"
+              />
+            </FormGroup>
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ valid, validate, validated }"
+            name="sum"
+            rules="required"
+            slim
+          >
+            <FormGroup
+              :state="valid || !validated ? null : false"
+              label="Пароль"
+            >
+              <FormInput
+                v-model="form.password"
+                :state="valid || !validated ? null : false"
+                type="password"
+                @input="validateOnInput($event, validate)"
+              />
+            </FormGroup>
+          </ValidationProvider>
+          <div class="d-flex">
+            <button type="submit" class="btn btn-primary ms-auto px-24">
+              Войти
+            </button>
+          </div>
+        </form>
+      </ValidationObserver>
     </div>
   </DialogPage>
 </template>
@@ -41,6 +70,9 @@ export default {
         }
         this.$errorToast(error, message)
       }
+    },
+    validateOnInput(event, validate) {
+      if (event) validate(event)
     },
   },
 }
