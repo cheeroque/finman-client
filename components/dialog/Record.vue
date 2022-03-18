@@ -4,7 +4,7 @@
       <ValidationObserver v-slot="{ handleSubmit }" slim>
         <form @submit.prevent="handleSubmit(submit)">
           <ValidationProvider
-            v-slot="{ valid, validate, validated }"
+            v-slot="{ valid, validated }"
             name="category"
             rules="required"
             slim
@@ -17,12 +17,11 @@
                 v-model="form.category_id"
                 :options="categoryOptions"
                 :state="valid || !validated ? null : false"
-                @input="validateOnInput($event, validate)"
               />
             </FormGroup>
           </ValidationProvider>
           <ValidationProvider
-            v-slot="{ valid, validate, validated }"
+            v-slot="{ valid, validated }"
             name="sum"
             rules="required"
             slim
@@ -35,13 +34,12 @@
                 <FormInputCalc
                   v-model="form.sum"
                   :state="valid || !validated ? null : false"
-                  @input="validateOnInput($event, validate)"
                 />
               </InputGroup>
             </FormGroup>
           </ValidationProvider>
           <ValidationProvider
-            v-slot="{ valid, validate, validated }"
+            v-slot="{ valid, validated }"
             name="note"
             rules="required"
             slim
@@ -54,13 +52,12 @@
                 v-model="form.note"
                 :state="valid || !validated ? null : false"
                 placeholder="Введите комментарий"
-                @input="validateOnInput($event, validate)"
               />
             </FormGroup>
           </ValidationProvider>
           <div class="d-flex g-8 mb-16">
             <ValidationProvider
-              v-slot="{ valid, validate, validated }"
+              v-slot="{ valid, validated }"
               name="color"
               rules="required"
               slim
@@ -74,7 +71,6 @@
                   v-model="form.created_at"
                   :state="valid || !validated ? null : false"
                   placeholder="Выберите дату"
-                  @input="validateOnInput($event, validate)"
                 />
               </FormGroup>
             </ValidationProvider>
@@ -172,9 +168,6 @@ export default {
     },
     setNow() {
       this.form.created_at = new Date()
-    },
-    validateOnInput(event, validate) {
-      if (event) validate(event)
     },
   },
 }

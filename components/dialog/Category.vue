@@ -4,7 +4,7 @@
       <ValidationObserver v-slot="{ handleSubmit }" slim>
         <form @submit.prevent="handleSubmit(submit)">
           <ValidationProvider
-            v-slot="{ valid, validate, validated }"
+            v-slot="{ valid, validated }"
             name="name"
             rules="required"
             slim
@@ -14,12 +14,11 @@
                 v-model="form.name"
                 :state="valid || !validated ? null : false"
                 placeholder="Введите имя"
-                @input="validateOnInput($event, validate)"
               />
             </FormGroup>
           </ValidationProvider>
           <ValidationProvider
-            v-slot="{ valid, validate, validated }"
+            v-slot="{ valid, validated }"
             name="slug"
             rules="required"
             slim
@@ -29,12 +28,11 @@
                 v-model="form.slug"
                 :state="valid || !validated ? null : false"
                 placeholder="Введите слаг"
-                @input="validateOnInput($event, validate)"
               />
             </FormGroup>
           </ValidationProvider>
           <ValidationProvider
-            v-slot="{ valid, validate, validated }"
+            v-slot="{ valid, validated }"
             name="color"
             rules="required"
             slim
@@ -44,7 +42,6 @@
                 v-model="form.color"
                 :state="valid || !validated ? null : false"
                 placeholder="Выберите цвет"
-                @input="validateOnInput($event, validate)"
               />
             </FormGroup>
           </ValidationProvider>
@@ -131,9 +128,6 @@ export default {
       } catch (error) {
         this.$errorToast(error)
       }
-    },
-    validateOnInput(event, validate) {
-      if (event) validate(event)
     },
   },
 }

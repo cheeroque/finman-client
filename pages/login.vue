@@ -4,7 +4,7 @@
       <ValidationObserver v-slot="{ handleSubmit }" slim>
         <form @submit.prevent="handleSubmit(submit)">
           <ValidationProvider
-            v-slot="{ valid, validate, validated }"
+            v-slot="{ valid, validated }"
             name="name"
             rules="required"
             slim
@@ -14,12 +14,11 @@
                 v-model="form.name"
                 :state="valid || !validated ? null : false"
                 placeholder="Введите имя"
-                @input="validateOnInput($event, validate)"
               />
             </FormGroup>
           </ValidationProvider>
           <ValidationProvider
-            v-slot="{ valid, validate, validated }"
+            v-slot="{ valid, validated }"
             name="sum"
             rules="required"
             slim
@@ -32,7 +31,6 @@
                 v-model="form.password"
                 :state="valid || !validated ? null : false"
                 type="password"
-                @input="validateOnInput($event, validate)"
               />
             </FormGroup>
           </ValidationProvider>
@@ -70,9 +68,6 @@ export default {
         }
         this.$errorToast(error, message)
       }
-    },
-    validateOnInput(event, validate) {
-      if (event) validate(event)
     },
   },
 }
