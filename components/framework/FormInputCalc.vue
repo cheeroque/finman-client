@@ -2,6 +2,10 @@
   <input
     ref="input"
     :value="value"
+    :class="{
+      'form-control-valid': state === true,
+      'form-control-invalid': state === false,
+    }"
     placeholder="0"
     type="text"
     class="form-control"
@@ -19,6 +23,10 @@ export default {
     event: 'input',
   },
   props: {
+    state: {
+      type: Boolean,
+      default: null,
+    },
     value: {
       type: [String, Number],
       default: null,

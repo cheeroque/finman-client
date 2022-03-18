@@ -1,6 +1,19 @@
 <template>
-  <div class="form-select">
-    <select v-model="localValue" class="form-control">
+  <div
+    :class="{
+      'form-select-valid': state === true,
+      'form-select-invalid': state === false,
+    }"
+    class="form-select"
+  >
+    <select
+      v-model="localValue"
+      :class="{
+        'form-control-valid': state === true,
+        'form-control-invalid': state === false,
+      }"
+      class="form-control"
+    >
       <option
         v-for="(option, index) in options"
         :key="`option-${index}`"
@@ -21,6 +34,10 @@ export default {
       default() {
         return []
       },
+    },
+    state: {
+      type: Boolean,
+      default: null,
     },
     value: {
       type: null,

@@ -8,7 +8,7 @@
             name="name"
             rules="required"
           >
-            <FormGroup label="Имя" :state="valid || !validated ? null : false">
+            <FormGroup :state="valid || !validated ? null : false" label="Имя">
               <FormInput
                 v-model="form.name"
                 :state="valid || !validated ? null : false"
@@ -22,7 +22,7 @@
             name="slug"
             rules="required"
           >
-            <FormGroup label="Слаг" :state="valid || !validated ? null : false">
+            <FormGroup :state="valid || !validated ? null : false" label="Слаг">
               <FormInput
                 v-model="form.slug"
                 :state="valid || !validated ? null : false"
@@ -36,7 +36,7 @@
             name="color"
             rules="required"
           >
-            <FormGroup label="Цвет" :state="valid || !validated ? null : false">
+            <FormGroup :state="valid || !validated ? null : false" label="Цвет">
               <FormInputColor
                 v-model="form.color"
                 :state="valid || !validated ? null : false"

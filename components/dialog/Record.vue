@@ -1,44 +1,99 @@
 <template>
   <DialogPage :action-title="actionTitle" :title="dialogTitle">
     <div class="card">
-      <form @submit.prevent="submit">
-        <FormGroup label="Категория">
-          <FormSelect v-model="form.category_id" :options="categoryOptions" />
-        </FormGroup>
-        <FormGroup label="Сумма">
-          <InputGroup append="₽">
-            <FormInputCalc v-model="form.sum" />
-          </InputGroup>
-        </FormGroup>
-        <FormGroup label="Комментарий">
-          <FormInput v-model="form.note" placeholder="Введите комментарий" />
-        </FormGroup>
-        <div class="d-flex g-8 mb-16">
-          <FormGroup label="Дата и время" class="mb-0">
-            <FormInputDate
-              v-model="form.created_at"
-              placeholder="Выберите дату"
-            />
-          </FormGroup>
-          <button type="button" class="btn form-button" @click="setNow">
-            Сейчас
-          </button>
-        </div>
-        <div class="d-flex">
-          <button
-            v-if="isEdit"
-            type="button"
-            class="btn btn-danger ms-auto"
-            @click="deleteRecord"
+      <ValidationObserver v-slot="{ handleSubmit }" slim>
+        <form @submit.prevent="handleSubmit(submit)">
+          <ValidationProvider
+            v-slot="{ valid, validate, validated }"
+            name="category"
+            rules="required"
           >
-            Удалить
-          </button>
-          <nuxt-link v-else to="/" class="btn ms-auto">Отменить</nuxt-link>
-          <button type="submit" class="btn btn-secondary ms-8">
-            {{ actionTitle }}
-          </button>
-        </div>
-      </form>
+            <FormGroup
+              :state="valid || !validated ? null : false"
+              label="Категория"
+            >
+              <FormSelect
+                v-model="form.category_id"
+                :options="categoryOptions"
+                :state="valid || !validated ? null : false"
+                @input="validateOnInput($event, validate)"
+              />
+            </FormGroup>
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ valid, validate, validated }"
+            name="sum"
+            rules="required"
+          >
+            <FormGroup
+              :state="valid || !validated ? null : false"
+              label="Сумма"
+            >
+              <InputGroup append="₽">
+                <FormInputCalc
+                  v-model="form.sum"
+                  :state="valid || !validated ? null : false"
+                  @input="validateOnInput($event, validate)"
+                />
+              </InputGroup>
+            </FormGroup>
+          </ValidationProvider>
+          <ValidationProvider
+            v-slot="{ valid, validate, validated }"
+            name="note"
+            rules="required"
+          >
+            <FormGroup
+              :state="valid || !validated ? null : false"
+              label="Комментарий"
+            >
+              <FormInput
+                v-model="form.note"
+                :state="valid || !validated ? null : false"
+                placeholder="Введите комментарий"
+                @input="validateOnInput($event, validate)"
+              />
+            </FormGroup>
+          </ValidationProvider>
+          <div class="d-flex g-8 mb-16">
+            <ValidationProvider
+              v-slot="{ valid, validate, validated }"
+              name="color"
+              rules="required"
+            >
+              <FormGroup
+                :state="valid || !validated ? null : false"
+                label="Дата и время"
+                class="mb-0"
+              >
+                <FormInputDate
+                  v-model="form.created_at"
+                  :state="valid || !validated ? null : false"
+                  placeholder="Выберите дату"
+                  @input="validateOnInput($event, validate)"
+                />
+              </FormGroup>
+            </ValidationProvider>
+            <button type="button" class="btn form-button" @click="setNow">
+              Сейчас
+            </button>
+          </div>
+          <div class="d-flex">
+            <button
+              v-if="isEdit"
+              type="button"
+              class="btn btn-danger ms-auto"
+              @click="deleteRecord"
+            >
+              Удалить
+            </button>
+            <nuxt-link v-else to="/" class="btn ms-auto">Отменить</nuxt-link>
+            <button type="submit" class="btn btn-secondary ms-8">
+              {{ actionTitle }}
+            </button>
+          </div>
+        </form>
+      </ValidationObserver>
     </div>
   </DialogPage>
 </template>
@@ -113,6 +168,9 @@ export default {
     },
     setNow() {
       this.form.created_at = new Date()
+    },
+    validateOnInput(event, validate) {
+      if (event) validate(event)
     },
   },
 }

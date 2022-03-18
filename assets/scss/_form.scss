@@ -94,6 +94,19 @@
       transform: translateY(50%) rotate(-180deg);
     }
   }
+
+  &.form-select-valid {
+    &::before {
+      background-color: $success;
+    }
+  }
+
+  &:invalid,
+  &.form-select-invalid {
+    &::before {
+      background-color: $danger;
+    }
+  }
 }
 
 .custom-color {
