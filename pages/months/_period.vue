@@ -9,7 +9,7 @@
     </div>
 
     <div class="card mb-12">
-      <ChartBar :items="chartData" />
+      <ChartBar :aspect="1.25" :items="chartData" />
     </div>
   </DialogPage>
 </template>
@@ -53,7 +53,7 @@ export default {
               ) || 0,
           })
       })
-      return result
+      return result.sort((a, b) => b.value - a.value)
     },
   },
   methods: {

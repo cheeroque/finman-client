@@ -1,5 +1,9 @@
 <template>
-  <div :style="{ '--aspect-ratio': aspect }" class="chart chart-bar">
+  <div
+    ref="wrapper"
+    :style="{ '--aspect-ratio': aspect }"
+    class="chart chart-bar"
+  >
     <canvas ref="canvas" class="chart-canvas"></canvas>
   </div>
 </template>
@@ -12,7 +16,7 @@ const AXIS_BORDER_WIDTH = 1
 const AXIS_TICK_SIZE = 0
 const BAR_THICKNESS = 0.8
 const BAR_PADDING = 8
-const LABEL_FONT_SIZE = 14
+const LABEL_FONT_SIZE = 12
 
 export default {
   props: {
@@ -31,6 +35,7 @@ export default {
     return {
       canvasWidth: null,
       canvasHeight: null,
+      canvasStyles: {},
     }
   },
   computed: {
@@ -49,75 +54,120 @@ export default {
     draw() {
       if (!this.$refs.canvas?.getContext) return
       const canvas = this.$refs.canvas
+      this.canvasStyles = getComputedStyle(canvas)
       this.setCanvasSize(canvas)
       const ctx = canvas.getContext('2d')
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      this.drawAxis(ctx)
-      this.drawItems(ctx)
+      const startX = this.drawAxis(ctx)
+      this.drawItems(ctx, startX)
     },
     drawAxis(ctx) {
-      const canvasStyles = getComputedStyle(ctx.canvas)
+      ctx.font = `${LABEL_FONT_SIZE}px ${this.canvasStyles.fontFamily}`
+      let maxLabelWidth = 0
+      this.items.forEach((item) => {
+        const textMetrics = ctx.measureText(item.label)
+        if (textMetrics.width > maxLabelWidth) {
+          maxLabelWidth = Math.round(textMetrics.width)
+        }
+      })
 
-      ctx.fillStyle = canvasStyles.borderColor
+      const labelWidth =
+        Math.min(maxLabelWidth, Math.round(this.canvasWidth / 4)) + BAR_PADDING
+
+      ctx.fillStyle = this.canvasStyles.borderColor
       ctx.globalAlpha = 0.5
-      ctx.fillRect(AXIS_TICK_SIZE, 0, AXIS_BORDER_WIDTH, this.canvasHeight)
       ctx.fillRect(
+        AXIS_TICK_SIZE + labelWidth,
         0,
+        AXIS_BORDER_WIDTH,
+        this.canvasHeight
+      )
+      ctx.fillRect(
+        AXIS_TICK_SIZE + labelWidth,
         this.canvasHeight - AXIS_TICK_SIZE - AXIS_BORDER_WIDTH,
-        this.canvasWidth,
+        this.canvasWidth - AXIS_TICK_SIZE - labelWidth,
         AXIS_BORDER_WIDTH
       )
       ctx.globalAlpha = 1
+
+      return labelWidth
     },
-    drawItems(ctx) {
+    drawItems(ctx, startX) {
       const itemCount = this.items.length + (1 - BAR_THICKNESS)
       const itemHeight = Math.round(this.canvasHeight / itemCount)
       const startY = this.canvasHeight - itemHeight * this.items.length
 
       const maxValue = Math.max(...this.items.map(({ value }) => value))
-
-      const canvasStyles = getComputedStyle(ctx.canvas)
+      const contentWidth = this.canvasWidth - startX
 
       let offsetY = startY
       this.items.forEach((item) => {
         const barHeight = Math.round(itemHeight * BAR_THICKNESS)
-        const barWidth = Math.round((this.canvasWidth * item.value) / maxValue)
+        const barWidth = Math.round((contentWidth * item.value) / maxValue)
+        const textTop = offsetY + 1 + barHeight / 2
+
+        const labelText = this.getShortenedText(
+          item.label,
+          startX - BAR_PADDING
+        )
 
         ctx.fillStyle = item.color
-        ctx.fillRect(AXIS_BORDER_WIDTH, offsetY, barWidth, barHeight)
+        ctx.fillRect(AXIS_BORDER_WIDTH + startX, offsetY, barWidth, barHeight)
+
+        ctx.font = `${LABEL_FONT_SIZE}px ${this.canvasStyles.fontFamily}`
+        ctx.textBaseline = 'middle'
+        ctx.textAlign = 'right'
+        ctx.fillStyle = this.canvasStyles.borderColor
+        ctx.fillText(
+          labelText,
+          startX - BAR_PADDING,
+          textTop,
+          startX - BAR_PADDING
+        )
 
         let textLeft
         let textColor
-        const textTop = offsetY + 1 + barHeight / 2
 
-        const sumText = `${this.formatSum(item.value, this.locale)} ₽`
-        const nameText = `${item.label}: `
-        const textMetrics = ctx.measureText(sumText + nameText)
+        ctx.font = `500 ${LABEL_FONT_SIZE}px ${this.canvasStyles.fontFamily}`
+        ctx.textAlign = 'left'
+        const sumText = `${this.formatSum(item.value, this.locale)}`
+        const textMetrics = ctx.measureText(sumText)
 
         if (textMetrics.width > barWidth - BAR_PADDING * 2) {
           // text doesn't fit inside bar
-          textColor = canvasStyles.color
-          textLeft = barWidth + AXIS_BORDER_WIDTH + BAR_PADDING
+          textColor = this.canvasStyles.color
+          textLeft = startX + barWidth + AXIS_BORDER_WIDTH + BAR_PADDING
         } else {
           // text fits inside bar
           textColor = this.getContrastColor(item.color)
-          textLeft = AXIS_BORDER_WIDTH + BAR_PADDING
+          textLeft = startX + AXIS_BORDER_WIDTH + BAR_PADDING
         }
 
         ctx.fillStyle = textColor
-        ctx.textBaseline = 'middle'
-
-        ctx.font = `${LABEL_FONT_SIZE}px ${canvasStyles.fontFamily}`
-        const nameTextMetrics = ctx.measureText(nameText)
-        ctx.fillText(nameText, textLeft, textTop)
-        textLeft += nameTextMetrics.width
-
-        ctx.font = `500 ${LABEL_FONT_SIZE}px ${canvasStyles.fontFamily}`
         ctx.fillText(sumText, textLeft, textTop)
 
         offsetY += itemHeight
       })
+    },
+    getShortenedText(text, width) {
+      const span = document.createElement('span')
+      span.innerHTML = text
+      span.style.position = 'absolute'
+      span.style.left = '-99999px'
+      span.style.fontSize = `${LABEL_FONT_SIZE}px`
+      this.$refs.wrapper.appendChild(span)
+
+      let isShortened = false
+      let w = span.offsetWidth
+      let shortenedText = text
+      while (w > width) {
+        isShortened = true
+        shortenedText = shortenedText.slice(0, -1)
+        span.innerHTML = `${shortenedText}...`
+        w = span.offsetWidth
+      }
+      return isShortened ? `${shortenedText}...` : text
     },
     onWindowResize() {
       this.draw()
@@ -136,6 +186,7 @@ export default {
 <style lang="scss" scoped>
 .chart {
   position: relative;
+  overflow: hidden;
 
   &::before {
     display: block;
@@ -150,7 +201,7 @@ export default {
   display: block;
   width: 100%;
   height: 100%;
-  font-family: $font-family-alternate;
+  font-family: $font-family-base;
   font-size: $font-size-base * 0.75;
   border: none;
   border-color: var(--outline);
