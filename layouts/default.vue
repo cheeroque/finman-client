@@ -7,7 +7,7 @@
     />
     <Nuxt />
     <NavBar @drawer-show="setDrawerOpen(true)" />
-    <ToastMessage :timeout="false" />
+    <ToastMessage />
   </div>
 </template>
 
@@ -45,6 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .app-wrapper {
+  min-height: 100vh;
   padding-bottom: $navbar-height;
 
   ::v-deep {

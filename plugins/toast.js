@@ -14,4 +14,12 @@ export default ({ store }, inject) => {
       variant: 'danger',
     })
   })
+
+  inject('infoToast', (message, title) => {
+    store.dispatch('toast/showToast', {
+      message,
+      title,
+      variant: 'success',
+    })
+  })
 }

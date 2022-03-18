@@ -2,7 +2,7 @@
   <transition name="toast">
     <div
       v-if="toastVisible"
-      :style="{ '--toast-bottom': bottomOffset }"
+      :style="{ bottom: bottomOffset }"
       class="toast-container"
     >
       <div :class="variantClass" class="toast">
@@ -80,9 +80,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.toast-container {
-  bottom: var(--toast-bottom);
-}
-</style>

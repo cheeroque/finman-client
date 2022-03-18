@@ -116,6 +116,10 @@ export default {
       const action = this.isEdit ? 'updateCategory' : 'storeCategory'
       try {
         await this.$store.dispatch(action, this.form)
+        const message = this.isEdit
+          ? `Категория «${this.form.name}» обновлена`
+          : 'Категория создана'
+        this.$infoToast(message, 'Успех')
         this.$router.push('/categories')
       } catch (error) {
         this.$errorToast(error)

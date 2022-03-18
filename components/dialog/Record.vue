@@ -153,6 +153,10 @@ export default {
       const action = this.isEdit ? 'updateRecord' : 'storeRecord'
       try {
         await this.$store.dispatch(action, this.form)
+        const message = this.isEdit
+          ? `Запись «${this.form.note}» обновлена`
+          : 'Запись создана'
+        this.$infoToast(message, 'Успех')
         this.$router.push('/')
       } catch (error) {
         this.$errorToast(error)
