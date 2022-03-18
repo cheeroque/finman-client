@@ -118,11 +118,7 @@ export default {
         await this.$store.dispatch(action, this.form)
         this.$router.push('/categories')
       } catch (error) {
-        this.$store.dispatch('toast/showToast', {
-          message: error?.response?.statusText,
-          title: `Ошибка ${error?.response?.status}`,
-          variant: 'danger',
-        })
+        this.$errorToast(error)
       }
     },
     async deleteCategory() {
@@ -130,11 +126,7 @@ export default {
         await this.$store.dispatch('deleteCategory', this.form.id)
         this.$router.push('/categories')
       } catch (error) {
-        this.$store.dispatch('toast/showToast', {
-          message: error?.response?.statusText,
-          title: `Ошибка ${error?.response?.status}`,
-          variant: 'danger',
-        })
+        this.$errorToast(error)
       }
     },
     validateOnInput(event, validate) {
