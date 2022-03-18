@@ -1,6 +1,8 @@
 <template>
   <header class="header header-main">
-    <h1 class="mb-0">{{ formatSum(total, locale) }}&nbsp;₽</h1>
+    <h1 class="mb-0">
+      <nuxt-link to="/"> {{ formatSum(total, locale) }}&nbsp;₽ </nuxt-link>
+    </h1>
   </header>
 </template>
 

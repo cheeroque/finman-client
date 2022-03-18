@@ -1,30 +1,15 @@
 <template>
-  <div class="dialog-fullscreen">
-    <header class="dialog-header">
-      <nuxt-link to="/" class="btn dialog-header-back">
-        <svg-icon
-          name="arrow-left-24"
-          width="24"
-          height="24"
-          aria-hidden="true"
-        />
-      </nuxt-link>
-      <h4 class="dialog-title mb-0">Доходы</h4>
-    </header>
+  <DialogPage title="Доходы">
+    <transition name="fade" mode="out-in">
+      <ListRecords :key="$route.fullPath" :records="records" class="mb-16" />
+    </transition>
 
-    <main class="container mb-16">
-      <transition name="fade" mode="out-in">
-        <ListRecords :key="$route.fullPath" :records="records" class="mb-16" />
-      </transition>
-
-      <PaginationNav :total-pages="totalPages" />
-    </main>
-
+    <PaginationNav :total-pages="totalPages" class="mb-16" />
     <FloatingButton
       link="/records/create?type=income"
       title="Добавить источник доходов"
     />
-  </div>
+  </DialogPage>
 </template>
 
 <script>

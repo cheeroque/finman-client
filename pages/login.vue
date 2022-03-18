@@ -1,31 +1,26 @@
 <template>
-  <div class="dialog dialog-fullscreen dialog-page">
-    <header class="dialog-header">
-      <h4 class="dialog-title mb-0">Авторизация</h4>
-    </header>
-    <main class="container">
-      <div class="card">
-        <form @submit.prevent="onSubmit">
-          <FormGroup label="Имя">
-            <FormInput v-model="form.name" placeholder="Введите имя" />
-          </FormGroup>
-          <FormGroup label="Пароль">
-            <FormInput v-model="form.password" type="password" />
-          </FormGroup>
-          <div class="d-flex">
-            <button type="submit" class="btn btn-primary ms-auto px-24">
-              Войти
-            </button>
-          </div>
-        </form>
-        <transition name="fade">
-          <div v-if="error" class="error-message">
-            {{ errorMessage }}
-          </div>
-        </transition>
-      </div>
-    </main>
-  </div>
+  <DialogPage title="Авторизация" disable-back>
+    <div class="card">
+      <form @submit.prevent="onSubmit">
+        <FormGroup label="Имя">
+          <FormInput v-model="form.name" placeholder="Введите имя" />
+        </FormGroup>
+        <FormGroup label="Пароль">
+          <FormInput v-model="form.password" type="password" />
+        </FormGroup>
+        <div class="d-flex">
+          <button type="submit" class="btn btn-primary ms-auto px-24">
+            Войти
+          </button>
+        </div>
+      </form>
+      <transition name="fade">
+        <div v-if="error" class="error-message">
+          {{ errorMessage }}
+        </div>
+      </transition>
+    </div>
+  </DialogPage>
 </template>
 
 <script>

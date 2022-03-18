@@ -1,30 +1,37 @@
 <template>
-  <div class="dialog dialog-fullscreen dialog-page">
-    <header class="dialog-header">
-      <nuxt-link :to="linkBack" class="btn dialog-header-back">
+  <div>
+    <header class="header header-secondary">
+      <a
+        v-if="!disableBack"
+        href="#"
+        class="btn btn-header-back"
+        @click.prevent="$router.back()"
+      >
         <svg-icon
           name="arrow-left-24"
           width="24"
           height="24"
           aria-hidden="true"
         />
-      </nuxt-link>
-      <h4 class="dialog-title mb-0">
+      </a>
+      <h4 class="header-content mb-0">
         <slot name="dialog-title">
           {{ title }}
         </slot>
       </h4>
-      <button class="btn dialog-header-action" @click="$emit('action')">
+      <button
+        v-if="actionTitle"
+        class="btn btn-header-action"
+        @click="$emit('action')"
+      >
         <slot name="dialog-action">
           {{ actionTitle }}
         </slot>
       </button>
     </header>
-    <div class="dialog-body">
-      <div class="card">
-        <slot></slot>
-      </div>
-    </div>
+    <main class="container">
+      <slot></slot>
+    </main>
   </div>
 </template>
 
@@ -39,9 +46,9 @@ export default {
       type: String,
       default: null,
     },
-    linkBack: {
-      type: String,
-      default: '/',
+    disableBack: {
+      type: Boolean,
+      default: false,
     },
     title: {
       type: String,

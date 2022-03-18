@@ -1,43 +1,45 @@
 <template>
   <DialogPage :action-title="actionTitle" :title="dialogTitle">
-    <form @submit.prevent="submit">
-      <FormGroup label="Категория">
-        <FormSelect v-model="form.category_id" :options="categoryOptions" />
-      </FormGroup>
-      <FormGroup label="Сумма">
-        <InputGroup append="₽">
-          <FormInputCalc v-model="form.sum" />
-        </InputGroup>
-      </FormGroup>
-      <FormGroup label="Комментарий">
-        <FormInput v-model="form.note" placeholder="Введите комментарий" />
-      </FormGroup>
-      <div class="d-flex g-8 mb-16">
-        <FormGroup label="Дата и время" class="mb-0">
-          <FormInputDate
-            v-model="form.created_at"
-            placeholder="Выберите дату"
-          />
+    <div class="card">
+      <form @submit.prevent="submit">
+        <FormGroup label="Категория">
+          <FormSelect v-model="form.category_id" :options="categoryOptions" />
         </FormGroup>
-        <button type="button" class="btn form-button" @click="setNow">
-          Сейчас
-        </button>
-      </div>
-      <div class="dialog-footer">
-        <button
-          v-if="isEdit"
-          type="button"
-          class="btn btn-danger"
-          @click="deleteRecord"
-        >
-          Удалить
-        </button>
-        <nuxt-link v-else to="/" class="btn">Отменить</nuxt-link>
-        <button type="submit" class="btn btn-secondary">
-          {{ actionTitle }}
-        </button>
-      </div>
-    </form>
+        <FormGroup label="Сумма">
+          <InputGroup append="₽">
+            <FormInputCalc v-model="form.sum" />
+          </InputGroup>
+        </FormGroup>
+        <FormGroup label="Комментарий">
+          <FormInput v-model="form.note" placeholder="Введите комментарий" />
+        </FormGroup>
+        <div class="d-flex g-8 mb-16">
+          <FormGroup label="Дата и время" class="mb-0">
+            <FormInputDate
+              v-model="form.created_at"
+              placeholder="Выберите дату"
+            />
+          </FormGroup>
+          <button type="button" class="btn form-button" @click="setNow">
+            Сейчас
+          </button>
+        </div>
+        <div class="d-flex">
+          <button
+            v-if="isEdit"
+            type="button"
+            class="btn btn-danger ms-auto"
+            @click="deleteRecord"
+          >
+            Удалить
+          </button>
+          <nuxt-link v-else to="/" class="btn ms-auto">Отменить</nuxt-link>
+          <button type="submit" class="btn btn-secondary ms-8">
+            {{ actionTitle }}
+          </button>
+        </div>
+      </form>
+    </div>
   </DialogPage>
 </template>
 

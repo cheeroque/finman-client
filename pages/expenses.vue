@@ -1,29 +1,14 @@
 <template>
-  <div class="dialog-fullscreen">
-    <header class="dialog-header">
-      <nuxt-link to="/" class="btn dialog-header-back">
-        <svg-icon
-          name="arrow-left-24"
-          width="24"
-          height="24"
-          aria-hidden="true"
-        />
-      </nuxt-link>
-      <h4 class="dialog-title mb-0">Расходы</h4>
-    </header>
-
-    <main class="container mb-16">
-      <transition name="fade" mode="out-in">
-        <ListRecords :key="$route.fullPath" :records="records" class="mb-16" />
-      </transition>
-      <PaginationNav :total-pages="totalPages" />
-    </main>
-
+  <DialogPage title="Расходы">
+    <transition name="fade" mode="out-in">
+      <ListRecords :key="$route.fullPath" :records="records" class="mb-16" />
+    </transition>
+    <PaginationNav :total-pages="totalPages" class="mb-16" />
     <FloatingButton
       link="/records/create?type=expense"
       title="Добавить пункт расходов"
     />
-  </div>
+  </DialogPage>
 </template>
 
 <script>

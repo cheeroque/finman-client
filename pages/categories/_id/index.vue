@@ -1,26 +1,13 @@
 <template>
-  <div class="dialog-fullscreen">
-    <header class="dialog-header">
-      <nuxt-link to="/categories" class="btn dialog-header-back">
-        <svg-icon
-          name="arrow-left-24"
-          width="24"
-          height="24"
-          aria-hidden="true"
-        />
-      </nuxt-link>
-      <h4 class="dialog-title mb-0">{{ category.name }}</h4>
-      <nuxt-link to="/categories" class="btn dialog-header-action">
-        Категории
-      </nuxt-link>
-    </header>
-
-    <main class="container mb-12">
-      <div class="card p-0">
-        <TableCategoryRecords :records="records" />
-      </div>
-    </main>
-  </div>
+  <DialogPage
+    :title="category.name"
+    action-title="Категории"
+    @action="$router.push('/categories')"
+  >
+    <div class="card mb-12 p-0">
+      <TableCategoryRecords :records="records" />
+    </div>
+  </DialogPage>
 </template>
 
 <script>

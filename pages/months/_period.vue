@@ -1,32 +1,17 @@
 <template>
-  <div class="dialog-fullscreen">
-    <header class="dialog-header">
-      <nuxt-link to="/months" class="btn dialog-header-back">
-        <svg-icon
-          name="arrow-left-24"
-          width="24"
-          height="24"
-          aria-hidden="true"
-        />
-      </nuxt-link>
-      <h4 class="dialog-title mb-0">
-        {{ formatPeriod($route.params.period, locale, 4) }}
-      </h4>
-      <nuxt-link to="/months" class="btn dialog-header-action">
-        Календарь
-      </nuxt-link>
-    </header>
+  <DialogPage
+    :title="formatPeriod($route.params.period, locale, 4)"
+    action-title="Календарь"
+    @action="$router.push('/months')"
+  >
+    <div class="card mb-12 p-0">
+      <TableMonthRecords :categories="categories" :records="records" />
+    </div>
 
-    <main class="container mb-12">
-      <div class="card mb-24 p-0">
-        <TableMonthRecords :categories="categories" :records="records" />
-      </div>
-
-      <div class="card">
-        <ChartBar :items="chartData" />
-      </div>
-    </main>
-  </div>
+    <div class="card mb-12">
+      <ChartBar :items="chartData" />
+    </div>
+  </DialogPage>
 </template>
 
 <script>

@@ -1,21 +1,7 @@
 <template>
-  <div class="dialog-fullscreen">
-    <header class="dialog-header">
-      <nuxt-link to="/" class="btn dialog-header-back">
-        <svg-icon
-          name="arrow-left-24"
-          width="24"
-          height="24"
-          aria-hidden="true"
-        />
-      </nuxt-link>
-      <h4 class="dialog-title mb-0">Календарь</h4>
-    </header>
-
-    <main class="container mb-12">
-      <MonthCalendar :items="calendarItems" />
-    </main>
-  </div>
+  <DialogPage title="Календарь">
+    <MonthCalendar :items="calendarItems" class="mb-12" />
+  </DialogPage>
 </template>
 
 <script>

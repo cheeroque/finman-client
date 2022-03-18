@@ -7,16 +7,6 @@
   border-radius: $dialog-border-radius;
   color: $dialog-color;
   background-color: $dialog-bg;
-
-  .btn {
-    color: $dialog-color;
-  }
-}
-
-.dialog-header {
-  display: flex;
-  align-items: center;
-  padding: $dialog-padding-y $dialog-padding-x;
 }
 
 .dialog-body {
@@ -32,51 +22,4 @@
   & > * + * {
     margin-left: 0.5rem;
   }
-}
-
-.dialog-submit {
-  color: $dialog-button-color;
-  background-color: $dialog-button-bg;
-}
-
-.dialog-fullscreen {
-  color: $body-color;
-  background-color: $body-bg;
-  z-index: $zindex-dialog;
-
-  .dialog-header {
-    padding: $dialog-padding-y calc(#{$dialog-padding-x} - 0.5rem);
-
-    .dialog-title {
-      flex: 1 1 auto;
-      max-width: 100%;
-      min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-
-  .dialog-header-back {
-    margin-right: 0.5rem;
-    padding: 0.5rem;
-    border: none;
-  }
-
-  .dialog-header-action {
-    align-self: flex-end;
-    margin-left: auto;
-    padding: 0.4375rem 0.5rem;
-    border: none;
-    color: $dialog-color-accent;
-  }
-
-  .dialog-footer {
-    padding: $dialog-padding-y 0 0;
-  }
-}
-
-.dialog-page {
-  position: static;
-  z-index: initial;
 }
