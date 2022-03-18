@@ -19,6 +19,10 @@ import { formatPeriod } from '@/utils'
 import { mapGetters } from 'vuex'
 
 export default {
+  transition: {
+    name: 'page',
+    mode: '',
+  },
   async asyncData({ params, store, error }) {
     try {
       const categories = await store.dispatch('fetchCategories')

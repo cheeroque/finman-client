@@ -14,7 +14,8 @@
 <script>
 export default {
   transition: {
-    name: 'dialog-page',
+    name: 'page',
+    mode: '',
   },
   async asyncData({ query, store, error }) {
     const order = query.order || 'DESC'

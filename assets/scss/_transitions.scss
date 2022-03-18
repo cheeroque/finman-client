@@ -1,17 +1,6 @@
-/* Basic fade in-out */
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: $transition;
-  transition-property: opacity;
-  transition-duration: 0.1s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-
 /* Drawer */
+
+// Drawer content
 
 .drawer-enter-active,
 .drawer-leave-active {
@@ -26,7 +15,7 @@
   transform: translateX(-100%);
 }
 
-/* Drawer backdrop */
+// Drawer backdrop
 
 .drawer-backdrop-enter-active,
 .drawer-backdrop-leave-active {
@@ -40,38 +29,17 @@
   opacity: 0;
 }
 
-/* Fullscreen dialog */
+/* Fade in-out */
 
-.dialog-fullscreen-enter-active,
-.dialog-fullscreen-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: $transition;
-  transition-property: opacity, transform;
-  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-duration: 0.1s;
 }
-.dialog-fullscreen-enter {
-  border-radius: 1rem;
-  overflow: hidden;
-  transform: translate(100%, 100%) scale(0);
-  transform-origin: bottom right;
-}
-.dialog-fullscreen-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
-  transform: translateX(-100%);
-}
-
-/* Dialog page */
-
-.dialog-page-enter-active,
-.dialog-page-leave-active {
-  transition: $transition;
-  transition-property: transform;
-  transition-duration: 0.15s;
-}
-.dialog-page-enter {
-  transform: translateX(-100%);
-}
-.dialog-page-leave-to {
-  transform: translateX(-100%);
 }
 
 /* Form feedback text */
@@ -85,6 +53,28 @@
 .form-feedback-enter,
 .form-feedback-leave-to {
   opacity: 0;
+}
+
+/* Page */
+
+.page-enter-active,
+.page-leave-active {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  transition: transform 0.15s ease-in-out;
+}
+.page-enter-active {
+  transition-delay: 0.05s;
+}
+.page-enter {
+  transform: translateX(100%);
+}
+.page-leave-to {
+  transform: translateX(-100%);
 }
 
 /* Toast */

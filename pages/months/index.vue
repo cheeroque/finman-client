@@ -6,6 +6,10 @@
 
 <script>
 export default {
+  transition: {
+    name: 'page',
+    mode: '',
+  },
   async asyncData({ store, error }) {
     try {
       const firstRecord = await store.dispatch('fetchFirstRecord')

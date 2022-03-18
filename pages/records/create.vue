@@ -5,7 +5,8 @@
 <script>
 export default {
   transition: {
-    name: 'dialog-page',
+    name: 'page',
+    mode: '',
   },
   async asyncData({ store, error }) {
     const loading = false

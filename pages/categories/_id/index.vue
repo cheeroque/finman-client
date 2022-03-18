@@ -12,6 +12,10 @@
 
 <script>
 export default {
+  transition: {
+    name: 'page',
+    mode: '',
+  },
   async asyncData({ query, params, store, error }) {
     const page = query.page || 1
     const perPage = query.perPage || 12
