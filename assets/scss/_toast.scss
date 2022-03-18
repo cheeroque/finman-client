@@ -3,28 +3,33 @@
   left: 0;
   right: 0;
   bottom: $navbar-height;
-  padding: 0 ($grid-gap * 0.5);
   z-index: $zindex-modal + 1;
 }
 
 .toast {
   margin-bottom: $toast-margin-bottom;
-  padding: $toast-padding-y $toast-padding-x;
+  padding: ($toast-padding-y * 0.5) $toast-padding-x;
   font-size: $toast-font-size;
   border-radius: $toast-border-radius;
   color: $toast-color;
   background-color: $toast-bg;
-  box-shadow: $shadow-8;
 
   .toast-header {
     display: flex;
     align-items: center;
-    padding-bottom: $toast-padding-y;
+    padding-top: $toast-padding-y * 0.5;
+    padding-bottom: $toast-padding-y * 0.5;
+  }
+
+  .toast-body {
+    padding-top: $toast-padding-y * 0.5;
+    padding-bottom: $toast-padding-y * 0.5;
   }
 
   .toast-title {
     flex: 1 1 auto;
     margin: 0;
+    font-weight: $font-weight-medium;
   }
 
   .btn-close {

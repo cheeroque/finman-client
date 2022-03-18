@@ -11,9 +11,9 @@
             @click="hideToast"
           >
             <svg-icon
-              name="close-24"
-              width="24"
-              height="24"
+              name="close-16"
+              width="16"
+              height="16"
               aria-hidden="true"
             />
           </button>
