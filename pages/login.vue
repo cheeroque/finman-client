@@ -14,11 +14,6 @@
           </button>
         </div>
       </form>
-      <transition name="fade">
-        <div v-if="error" class="error-message">
-          {{ errorMessage }}
-        </div>
-      </transition>
     </div>
   </DialogPage>
 </template>
@@ -32,25 +27,19 @@ export default {
         name: null,
         password: null,
       },
-      error: null,
     }
-  },
-  computed: {
-    errorMessage() {
-      if (this.error) {
-        if (this.error.status === 401) return 'Ошибка авторизации'
-        else return 'Ошибка'
-      } else return null
-    },
   },
   methods: {
     async onSubmit() {
-      this.error = null
       try {
         const response = await this.$auth.login({ data: this.form })
         await this.$auth.setUser(response.data.user)
       } catch (error) {
-        this.error = error.response
+        let message
+        if (error?.response?.status === 401) {
+          message = 'Неправильный логин или пароль'
+        }
+        this.$errorToast(error, message)
       }
     },
   },
@@ -61,20 +50,5 @@ export default {
 .form-login {
   flex: 1 1 auto;
   max-width: 320px;
-}
-
-.dialog-header {
-  min-height: calc(24px + 2.5rem);
-  padding-left: $grid-gap * 0.5;
-  padding-right: $grid-gap * 0.5;
-}
-
-.error-message {
-  margin-top: 1rem;
-  padding: $toast-padding-y $toast-padding-x;
-  font-size: $font-size-base * 0.875;
-  border-radius: $toast-border-radius;
-  color: var(--on-danger-container);
-  background-color: var(--danger-container);
 }
 </style>

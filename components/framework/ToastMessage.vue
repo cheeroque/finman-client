@@ -1,6 +1,10 @@
 <template>
   <transition name="toast">
-    <div v-if="toastVisible" class="toast-container">
+    <div
+      v-if="toastVisible"
+      :style="{ '--toast-bottom': bottomOffset }"
+      class="toast-container"
+    >
       <div :class="variantClass" class="toast">
         <div class="toast-header">
           <p class="h6 toast-title">{{ title }}</p>
@@ -27,6 +31,10 @@
 <script>
 export default {
   props: {
+    bottomOffset: {
+      type: [Number, String],
+      default: null,
+    },
     timeout: {
       type: [Boolean, Number],
       default: 5000,
@@ -72,3 +80,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.toast-container {
+  bottom: var(--toast-bottom);
+}
+</style>

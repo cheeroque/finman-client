@@ -1,6 +1,7 @@
 <template>
   <div class="app-wrapper">
     <Nuxt class="app-content" />
+    <ToastMessage :timeout="false" bottom-offset="0" />
   </div>
 </template>
 

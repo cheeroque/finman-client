@@ -18,6 +18,7 @@
 .header-secondary {
   display: flex;
   align-items: center;
+  min-height: calc(24px + 2.5rem);
   padding-top: $grid-gap * 0.5;
   padding-bottom: $grid-gap * 0.5;
 }
