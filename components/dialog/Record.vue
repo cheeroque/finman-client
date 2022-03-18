@@ -7,6 +7,7 @@
             v-slot="{ valid, validate, validated }"
             name="category"
             rules="required"
+            slim
           >
             <FormGroup
               :state="valid || !validated ? null : false"
@@ -24,6 +25,7 @@
             v-slot="{ valid, validate, validated }"
             name="sum"
             rules="required"
+            slim
           >
             <FormGroup
               :state="valid || !validated ? null : false"
@@ -42,6 +44,7 @@
             v-slot="{ valid, validate, validated }"
             name="note"
             rules="required"
+            slim
           >
             <FormGroup
               :state="valid || !validated ? null : false"
@@ -60,6 +63,7 @@
               v-slot="{ valid, validate, validated }"
               name="color"
               rules="required"
+              slim
             >
               <FormGroup
                 :state="valid || !validated ? null : false"

@@ -7,6 +7,7 @@
             v-slot="{ valid, validate, validated }"
             name="name"
             rules="required"
+            slim
           >
             <FormGroup :state="valid || !validated ? null : false" label="Имя">
               <FormInput
@@ -21,6 +22,7 @@
             v-slot="{ valid, validate, validated }"
             name="slug"
             rules="required"
+            slim
           >
             <FormGroup :state="valid || !validated ? null : false" label="Слаг">
               <FormInput
@@ -35,6 +37,7 @@
             v-slot="{ valid, validate, validated }"
             name="color"
             rules="required"
+            slim
           >
             <FormGroup :state="valid || !validated ? null : false" label="Цвет">
               <FormInputColor
