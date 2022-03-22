@@ -5,7 +5,7 @@
       @close="setDrawerOpen(false)"
       v-on="$listeners"
     />
-    <Nuxt />
+    <Nuxt class="app-content" />
     <NavBar @drawer-show="setDrawerOpen(true)" />
     <ToastMessage />
   </div>
@@ -52,6 +52,27 @@ export default {
     .btn-fab {
       bottom: calc(#{$navbar-height} + #{$grid-gap * 0.5});
     }
+  }
+}
+
+@include media-min-width('md') {
+  .app-wrapper {
+    display: flex;
+    max-height: 100vh;
+    padding-bottom: 0;
+
+    ::v-deep {
+      .btn-fab {
+        right: 5rem;
+        bottom: 5rem;
+      }
+    }
+  }
+
+  .app-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
   }
 }
 </style>

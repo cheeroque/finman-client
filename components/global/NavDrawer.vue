@@ -1,8 +1,27 @@
 <template>
   <div>
     <transition name="drawer">
-      <nav v-if="visible" class="drawer">
+      <nav
+        v-show="visible"
+        :class="{ open: visible, expanded: drawerExpanded }"
+        class="drawer"
+      >
         <ul class="nav drawer-nav">
+          <li role="presentation" class="nav-toggle">
+            <button
+              class="nav-item"
+              :title="drawerExpanded ? 'Свернуть' : 'Развернуть'"
+              :aria-label="drawerExpanded ? 'Свернуть' : 'Развернуть'"
+              @click="drawerExpanded = !drawerExpanded"
+            >
+              <svg-icon
+                name="menu-24"
+                width="24"
+                height="24"
+                aria-hidden="true"
+              />
+            </button>
+          </li>
           <li role="presentation">
             <p class="nav-item-header h5">Страницы</p>
           </li>
@@ -28,6 +47,12 @@
             role="presentation"
           >
             <NavDrawerAction :item="item" @click="item.action" />
+          </li>
+          <li role="presentation">
+            <hr class="nav-item-divider" />
+          </li>
+          <li role="presentation">
+            <NavDrawerAction :item="drawerLogout" @click="logout" />
           </li>
         </ul>
         <button
@@ -74,12 +99,12 @@ export default {
           icon: 'datetime-24',
           text: 'Дата',
         },
-        {
-          action: this.logout,
-          icon: 'logout-24',
-          text: 'Выйти',
-        },
       ],
+      drawerLogout: {
+        action: this.logout,
+        icon: 'logout-24',
+        text: 'Выйти',
+      },
       drawerLinks: [
         {
           icon: 'home-24',
@@ -102,6 +127,7 @@ export default {
           text: 'Пользователи',
         },
       ],
+      drawerExpanded: false,
       loading: false,
     }
   },

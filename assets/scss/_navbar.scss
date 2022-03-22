@@ -40,3 +40,9 @@
     }
   }
 }
+
+@include media-min-width('md') {
+  .navbar {
+    display: none;
+  }
+}

@@ -19,6 +19,10 @@
       flex: 0 0 auto;
     }
 
+    .nav-toggle {
+      display: none;
+    }
+
     .nav-item-header {
       margin-bottom: 0;
       padding: $drawer-item-padding-y $drawer-item-padding-x;
@@ -70,4 +74,73 @@
   bottom: 1.5rem;
   padding: $drawer-item-padding-y $drawer-item-padding-x;
   border: none;
+}
+
+@include media-min-width('md') {
+  .drawer {
+    display: block !important;
+    flex: 0 0 auto;
+    position: static;
+    width: calc(24px + #{$grid-gap * 2} + #{$drawer-item-padding-x * 2});
+    max-width: none;
+    height: 100%;
+    padding: $grid-gap;
+    color: $body-color;
+    background-color: transparent;
+    overflow-y: auto;
+    transition: $transition;
+    transition-property: width;
+
+    .drawer-nav {
+      .nav-toggle {
+        display: flex;
+      }
+
+      .nav-item {
+        max-width: 100%;
+        margin-bottom: 0.5rem;
+        white-space: nowrap;
+        border-radius: 1rem;
+        overflow: hidden;
+        transition: $transition;
+
+        .icon {
+          margin-right: $drawer-item-padding-x;
+          transition: $transition;
+        }
+
+        &.active {
+          color: var(--on-primary);
+          background-color: var(--primary);
+        }
+      }
+
+      .nav-item-header {
+        display: none;
+      }
+
+      .nav-item-divider {
+        margin-left: 0;
+        margin-right: 0;
+        margin-top: 0;
+      }
+    }
+
+    &.expanded {
+      width: 240px;
+
+      .drawer-nav {
+        .nav-item {
+          .icon {
+            margin-right: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .drawer-backdrop,
+  .btn-drawer-close {
+    display: none;
+  }
 }
