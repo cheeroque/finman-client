@@ -9,13 +9,18 @@
     </div>
 
     <div class="card mb-12">
-      <ChartBar :aspect="1.25" :items="chartData" />
+      <SvgChartHorizontal
+        :aspect="1.25"
+        :border-radius="4"
+        :combine-threshold="0.05"
+        :items="chartData"
+      />
     </div>
   </DialogPage>
 </template>
 
 <script>
-import { formatPeriod } from '@/utils'
+import { formatPeriod, formatSum, getContrastColor } from '@/utils'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -42,22 +47,28 @@ export default {
         const category = this.categories.find(
           ({ id }) => parseInt(id) === parseInt(key)
         )
-        if (!category.is_income)
+        if (!category.is_income) {
+          const value =
+            this.records[key]?.reduce(
+              (total, record) => (total += parseInt(record.sum || 0)),
+              0
+            ) || 0
           result.push({
+            displayValue: this.formatSum(value, this.locale),
+            fill: category?.color,
             label: category?.name,
-            color: category?.color,
-            value:
-              this.records[key]?.reduce(
-                (total, record) => (total += parseInt(record.sum || 0)),
-                0
-              ) || 0,
+            textFill: this.getContrastColor(category?.color),
+            value,
           })
+        }
       })
       return result.sort((a, b) => b.value - a.value)
     },
   },
   methods: {
     formatPeriod,
+    formatSum,
+    getContrastColor,
   },
 }
 </script>
