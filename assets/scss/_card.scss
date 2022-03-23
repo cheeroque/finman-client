@@ -15,3 +15,14 @@
     color: $card-color-accent;
   }
 }
+
+.card-widget {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  & > .card-header {
+    .card-title {
+      text-align: center;
+    }
+  }
+}

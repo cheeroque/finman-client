@@ -64,11 +64,9 @@
 <script>
 export default {
   props: {
-    items: {
-      type: Object,
-      default() {
-        return {}
-      },
+    startDate: {
+      type: String,
+      default: null,
     },
   },
   data() {
@@ -103,6 +101,28 @@ export default {
     },
     isEnd() {
       return this.activeYearIndex === this.years.length - 1
+    },
+    items() {
+      const items = {}
+      const startDate = new Date(this.startDate)
+      const startYear = startDate.getFullYear()
+      const startMonth = startDate.getMonth() + 1
+
+      const endDate = new Date()
+      const endYear = endDate.getFullYear()
+      const endMonth = endDate.getMonth() + 1
+
+      for (let y = startYear; y <= endYear; y++) {
+        items[y] = []
+        for (let m = 1; m <= 12; m++) {
+          const hasItems =
+            (y > startYear && y < endYear) ||
+            (y === startYear && m >= startMonth) ||
+            (y === endYear && m <= endMonth)
+          items[y].push({ month: m, disabled: !hasItems })
+        }
+      }
+      return items
     },
     years() {
       return Object.keys(this.items) || []

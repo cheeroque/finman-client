@@ -3,8 +3,11 @@
     <NavDrawer
       :visible="drawerOpen"
       @close="setDrawerOpen(false)"
-      v-on="$listeners"
+      class="app-drawer"
     />
+    <transition name="sidebar">
+      <AppSidebar v-if="sidebarVisible" />
+    </transition>
     <Nuxt class="app-content" />
     <NavBar @drawer-show="setDrawerOpen(true)" />
     <ToastMessage />
@@ -13,8 +16,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { getViewportWidth } from '@/utils'
 
 export default {
+  data() {
+    return {
+      sidebarVisible: false,
+    }
+  },
   computed: {
     ...mapGetters(['bodyFixed', 'drawerOpen']),
   },
@@ -26,8 +35,20 @@ export default {
       },
     },
   },
+  mounted() {
+    this.toggleSidebar()
+    window.addEventListener('resize', this.toggleSidebar, { passive: true })
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize', this.toggleSidebar)
+  },
   methods: {
+    getViewportWidth,
     ...mapActions(['setDrawerOpen']),
+    toggleSidebar() {
+      const vw = this.getViewportWidth()
+      this.sidebarVisible = vw >= 768
+    },
     setBodyFixed(isFixed = false) {
       if (process.client) {
         if (isFixed) {
@@ -57,9 +78,12 @@ export default {
 
 @include media-min-width('md') {
   .app-wrapper {
-    display: flex;
+    display: grid;
+    gap: $grid-gap;
+    grid-template-columns: min-content auto;
+    grid-template-rows: auto auto;
     max-height: 100vh;
-    padding-bottom: 0;
+    padding: 1.5rem;
 
     ::v-deep {
       .btn-fab {
@@ -69,10 +93,24 @@ export default {
     }
   }
 
+  .app-drawer {
+    grid-row: 1 / span 2;
+  }
+
   .app-content {
-    flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
+  }
+}
+
+@include media-min-width('lg') {
+  .app-wrapper {
+    grid-template-columns: min-content min-content auto;
+    grid-template-rows: auto;
+  }
+
+  .app-drawer {
+    grid-row: 1 / 2;
   }
 }
 </style>

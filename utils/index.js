@@ -51,3 +51,10 @@ export function getContrastColor(hexColor, black = '#000', white = '#fff') {
   lightness = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]
   return lightness >= 165 ? black : white
 }
+
+export function getViewportWidth() {
+  return Math.min(
+    window?.innerWidth,
+    document.documentElement.getBoundingClientRect().width
+  )
+}

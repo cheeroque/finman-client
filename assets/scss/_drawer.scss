@@ -81,10 +81,10 @@
     display: block !important;
     flex: 0 0 auto;
     position: static;
-    width: calc(24px + #{$grid-gap * 2} + #{$drawer-item-padding-x * 2});
+    width: calc(24px + #{$drawer-item-padding-x * 2});
     max-width: none;
     height: 100%;
-    padding: $grid-gap;
+    padding: 0;
     color: $body-color;
     background-color: transparent;
     overflow-y: auto;
@@ -127,7 +127,7 @@
     }
 
     &.expanded {
-      width: 240px;
+      width: calc(240px + 3rem);
 
       .drawer-nav {
         .nav-item {
