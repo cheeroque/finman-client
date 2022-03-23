@@ -46,7 +46,6 @@ export default {
   opacity: 1;
   transform: translateX(0);
   transition: $transition;
-  transition-property: opacity, transform;
 
   &:hover {
     color: $fab-active-color;

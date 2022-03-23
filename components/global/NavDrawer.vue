@@ -158,3 +158,153 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.drawer {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  max-width: 90%;
+  padding: $drawer-padding-y $drawer-padding-x;
+  border-radius: 0 1rem 1rem 0;
+  color: $drawer-color;
+  background-color: $drawer-bg;
+  overflow-y: auto;
+  z-index: $zindex-drawer;
+
+  .drawer-nav {
+    flex-direction: column;
+
+    & > * {
+      flex: 0 0 auto;
+    }
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-item-header {
+    margin-bottom: 0;
+    padding: $drawer-item-padding-y $drawer-item-padding-x;
+    font-weight: $font-weight-medium;
+  }
+
+  .nav-item-divider {
+    width: auto;
+    margin: ($drawer-item-padding-y * 0.5) $drawer-item-padding-x;
+  }
+
+  ::v-deep {
+    .nav-item {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: $drawer-item-padding-y $drawer-item-padding-x;
+      border-radius: $drawer-item-border-radius;
+
+      .icon {
+        margin-right: $drawer-item-icon-spacing;
+      }
+
+      &:hover {
+        color: $drawer-active-bg;
+      }
+
+      &.active {
+        color: $drawer-active-color;
+        background-color: $drawer-active-bg;
+      }
+    }
+  }
+}
+
+.drawer-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: $backdrop-color;
+  cursor: pointer;
+  z-index: 1009;
+}
+
+.btn-drawer-close {
+  position: absolute;
+  left: $drawer-padding-x;
+  bottom: 1.5rem;
+  padding: $drawer-item-padding-y $drawer-item-padding-x;
+  border: none;
+}
+
+@include media-min-width('md') {
+  .drawer {
+    display: block !important;
+    flex: 0 0 auto;
+    position: static;
+    width: calc(24px + #{$drawer-item-padding-x * 2});
+    max-width: none;
+    height: 100%;
+    padding: 0;
+    color: $body-color;
+    background-color: transparent;
+    overflow-y: auto;
+    transition: $transition;
+    transition-property: width;
+
+    .nav-toggle {
+      display: flex;
+    }
+
+    .nav-item-header {
+      display: none;
+    }
+
+    .nav-item-divider {
+      margin-left: 0;
+      margin-right: 0;
+      margin-top: 0;
+    }
+
+    ::v-deep {
+      .nav-item {
+        max-width: 100%;
+        margin-bottom: 0.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        transition: $transition;
+
+        .icon {
+          margin-right: $drawer-item-padding-x;
+          transition: $transition;
+        }
+
+        &.active {
+          color: var(--on-primary);
+          background-color: var(--primary);
+        }
+      }
+    }
+
+    &.expanded {
+      width: 240px;
+
+      .drawer-nav {
+        .nav-item {
+          .icon {
+            margin-right: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .drawer-backdrop,
+  .btn-drawer-close {
+    display: none;
+  }
+}
+</style>

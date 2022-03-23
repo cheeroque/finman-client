@@ -1,6 +1,4 @@
 .header {
-  padding-left: $grid-gap * 0.5;
-  padding-right: $grid-gap * 0.5;
   color: $header-color;
   background-color: $header-bg;
 }
@@ -19,8 +17,7 @@
   display: flex;
   align-items: center;
   min-height: calc(24px + 2.5rem);
-  padding-top: $grid-gap * 0.5;
-  padding-bottom: $grid-gap * 0.5;
+  padding: $grid-gap * 0.5;
 }
 
 .header-content {

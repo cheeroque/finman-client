@@ -1,7 +1,7 @@
 <template>
   <DialogPage title="Календарь">
     <MonthCalendar
-      :start-date="this.firstRecord && this.firstRecord.created_at"
+      :start-date="firstRecord && firstRecord.created_at"
       class="mb-12"
     />
   </DialogPage>

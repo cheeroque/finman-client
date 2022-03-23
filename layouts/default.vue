@@ -5,9 +5,6 @@
       @close="setDrawerOpen(false)"
       class="app-drawer"
     />
-    <transition name="sidebar">
-      <AppSidebar v-if="sidebarVisible" />
-    </transition>
     <Nuxt class="app-content" />
     <NavBar @drawer-show="setDrawerOpen(true)" />
     <ToastMessage />
@@ -16,14 +13,8 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { getViewportWidth } from '@/utils'
 
 export default {
-  data() {
-    return {
-      sidebarVisible: false,
-    }
-  },
   computed: {
     ...mapGetters(['bodyFixed', 'drawerOpen']),
   },
@@ -36,18 +27,15 @@ export default {
     },
   },
   mounted() {
-    this.toggleSidebar()
-    window.addEventListener('resize', this.toggleSidebar, { passive: true })
+    window.addEventListener('resize', this.closeDrawer, { passive: true })
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.toggleSidebar)
+    window.removeEventListener('resize', this.closeDrawer)
   },
   methods: {
-    getViewportWidth,
     ...mapActions(['setDrawerOpen']),
-    toggleSidebar() {
-      const vw = this.getViewportWidth()
-      this.sidebarVisible = vw >= 768
+    closeDrawer() {
+      this.setDrawerOpen(false)
     },
     setBodyFixed(isFixed = false) {
       if (process.client) {
@@ -70,6 +58,12 @@ export default {
   padding-bottom: $navbar-height;
 
   ::v-deep {
+    .page-content {
+      flex: 1 1 auto;
+      padding-left: $grid-gap * 0.5;
+      padding-right: $grid-gap * 0.5;
+    }
+
     .btn-fab {
       bottom: calc(#{$navbar-height} + #{$grid-gap * 0.5});
     }
@@ -78,13 +72,44 @@ export default {
 
 @include media-min-width('md') {
   .app-wrapper {
-    display: grid;
+    display: flex;
     gap: $grid-gap;
-    grid-template-columns: min-content auto;
-    grid-template-rows: auto auto;
     max-height: 100vh;
-    padding: 1.5rem;
+    padding: 0;
 
+    ::v-deep {
+      .page-content {
+        padding: 0;
+      }
+
+      .btn-fab {
+        right: 3rem;
+        bottom: 3rem;
+      }
+    }
+  }
+
+  .app-drawer {
+    flex: 0 0 auto;
+    padding: 1.5rem 0 1.5rem 1.5rem;
+  }
+
+  .app-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 1.5rem 1.5rem 1.5rem 0;
+    overflow-y: auto;
+  }
+
+  .page-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: $grid-gap;
+  }
+}
+
+@include media-min-width('xl') {
+  .app-wrapper {
     ::v-deep {
       .btn-fab {
         right: 5rem;
@@ -93,24 +118,8 @@ export default {
     }
   }
 
-  .app-drawer {
-    grid-row: 1 / span 2;
-  }
-
-  .app-content {
-    min-height: 0;
-    overflow-y: auto;
-  }
-}
-
-@include media-min-width('lg') {
-  .app-wrapper {
-    grid-template-columns: min-content min-content auto;
-    grid-template-rows: auto;
-  }
-
-  .app-drawer {
-    grid-row: 1 / 2;
+  .page-sidebar {
+    flex-direction: row;
   }
 }
 </style>

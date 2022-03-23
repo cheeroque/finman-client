@@ -18,7 +18,17 @@
         {{ record.category && record.category.name }}
       </nuxt-link>
     </p>
-    <p class="record-note">{{ record.note }}</p>
+    <p class="record-note">
+      {{ record.note }}
+      <nuxt-link :to="`/records/${record.id}`" class="record-note-edit">
+        <svg-icon
+          name="edit-24"
+          width="24"
+          height="24"
+          aria-label="Редактировать"
+        />
+      </nuxt-link>
+    </p>
     <p class="record-sum h3 card-text-accent">
       <nuxt-link :to="`/records/${record.id}`">
         {{ formatSum(record.sum, locale) }}&nbsp;₽
@@ -110,13 +120,15 @@ export default {
   }
 }
 
-.record-card-income {
-  color: var(--on-success-container);
-  background-color: var(--success-container);
+.show-all {
+  .record-card-income {
+    color: var(--on-success-container);
+    background-color: var(--success-container);
 
-  .card-text-muted,
-  .card-text-accent {
-    color: $success;
+    .card-text-muted,
+    .card-text-accent {
+      color: $success;
+    }
   }
 }
 </style>
