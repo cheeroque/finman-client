@@ -47,6 +47,7 @@ export default {
 @include media-min-width('xl') {
   .app-sidebar {
     width: 360px;
+    height: min-content;
   }
 }
 </style>
