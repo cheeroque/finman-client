@@ -94,13 +94,6 @@ export default {
     padding: 1.5rem 0 1.5rem 1.5rem;
   }
 
-  .app-content {
-    flex: 1 1 auto;
-    min-height: 0;
-    padding: 1.5rem 1.5rem 1.5rem 0;
-    overflow-y: auto;
-  }
-
   .page-sidebar {
     display: flex;
     flex-direction: column;

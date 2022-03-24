@@ -1,24 +1,19 @@
 <template>
-  <div class="page-sidebar">
-    <SidebarContainer />
-
-    <div class="page-content">
-      <main class="mb-16">
-        <transition name="fade" mode="out-in">
-          <RecordsList
-            :key="$route.fullPath"
-            :records="records"
-            :class="{ 'show-all': !this.query.show }"
-            class="mb-16"
-            display-variant
-          />
-        </transition>
-        <PaginationNav :total-pages="totalPages" />
-      </main>
-    </div>
-
+  <PageWrapper>
+    <main class="mb-16">
+      <transition name="fade" mode="out-in">
+        <RecordsList
+          :key="$route.fullPath"
+          :records="records"
+          :class="{ 'show-all': !query.show }"
+          class="mb-16"
+          display-variant
+        />
+      </transition>
+      <PaginationNav :total-pages="totalPages" />
+    </main>
     <FloatingButton link="/records/create" title="Добавить запись" />
-  </div>
+  </PageWrapper>
 </template>
 
 <script>
@@ -90,30 +85,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-@include media-min-width('md') {
-  .page-content {
-    height: min-content;
-    border-radius: $card-border-radius;
-    background-color: $card-bg;
-    overflow: hidden;
-  }
-
-  ::v-deep {
-    .pagination {
-      display: flex;
-      justify-content: flex-end;
-      padding: 0 1.5rem;
-    }
-
-    .pagination-nav {
-      width: auto;
-
-      .nav-item {
-        min-width: 2.5rem;
-      }
-    }
-  }
-}
-</style>
