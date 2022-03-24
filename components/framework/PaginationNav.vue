@@ -125,10 +125,10 @@ export default {
       )
     },
     getPageLink(pageNumber) {
-      if (pageNumber === 1) return this.$route.path
+      if (pageNumber === 1) return this.$route
       return typeof this.linkGen === 'function'
         ? this.linkGen(pageNumber)
-        : `${this.$route.path}?page=${pageNumber}`
+        : { ...this.$route, query: { ...this.$route.query, page: pageNumber } }
     },
     removeObserver() {
       if (
