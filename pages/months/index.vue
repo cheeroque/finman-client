@@ -1,10 +1,11 @@
 <template>
-  <DialogPage title="Календарь">
+  <PageWrapper :widgets="['Chart', 'Categories']">
+    <PageHeader> Календарь </PageHeader>
     <MonthCalendar
       :start-date="firstRecord && firstRecord.created_at"
       class="mb-12"
     />
-  </DialogPage>
+  </PageWrapper>
 </template>
 
 <script>
@@ -21,29 +22,23 @@ export default {
       return error({ statusCode: e?.response?.status || 500 })
     }
   },
-  computed: {
-    calendarItems() {
-      const items = {}
-      const startDate = new Date(this.firstRecord?.created_at)
-      const startYear = startDate.getFullYear()
-      const startMonth = startDate.getMonth() + 1
-
-      const endDate = new Date()
-      const endYear = endDate.getFullYear()
-      const endMonth = endDate.getMonth() + 1
-
-      for (let y = startYear; y <= endYear; y++) {
-        items[y] = []
-        for (let m = 1; m <= 12; m++) {
-          const hasItems =
-            (y > startYear && y < endYear) ||
-            (y === startYear && m >= startMonth) ||
-            (y === endYear && m <= endMonth)
-          items[y].push({ month: m, disabled: !hasItems })
-        }
-      }
-      return items
-    },
-  },
 }
 </script>
+
+<style lang="scss" scoped>
+::v-deep {
+  .page-content {
+    @include media-min-width('md') {
+      .calendar-month-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @include media-min-width('xl') {
+      .calendar-month-grid {
+        gap: $grid-gap * 0.5;
+      }
+    }
+  }
+}
+</style>
