@@ -7,10 +7,8 @@
         role="presentation"
       >
         <nuxt-link
-          :class="{
-            active: isRouteActive([item.link], $route.fullPath),
-          }"
-          :to="item.link"
+          :class="{ active: item.show === queryShow }"
+          :to="item.show ? `/?show=${item.show}` : '/'"
           class="nav-item"
         >
           <span class="nav-item-icon">
@@ -29,32 +27,32 @@
 </template>
 
 <script>
-import { isRouteActive } from '@/utils'
-
 export default {
   data() {
     return {
       tabs: [
         {
           icon: 'home-24',
-          link: '/',
+          show: null,
           text: 'Все записи',
         },
         {
           icon: 'cart-24',
-          link: '/?show=expense',
+          show: 'expense',
           text: 'Только расходы',
         },
         {
           icon: 'card-24',
-          link: '/?show=income',
+          show: 'income',
           text: 'Только доходы',
         },
       ],
     }
   },
-  methods: {
-    isRouteActive,
+  computed: {
+    queryShow() {
+      return this.$route.query.show || null
+    },
   },
 }
 </script>
