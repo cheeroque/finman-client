@@ -14,18 +14,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   transition: {
     name: 'page',
     mode: '',
   },
-  async asyncData({ store, error }) {
-    try {
-      const categories = await store.dispatch('fetchCategories')
-      return { categories }
-    } catch (e) {
-      return error({ statusCode: e?.response?.status || 500 })
-    }
+  computed: {
+    ...mapGetters(['categories']),
   },
 }
 </script>

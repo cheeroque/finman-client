@@ -92,15 +92,13 @@ export default {
   .page-header {
     min-height: 0;
     padding: 0;
-    margin-bottom: $grid-gap * 0.5;
+    margin-bottom: $grid-gap;
   }
 }
 
 @include media-min-width('xl') {
   .page-header {
     min-height: 3.5rem;
-    padding: 0;
-    margin-bottom: $grid-gap * 0.5;
   }
 }
 </style>

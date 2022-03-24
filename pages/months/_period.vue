@@ -30,17 +30,16 @@ export default {
   },
   async asyncData({ params, store, error }) {
     try {
-      const categories = await store.dispatch('fetchCategories')
       const records = await store.dispatch('fetchRecordsByPeriod', {
         period: params.period,
       })
-      return { categories, records }
+      return { records }
     } catch (e) {
       return error({ statusCode: e?.response?.status || 500 })
     }
   },
   computed: {
-    ...mapGetters(['locale']),
+    ...mapGetters(['categories', 'locale']),
     chartData() {
       const result = []
       Object.keys(this.records).forEach((key) => {

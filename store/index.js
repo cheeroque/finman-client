@@ -1,4 +1,5 @@
 export const state = () => ({
+  categories: [],
   dialogOpen: false,
   drawerOpen: false,
   latestSnapshot: {},
@@ -13,6 +14,9 @@ export const state = () => ({
 })
 
 export const mutations = {
+  SET_CATEGORIES(state, payload) {
+    state.categories = payload
+  },
   SET_DIALOG_OPEN(state, payload) {
     state.dialogOpen = payload
   },
@@ -38,6 +42,7 @@ export const mutations = {
 
 export const getters = {
   bodyFixed: (state) => state.dialogOpen || state.drawerOpen,
+  categories: (state) => state.categories,
   drawerOpen: (state) => state.drawerOpen,
   latestSnapshot: (state) => state.latestSnapshot,
   locale: (state) => state.locale,
@@ -114,11 +119,11 @@ export const actions = {
     })
   },
 
-  async fetchCategories() {
+  async fetchCategories({ commit }) {
     const categories = await this.$axios.$get('categories').catch((error) => {
       throw error
     })
-    return categories
+    commit('SET_CATEGORIES', categories)
   },
 
   async fetchCategoryById(_, id) {

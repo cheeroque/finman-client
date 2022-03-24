@@ -39,7 +39,7 @@ export default {
   ::v-deep {
     .search-widget,
     .card-widget {
-      margin-bottom: $grid-gap * 0.5;
+      margin-bottom: $grid-gap;
     }
   }
 }

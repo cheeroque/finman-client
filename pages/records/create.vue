@@ -1,28 +1,28 @@
 <template>
-  <DialogRecord :categories="categories" :loading="loading" :record="record" />
+  <DialogRecord :categories="categories" :record="record" />
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   transition: {
     name: 'page',
     mode: '',
   },
-  async asyncData({ store, error }) {
-    const loading = false
-    const record = {
-      category_id: null,
-      created_at: new Date(),
-      id: null,
-      note: null,
-      sum: 0,
+  data() {
+    return {
+      record: {
+        category_id: null,
+        created_at: new Date(),
+        id: null,
+        note: null,
+        sum: 0,
+      },
     }
-    try {
-      const categories = await store.dispatch('fetchCategories')
-      return { categories, loading, record }
-    } catch (e) {
-      return error({ statusCode: e?.response?.status || 500 })
-    }
+  },
+  computed: {
+    ...mapGetters(['categories']),
   },
 }
 </script>

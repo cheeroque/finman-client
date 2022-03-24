@@ -3,6 +3,7 @@ export default async function ({ $auth, store }) {
   if ($auth.$state.loggedIn) {
     await store.dispatch('fetchTotal')
     await store.dispatch('fetchLatestShapshot')
+    await store.dispatch('fetchCategories')
   }
 
   /* Close navigation drawer */

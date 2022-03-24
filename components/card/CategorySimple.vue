@@ -1,25 +1,23 @@
 <template>
-  <div class="card category-card">
-    <p class="h5 category-name">
-      <nuxt-link :to="`/categories/${category.id}`">
-        {{ category.name }}
-      </nuxt-link>
+  <nuxt-link
+    :to="`/categories/${category.id}`"
+    :style="{
+      color: getContrastColor(
+        category.color,
+        'var(--on-background)',
+        'var(--background)'
+      ),
+      backgroundColor: category.color,
+    }"
+    class="card category-card-simple"
+  >
+    <p class="h6 category-name mb-4">
+      {{ category.name }}
     </p>
-    <p :class="categoryTypeClass" class="category-type">
+    <p class="category-type mb-0">
       {{ categoryTypeText }}
     </p>
-    <span
-      :style="{
-        color: getContrastColor(
-          category.color,
-          'var(--on-background)',
-          'var(--background)'
-        ),
-        backgroundColor: category.color,
-      }"
-      class="category-color"
-    />
-  </div>
+  </nuxt-link>
 </template>
 
 <script>
@@ -51,46 +49,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.category-card {
-  display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-template-rows: repeat(2, auto);
-  gap: 0.25rem $grid-gap;
-  font-size: $font-size-base * 0.875;
+.category-card-simple {
+  font-size: $font-size-base * 0.75;
 
   p {
-    margin-bottom: 0;
+    max-width: 100%;
     line-height: $line-height-heading;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
-  .category-name {
-    grid-column: 1 / 2;
-    font-weight: $font-weight-medium;
-  }
-
-  .category-type {
-    grid-column: 1 / 2;
-  }
-
-  .category-type-income {
-    color: $success;
-  }
-
-  .category-type-expense {
-    color: $danger;
-  }
-
-  .category-color {
-    display: flex;
-    align-items: center;
-    align-self: start;
-    justify-content: center;
-    justify-self: flex-end;
-    grid-column: 2 / 3;
-    grid-row: 1 / 3;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 99rem;
+  &:hover {
+    text-decoration: none;
+    color: var(--on-primary) !important;
+    background-color: var(--primary) !important;
   }
 }
 </style>
