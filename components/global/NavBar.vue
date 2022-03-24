@@ -6,12 +6,21 @@
         :key="`navbar-item-${index}`"
         role="presentation"
       >
+        <button v-if="item.action" class="nav-item" @click="$emit(item.action)">
+          <span class="nav-item-icon">
+            <svg-icon
+              :name="item.icon"
+              width="24"
+              height="24"
+              aria-hidden="true"
+            />
+          </span>
+          {{ item.text }}
+        </button>
         <nuxt-link
-          v-if="item.link"
-          :class="{
-            active: isRouteActive(item.matchLinks || [item.link], $route.path),
-          }"
-          :to="item.link"
+          v-else
+          :class="{ active: item.show === queryShow }"
+          :to="item.show ? `/?show=${item.show}` : '/'"
           class="nav-item"
         >
           <span class="nav-item-icon">
@@ -24,25 +33,12 @@
           </span>
           {{ item.text }}
         </nuxt-link>
-        <button v-else class="nav-item" @click="$emit(item.action)">
-          <span class="nav-item-icon">
-            <svg-icon
-              :name="item.icon"
-              width="24"
-              height="24"
-              aria-hidden="true"
-            />
-          </span>
-          {{ item.text }}
-        </button>
       </li>
     </ul>
   </nav>
 </template>
 
 <script>
-import { isRouteActive } from '@/utils'
-
 export default {
   data() {
     return {
@@ -54,24 +50,26 @@ export default {
         },
         {
           icon: 'home-24',
-          link: '/',
+          show: null,
           text: 'Главная',
         },
         {
           icon: 'cart-24',
-          link: '/expenses',
+          show: 'expense',
           text: 'Расходы',
         },
         {
           icon: 'card-24',
-          link: '/incomes',
+          show: 'income',
           text: 'Доходы',
         },
       ],
     }
   },
-  methods: {
-    isRouteActive,
+  computed: {
+    queryShow() {
+      return this.$route.query.show || null
+    },
   },
 }
 </script>
