@@ -85,3 +85,15 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+@include media-min-width('md') {
+  ::v-deep {
+    .page-content {
+      border-radius: $card-border-radius;
+      background-color: $card-bg;
+      overflow: hidden;
+    }
+  }
+}
+</style>

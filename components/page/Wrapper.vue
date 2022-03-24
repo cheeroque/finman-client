@@ -66,12 +66,6 @@ export default {
     overflow-y: auto;
   }
 
-  .page-content {
-    border-radius: $card-border-radius;
-    background-color: $card-bg;
-    overflow: hidden;
-  }
-
   ::v-deep {
     .pagination {
       display: flex;

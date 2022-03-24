@@ -1,15 +1,16 @@
 <template>
-  <DialogPage title="Категории">
-    <div class="mb-12">
+  <PageWrapper :widgets="['Chart', 'Calendar']">
+    <PageHeader> Категории </PageHeader>
+    <main class="categories-list">
       <CardCategory
         v-for="(category, index) in categories"
         :key="`category-${index}`"
         :category="category"
-        class="mb-8"
+        class="categories-list-item"
       />
-    </div>
+    </main>
     <FloatingButton link="/categories/create" title="Добавить категорию" />
-  </DialogPage>
+  </PageWrapper>
 </template>
 
 <script>
@@ -28,3 +29,31 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.categories-list {
+  margin-bottom: 1rem;
+}
+
+.categories-list-item {
+  margin-bottom: 0.5rem;
+}
+
+@include media-min-width('lg') {
+  .categories-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $grid-gap;
+  }
+
+  .categories-list-item {
+    margin-bottom: 0;
+  }
+}
+
+@include media-min-width('xl') {
+  .categories-list {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+</style>
