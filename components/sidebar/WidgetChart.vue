@@ -12,47 +12,34 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import { getContrastColor, formatSum } from '@/utils'
+
 export default {
-  data() {
-    return {
-      chartData: [
-        {
-          displayValue: '6 368',
-          fill: '#ff8040',
-          label: 'Красота и здоровье',
-          textFill: '#fff',
-          value: 6368,
-        },
-        {
-          displayValue: '2 817',
-          fill: '#004080',
-          label: 'Хозтовары',
-          textFill: '#fff',
-          value: 2817,
-        },
-        {
-          displayValue: '667',
-          fill: '#8000ff',
-          label: 'Для дома',
-          textFill: '#fff',
-          value: 667,
-        },
-        {
-          displayValue: '510',
-          fill: '#cb1245',
-          label: 'Продукты',
-          textFill: '#fff',
-          value: 510,
-        },
-        {
-          displayValue: '500',
-          fill: '#008080',
-          label: 'Транспорт',
-          textFill: '#fff',
-          value: 500,
-        },
-      ],
-    }
+  computed: {
+    ...mapGetters(['currentMonthRecords', 'locale']),
+    chartData() {
+      return Object.values(this.currentMonthRecords)
+        .map((group) => {
+          const category = group[0]?.category
+          const isIncome = category?.is_income
+          const label = category?.name
+          const fill = category?.color
+          const textFill = this.getContrastColor(fill)
+          const value = group.reduce(
+            (total, record) => (total += parseInt(record.sum || 0)),
+            0
+          )
+          const displayValue = this.formatSum(value, this.locale)
+          return { isIncome, label, fill, textFill, value, displayValue }
+        })
+        .sort((a, b) => b.value - a.value)
+        .filter(({ isIncome }) => !isIncome)
+    },
+  },
+  methods: {
+    getContrastColor,
+    formatSum,
   },
 }
 </script>

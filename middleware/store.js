@@ -4,6 +4,7 @@ export default async function ({ $auth, store }) {
     await store.dispatch('fetchTotal')
     await store.dispatch('fetchLatestShapshot')
     await store.dispatch('fetchCategories')
+    await store.dispatch('fetchCurrentMonthRecords')
   }
 
   /* Close navigation drawer */

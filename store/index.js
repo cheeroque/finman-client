@@ -1,5 +1,6 @@
 export const state = () => ({
   categories: [],
+  currentMonthRecords: [],
   dialogOpen: false,
   drawerOpen: false,
   latestSnapshot: {},
@@ -16,6 +17,9 @@ export const state = () => ({
 export const mutations = {
   SET_CATEGORIES(state, payload) {
     state.categories = payload
+  },
+  SET_CURRENT_MONTH_RECORDS(state, payload) {
+    state.currentMonthRecords = payload
   },
   SET_DIALOG_OPEN(state, payload) {
     state.dialogOpen = payload
@@ -43,6 +47,7 @@ export const mutations = {
 export const getters = {
   bodyFixed: (state) => state.dialogOpen || state.drawerOpen,
   categories: (state) => state.categories,
+  currentMonthRecords: (state) => state.currentMonthRecords,
   drawerOpen: (state) => state.drawerOpen,
   latestSnapshot: (state) => state.latestSnapshot,
   locale: (state) => state.locale,
@@ -92,6 +97,16 @@ export const actions = {
       throw error
     })
     return record
+  },
+
+  async fetchCurrentMonthRecords({ commit }) {
+    const date = new Date()
+    const y = date.getFullYear()
+    const m = date.getMonth() + 1
+    const records = await this.$axios.$get(`month/${y}-${m}`).catch((error) => {
+      throw error
+    })
+    commit('SET_CURRENT_MONTH_RECORDS', records)
   },
 
   async fetchMonthly({ commit, dispatch }) {
