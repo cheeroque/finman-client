@@ -1,6 +1,6 @@
 <template>
   <div class="records-list-header">
-    <HeaderMain />
+    <PageHeaderMain />
     <RecordsTabs />
   </div>
 </template>
@@ -31,13 +31,6 @@
       opacity: 0.2;
     }
   }
-
-  ::v-deep {
-    .header-main {
-      padding: 0;
-      margin-bottom: 1rem;
-    }
-  }
 }
 
 @include media-min-width('xl') {
@@ -59,16 +52,11 @@
       background-color: var(--outline);
       opacity: 0.2;
     }
-  }
 
-  ::v-deep {
-    .header-main {
-      flex: 0 0 auto;
-      margin: 0 auto 0 0;
-    }
-
-    .records-tabs {
-      flex: 0 0 auto;
+    ::v-deep {
+      .records-tabs {
+        flex: 0 0 auto;
+      }
     }
   }
 }
