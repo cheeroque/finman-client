@@ -83,7 +83,14 @@
           >
             Удалить
           </button>
-          <nuxt-link v-else to="/" class="btn ms-auto">Отменить</nuxt-link>
+          <button
+            v-else
+            type="button"
+            class="btn ms-auto"
+            @click="$emit('close')"
+          >
+            Отменить
+          </button>
           <button type="submit" class="btn btn-secondary ms-8">
             {{ actionTitle }}
           </button>
