@@ -5,10 +5,8 @@ export const state = () => ({
   drawerOpen: false,
   latestSnapshot: {},
   locale: 'ru',
-  // monthly: {
-  //   expenses: 0,
-  //   incomes: 0,
-  // },
+  records: [],
+  recordsTotal: null,
   // searchResults: [],
   scrolledToBottom: false,
   total: 0,
@@ -30,9 +28,12 @@ export const mutations = {
   SET_LATEST_SNAPSHOT(state, payload) {
     state.latestSnapshot = payload
   },
-  // SET_MONTHLY(state, payload) {
-  //   state.monthly = payload
-  // },
+  SET_RECORDS(state, payload) {
+    state.records = payload
+  },
+  SET_RECORDS_TOTAL(state, payload) {
+    state.recordsTotal = payload
+  },
   // SET_SEARCH_RESULTS(state, payload) {
   //   state.searchResults = payload
   // },
@@ -45,27 +46,33 @@ export const mutations = {
 }
 
 export const getters = {
-  bodyFixed: (state) => state.dialogOpen || state.drawerOpen,
   categories: (state) => state.categories,
   currentMonthRecords: (state) => state.currentMonthRecords,
   drawerOpen: (state) => state.drawerOpen,
   latestSnapshot: (state) => state.latestSnapshot,
   locale: (state) => state.locale,
-  // monthlyExpenses: (state) => parseInt(state.monthly?.expenses || 0),
-  // monthlyIncomes: (state) => parseInt(state.monthly?.incomes || 0),
+  records: (state) => state.records,
+  recordsTotal: (state) => state.recordsTotal,
   // searchResults: (state) => state.searchResults,
   scrolledToBottom: (state) => state.scrolledToBottom,
   total: (state) => state.total,
 }
 
 export const actions = {
-  async fetchRecords(_, params) {
-    const records = await this.$axios
-      .$get('records', { params })
+  async fetchRecords({ commit }, params) {
+    const order = params.order || 'DESC'
+    const orderBy = params.orderBy || 'created_at'
+    const page = params.page || 1
+    const perPage = params.perPage || 50
+    const show = params.show || null
+
+    const { data, total } = await this.$axios
+      .$get('records', { params: { order, orderBy, page, perPage, show } })
       .catch((error) => {
         throw error
       })
-    return records
+    commit('SET_RECORDS', data)
+    commit('SET_RECORDS_TOTAL', total)
   },
 
   async fetchRecordById(_, id) {
@@ -107,13 +114,6 @@ export const actions = {
       throw error
     })
     commit('SET_CURRENT_MONTH_RECORDS', records)
-  },
-
-  async fetchMonthly({ commit, dispatch }) {
-    const monthly = await this.$axios.$get('monthly').catch((error) => {
-      dispatch('setError', { path: 'monthly', error })
-    })
-    commit('SET_MONTHLY', monthly)
   },
 
   async storeRecord(_, payload) {

@@ -1,6 +1,6 @@
 <template>
   <div class="records-list">
-    <RecordsHeader />
+    <RecordListHeader />
     <div role="grid" class="records-list-content">
       <div class="records-list-columns">
         <div class="record-date">Дата</div>
@@ -133,7 +133,10 @@ export default {
           align-self: flex-start;
           justify-content: flex-end;
           margin-left: 1rem;
+          padding: 0;
+          border: none;
           color: var(--primary-container);
+          appearance: none;
         }
 
         &:nth-child(even) {

@@ -35,6 +35,10 @@ export default {
       type: String,
       default: null,
     },
+    backIsClose: {
+      type: Boolean,
+      default: false,
+    },
     disableBack: {
       type: Boolean,
       default: false,
@@ -46,7 +50,8 @@ export default {
   },
   methods: {
     goBack() {
-      if (this.$nuxt.context.from) this.$router.back()
+      if (this.backIsClose) this.$emit('close')
+      else if (this.$nuxt.context.from) this.$router.back()
       else this.$router.push(this.linkBack)
     },
   },

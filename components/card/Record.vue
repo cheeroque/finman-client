@@ -20,19 +20,19 @@
     </p>
     <p class="record-note">
       {{ record.note }}
-      <nuxt-link :to="`/records/${record.id}`" class="record-note-edit">
+      <button class="btn record-note-edit" @click="editRecord">
         <svg-icon
           name="edit-24"
           width="24"
           height="24"
           aria-label="Редактировать"
         />
-      </nuxt-link>
+      </button>
     </p>
     <p class="record-sum h3 card-text-accent">
-      <nuxt-link :to="`/records/${record.id}`">
+      <button class="btn-link" @click="editRecord">
         {{ formatSum(record.sum, locale) }}&nbsp;₽
-      </nuxt-link>
+      </button>
     </p>
   </div>
 </template>
@@ -70,6 +70,13 @@ export default {
   methods: {
     formatDate,
     formatSum,
+    editRecord() {
+      this.$dialogFullscreen(
+        'RecordForm',
+        { recordId: this.record.id },
+        { actionTitle: 'Обновить', title: 'Редактировать запись' }
+      )
+    },
   },
 }
 </script>
@@ -106,7 +113,8 @@ export default {
     grid-row: 1 / 4;
     text-align: right;
 
-    & > a {
+    & > a,
+    & > button {
       display: flex;
       flex: 1 1 100%;
       align-items: flex-end;

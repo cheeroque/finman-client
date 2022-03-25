@@ -1,7 +1,7 @@
 <template>
   <div class="records-list-header">
     <PageHeaderMain />
-    <RecordsTabs />
+    <RecordListTabs />
   </div>
 </template>
 

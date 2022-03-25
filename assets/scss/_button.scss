@@ -26,6 +26,19 @@
   }
 }
 
+.btn-link {
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  border: none;
+  color: inherit;
+  background: none;
+  appearance: none;
+  cursor: pointer;
+}
+
 .btn-block {
   display: flex;
   width: 100%;

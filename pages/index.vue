@@ -2,7 +2,7 @@
   <PageWrapper>
     <main class="mb-16">
       <transition name="fade" mode="out-in">
-        <RecordsList
+        <RecordList
           :key="$route.fullPath"
           :records="records"
           :class="{ 'show-all': !query.show }"
@@ -12,32 +12,30 @@
       </transition>
       <PaginationNav :total-pages="totalPages" />
     </main>
-    <FloatingButton link="/records/create" title="Добавить запись" />
+    <FloatingButton
+      title="Добавить запись"
+      @click="
+        $dialogFullscreen(
+          'RecordForm',
+          { recordId: null },
+          { actionTitle: 'Сохранить', title: 'Создать запись' }
+        )
+      "
+    />
   </PageWrapper>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   transition: {
     name: 'page',
     mode: '',
   },
   async asyncData({ query, store, error }) {
-    const order = query.order || 'DESC'
-    const orderBy = query.orderBy || 'created_at'
-    const page = query.page || 1
-    const perPage = query.perPage || 50
-    const show = query.show || null
     try {
-      const { data, total } = await store.dispatch('fetchRecords', {
-        order,
-        orderBy,
-        page,
-        perPage,
-        show,
-      })
-      const totalPages = Math.ceil(total / perPage)
-      return { records: data, totalPages, totalRows: total }
+      await store.dispatch('fetchRecords', query)
     } catch (e) {
       return error({ statusCode: e?.response?.status || 500 })
     }
@@ -46,32 +44,23 @@ export default {
     '$route.query': {
       deep: true,
       handler() {
-        this.fetchRecords()
+        this.refetch()
       },
     },
   },
   computed: {
+    ...mapGetters(['records', 'recordsTotal']),
     query() {
       return this.$route.query
     },
+    totalPages() {
+      return Math.ceil(this.recordsTotal / (this.query.perPage || 50))
+    },
   },
   methods: {
-    async fetchRecords() {
-      const order = this.query.order || 'DESC'
-      const orderBy = this.query.orderBy || 'created_at'
-      const page = this.query.page || 1
-      const perPage = this.query.perPage || 50
-      const show = this.query.show || null
+    async refetch() {
       try {
-        const { data, total } = await this.$store.dispatch('fetchRecords', {
-          order,
-          orderBy,
-          page,
-          perPage,
-          show,
-        })
-        this.records = data
-        this.totalRows = total
+        await this.$store.dispatch('fetchRecords', this.query)
         if (process.client) {
           /* Scroll both window (for mobile) & content (for desktop) */
           const content = document.querySelector('.app-content')
@@ -93,10 +82,10 @@ export default {
       border-radius: $card-border-radius;
       background-color: $card-bg;
       overflow: hidden;
-    }
 
-    .pagination {
-      padding: 0 1.5rem;
+      .pagination {
+        padding: 0 1.5rem;
+      }
     }
   }
 }

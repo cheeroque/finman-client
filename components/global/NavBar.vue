@@ -73,3 +73,54 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.navbar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: $navbar-padding-y $navbar-padding-x;
+  color: $navbar-color;
+  background-color: $navbar-bg;
+  z-index: $zindex-navbar;
+}
+
+.navbar-nav {
+  gap: 1.5rem;
+  font-family: $navbar-font-family;
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    font-size: $font-size-base * 0.875;
+    line-height: calc(#{$line-height-base} / 0.875);
+
+    .nav-item-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: $navbar-icon-spacer;
+      padding: $navbar-icon-padding-y $navbar-icon-padding-x;
+      border-radius: 99rem;
+      transition: $transition;
+      transition-property: color, background-color;
+    }
+
+    &.active {
+      .nav-item-icon {
+        color: $navbar-active-color;
+        background-color: $navbar-active-bg;
+      }
+    }
+  }
+}
+
+@include media-min-width('md') {
+  .navbar {
+    display: none;
+  }
+}
+</style>

@@ -2,12 +2,13 @@
   <div class="app-wrapper">
     <NavDrawer
       :visible="drawerOpen"
-      @close="setDrawerOpen(false)"
       class="app-drawer"
+      @close="setDrawerOpen(false)"
     />
     <Nuxt class="app-content" />
     <NavBar @drawer-show="setDrawerOpen(true)" />
     <ToastMessage />
+    <DialogWrapper />
   </div>
 </template>
 
@@ -16,7 +17,11 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   computed: {
-    ...mapGetters(['bodyFixed', 'drawerOpen']),
+    ...mapGetters(['drawerOpen']),
+    ...mapGetters('dialog', ['dialogVisible']),
+    bodyFixed() {
+      return this.dialogVisible || this.drawerOpen
+    },
   },
   watch: {
     bodyFixed: {

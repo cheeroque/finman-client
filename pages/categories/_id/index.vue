@@ -33,7 +33,7 @@ export default {
     '$route.query': {
       deep: true,
       handler() {
-        this.fetchRecords()
+        this.refetch()
       },
     },
   },
@@ -43,7 +43,7 @@ export default {
     },
   },
   methods: {
-    async fetchRecords() {
+    async refetch() {
       const page = this.query.page || 1
       const perPage = this.query.perPage || 18
       try {
