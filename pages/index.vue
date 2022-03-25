@@ -12,16 +12,7 @@
       </transition>
       <PaginationNav :total-pages="totalPages" />
     </main>
-    <FloatingButton
-      title="Добавить запись"
-      @click="
-        $dialogFullscreen(
-          'RecordForm',
-          { recordId: null },
-          { actionTitle: 'Сохранить', title: 'Создать запись' }
-        )
-      "
-    />
+    <FloatingButton title="Добавить запись" @click="createRecord" />
   </PageWrapper>
 </template>
 
@@ -70,6 +61,13 @@ export default {
       } catch (e) {
         return this.$error({ statusCode: e?.response?.status || 500 })
       }
+    },
+    createRecord() {
+      this.$dialogFullscreen(
+        'RecordForm',
+        { recordId: null },
+        { actionTitle: 'Сохранить', title: 'Создать запись' }
+      )
     },
   },
 }

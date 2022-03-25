@@ -2,14 +2,14 @@
   <PageWrapper :widgets="['Chart', 'Calendar']">
     <PageHeader> Категории </PageHeader>
     <main class="categories-list">
-      <CardCategory
+      <CategoryCard
         v-for="(category, index) in categories"
         :key="`category-${index}`"
         :category="category"
         class="categories-list-item"
       />
     </main>
-    <FloatingButton link="/categories/create" title="Добавить категорию" />
+    <FloatingButton title="Добавить категорию" @click="createCategory" />
   </PageWrapper>
 </template>
 
@@ -23,6 +23,15 @@ export default {
   },
   computed: {
     ...mapGetters(['categories']),
+  },
+  methods: {
+    createCategory() {
+      this.$dialogFullscreen(
+        'CategoryForm',
+        { categoryId: null },
+        { actionTitle: 'Сохранить', title: 'Создать категорию' }
+      )
+    },
   },
 }
 </script>

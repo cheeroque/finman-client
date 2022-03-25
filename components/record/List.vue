@@ -8,7 +8,7 @@
         <div class="record-category">Категория</div>
         <div class="record-note">Комментарий</div>
       </div>
-      <CardRecord
+      <RecordCard
         v-for="record in records"
         :key="`record-${record.id}`"
         :display-variant="displayVariant"

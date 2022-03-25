@@ -10,6 +10,7 @@
         :is="component"
         :visible="dialogVisible"
         v-bind="componentProps"
+        @close="hideDialog"
       />
     </DialogFullscreen>
   </transition>

@@ -78,9 +78,10 @@ export default {
 
   .btn-header-action {
     align-self: flex-end;
-    margin-left: auto;
     margin-right: -0.5rem;
-    padding: 0.4375rem 0.5rem;
+    margin-left: auto;
+    margin-bottom: -0.125rem;
+    padding: 0.5rem;
     border: none;
     color: $dialog-color-accent;
   }

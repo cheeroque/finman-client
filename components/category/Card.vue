@@ -11,8 +11,7 @@
     <p :class="categoryTypeClass" class="category-type">
       {{ categoryTypeText }}
     </p>
-    <nuxt-link
-      :to="`/categories/${category.id}/edit`"
+    <button
       :style="{
         color: getContrastColor(
           category.color,
@@ -24,9 +23,10 @@
       title="Редактировать категорию"
       aria-label="Редактировать категорию"
       class="category-color"
+      @click="editCategory"
     >
       <svg-icon name="edit-24" width="16" height="16" aria-hidden="true" />
-    </nuxt-link>
+    </button>
   </div>
 </template>
 
@@ -54,6 +54,13 @@ export default {
   },
   methods: {
     getContrastColor,
+    editCategory() {
+      this.$dialogFullscreen(
+        'CategoryForm',
+        { categoryId: this.category.id },
+        { actionTitle: 'Обновить', title: 'Редактировать категорию' }
+      )
+    },
   },
 }
 </script>
@@ -103,6 +110,8 @@ export default {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 99rem;
+    border: none;
+    appearance: none;
   }
 }
 </style>

@@ -4,7 +4,7 @@
       <h5 class="card-title">Категории</h5>
     </div>
     <div class="card-body">
-      <CardCategorySimple
+      <CategorySimpleCard
         v-for="category in categories"
         :key="`category-${category.id}`"
         :category="category"

@@ -123,9 +123,6 @@ export default {
     actionTitle() {
       return this.isEdit ? 'Обновить' : 'Сохранить'
     },
-    dialogTitle() {
-      return this.isEdit ? 'Изменить запись' : 'Создать запись'
-    },
     categoryOptions() {
       const options = [
         { value: null, text: 'Категория не выбрана', disabled: true },
@@ -178,8 +175,9 @@ export default {
     },
     async deleteRecord() {
       try {
-        await this.$store.dispatch('deleteRecord', this.form.id)
-        this.$router.push('/')
+        await this.$store.dispatch('deleteRecord', this.recordId)
+        await this.$store.dispatch('fetchRecords', this.$route.query)
+        this.$emit('close')
       } catch (error) {
         this.$errorToast(error)
       }
@@ -191,7 +189,7 @@ export default {
       if (this.isEdit) this.fetchRecord()
     },
     onDialogHidden() {
-      console.log('dialog hidden')
+      this.$emit('hidden')
     },
   },
 }
