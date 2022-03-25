@@ -56,16 +56,7 @@
           </li>
         </ul>
 
-        <SidebarSearch class="sidebar-search" />
-
-        <!-- <button
-          title="Закрыть меню"
-          aria-label="Закрыть меню"
-          class="btn btn-drawer-close"
-          @click="$emit('close')"
-        >
-          <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
-        </button> -->
+        <SearchForm class="sidebar-search" />
       </nav>
     </transition>
     <transition name="drawer-backdrop">
@@ -207,7 +198,7 @@ export default {
       margin: auto 1rem 1rem;
     }
 
-    .sidebar-search-input {
+    .search-input-group {
       .form-control {
         border-radius: $drawer-item-border-radius;
         color: var(--on-surface-variant);

@@ -6,8 +6,9 @@ export const state = () => ({
   latestSnapshot: {},
   locale: 'ru',
   records: [],
-  recordsTotal: null,
-  // searchResults: [],
+  recordsTotal: 0,
+  searchResults: [],
+  searchResultsTotal: 0,
   scrolledToBottom: false,
   total: 0,
 })
@@ -34,9 +35,12 @@ export const mutations = {
   SET_RECORDS_TOTAL(state, payload) {
     state.recordsTotal = payload
   },
-  // SET_SEARCH_RESULTS(state, payload) {
-  //   state.searchResults = payload
-  // },
+  SET_SEARCH_RESULTS(state, payload) {
+    state.searchResults = payload
+  },
+  SET_SEARCH_RESULTS_TOTAL(state, payload) {
+    state.searchResultsTotal = payload
+  },
   SET_SCROLLED_TO_BOTTOM(state, payload) {
     state.scrolledToBottom = payload
   },
@@ -53,7 +57,8 @@ export const getters = {
   locale: (state) => state.locale,
   records: (state) => state.records,
   recordsTotal: (state) => state.recordsTotal,
-  // searchResults: (state) => state.searchResults,
+  searchResults: (state) => state.searchResults,
+  searchResultsTotal: (state) => state.searchResultsTotal,
   scrolledToBottom: (state) => state.scrolledToBottom,
   total: (state) => state.total,
 }
@@ -184,6 +189,19 @@ export const actions = {
     commit('SET_TOTAL', total)
   },
 
+  async fetchSearchResults({ commit }, params) {
+    const page = params.page || 1
+    const perPage = params.perPage || 50
+    const q = params.q
+    const { data, total } = await this.$axios
+      .$get('search', { params: { page, perPage, q } })
+      .catch((error) => {
+        throw error
+      })
+    commit('SET_SEARCH_RESULTS', data)
+    commit('SET_SEARCH_RESULTS_TOTAL', total)
+  },
+
   setDialogOpen({ commit }, payload) {
     commit('SET_DIALOG_OPEN', payload)
   },
@@ -195,15 +213,4 @@ export const actions = {
   setScrolledToBottom({ commit }, payload) {
     commit('SET_SCROLLED_TO_BOTTOM', payload)
   },
-
-  /* To rework */
-
-  // async fetchSearchResults({ commit, dispatch }, params) {
-  //   const total = await this.$axios
-  //     .$get('search', { params })
-  //     .catch((error) => {
-  //       dispatch('setError', { path: 'search', error })
-  //     })
-  //   commit('SET_SEARCH_RESULTS', total)
-  // },
 }

@@ -4,11 +4,14 @@
       <transition name="fade" mode="out-in">
         <RecordList
           :key="$route.fullPath"
-          :records="records"
-          :class="{ 'show-all': !query.show }"
-          class="mb-24"
+          :records="searchResults"
+          class="mb-16"
           display-variant
-        />
+        >
+          <template #header>
+            <SearchResultsHeader :query="query.q" :total="searchResultsTotal" />
+          </template>
+        </RecordList>
       </transition>
       <PaginationNav :total-pages="totalPages" />
     </main>
@@ -20,13 +23,9 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  transition: {
-    name: 'page',
-    mode: '',
-  },
   async asyncData({ query, store, error }) {
     try {
-      await store.dispatch('fetchRecords', query)
+      await store.dispatch('fetchSearchResults', query)
     } catch (e) {
       return error({ statusCode: e?.response?.status || 500 })
     }
@@ -40,18 +39,18 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['records', 'recordsTotal']),
+    ...mapGetters(['searchResults', 'searchResultsTotal']),
     query() {
       return this.$route.query
     },
     totalPages() {
-      return Math.ceil(this.recordsTotal / (this.query.perPage || 50))
+      return Math.ceil(this.searchResultsTotal / (this.query.perPage || 50))
     },
   },
   methods: {
     async refetch() {
       try {
-        await this.$store.dispatch('fetchRecords', this.query)
+        await this.$store.dispatch('fetchSearchResults', this.query)
         if (process.client) {
           /* Scroll both window (for mobile) & content (for desktop) */
           const content = document.querySelector('.app-content')
@@ -61,13 +60,6 @@ export default {
       } catch (e) {
         return this.$error({ statusCode: e?.response?.status || 500 })
       }
-    },
-    createRecord() {
-      this.$dialogFullscreen(
-        'RecordForm',
-        { recordId: null },
-        { actionTitle: 'Сохранить', title: 'Создать запись' }
-      )
     },
   },
 }

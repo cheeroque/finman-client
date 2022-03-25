@@ -1,6 +1,8 @@
 <template>
   <div class="records-list">
-    <RecordListHeader />
+    <slot name="header">
+      <RecordListHeader />
+    </slot>
     <div role="grid" class="records-list-content">
       <div class="records-list-columns">
         <div class="record-date">Дата</div>
@@ -8,13 +10,16 @@
         <div class="record-category">Категория</div>
         <div class="record-note">Комментарий</div>
       </div>
-      <RecordCard
-        v-for="record in records"
-        :key="`record-${record.id}`"
-        :display-variant="displayVariant"
-        :record="record"
-        class="records-list-item"
-      />
+      <RecordCardEmpty v-if="!(records && records.length)" />
+      <template v-else>
+        <RecordCard
+          v-for="record in records"
+          :key="`record-${record.id}`"
+          :display-variant="displayVariant"
+          :record="record"
+          class="records-list-item"
+        />
+      </template>
     </div>
   </div>
 </template>
@@ -54,6 +59,12 @@ export default {
 }
 
 @include media-min-width('md') {
+  .records-list {
+    border-radius: $card-border-radius;
+    background-color: $card-bg;
+    overflow: hidden;
+  }
+
   .records-list-content {
     ::v-deep {
       .records-list-columns,

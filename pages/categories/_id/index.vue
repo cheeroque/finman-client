@@ -1,7 +1,7 @@
 <template>
   <PageWrapper>
     <PageHeader> {{ category.name }} </PageHeader>
-    <main class="card mb-16 p-0">
+    <main class="card mb-24 p-0">
       <TableCategoryRecords :records="records" />
     </main>
     <PaginationNav :total-pages="totalPages" class="mb-16" />

@@ -38,8 +38,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 1rem 1.5rem;
-    padding: 1rem 1.5rem;
+    gap: 1rem $grid-gap;
+    padding: 1rem $grid-gap;
 
     &::after {
       display: block;

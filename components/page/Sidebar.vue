@@ -1,6 +1,6 @@
 <template>
   <aside class="app-sidebar">
-    <SidebarSearch class="search-widget" />
+    <SearchForm class="search-widget" />
     <transition-group name="sidebar-widgets" tag="div">
       <template v-if="showWidgets">
         <component

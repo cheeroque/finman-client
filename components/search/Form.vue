@@ -1,7 +1,7 @@
 <template>
   <form @submit.prevent="handleSearch">
-    <InputGroup class="sidebar-search-input">
-      <FormInput type="search" placeholder="Поиск по записям" />
+    <InputGroup class="search-input-group">
+      <FormInput v-model="query" type="search" placeholder="Поиск по записям" />
       <template #append>
         <button type="submit" title="Искать" aria-label="Искать" class="btn">
           <svg-icon
@@ -18,16 +18,30 @@
 
 <script>
 export default {
+  data() {
+    return {
+      query: '',
+    }
+  },
+  mounted() {
+    this.query = this.$route.query.q || ''
+  },
   methods: {
     handleSearch() {
-      return false
+      if (!this.query) return
+      const trimmedQuery = this.query.toString().trim()
+      if (!trimmedQuery.length) {
+        this.query = ''
+        return
+      }
+      this.$router.push(`/search?q=${trimmedQuery}`)
     },
   },
 }
 </script>
 
 <style lang="scss" scoped>
-.sidebar-search-input {
+.search-input-group {
   ::v-deep {
     .form-control {
       padding-left: 1.5rem;
