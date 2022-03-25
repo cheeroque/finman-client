@@ -55,14 +55,17 @@
             <NavDrawerAction :item="drawerLogout" @click="logout" />
           </li>
         </ul>
-        <button
+
+        <SidebarSearch class="sidebar-search" />
+
+        <!-- <button
           title="Закрыть меню"
           aria-label="Закрыть меню"
           class="btn btn-drawer-close"
           @click="$emit('close')"
         >
           <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
-        </button>
+        </button> -->
       </nav>
     </transition>
     <transition name="drawer-backdrop">
@@ -161,12 +164,14 @@ export default {
 
 <style lang="scss" scoped>
 .drawer {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   right: 0;
   top: 0;
   bottom: 0;
   left: 0;
-  max-width: 90%;
+  max-width: 85%;
   padding: $drawer-padding-y $drawer-padding-x;
   border-radius: 0 1rem 1rem 0;
   color: $drawer-color;
@@ -198,6 +203,28 @@ export default {
   }
 
   ::v-deep {
+    .sidebar-search {
+      margin: auto 1rem 1rem;
+    }
+
+    .sidebar-search-input {
+      .form-control {
+        border-radius: $drawer-item-border-radius;
+        color: var(--on-surface-variant);
+        background-color: var(--surface-variant);
+
+        &::placeholder {
+          color: var(--secondary);
+        }
+      }
+
+      .input-group-append {
+        .btn {
+          color: var(--secondary);
+        }
+      }
+    }
+
     .nav-item {
       display: flex;
       align-items: center;
@@ -270,6 +297,10 @@ export default {
     }
 
     ::v-deep {
+      .sidebar-search {
+        display: none;
+      }
+
       .nav-item {
         max-width: 100%;
         margin-bottom: 0.5rem;
