@@ -70,7 +70,7 @@ export default {
     .pagination {
       display: flex;
       justify-content: center;
-      padding: 0 1.5rem;
+      padding: 0;
     }
 
     .pagination-nav {

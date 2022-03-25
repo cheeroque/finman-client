@@ -125,10 +125,12 @@ export default {
       )
     },
     getPageLink(pageNumber) {
-      if (pageNumber === 1) return this.$route
+      const query = { ...this.$route.query }
+      if (pageNumber !== 1) query.page = pageNumber
+      else delete query.page
       return typeof this.linkGen === 'function'
         ? this.linkGen(pageNumber)
-        : { ...this.$route, query: { ...this.$route.query, page: pageNumber } }
+        : { ...this.$route, query }
     },
     removeObserver() {
       if (

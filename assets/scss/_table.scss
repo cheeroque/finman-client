@@ -118,6 +118,7 @@
   width: 100%;
   height: 100%;
   padding: $table-padding-y $table-padding-x;
+  font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
   border: none;
@@ -127,5 +128,15 @@
 
   .caret {
     margin-left: auto;
+  }
+}
+
+@include media-min-width('md') {
+  .table {
+    font-size: $font-size-base;
+
+    th {
+      font-size: $font-size-base * 0.875;
+    }
   }
 }

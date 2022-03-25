@@ -94,6 +94,10 @@ export default {
       background-color: $card-bg;
       overflow: hidden;
     }
+
+    .pagination {
+      padding: 0 1.5rem;
+    }
   }
 }
 </style>
