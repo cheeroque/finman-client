@@ -99,16 +99,33 @@ $fullscreen-dialog-transition: all 0.2s cubic-bezier(0.65, 0.25, 0.55, 0.9);
 
 /* Toast */
 
-.toast-enter-active,
-.toast-leave-active {
-  transition: $transition;
-  transition-property: box-shadow, transform;
-  transition-duration: 0.15s;
+@include media-max-width('md') {
+  .toast-enter-active,
+  .toast-leave-active {
+    transition: $transition;
+    transition-property: opacity, transform;
+    transition-duration: 0.15s;
+  }
+  .toast-enter,
+  .toast-leave-to {
+    opacity: 0;
+    transform: translateY(100%);
+  }
 }
-.toast-enter,
-.toast-leave-to {
-  transform: translateX(101vw);
-  box-shadow: none;
+
+@include media-min-width('md') {
+  .toast-enter-active,
+  .toast-leave-active {
+    transition: $transition;
+    transition-property: transform;
+    transition-duration: 0.2s;
+  }
+  .toast-enter {
+    transform: translateX(100%);
+  }
+  .toast-leave-to {
+    transform: translateY(-100%);
+  }
 }
 
 @include media-max-width('md') {

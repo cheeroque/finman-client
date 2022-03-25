@@ -80,3 +80,87 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.toast-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: $navbar-height;
+  z-index: $zindex-modal + 1;
+}
+
+.toast {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.875rem;
+  color: $toast-color;
+  background-color: $toast-bg;
+  opacity: $toast-opacity;
+
+  .toast-header {
+    display: flex;
+    align-items: center;
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+  }
+
+  .toast-body {
+    padding-top: 0.375rem;
+    padding-bottom: 0.375rem;
+  }
+
+  .toast-title {
+    flex: 1 1 auto;
+    margin: 0;
+    font-weight: $font-weight-medium;
+  }
+
+  .btn-close {
+    margin: -0.125rem;
+    padding: 0.125rem;
+    border-radius: 99rem;
+    border: none;
+  }
+
+  &.toast-secondary {
+    color: $toast-secondary-color;
+    background-color: $toast-secondary-bg;
+  }
+
+  &.toast-success {
+    color: $toast-success-color;
+    background-color: $toast-success-bg;
+  }
+
+  &.toast-danger {
+    color: $toast-danger-color;
+    background-color: $toast-danger-bg;
+  }
+}
+
+@include media-min-width('md') {
+  .toast-container {
+    top: $grid-gap * 0.5;
+    right: $grid-gap * 0.5;
+    bottom: auto;
+    left: auto;
+  }
+
+  .toast {
+    width: 320px;
+    padding: 0.5rem 1.125rem;
+    border-radius: 0.75rem;
+    box-shadow: $shadow-12;
+
+    .toast-header {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .toast-body {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+  }
+}
+</style>
