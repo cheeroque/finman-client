@@ -9,7 +9,9 @@
         class="categories-list-item"
       />
     </main>
-    <FloatingButton title="Добавить категорию" @click="createCategory" />
+    <FloatingButton title="Добавить категорию" @click="createCategory">
+      <span class="h5 caption mb-0">Добавить категорию</span>
+    </FloatingButton>
   </PageWrapper>
 </template>
 
@@ -45,6 +47,14 @@ export default {
   margin-bottom: 0.5rem;
 }
 
+::v-deep {
+  .btn-fab {
+    .caption {
+      display: none;
+    }
+  }
+}
+
 @include media-min-width('lg') {
   .categories-list {
     display: grid;
@@ -60,6 +70,29 @@ export default {
 @include media-min-width('xl') {
   .categories-list {
     grid-template-columns: 1fr 1fr 1fr;
+    margin-bottom: $grid-gap;
+  }
+
+  ::v-deep {
+    .btn.btn-fab {
+      position: static;
+      justify-content: center;
+      min-width: calc((100% - $grid-gap * 2) * 0.33333);
+      min-height: 5.45rem;
+      border-radius: $card-border-radius;
+
+      .caption {
+        display: inline-block;
+        flex: 0 0 auto;
+        max-width: 100%;
+        min-width: 0;
+        margin-left: 0.5rem;
+        font-weight: $font-weight-medium;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+    }
   }
 }
 </style>

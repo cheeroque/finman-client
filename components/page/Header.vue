@@ -106,5 +106,9 @@ export default {
   .page-header {
     min-height: 3.5rem;
   }
+
+  .btn-header-back {
+    display: none;
+  }
 }
 </style>

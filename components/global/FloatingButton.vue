@@ -9,6 +9,7 @@
     @click="$emit('click')"
   >
     <svg-icon name="edit-24" width="24" height="24" aria-hidden="true" />
+    <slot></slot>
   </component>
 </template>
 
