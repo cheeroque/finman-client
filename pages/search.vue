@@ -30,14 +30,6 @@ export default {
       return error({ statusCode: e?.response?.status || 500 })
     }
   },
-  watch: {
-    '$route.query': {
-      deep: true,
-      handler() {
-        this.refetch()
-      },
-    },
-  },
   computed: {
     ...mapGetters(['searchResults', 'searchResultsTotal']),
     query() {
@@ -45,6 +37,14 @@ export default {
     },
     totalPages() {
       return Math.ceil(this.searchResultsTotal / (this.query.perPage || 50))
+    },
+  },
+  watch: {
+    '$route.query': {
+      deep: true,
+      handler() {
+        this.refetch()
+      },
     },
   },
   methods: {
@@ -60,6 +60,13 @@ export default {
       } catch (e) {
         return this.$error({ statusCode: e?.response?.status || 500 })
       }
+    },
+    createRecord() {
+      this.$dialogFullscreen(
+        'RecordForm',
+        { recordId: null },
+        { actionTitle: 'Сохранить', title: 'Создать запись' }
+      )
     },
   },
 }
