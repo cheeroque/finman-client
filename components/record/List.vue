@@ -46,6 +46,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.records-list {
+  .records-list-content {
+    transition: $transition;
+    transition-property: opacity;
+  }
+
+  &.loading {
+    .records-list-content {
+      opacity: 0.25;
+    }
+  }
+}
+
 @include media-max-width('md') {
   ::v-deep {
     .records-list-columns {
@@ -67,18 +80,9 @@ export default {
     border-radius: $card-border-radius;
     background-color: $card-bg;
     overflow: hidden;
-
-    &.loading {
-      .records-list-content {
-        opacity: 0.25;
-      }
-    }
   }
 
   .records-list-content {
-    transition: $transition;
-    transition-property: opacity;
-
     ::v-deep {
       .records-list-columns,
       .records-list-item {
