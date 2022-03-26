@@ -7,6 +7,7 @@ export default {
   transition: {
     name: 'page',
     mode: '',
+    duration: 200,
   },
   async asyncData({ params, store, error }) {
     const loading = false

@@ -13,6 +13,7 @@ export default {
   transition: {
     name: 'page',
     mode: '',
+    duration: 200,
   },
   async asyncData({ query, params, store, error }) {
     const page = query.page || 1
@@ -29,17 +30,17 @@ export default {
       return error({ statusCode: e?.response?.status || 500 })
     }
   },
+  computed: {
+    query() {
+      return this.$route.query
+    },
+  },
   watch: {
     '$route.query': {
       deep: true,
       handler() {
         this.refetch()
       },
-    },
-  },
-  computed: {
-    query() {
-      return this.$route.query
     },
   },
   methods: {

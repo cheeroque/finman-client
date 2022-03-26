@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <NavDrawer
-      :visible="drawerOpen"
+      :visible="drawerVisible"
       class="app-drawer"
       @close="setDrawerOpen(false)"
     />
@@ -14,13 +14,23 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { getViewportWidth } from '@/utils'
 
 export default {
+  data() {
+    return {
+      breakpoint: 768,
+      vw: null,
+    }
+  },
   computed: {
     ...mapGetters(['drawerOpen']),
     ...mapGetters('dialog', ['dialogVisible']),
     bodyFixed() {
       return this.dialogVisible || this.drawerOpen
+    },
+    drawerVisible() {
+      return this.drawerOpen || this.vw >= this.breakpoint
     },
   },
   watch: {
@@ -32,13 +42,18 @@ export default {
     },
   },
   mounted() {
-    window.addEventListener('resize', this.closeDrawer, { passive: true })
+    this.setViewportWidth()
+    window.addEventListener('resize', this.setViewportWidth, {
+      passive: true,
+    })
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.closeDrawer)
+    window.removeEventListener('resize', this.setViewportWidth)
   },
   methods: {
     ...mapActions(['setDrawerOpen']),
+    getViewportWidth,
+
     closeDrawer() {
       this.setDrawerOpen(false)
     },
@@ -52,6 +67,9 @@ export default {
           document.body.style.overflow = null
         }
       }
+    },
+    setViewportWidth() {
+      this.vw = this.getViewportWidth()
     },
   },
 }
@@ -95,8 +113,10 @@ export default {
   }
 
   .app-drawer {
+    position: relative;
     flex: 0 0 auto;
     padding: 1.5rem 0 1.5rem 1.5rem;
+    z-index: $zindex-drawer;
   }
 
   .page-sidebar {

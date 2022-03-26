@@ -23,6 +23,7 @@ export default {
   transition: {
     name: 'page',
     mode: '',
+    duration: 200,
   },
   async asyncData({ query, store, error }) {
     try {
@@ -31,14 +32,6 @@ export default {
       return error({ statusCode: e?.response?.status || 500 })
     }
   },
-  watch: {
-    '$route.query': {
-      deep: true,
-      handler() {
-        this.refetch()
-      },
-    },
-  },
   computed: {
     ...mapGetters(['records', 'recordsTotal']),
     query() {
@@ -46,6 +39,14 @@ export default {
     },
     totalPages() {
       return Math.ceil(this.recordsTotal / (this.query.perPage || 50))
+    },
+  },
+  watch: {
+    '$route.query': {
+      deep: true,
+      handler() {
+        this.refetch()
+      },
     },
   },
   methods: {

@@ -44,25 +44,34 @@ $fullscreen-dialog-transition: all 0.2s cubic-bezier(0.65, 0.25, 0.55, 0.9);
 
 // Drawer content
 
-.drawer-enter-active,
-.drawer-leave-active {
-  transition: $transition;
-  transition-property: opacity, transform;
-}
-.drawer-enter {
-  transform: translateX(-100%);
-}
-.drawer-leave-to {
-  opacity: 0;
-  transform: translateX(-100%);
+@include media-max-width('md') {
+  .drawer-enter-active {
+    transition: $transition;
+    transition-property: transform;
+    transition-delay: 0.1s;
+  }
+  .drawer-leave-active {
+    transition: $transition;
+    transition-property: transform;
+  }
+  .drawer-enter {
+    transform: translateX(-100%);
+  }
+  .drawer-leave-to {
+    transform: translateX(-100%);
+  }
 }
 
 // Drawer backdrop
 
-.drawer-backdrop-enter-active,
+.drawer-backdrop-enter-active {
+  transition: $transition;
+  transition-property: opacity;
+}
 .drawer-backdrop-leave-active {
   transition: $transition;
-  transition-property: opacity, transform;
+  transition-property: opacity;
+  transition-delay: 0.1s;
 }
 .drawer-backdrop-enter {
   opacity: 0;
@@ -128,8 +137,9 @@ $fullscreen-dialog-transition: all 0.2s cubic-bezier(0.65, 0.25, 0.55, 0.9);
   }
 }
 
+/* Page */
+
 @include media-max-width('md') {
-  /* Page */
   .page-enter-active,
   .page-leave-active {
     position: fixed;
@@ -151,30 +161,34 @@ $fullscreen-dialog-transition: all 0.2s cubic-bezier(0.65, 0.25, 0.55, 0.9);
   }
 }
 
-// @include media-min-width('md') {
-//   /* Page */
-//   .page-enter-active,
-//   .page-leave-active {
-//     .app-sidebar,
-//     .page-content {
-//       transition: transform 0.15s ease-in-out;
-//     }
-//   }
-//   .page-enter-active {
-//     .app-sidebar {
-//       transition-delay: 0.1s;
-//     }
-//     .page-content {
-//       transition-delay: 0.05s;
-//     }
-//   }
-//   .page-enter,
-//   .page-leave-to {
-//     .app-sidebar {
-//       transform: translateY(-100%);
-//     }
-//     .page-content {
-//       transform: translateX(100%);
-//     }
-//   }
-// }
+@include media-min-width('md') {
+  .page-leave-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: calc(24px + 2rem + #{$grid-gap * 2});
+    overflow: hidden;
+
+    .app-sidebar {
+      opacity: 0;
+    }
+
+    .page-content {
+      transition: $transition;
+      transition-property: opacity;
+    }
+  }
+  .page-enter-active {
+    .page-content {
+      transition: $transition;
+      transition-property: opacity;
+    }
+  }
+  .page-enter,
+  .page-leave-to {
+    .page-content {
+      opacity: 0;
+    }
+  }
+}

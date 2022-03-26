@@ -64,7 +64,8 @@ export default {
     width: 100%;
 
     .svg-chart-bar {
-      transition: all 0.5s cubic-bezier(0.25, 0.5, 0.9, 0.75);
+      // transition: all 0.5s cubic-bezier(0.25, 0.5, 0.9, 0.75);
+      transition: none;
     }
 
     .svg-chart-bar-combined {

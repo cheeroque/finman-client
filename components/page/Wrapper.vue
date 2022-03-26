@@ -1,12 +1,6 @@
 <template>
   <div class="page">
-    <transition name="sidebar">
-      <PageSidebar
-        v-if="sidebarVisible"
-        :show-widgets="widgetsVisible"
-        :widgets="widgets"
-      />
-    </transition>
+    <PageSidebar :show-widgets="widgetsVisible" :widgets="widgets" />
     <div class="page-content">
       <slot></slot>
     </div>

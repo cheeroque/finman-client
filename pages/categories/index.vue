@@ -22,6 +22,7 @@ export default {
   transition: {
     name: 'page',
     mode: '',
+    duration: 200,
   },
   computed: {
     ...mapGetters(['categories']),

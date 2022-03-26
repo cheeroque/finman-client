@@ -34,7 +34,8 @@ export default {
 .app-sidebar {
   flex: 0 0 auto;
   transition: $transition;
-  transition-property: width;
+  // transform for page transitions
+  transition-property: width, transform;
 
   ::v-deep {
     .search-widget,

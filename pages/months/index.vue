@@ -13,6 +13,7 @@ export default {
   transition: {
     name: 'page',
     mode: '',
+    duration: 200,
   },
   async asyncData({ store, error }) {
     try {

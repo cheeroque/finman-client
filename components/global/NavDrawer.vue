@@ -61,7 +61,7 @@
     </transition>
     <transition name="drawer-backdrop">
       <div
-        v-if="visible"
+        v-show="visible"
         class="drawer-backdrop"
         aria-hidden="true"
         @click="$emit('close')"
