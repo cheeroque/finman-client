@@ -32,7 +32,7 @@ export default {
       this.$dialogFullscreen(
         'CategoryForm',
         { categoryId: null },
-        { actionTitle: 'Сохранить', title: 'Создать категорию' }
+        { title: 'Создать категорию' }
       )
     },
   },

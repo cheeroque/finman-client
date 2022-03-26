@@ -16,25 +16,12 @@
     <h4 class="header-content mb-0">
       <slot> </slot>
     </h4>
-    <button
-      v-if="actionTitle"
-      class="btn btn-header-action"
-      @click="$emit('action')"
-    >
-      <slot name="dialog-action">
-        {{ actionTitle }}
-      </slot>
-    </button>
   </header>
 </template>
 
 <script>
 export default {
   props: {
-    actionTitle: {
-      type: String,
-      default: null,
-    },
     backIsClose: {
       type: Boolean,
       default: false,

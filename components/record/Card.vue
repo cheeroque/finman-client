@@ -74,7 +74,7 @@ export default {
       this.$dialogFullscreen(
         'RecordForm',
         { recordId: this.record.id },
-        { actionTitle: 'Обновить', title: 'Изменить запись' }
+        { title: 'Изменить запись' }
       )
     },
   },

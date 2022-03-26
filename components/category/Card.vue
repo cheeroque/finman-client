@@ -58,7 +58,7 @@ export default {
       this.$dialogFullscreen(
         'CategoryForm',
         { categoryId: this.category.id },
-        { actionTitle: 'Обновить', title: 'Редактировать категорию' }
+        { title: 'Редактировать категорию' }
       )
     },
   },

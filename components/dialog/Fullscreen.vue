@@ -1,17 +1,8 @@
 <template>
   <div class="dialog dialog-fullscreen" role="dialog">
     <div class="dialog-content">
-      <PageHeader
-        :action-title="actionTitle"
-        class="dialog-header"
-        back-is-close
-        @action="$emit('action')"
-        @close="$emit('close')"
-      >
+      <PageHeader class="dialog-header" back-is-close @close="$emit('close')">
         {{ title }}
-        <template #dialog-action>
-          {{ actionTitle }}
-        </template>
       </PageHeader>
       <div class="dialog-body">
         <slot></slot>
@@ -32,10 +23,6 @@
 <script>
 export default {
   props: {
-    actionTitle: {
-      type: String,
-      default: null,
-    },
     disableBack: {
       type: Boolean,
       default: false,
@@ -47,6 +34,12 @@ export default {
     visible: {
       type: Boolean,
       default: false,
+    },
+  },
+  methods: {
+    submitForm() {
+      const form = this.$slots.default.$el
+      console.log(form)
     },
   },
 }
