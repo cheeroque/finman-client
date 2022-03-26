@@ -1,15 +1,13 @@
 <template>
   <PageWrapper>
     <main class="mb-16">
-      <transition name="fade" mode="out-in">
-        <RecordList
-          :key="$route.fullPath"
-          :records="records"
-          :class="{ 'show-all': !query.show }"
-          class="mb-24"
-          display-variant
-        />
-      </transition>
+      <RecordList
+        :loading="loading"
+        :records="records"
+        :class="{ 'show-all': !query.show }"
+        class="mb-24"
+        display-variant
+      />
       <PaginationNav :total-pages="totalPages" />
     </main>
     <FloatingButton title="Добавить запись" @click="createRecord" />
@@ -32,6 +30,11 @@ export default {
       return error({ statusCode: e?.response?.status || 500 })
     }
   },
+  data() {
+    return {
+      loading: false,
+    }
+  },
   computed: {
     ...mapGetters(['records', 'recordsTotal']),
     query() {
@@ -48,10 +51,14 @@ export default {
         this.refetch()
       },
     },
+    loading(event) {
+      console.log(`loading: ${event}, ${new Date()}`)
+    },
   },
   methods: {
     async refetch() {
       try {
+        this.loading = true
         await this.$store.dispatch('fetchRecords', this.query)
         if (process.client) {
           /* Scroll both window (for mobile) & content (for desktop) */
@@ -59,6 +66,7 @@ export default {
           if (content) content.scrollTo({ top: 0, behavior: 'smooth' })
           scrollTo({ top: 0, behavior: 'smooth' })
         }
+        this.loading = false
       } catch (e) {
         return this.$error({ statusCode: e?.response?.status || 500 })
       }

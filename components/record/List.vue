@@ -1,5 +1,5 @@
 <template>
-  <div class="records-list">
+  <div :class="{ loading: loading }" class="records-list">
     <slot name="header">
       <RecordListHeader />
     </slot>
@@ -28,6 +28,10 @@
 export default {
   props: {
     displayVariant: {
+      type: Boolean,
+      default: false,
+    },
+    loading: {
       type: Boolean,
       default: false,
     },
@@ -63,9 +67,18 @@ export default {
     border-radius: $card-border-radius;
     background-color: $card-bg;
     overflow: hidden;
+
+    &.loading {
+      .records-list-content {
+        opacity: 0.25;
+      }
+    }
   }
 
   .records-list-content {
+    transition: $transition;
+    transition-property: opacity;
+
     ::v-deep {
       .records-list-columns,
       .records-list-item {
@@ -185,14 +198,16 @@ export default {
 
   .show-all {
     .records-list-content {
-      .records-list-item {
-        &.record-card-income {
-          color: var(--on-success-container);
-          background-color: var(--success-container);
+      &:not(.loading) {
+        .records-list-item {
+          &.record-card-income {
+            color: var(--on-success-container);
+            background-color: var(--success-container);
 
-          .record-category,
-          .record-note-edit {
-            color: var(--success);
+            .record-category,
+            .record-note-edit {
+              color: var(--success);
+            }
           }
         }
       }
