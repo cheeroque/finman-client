@@ -45,6 +45,12 @@ export default {
   }
 }
 
+@include media-max-width('md') {
+  .app-sidebar {
+    display: none;
+  }
+}
+
 @include media-min-width('xl') {
   .app-sidebar {
     width: 360px;
