@@ -1,42 +1,65 @@
 /* Dialogs */
 
 // Fullscreen dialog
-$fullscreen-dialog-transition: all 0.2s cubic-bezier(0.65, 0.25, 0.55, 0.9);
+$dialog-transition: all 0.2s cubic-bezier(0.65, 0.25, 0.55, 0.9);
 
 @include media-max-width('sm') {
-  .dialog-fullscreen-enter-active,
-  .dialog-fullscreen-leave-active {
-    transition: $fullscreen-dialog-transition;
+  .dialog-enter-active,
+  .dialog-leave-active {
+    transition: $dialog-transition;
     transition-property: transform;
   }
-  .dialog-fullscreen-enter {
+  .dialog-enter {
     transform: translateX(100%);
   }
-  .dialog-fullscreen-leave-to {
+  .dialog-leave-to {
     transform: translateX(-100%);
   }
 }
 
 @include media-min-width('sm') {
-  .dialog-fullscreen-enter-active,
-  .dialog-fullscreen-leave-active {
+  .dialog-enter-active,
+  .dialog-leave-active {
     .dialog-content {
-      transition: $fullscreen-dialog-transition;
+      transition: $dialog-transition;
       transition-property: transform;
     }
     .dialog-backdrop {
-      transition: $fullscreen-dialog-transition;
+      transition: $dialog-transition;
       transition-property: opacity;
     }
   }
-  .dialog-fullscreen-enter,
-  .dialog-fullscreen-leave-to {
+  .dialog-enter,
+  .dialog-leave-to {
     .dialog-content {
       transform: translateX(100%);
     }
     .dialog-backdrop {
       opacity: 0;
     }
+  }
+}
+
+// Modal dialog
+.dialog-modal-enter-active,
+.dialog-modal-leave-active {
+  .dialog-content {
+    transition: $dialog-transition;
+    transition-property: transform;
+  }
+  .dialog-backdrop {
+    transition: $dialog-transition;
+    transition-property: opacity;
+  }
+}
+.dialog-modal-enter,
+.dialog-modal-leave-to {
+  .dialog-content {
+    transform: translateY(-100%);
+  }
+  .dialog-backdrop {
+    opacity: 0;
+    transform: none;
   }
 }
 

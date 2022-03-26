@@ -36,12 +36,6 @@ export default {
       default: false,
     },
   },
-  methods: {
-    submitForm() {
-      const form = this.$slots.default.$el
-      console.log(form)
-    },
-  },
 }
 </script>
 
@@ -68,12 +62,6 @@ export default {
 
   .dialog-backdrop {
     display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: $backdrop-color;
   }
 
   .btn-dialog-close {
@@ -95,7 +83,6 @@ export default {
       left: auto;
       width: 75%;
       border-radius: $dialog-border-radius 0 0 $dialog-border-radius;
-      z-index: 1;
     }
 
     .dialog-header {
@@ -109,7 +96,6 @@ export default {
 
     .dialog-backdrop {
       display: block;
-      z-index: 0;
     }
 
     .btn-dialog-close {

@@ -182,6 +182,12 @@ export const actions = {
     commit('SET_LATEST_SNAPSHOT', snapshot)
   },
 
+  async storeShapshot(_, payload) {
+    await this.$axios.$post('revises', payload).catch((error) => {
+      throw error
+    })
+  },
+
   async fetchTotal({ commit }) {
     const total = await this.$axios.$get('total').catch((error) => {
       throw error

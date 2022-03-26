@@ -84,8 +84,6 @@ export class Chart {
     this.context.textBaseline = 'middle'
     this.context.textAlign = 'right'
 
-    console.log(this.#itemTop, this.#itemHeight)
-
     let offsetTop = this.#itemTop
 
     this.items.forEach(({ label }) => {

@@ -42,6 +42,9 @@
   --surface-variant: #{$secondary-95};
   --on-surface-variant: #{$secondary-10};
 
+  --disabled-container: #{$neutral-90};
+  --on-disabled-container: #{$neutral-50};
+
   --outline: #{$neutral-50};
 }
 
@@ -99,8 +102,10 @@ html,
   --surface-variant: #{$secondary-20};
   --on-surface-variant: #{$secondary-95};
 
+  --disabled-container: #{$neutral-30};
+  --on-disabled-container: #{$neutral-70};
+
   --outline: #{$neutral-60};
-  --success: #{$success-80};
 }
 
 :root.theme-dark {

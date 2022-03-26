@@ -54,7 +54,7 @@
         <div class="d-flex g-8 mb-16">
           <ValidationProvider
             v-slot="{ valid, validated }"
-            name="color"
+            name="date"
             rules="required"
             slim
           >

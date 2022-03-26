@@ -51,9 +51,6 @@ export default {
         this.refetch()
       },
     },
-    loading(event) {
-      console.log(`loading: ${event}, ${new Date()}`)
-    },
   },
   methods: {
     async refetch() {

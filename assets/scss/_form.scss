@@ -20,6 +20,7 @@
   background-size: 0 $border-width * 2, 100% $border-width;
   transition: $transition;
   transition-property: background-color, background-size;
+  appearance: none;
 
   &::placeholder {
     color: $form-placeholder-color;
@@ -36,6 +37,13 @@
     &::placeholder {
       color: $form-placeholder-active-color;
     }
+  }
+
+  &:read-only {
+    color: var(--on-disabled-container);
+    background-image: none;
+    background-color: var(--disabled-container);
+    cursor: default;
   }
 
   &.form-control-valid {

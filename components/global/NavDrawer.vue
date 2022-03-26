@@ -49,6 +49,9 @@
             <NavDrawerAction :item="item" @click="item.action" />
           </li>
           <li role="presentation">
+            <NavDrawerSnapshot />
+          </li>
+          <li role="presentation">
             <hr class="nav-item-divider" />
           </li>
           <li role="presentation">
@@ -87,11 +90,6 @@ export default {
           action: this.downloadFile,
           icon: 'export-24',
           text: 'Экспорт данных',
-        },
-        {
-          action: this.saveSnapshot,
-          icon: 'datetime-24',
-          text: 'Дата',
         },
       ],
       drawerLogout: {
