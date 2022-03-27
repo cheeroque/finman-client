@@ -38,6 +38,7 @@ export default {
   modules: [
     '@nuxtjs/auth-next',
     '@nuxtjs/axios',
+    '@nuxtjs/i18n',
     '@nuxtjs/svg-sprite',
     'portal-vue/nuxt',
   ],
@@ -72,6 +73,13 @@ export default {
     headers: {
       Accept: 'application/json',
     },
+  },
+
+  i18n: {
+    locales: ['en', 'ru'],
+    defaultLocale: 'ru',
+    vueI18n: '~/config/i18n.js',
+    vueI18nLoader: true,
   },
 
   svgSprite: {
