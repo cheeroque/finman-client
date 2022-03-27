@@ -39,7 +39,7 @@
     }
   }
 
-  &:read-only {
+  &:disabled {
     color: var(--on-disabled-container);
     background-image: none;
     background-color: var(--disabled-container);

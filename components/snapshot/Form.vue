@@ -2,7 +2,7 @@
   <ValidationObserver v-slot="{ handleSubmit }" slim>
     <form @submit.prevent="handleSubmit(submit)">
       <FormGroup label="Предыдущий баланс">
-        <FormInput :value="form.balance_previous" readonly />
+        <FormInput :value="form.balance_previous" disabled />
       </FormGroup>
       <ValidationProvider
         v-slot="{ valid, validated }"
