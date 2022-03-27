@@ -174,9 +174,18 @@ export default {
     },
     onDialogShown() {
       if (this.isEdit) this.fetchCategory()
+      else this.resetForm()
     },
     onDialogHidden() {
       this.$emit('hidden')
+    },
+    resetForm() {
+      this.form = {
+        name: null,
+        slug: null,
+        color: null,
+        is_income: false,
+      }
     },
   },
 }

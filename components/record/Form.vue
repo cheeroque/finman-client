@@ -203,9 +203,18 @@ export default {
     },
     onDialogShown() {
       if (this.isEdit) this.fetchRecord()
+      else this.resetForm()
     },
     onDialogHidden() {
       this.$emit('hidden')
+    },
+    resetForm() {
+      this.form = {
+        category_id: null,
+        created_at: new Date(),
+        note: null,
+        sum: 0,
+      }
     },
   },
 }

@@ -112,6 +112,7 @@ export default {
     border-radius: 99rem;
     border: none;
     appearance: none;
+    cursor: pointer;
   }
 }
 </style>
