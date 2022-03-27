@@ -1,4 +1,4 @@
-export function formatSum(number, locale = 'ru', precision = 0) {
+export function formatSum(number, locale, precision = 0) {
   return parseFloat(number || 0).toLocaleString(locale, {
     minimumFractionDigits: precision,
     maximumFractionDigits: precision,
@@ -7,7 +7,7 @@ export function formatSum(number, locale = 'ru', precision = 0) {
 
 export function formatDate(
   datestring,
-  locale = 'ru',
+  locale,
   options = { dateStyle: 'short' }
 ) {
   const timestamp = Date.parse(datestring)

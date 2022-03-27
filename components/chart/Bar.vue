@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import { formatSum, getContrastColor } from '@/utils'
 
 const AXIS_BORDER_WIDTH = 1
@@ -37,9 +36,6 @@ export default {
       canvasHeight: null,
       canvasStyles: {},
     }
-  },
-  computed: {
-    ...mapGetters(['locale']),
   },
   mounted() {
     this.draw()
@@ -131,7 +127,7 @@ export default {
 
         ctx.font = `500 ${LABEL_FONT_SIZE}px ${this.canvasStyles.fontFamily}`
         ctx.textAlign = 'left'
-        const sumText = `${this.formatSum(item.value, this.locale)}`
+        const sumText = `${this.formatSum(item.value, this.$i18n.locale)}`
         const textMetrics = ctx.measureText(sumText)
 
         if (textMetrics.width > barWidth - BAR_PADDING * 2) {

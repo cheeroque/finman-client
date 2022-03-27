@@ -1,7 +1,9 @@
 <template>
   <header class="page-header-main">
     <h1 class="mb-0">
-      <nuxt-link to="/"> {{ formatSum(total, locale) }}&nbsp;₽ </nuxt-link>
+      <nuxt-link to="/">
+        {{ formatSum(total, $i18n.locale) }}&nbsp;₽
+      </nuxt-link>
     </h1>
   </header>
 </template>
@@ -12,7 +14,7 @@ import { formatSum } from '@/utils'
 
 export default {
   computed: {
-    ...mapGetters(['locale', 'total']),
+    ...mapGetters(['total']),
   },
   methods: {
     formatSum,

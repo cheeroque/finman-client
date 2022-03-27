@@ -9,7 +9,6 @@
 
 <script>
 import { formatPeriod, formatSum } from '@/utils'
-import { mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -44,7 +43,7 @@ export default {
           label: this.$t('date'),
           thClass: 'cell-date',
           tdClass: 'cell-date',
-          formatter: (value) => this.formatPeriod(value, this.locale),
+          formatter: (value) => this.formatPeriod(value, this.$i18n.locale),
         },
         {
           key: 'sum',
@@ -57,7 +56,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['locale']),
     tableItems() {
       if (!this.records) return []
       return Object.keys(this.records).map((key) => {
@@ -79,7 +77,7 @@ export default {
     formatSum,
     formatChildDate(datestring) {
       const date = new Date(datestring)
-      return date.toLocaleString(this.locale, { dateStyle: 'short' })
+      return date.toLocaleString(this.$i18n.locale, { dateStyle: 'short' })
     },
     formatSumWithCurrency(sum) {
       return `${this.formatSum(sum)}\xA0₽`

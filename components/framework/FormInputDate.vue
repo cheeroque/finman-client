@@ -4,7 +4,7 @@
       v-model="localValue"
       :clearable="false"
       :confirm-text="$t('apply')"
-      :lang="locale"
+      :lang="$i18n.locale"
       :open="popupVisible"
       :placeholder="placeholder"
       format="DD.MM.YYYY, HH:mm"
@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import DatePicker from 'vue2-datepicker'
 import 'vue2-datepicker/locale/ru'
 
@@ -56,7 +55,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['locale']),
     localValue: {
       get() {
         return this.value

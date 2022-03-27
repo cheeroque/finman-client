@@ -17,7 +17,7 @@ import { getContrastColor, formatSum } from '@/utils'
 
 export default {
   computed: {
-    ...mapGetters(['currentMonthRecords', 'locale']),
+    ...mapGetters(['currentMonthRecords']),
     chartData() {
       return Object.values(this.currentMonthRecords)
         .map((group) => {
@@ -30,7 +30,7 @@ export default {
             (total, record) => (total += parseInt(record.sum || 0)),
             0
           )
-          const displayValue = this.formatSum(value, this.locale)
+          const displayValue = this.formatSum(value, this.$i18n.locale)
           return { isIncome, label, fill, textFill, value, displayValue }
         })
         .sort((a, b) => b.value - a.value)

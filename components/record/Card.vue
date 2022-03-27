@@ -6,7 +6,7 @@
     <p class="record-date">
       <nuxt-link :to="monthLink">
         {{
-          formatDate(record.created_at, locale, {
+          formatDate(record.created_at, $i18n.locale, {
             dateStyle: 'long',
             timeStyle: 'short',
           })
@@ -31,14 +31,13 @@
     </p>
     <p class="record-sum h3 card-text-accent">
       <button class="btn-link" @click="editRecord">
-        {{ formatSum(record.sum, locale) }}&nbsp;₽
+        {{ formatSum(record.sum, $i18n.locale) }}&nbsp;₽
       </button>
     </p>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import { formatDate, formatSum } from '@/utils'
 
 export default {
@@ -55,7 +54,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['locale']),
     isIncome() {
       return Boolean(this.record?.category?.is_income)
     },

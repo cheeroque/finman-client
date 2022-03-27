@@ -1,7 +1,7 @@
 <template>
   <PageWrapper>
     <PageHeader>
-      {{ formatPeriod($route.params.period, locale, 4) }}
+      {{ formatPeriod($route.params.period, $i18n.locale, 4) }}
     </PageHeader>
     <main class="card mb-16 p-0">
       <TableMonthRecords :categories="categories" :records="records" />
@@ -30,7 +30,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['categories', 'locale']),
+    ...mapGetters(['categories']),
   },
   methods: {
     formatPeriod,
