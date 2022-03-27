@@ -5,10 +5,10 @@
     </slot>
     <div role="grid" class="records-list-content">
       <div class="records-list-columns">
-        <div class="record-date">Дата</div>
-        <div class="record-sum">Сумма</div>
-        <div class="record-category">Категория</div>
-        <div class="record-note">Комментарий</div>
+        <div class="record-date">{{ $t('date') }}</div>
+        <div class="record-sum">{{ $t('sum') }}</div>
+        <div class="record-category">{{ $t('category.category') }}</div>
+        <div class="record-note">{{ $t('note') }}</div>
       </div>
       <RecordCardEmpty v-if="!(records && records.length)" />
       <template v-else>

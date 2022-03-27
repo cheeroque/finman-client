@@ -1,6 +1,6 @@
 <template>
   <PageWrapper :widgets="['Chart', 'Calendar']">
-    <PageHeader> Категории </PageHeader>
+    <PageHeader> {{ $t('category.categories') }} </PageHeader>
     <main class="categories-list">
       <CategoryCard
         v-for="(category, index) in categories"
@@ -9,8 +9,8 @@
         class="categories-list-item"
       />
     </main>
-    <FloatingButton title="Добавить категорию" @click="createCategory">
-      <span class="h5 caption mb-0">Добавить категорию</span>
+    <FloatingButton :title="$t('category.add')" @click="createCategory">
+      <span class="h5 caption mb-0">{{ $t('category.add') }}</span>
     </FloatingButton>
   </PageWrapper>
 </template>
@@ -32,7 +32,7 @@ export default {
       this.$dialogFullscreen(
         'CategoryForm',
         { categoryId: null },
-        { title: 'Создать категорию' }
+        { title: this.$t('category.create') }
       )
     },
   },

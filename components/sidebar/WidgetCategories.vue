@@ -1,7 +1,7 @@
 <template>
   <div class="card card-widget">
     <div class="card-header">
-      <h5 class="card-title">Категории</h5>
+      <h5 class="card-title">{{ $t('category.categories') }}</h5>
     </div>
     <div class="card-body">
       <CategorySimpleCard

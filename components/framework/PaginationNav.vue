@@ -6,7 +6,7 @@
           :is="isBeginning ? 'span' : 'nuxt-link'"
           :to="isBeginning ? null : getPageLink(1)"
           :class="{ disabled: isBeginning }"
-          aria-label="В начало"
+          :aria-label="$t('pagination.goToFirst')"
           class="btn nav-item nav-item-first"
         >
           <svg-icon
@@ -26,7 +26,7 @@
           :is="page === currentPage ? 'span' : 'nuxt-link'"
           :to="page === currentPage ? null : getPageLink(page)"
           :class="{ active: page === currentPage }"
-          :aria-label="`На страницу ${page}`"
+          :aria-label="`${$t('pagination.goToPage')} ${page}`"
           class="btn nav-item"
         >
           {{ page }}
@@ -38,7 +38,7 @@
           :to="isEnd ? null : getPageLink(totalPages)"
           :class="{ disabled: isEnd }"
           :disabled="isEnd"
-          aria-label="В конец"
+          :aria-label="$t('pagination.goToLast')"
           class="btn nav-item nav-item-last"
         >
           <svg-icon

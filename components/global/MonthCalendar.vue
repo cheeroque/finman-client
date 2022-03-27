@@ -4,8 +4,8 @@
       <button
         :disabled="isBeginning"
         class="btn btn-calendar-prev"
-        title="Предыдущий месяц"
-        aria-label="Предыдущий месяц"
+        :title="$t('month.previous')"
+        :aria-label="$t('month.previous')"
         @click="setPrevYear"
       >
         <svg-icon
@@ -21,8 +21,8 @@
       <button
         :disabled="isEnd"
         class="btn btn-calendar-next"
-        title="Следующий месяц"
-        aria-label="Следующий месяц"
+        :title="$t('month.next')"
+        :aria-label="$t('month.next')"
         @click="setNextYear"
       >
         <svg-icon
@@ -73,18 +73,18 @@ export default {
     return {
       activeYear: null,
       months: [
-        'Январь',
-        'Февраль',
-        'Март',
-        'Апрель',
-        'Май',
-        'Июнь',
-        'Июль',
-        'Август',
-        'Сентябрь',
-        'Октябрь',
-        'Ноябрь',
-        'Декабрь',
+        'jan',
+        'feb',
+        'mar',
+        'apr',
+        'may',
+        'jun',
+        'jul',
+        'aug',
+        'sep',
+        'oct',
+        'nov',
+        'dec',
       ],
     }
   },
@@ -133,7 +133,7 @@ export default {
   },
   methods: {
     getMonthName(month) {
-      return this.months[parseInt(month) - 1]
+      return this.$t(`month.${this.months[parseInt(month) - 1]}`)
     },
     getPeriod(year, month) {
       return `${year}-${month.toString().padStart(2, '0')}`

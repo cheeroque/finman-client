@@ -1,9 +1,9 @@
 <template>
   <main class="container container-error">
-    <h1 class="error-title">Ошибка {{ error.statusCode }}</h1>
+    <h1 class="error-title">{{ $t('error.error') }} {{ error.statusCode }}</h1>
     <p class="error-message">{{ errorMessage }}</p>
     <p class="error-link">
-      <nuxt-link to="/"> Вернуться на&nbsp;главную </nuxt-link>
+      <nuxt-link to="/"> {{ $t('error.backToHome') }} </nuxt-link>
     </p>
   </main>
 </template>
@@ -19,16 +19,6 @@ export default {
       },
     },
   },
-  data() {
-    return {
-      messages: {
-        code401: 'Ошибка авторизации',
-        code404: 'Страница не найдена',
-        code502: 'Ошибка сервера',
-        default: 'Неизвестная ошибка',
-      },
-    }
-  },
   head() {
     return {
       bodyAttrs: {
@@ -38,9 +28,9 @@ export default {
   },
   computed: {
     errorMessage() {
-      return (
-        this.messages[`code${this.error?.statusCode}`] || this.messages.default
-      )
+      return this.$te(`error.${this.error?.statusCode}`)
+        ? this.$t(`error.${this.error?.statusCode}`)
+        : this.$t('error.default')
     },
   },
 }

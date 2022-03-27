@@ -7,6 +7,7 @@ export class SvgChart {
     barSpacing: 8,
     borderRadius: 0,
     combineThreshold: 0,
+    combinedLabel: '',
     fontSize: 16,
     strokeWidth: 2,
   }
@@ -90,7 +91,7 @@ export class SvgChart {
         combinedItems.push({
           displayValue: formatSum(combinedSum),
           isCombined: true,
-          label: 'Прочее',
+          label: this.options.combinedLabel,
           value: combinedSum,
         })
       }

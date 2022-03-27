@@ -1,7 +1,9 @@
 <template>
   <div class="search-results-header">
     <h1 class="h3 search-results-title">{{ query }}</h1>
-    <p class="search-results-found">Найдено {{ total }} записей</p>
+    <p class="search-results-found">
+      {{ $t('recordsFound').replace('%s', total) }}
+    </p>
   </div>
 </template>
 

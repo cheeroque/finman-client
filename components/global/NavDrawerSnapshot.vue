@@ -25,7 +25,7 @@ export default {
       this.$dialog(
         'SnapshotForm',
         { snapshot: this.latestSnapshot },
-        { title: 'Новый снапшот' }
+        { title: this.$t('snapshot.new') }
       )
     },
   },

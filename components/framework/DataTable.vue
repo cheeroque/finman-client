@@ -86,7 +86,7 @@
       <tbody v-else role="rowgroup">
         <tr role="row">
           <td :colspan="fields.length" class="table-empty-cell">
-            Нет&nbsp;данных для&nbsp;отображения.
+            {{ $t('nothingToDisplay') }}
           </td>
         </tr>
       </tbody>

@@ -1,7 +1,7 @@
 <template>
   <div class="card card-widget">
     <div class="card-header">
-      <h5 class="card-title">Календарь</h5>
+      <h5 class="card-title">{{ $t('calendar') }}</h5>
     </div>
     <MonthCalendar start-date="2016-01-01" />
   </div>

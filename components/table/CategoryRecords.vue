@@ -41,14 +41,14 @@ export default {
       tableFields: [
         {
           key: 'date',
-          label: 'Дата',
+          label: this.$t('date'),
           thClass: 'cell-date',
           tdClass: 'cell-date',
           formatter: (value) => this.formatPeriod(value, this.locale),
         },
         {
           key: 'sum',
-          label: 'Сумма',
+          label: this.$t('sum'),
           thClass: 'cell-sum',
           tdClass: 'cell-sum',
           isDetailsToggle: true,

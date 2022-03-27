@@ -8,11 +8,14 @@
           rules="required"
           slim
         >
-          <FormGroup :state="valid || !validated ? null : false" label="Имя">
+          <FormGroup
+            :label="$t('category.form.name.label')"
+            :state="valid || !validated ? null : false"
+          >
             <FormInput
               v-model="form.name"
+              :placeholder="$t('category.form.name.placeholder')"
               :state="valid || !validated ? null : false"
-              placeholder="Введите имя"
             />
           </FormGroup>
         </ValidationProvider>
@@ -22,11 +25,14 @@
           rules="required"
           slim
         >
-          <FormGroup :state="valid || !validated ? null : false" label="Слаг">
+          <FormGroup
+            :label="$t('category.form.slug.label')"
+            :state="valid || !validated ? null : false"
+          >
             <FormInput
               v-model="form.slug"
+              :placeholder="$t('category.form.slug.placeholder')"
               :state="valid || !validated ? null : false"
-              placeholder="Введите слаг"
             />
           </FormGroup>
         </ValidationProvider>
@@ -36,11 +42,14 @@
           rules="required"
           slim
         >
-          <FormGroup :state="valid || !validated ? null : false" label="Цвет">
+          <FormGroup
+            :label="$t('category.form.color.label')"
+            :state="valid || !validated ? null : false"
+          >
             <FormInputColor
               v-model="form.color"
+              :placeholder="$t('category.form.color.placeholder')"
               :state="valid || !validated ? null : false"
-              placeholder="Выберите цвет"
             />
           </FormGroup>
         </ValidationProvider>
@@ -51,7 +60,7 @@
           class="mb-16"
           switch
         >
-          Доход
+          {{ $t('income') }}
         </FormCheckbox>
         <div class="d-flex">
           <button
@@ -60,7 +69,7 @@
             class="btn btn-danger ms-auto"
             @click="deleteCategory"
           >
-            Удалить
+            {{ $t('delete') }}
           </button>
           <button
             v-else
@@ -68,7 +77,7 @@
             class="btn ms-auto"
             @click="$emit('close')"
           >
-            Отменить
+            {{ $t('cancel') }}
           </button>
           <button type="submit" class="btn btn-secondary ms-8">
             {{ actionTitle }}
@@ -106,7 +115,7 @@ export default {
   },
   computed: {
     actionTitle() {
-      return this.isEdit ? 'Обновить' : 'Сохранить'
+      return this.$t(this.isEdit ? 'update' : 'save')
     },
     isEdit() {
       return Boolean(this.categoryId)
@@ -140,9 +149,9 @@ export default {
       try {
         await this.$store.dispatch(action, this.form)
         const message = this.isEdit
-          ? `Категория «${this.form.name}» обновлена`
-          : 'Категория создана'
-        this.$infoToast(message, 'Успех')
+          ? this.$t('category.updated').replace('%s', this.form.name)
+          : this.$t('category.created')
+        this.$infoToast(message, this.$t('success'))
         await this.$store.dispatch('fetchCategories')
         this.$emit('close')
       } catch (error) {
@@ -153,6 +162,11 @@ export default {
       try {
         await this.$store.dispatch('deleteCategory', this.categoryId)
         await this.$store.dispatch('fetchCategories')
+        const message = this.$t('category.deleted').replace(
+          '%s',
+          this.form.name
+        )
+        this.$infoToast(message, this.$t('success'))
         this.$emit('close')
       } catch (error) {
         this.$errorToast(error)

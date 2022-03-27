@@ -10,7 +10,7 @@
       />
       <PaginationNav :total-pages="totalPages" />
     </main>
-    <FloatingButton title="Добавить запись" @click="createRecord" />
+    <FloatingButton :title="$t('record.add')" @click="createRecord" />
   </PageWrapper>
 </template>
 
@@ -72,7 +72,7 @@ export default {
       this.$dialogFullscreen(
         'RecordForm',
         { recordId: null },
-        { title: 'Создать запись' }
+        { title: this.$t('record.create') }
       )
     },
   },

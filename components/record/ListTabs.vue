@@ -34,17 +34,17 @@ export default {
         {
           icon: 'home-24',
           show: null,
-          text: 'Все записи',
+          text: this.$t('allRecords'),
         },
         {
           icon: 'cart-24',
           show: 'expense',
-          text: 'Только расходы',
+          text: this.$t('expensesOnly'),
         },
         {
           icon: 'card-24',
           show: 'income',
-          text: 'Только доходы',
+          text: this.$t('incomesOnly'),
         },
       ],
     }

@@ -1,9 +1,18 @@
 <template>
   <form @submit.prevent="handleSearch">
     <InputGroup class="search-input-group">
-      <FormInput v-model="query" type="search" placeholder="Поиск по записям" />
+      <FormInput
+        v-model="query"
+        :placeholder="$t('searchRecords')"
+        type="search"
+      />
       <template #append>
-        <button type="submit" title="Искать" aria-label="Искать" class="btn">
+        <button
+          type="submit"
+          :title="$t('search')"
+          :aria-label="$t('search')"
+          class="btn"
+        >
           <svg-icon
             name="search-24"
             width="24"

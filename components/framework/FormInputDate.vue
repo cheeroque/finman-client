@@ -3,24 +3,25 @@
     <DatePicker
       v-model="localValue"
       :clearable="false"
+      :confirm-text="$t('apply')"
       :lang="locale"
       :open="popupVisible"
       :placeholder="placeholder"
-      confirm-text="Применить"
       format="DD.MM.YYYY, HH:mm"
       input-class="form-control"
       time-title-format="DD.MM.YYYY"
       type="datetime"
       confirm
+      @click.stop.prevent
       @confirm="closePopup"
       @focus="openPopup"
     >
       <template #header>
-        <h4 class="mb-0">Дата и время</h4>
+        <h4 class="mb-0">{{ $t('dateAndTime') }}</h4>
         <button
+          :title="$t('close')"
+          :aria-label="$t('close')"
           class="btn btn-close"
-          title="Закрыть"
-          aria-label="Закрыть"
           @click="closePopup"
         >
           <svg-icon name="close-24" width="24" height="24" aria-hidden="true" />
@@ -80,7 +81,9 @@ export default {
     onPopupClickOutside(event) {
       const popupContent = event?.target?.closest('.mx-datepicker-content')
       const datepicker = event?.target?.closest('.mx-datepicker')
-      if (!popupContent && !datepicker) this.closePopup()
+      if (!popupContent && !datepicker && event?.target !== document.body) {
+        this.closePopup()
+      }
     },
   },
 }

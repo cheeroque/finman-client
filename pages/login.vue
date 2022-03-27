@@ -1,5 +1,10 @@
 <template>
-  <DialogPage title="Авторизация" disable-back>
+  <main>
+    <header class="page-header">
+      <h3 class="header-content">
+        {{ $t('login') }}
+      </h3>
+    </header>
     <div class="card">
       <ValidationObserver v-slot="{ handleSubmit }" slim>
         <form @submit.prevent="handleSubmit(submit)">
@@ -9,11 +14,14 @@
             rules="required"
             slim
           >
-            <FormGroup :state="valid || !validated ? null : false" label="Имя">
+            <FormGroup
+              :label="$t('auth.form.name.label')"
+              :state="valid || !validated ? null : false"
+            >
               <FormInput
                 v-model="form.name"
+                :placeholder="$t('auth.form.name.placeholder')"
                 :state="valid || !validated ? null : false"
-                placeholder="Введите имя"
               />
             </FormGroup>
           </ValidationProvider>
@@ -24,8 +32,8 @@
             slim
           >
             <FormGroup
+              :label="$t('auth.form.password.label')"
               :state="valid || !validated ? null : false"
-              label="Пароль"
             >
               <FormInput
                 v-model="form.password"
@@ -36,13 +44,13 @@
           </ValidationProvider>
           <div class="d-flex">
             <button type="submit" class="btn btn-primary ms-auto px-24">
-              Войти
+              {{ $t('auth.form.enter') }}
             </button>
           </div>
         </form>
       </ValidationObserver>
     </div>
-  </DialogPage>
+  </main>
 </template>
 
 <script>
@@ -64,7 +72,7 @@ export default {
       } catch (error) {
         let message
         if (error?.response?.status === 401) {
-          message = 'Неправильный логин или пароль'
+          message = this.$t('auth.error')
         }
         this.$errorToast(error, message)
       }
@@ -74,6 +82,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header-content {
+  text-align: center;
+}
+
 .form-login {
   flex: 1 1 auto;
   max-width: 320px;

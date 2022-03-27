@@ -4,8 +4,8 @@
       <header class="dialog-header">
         <h5 class="dialog-title">{{ title }}</h5>
         <button
-          title="Закрыть"
-          aria-label="Закрыть"
+          :title="$t('close')"
+          :aria-label="$t('close')"
           class="btn btn-dialog-close"
           @click="close"
         >

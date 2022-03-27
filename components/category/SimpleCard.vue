@@ -39,7 +39,7 @@ export default {
         : 'category-type-expense'
     },
     categoryTypeText() {
-      return this.category.is_income ? 'Доходы' : 'Расходы'
+      return this.$t(this.category.is_income ? 'incomes' : 'expenses')
     },
   },
   methods: {

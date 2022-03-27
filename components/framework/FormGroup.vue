@@ -22,7 +22,7 @@
     <slot></slot>
     <transition name="form-feedback">
       <p v-if="state === false" class="form-invalid-feedback">
-        {{ invalidFeedback }}
+        {{ invalidFeedback || $t('fieldRequired') }}
       </p>
     </transition>
   </component>
@@ -33,7 +33,7 @@ export default {
   props: {
     invalidFeedback: {
       type: String,
-      default: 'Поле необходимо заполнить',
+      default: null,
     },
     label: {
       type: String,

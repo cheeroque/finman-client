@@ -1,6 +1,6 @@
 <template>
   <PageWrapper :widgets="['Chart', 'Categories']">
-    <PageHeader> Календарь </PageHeader>
+    <PageHeader> {{ $t('calendar') }} </PageHeader>
     <MonthCalendar
       :start-date="firstRecord && firstRecord.created_at"
       class="mb-12"

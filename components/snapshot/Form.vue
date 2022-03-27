@@ -1,7 +1,7 @@
 <template>
   <ValidationObserver v-slot="{ handleSubmit }" slim>
     <form @submit.prevent="handleSubmit(submit)">
-      <FormGroup label="Предыдущий баланс">
+      <FormGroup :label="$t('snapshot.form.balancePrevious.label')">
         <FormInput :value="form.balance_previous" disabled />
       </FormGroup>
       <ValidationProvider
@@ -11,8 +11,8 @@
         slim
       >
         <FormGroup
+          :label="$t('snapshot.form.balanceCurrent.label')"
           :state="valid || !validated ? null : false"
-          label="Текущий баланс"
         >
           <InputGroup append="₽">
             <FormInputCalc
@@ -30,29 +30,34 @@
           slim
         >
           <FormGroup
+            :label="$t('snapshot.form.dateAndTime.label')"
             :state="valid || !validated ? null : false"
-            label="Дата и время"
             class="mb-0"
           >
             <FormInputDate
               v-model="form.created_at"
+              :placeholder="$t('snapshot.form.dateAndTime.placeholder')"
               :state="valid || !validated ? null : false"
-              placeholder="Выберите дату"
             />
           </FormGroup>
         </ValidationProvider>
         <button type="button" class="btn form-button" @click="setNow">
-          Сейчас
+          {{ $t('snapshot.form.now') }}
         </button>
       </div>
-      <FormGroup label="Примечание">
-        <FormInput v-model="form.note" placeholder="Введите примечание" />
+      <FormGroup :label="$t('snapshot.form.note.label')">
+        <FormInput
+          v-model="form.note"
+          :placeholder="$t('snapshot.form.note.placeholder')"
+        />
       </FormGroup>
       <div class="d-flex">
         <button type="button" class="btn ms-auto" @click="$emit('close')">
-          Отменить
+          {{ $t('cancel') }}
         </button>
-        <button type="submit" class="btn btn-secondary ms-8">Сохранить</button>
+        <button type="submit" class="btn btn-secondary ms-8">
+          {{ $t('save') }}
+        </button>
       </div>
     </form>
   </ValidationObserver>
@@ -102,7 +107,7 @@ export default {
     async submit() {
       try {
         await this.$store.dispatch('storeShapshot', this.form)
-        this.$infoToast('Снапшот создан', 'Успех')
+        this.$infoToast(this.$t('snapshot.created'), this.$t('success'))
         await this.$store.dispatch('fetchLatestShapshot')
         this.$emit('close')
       } catch (error) {

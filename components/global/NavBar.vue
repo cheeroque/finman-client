@@ -46,22 +46,22 @@ export default {
         {
           action: 'drawer-show',
           icon: 'menu-24',
-          text: 'Меню',
+          text: this.$t('menu'),
         },
         {
           icon: 'home-24',
           show: null,
-          text: 'Главная',
+          text: this.$t('home'),
         },
         {
           icon: 'cart-24',
           show: 'expense',
-          text: 'Расходы',
+          text: this.$t('expenses'),
         },
         {
           icon: 'card-24',
           show: 'income',
-          text: 'Доходы',
+          text: this.$t('incomes'),
         },
       ],
     }

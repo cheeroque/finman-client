@@ -1,6 +1,6 @@
 <template>
   <div class="card record-card-empty">
-    <p class="record-note">Нет&nbsp;данных для&nbsp;отображения.</p>
+    <p class="record-note">{{ $t('nothingToDisplay') }}</p>
   </div>
 </template>
 

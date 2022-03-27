@@ -1,4 +1,4 @@
-export default ({ store }, inject) => {
+export default ({ i18n, store }, inject) => {
   inject('errorToast', (error, msg) => {
     let message
     if (msg) {
@@ -6,11 +6,11 @@ export default ({ store }, inject) => {
     } else if (error?.response?.statusText) {
       message = `${error?.response?.status}: ${error?.response?.statusText}`
     } else {
-      message = 'Ошибка подключения'
+      message = i18n.t('connectionError')
     }
     store.dispatch('toast/showToast', {
       message,
-      title: 'Ошибка',
+      title: i18n.t('error.error'),
       variant: 'danger',
     })
   })

@@ -10,7 +10,7 @@
         >
           <FormGroup
             :state="valid || !validated ? null : false"
-            label="Категория"
+            :label="$t('category.category')"
           >
             <FormSelect
               v-model="form.category_id"
@@ -25,7 +25,10 @@
           rules="required"
           slim
         >
-          <FormGroup :state="valid || !validated ? null : false" label="Сумма">
+          <FormGroup
+            :label="$t('record.form.sum.label')"
+            :state="valid || !validated ? null : false"
+          >
             <InputGroup append="₽">
               <FormInputCalc
                 v-model="form.sum"
@@ -41,13 +44,13 @@
           slim
         >
           <FormGroup
+            :label="$t('record.form.note.label')"
             :state="valid || !validated ? null : false"
-            label="Комментарий"
           >
             <FormInput
               v-model="form.note"
+              :placeholder="$t('record.form.note.placeholder')"
               :state="valid || !validated ? null : false"
-              placeholder="Введите комментарий"
             />
           </FormGroup>
         </ValidationProvider>
@@ -59,19 +62,19 @@
             slim
           >
             <FormGroup
+              :label="$t('record.form.dateAndTime.label')"
               :state="valid || !validated ? null : false"
-              label="Дата и время"
               class="mb-0"
             >
               <FormInputDate
                 v-model="form.created_at"
+                :placeholder="$t('record.form.dateAndTime.placeholder')"
                 :state="valid || !validated ? null : false"
-                placeholder="Выберите дату"
               />
             </FormGroup>
           </ValidationProvider>
           <button type="button" class="btn form-button" @click="setNow">
-            Сейчас
+            {{ $t('record.form.now') }}
           </button>
         </div>
         <div class="d-flex">
@@ -81,7 +84,7 @@
             class="btn btn-danger ms-auto"
             @click="deleteRecord"
           >
-            Удалить
+            {{ $t('delete') }}
           </button>
           <button
             v-else
@@ -89,7 +92,7 @@
             class="btn ms-auto"
             @click="$emit('close')"
           >
-            Отменить
+            {{ $t('cancel') }}
           </button>
           <button type="submit" class="btn btn-secondary ms-8">
             {{ actionTitle }}
@@ -128,11 +131,15 @@ export default {
   computed: {
     ...mapGetters(['categories']),
     actionTitle() {
-      return this.isEdit ? 'Обновить' : 'Сохранить'
+      return this.$t(this.isEdit ? 'update' : 'save')
     },
     categoryOptions() {
       const options = [
-        { value: null, text: 'Категория не выбрана', disabled: true },
+        {
+          value: null,
+          text: this.$t('category.categoryNotSelected'),
+          disabled: true,
+        },
       ]
       this.categories?.forEach(({ id, name }) =>
         options.push({ value: id, text: name })
@@ -171,9 +178,9 @@ export default {
       try {
         await this.$store.dispatch(action, this.form)
         const message = this.isEdit
-          ? `Запись «${this.form.note}» обновлена`
-          : 'Запись создана'
-        this.$infoToast(message, 'Успех')
+          ? this.$t('record.updated').replace('%s', this.form.note)
+          : this.$t('record.created')
+        this.$infoToast(message, this.$t('success'))
         await this.$store.dispatch('fetchRecords', this.$route.query)
         this.$emit('close')
       } catch (error) {
@@ -184,6 +191,8 @@ export default {
       try {
         await this.$store.dispatch('deleteRecord', this.recordId)
         await this.$store.dispatch('fetchRecords', this.$route.query)
+        const message = this.$t('record.deleted').replace('%s', this.form.note)
+        this.$infoToast(message, this.$t('success'))
         this.$emit('close')
       } catch (error) {
         this.$errorToast(error)

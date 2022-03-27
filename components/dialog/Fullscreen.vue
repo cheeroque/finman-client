@@ -8,8 +8,8 @@
         <slot></slot>
       </div>
       <button
-        title="Отменить"
-        aria-label="Отменить"
+        :title="$t('cancel')"
+        :aria-label="$t('cancel')"
         class="btn btn-dialog-close"
         @click="$emit('close')"
       >

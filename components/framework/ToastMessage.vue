@@ -9,8 +9,8 @@
         <div class="toast-header">
           <p class="h6 toast-title">{{ title }}</p>
           <button
-            title="Закрыть"
-            aria-label="Закрыть"
+            :title="$t('close')"
+            :aria-label="$t('close')"
             class="btn btn-close"
             @click="hideToast"
           >

@@ -22,10 +22,10 @@
       {{ record.note }}
       <button class="btn record-note-edit" @click="editRecord">
         <svg-icon
+          :aria-label="$t('edit')"
           name="edit-24"
           width="24"
           height="24"
-          aria-label="Редактировать"
         />
       </button>
     </p>
@@ -74,7 +74,7 @@ export default {
       this.$dialogFullscreen(
         'RecordForm',
         { recordId: this.record.id },
-        { title: 'Изменить запись' }
+        { title: this.$t('record.edit') }
       )
     },
   },

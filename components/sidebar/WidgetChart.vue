@@ -1,7 +1,7 @@
 <template>
   <div class="card card-widget">
     <div class="card-header">
-      <h5 class="card-title">В&nbsp;этом месяце</h5>
+      <h5 class="card-title">{{ $t('thisMonth') }}</h5>
     </div>
     <SvgChartHorizontal
       :border-radius="4"

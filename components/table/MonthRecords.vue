@@ -47,14 +47,14 @@ export default {
       tableFields: [
         {
           key: 'category_id',
-          label: 'Категория',
+          label: this.$t('category.category'),
           thClass: 'cell-category',
           tdClass: 'cell-category',
           formatter: this.getCategoryName,
         },
         {
           key: 'sum',
-          label: 'Сумма',
+          label: this.$t('sum'),
           thClass: 'cell-sum',
           tdClass: 'cell-sum',
           isDetailsToggle: true,

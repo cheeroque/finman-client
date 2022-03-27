@@ -1,1 +1,150 @@
-{}
+{
+  "actions": "Actions",
+  "allRecords": "All records",
+  "apply": "Apply",
+  "auth": {
+    "error": "Incorrect username or password",
+    "form": {
+      "enter": "Enter",
+      "name": {
+        "label": "Username",
+        "placeholder": "Enter username"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter password"
+      }
+    }
+  },
+  "calendar": "Calendar",
+  "cancel": "Cancel",
+  "category": {
+    "add": "Add category",
+    "categories": "Categories",
+    "category": "Category",
+    "categoryNotSelected": "Category not selected",
+    "create": "Create category",
+    "created": "Category created",
+    "deleted": "Deleted category “%s”",
+    "edit": "Edit category",
+    "form": {
+      "color": {
+        "label": "Color",
+        "placeholder": "Choose color"
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Enter name"
+      },
+      "slug": {
+        "label": "Slug",
+        "placeholder": "Enter slug"
+      }
+    },
+    "updated": "Updated category “%s”"
+  },
+  "close": "Close",
+  "connectionError": "Connection error",
+  "date": "Date",
+  "dateAndTime": "Date and time",
+  "delete": "Delete",
+  "edit": "Edit",
+  "error": {
+    "401": "Unauthorized",
+    "404": "Not found",
+    "502": "Server error",
+    "backToHome": "Back to home page",
+    "default": "Undefined error",
+    "error": "Error"
+  },
+  "expenses": "Expenses",
+  "expensesOnly": "Expenses",
+  "exportData": "Export data",
+  "fieldRequired": "Field is required",
+  "home": "Home",
+  "income": "Income",
+  "incomes": "Incomes",
+  "incomesOnly": "Incomes",
+  "login": "Sign in",
+  "logout": "Sign out",
+  "menu": "Menu",
+  "menuCollapse": "Collapse menu",
+  "menuExpand": "Expand menu",
+  "month": {
+    "apr": "April",
+    "aug": "August",
+    "dec": "December",
+    "feb": "February",
+    "jan": "January",
+    "jul": "July",
+    "jun": "June",
+    "mar": "March",
+    "may": "May",
+    "next": "Next month",
+    "nov": "November",
+    "oct": "October",
+    "previous": "Next month",
+    "sep": "September"
+  },
+  "note": "Note",
+  "nothingToDisplay": "Nothing to display.",
+  "other": "Other",
+  "pages": "Pages",
+  "pagination": {
+    "goToFirst": "Go to first",
+    "goToLast": "Go to last",
+    "goToPage": "Go to page"
+  },
+  "record": {
+    "add": "Add record",
+    "create": "Create record",
+    "created": "Record created",
+    "deleted": "Deleted record “%s”",
+    "edit": "Edit record",
+    "form": {
+      "dateAndTime": {
+        "label": "Date and time",
+        "placeholder": "Select date and time"
+      },
+      "note": {
+        "label": "Note",
+        "placeholder": "Enter note"
+      },
+      "now": "Now",
+      "sum": {
+        "label": "Sum"
+      }
+    },
+    "updated": "Updated record “%s”"
+  },
+  "recordsFound": "%s records found",
+  "save": "Save",
+  "search": "Search",
+  "searchRecords": "Search records",
+  "snapshot": {
+    "created": "Snapshot created",
+    "form": {
+      "balanceCurrent": {
+        "label": "Current balance"
+      },
+      "balancePrevious": {
+        "label": "Previous balance"
+      },
+      "dateAndTime": {
+        "label": "Date and time",
+        "placeholder": "Select date"
+      },
+      "now": "Now",
+      "note": {
+        "label": "Note",
+        "placeholder": "Enter note"
+      }
+    },
+    "new": "New snapshot"
+  },
+  "success": "Success",
+  "sum": "Sum",
+  "thisMonth": "This month",
+  "update": "Update",
+  "users": "Users"
+}

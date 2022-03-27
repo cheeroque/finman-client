@@ -10,8 +10,8 @@
           <li role="presentation" class="nav-toggle">
             <button
               class="nav-item"
-              :title="drawerExpanded ? 'Свернуть' : 'Развернуть'"
-              :aria-label="drawerExpanded ? 'Свернуть' : 'Развернуть'"
+              :title="$t(drawerExpanded ? 'menuCollapse' : 'menuExpand')"
+              :aria-label="$t(drawerExpanded ? 'menuCollapse' : 'menuExpand')"
               @click="drawerExpanded = !drawerExpanded"
             >
               <svg-icon
@@ -23,7 +23,7 @@
             </button>
           </li>
           <li role="presentation">
-            <p class="nav-item-header h5">Страницы</p>
+            <p class="nav-item-header h5">{{ $t('pages') }}</p>
           </li>
           <li
             v-for="(item, index) in drawerLinks"
@@ -39,7 +39,7 @@
             <hr class="nav-item-divider" />
           </li>
           <li role="presentation">
-            <p class="nav-item-header h5">Действия</p>
+            <p class="nav-item-header h5">{{ $t('actions') }}</p>
           </li>
           <li
             v-for="(item, index) in drawerActions"
@@ -89,34 +89,34 @@ export default {
         {
           action: this.downloadFile,
           icon: 'export-24',
-          text: 'Экспорт данных',
+          text: this.$t('exportData'),
         },
       ],
       drawerLogout: {
         action: this.logout,
         icon: 'logout-24',
-        text: 'Выйти',
+        text: this.$t('logout'),
       },
       drawerLinks: [
         {
           icon: 'home-24',
           link: '/',
-          text: 'Главная',
+          text: this.$t('home'),
         },
         {
           icon: 'categories-24',
           link: '/categories',
-          text: 'Категории',
+          text: this.$t('category.categories'),
         },
         {
           icon: 'calendar-24',
           link: '/months',
-          text: 'Календарь',
+          text: this.$t('calendar'),
         },
         {
           icon: 'user-24',
           link: '/users',
-          text: 'Пользователи',
+          text: this.$t('users'),
         },
       ],
       drawerExpanded: false,

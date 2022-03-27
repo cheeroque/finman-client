@@ -50,6 +50,7 @@ export default {
       const chart = new SvgChart(this.$refs.wrapper, this.items, {
         borderRadius: this.borderRadius,
         combineThreshold: this.combineThreshold,
+        combinedLabel: this.$t('other'),
       })
       chart.draw()
     },

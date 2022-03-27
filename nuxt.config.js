@@ -6,10 +6,10 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'finman-client',
-    htmlAttrs: {
-      lang: 'ru',
-    },
+    title: 'Finance Manager',
+    // htmlAttrs: {
+    //   lang: 'ru',
+    // },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -77,7 +77,12 @@ export default {
 
   i18n: {
     locales: ['en', 'ru'],
-    defaultLocale: 'ru',
+    defaultLocale: 'en',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      redirectOn: 'root',
+    },
     vueI18n: '~/config/i18n.js',
     vueI18nLoader: true,
   },
