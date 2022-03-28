@@ -2,7 +2,7 @@
   <transition :name="isFullscreen ? 'dialog' : 'dialog-modal'" duration="200">
     <component
       :is="isFullscreen ? 'DialogFullscreen' : 'DialogModal'"
-      v-show="dialogVisible"
+      v-if="dialogVisible"
       :visible="dialogVisible"
       v-bind="dialogProps"
       @close="hideDialog"
