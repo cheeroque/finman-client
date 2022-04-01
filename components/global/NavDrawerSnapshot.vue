@@ -1,5 +1,5 @@
 <template>
-  <button class="nav-item" @click="showDialog">
+  <button :title="snapshotText" class="nav-item" @click="showDialog">
     <svg-icon name="datetime-24" width="24" height="24" aria-hidden="true" />
     <slot>{{ snapshotText }}</slot>
   </button>

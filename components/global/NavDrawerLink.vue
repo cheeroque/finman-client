@@ -1,5 +1,10 @@
 <template>
-  <nuxt-link :to="item.link" :class="{ active: active }" class="nav-item">
+  <nuxt-link
+    :to="item.link"
+    :title="item.text"
+    :class="{ active: active }"
+    class="nav-item"
+  >
     <svg-icon :name="item.icon" width="24" height="24" aria-hidden="true" />
     {{ item.text }}
   </nuxt-link>
