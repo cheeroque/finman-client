@@ -182,6 +182,7 @@ export default {
           : this.$t('record.created')
         this.$infoToast(message, this.$t('success'))
         await this.$store.dispatch('fetchRecords', this.$route.query)
+        await this.$store.dispatch('fetchCurrentMonthRecords')
         this.$emit('close')
       } catch (error) {
         this.$errorToast(error)
@@ -191,6 +192,7 @@ export default {
       try {
         await this.$store.dispatch('deleteRecord', this.recordId)
         await this.$store.dispatch('fetchRecords', this.$route.query)
+        await this.$store.dispatch('fetchCurrentMonthRecords')
         const message = this.$t('record.deleted').replace('%s', this.form.note)
         this.$infoToast(message, this.$t('success'))
         this.$emit('close')
