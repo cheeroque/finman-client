@@ -7,7 +7,11 @@
         class="drawer"
       >
         <ul class="nav drawer-nav">
-          <li role="presentation" class="nav-toggle">
+          <NavDrawerToggle
+            :expanded="drawerExpanded"
+            @toggle="drawerExpanded = !drawerExpanded"
+          />
+          <!-- <li role="presentation" class="nav-toggle">
             <button
               class="nav-item"
               :title="$t(drawerExpanded ? 'menuCollapse' : 'menuExpand')"
@@ -21,7 +25,7 @@
                 aria-hidden="true"
               />
             </button>
-          </li>
+          </li> -->
           <li role="presentation">
             <p class="nav-item-header h5">{{ $t('pages') }}</p>
           </li>
