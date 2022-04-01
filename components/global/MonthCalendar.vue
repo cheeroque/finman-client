@@ -9,7 +9,7 @@
         @click="setPrevYear"
       >
         <svg-icon
-          name="chevron-left-24"
+          name="chevron-double-left-24"
           width="24"
           height="24"
           aria-hidden="true"
@@ -26,7 +26,7 @@
         @click="setNextYear"
       >
         <svg-icon
-          name="chevron-right-24"
+          name="chevron-double-right-24"
           width="24"
           height="24"
           aria-hidden="true"
