@@ -4,10 +4,14 @@
       <h5 class="card-title">{{ $t('thisMonth') }}</h5>
     </div>
     <SvgChartHorizontal
+      v-if="chartData && chartData.length"
       :border-radius="4"
       :combine-threshold="0.05"
       :items="chartData"
     />
+    <p v-else class="widget-empty">
+      {{ $t('nothingToDisplay') }}
+    </p>
   </div>
 </template>
 
@@ -43,3 +47,12 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.widget-empty {
+  margin-bottom: 0;
+  font-size: 0.875rem;
+  text-align: center;
+  color: $card-color-muted;
+}
+</style>
