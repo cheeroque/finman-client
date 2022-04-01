@@ -11,56 +11,28 @@
             :expanded="drawerExpanded"
             @toggle="drawerExpanded = !drawerExpanded"
           />
-          <!-- <li role="presentation" class="nav-toggle">
-            <button
-              class="nav-item"
-              :title="$t(drawerExpanded ? 'menuCollapse' : 'menuExpand')"
-              :aria-label="$t(drawerExpanded ? 'menuCollapse' : 'menuExpand')"
-              @click="drawerExpanded = !drawerExpanded"
-            >
-              <svg-icon
-                name="menu-24"
-                width="24"
-                height="24"
-                aria-hidden="true"
-              />
-            </button>
-          </li> -->
-          <li role="presentation">
-            <p class="nav-item-header h5">{{ $t('pages') }}</p>
-          </li>
-          <li
+          <NavDrawerHeader title="pages" />
+          <NavDrawerLink
             v-for="(item, index) in drawerLinks"
             :key="`nav-item-${index}`"
-            role="presentation"
-          >
-            <NavDrawerLink
-              :active="isRouteActive([item.link], $route.path)"
-              :item="item"
-            />
-          </li>
-          <li role="presentation">
-            <hr class="nav-item-divider" />
-          </li>
-          <li role="presentation">
-            <p class="nav-item-header h5">{{ $t('actions') }}</p>
-          </li>
-          <li
+            :active="isRouteActive([item.link], $route.path)"
+            :item="item"
+          />
+
+          <NavDrawerDivider />
+
+          <NavDrawerHeader title="actions" />
+          <NavDrawerAction
             v-for="(item, index) in drawerActions"
             :key="`nav-item-action-${index}`"
-            role="presentation"
-          >
-            <NavDrawerAction :item="item" @click="item.action" />
-          </li>
-          <li role="presentation">
-            <NavDrawerSnapshot />
-          </li>
-          <li role="presentation">
-            <hr class="nav-item-divider" />
-          </li>
-          <li role="presentation">
-            <NavDrawerAction :item="drawerLogout" @click="logout" />
-          </li>
+            :item="item"
+            @click="item.action"
+          />
+          <NavDrawerSnapshot />
+
+          <NavDrawerDivider />
+
+          <NavDrawerAction :item="drawerLogout" @click="logout" />
         </ul>
 
         <SearchForm class="sidebar-search" />
@@ -184,17 +156,6 @@ export default {
     display: none;
   }
 
-  .nav-item-header {
-    margin-bottom: 0;
-    padding: $drawer-item-padding-y $drawer-item-padding-x;
-    font-weight: $font-weight-medium;
-  }
-
-  .nav-item-divider {
-    width: auto;
-    margin: ($drawer-item-padding-y * 0.5) $drawer-item-padding-x;
-  }
-
   ::v-deep {
     .sidebar-search {
       margin: auto 1rem 1rem;
@@ -277,16 +238,6 @@ export default {
 
     .nav-toggle {
       display: flex;
-    }
-
-    .nav-item-header {
-      display: none;
-    }
-
-    .nav-item-divider {
-      margin-left: 0;
-      margin-right: 0;
-      margin-top: 0;
     }
 
     ::v-deep {
