@@ -4,8 +4,8 @@
     :style="{
       color: getContrastColor(
         category.color,
-        'var(--on-background)',
-        'var(--background)'
+        'var(--text-dark)',
+        'var(--text-light)'
       ),
       backgroundColor: category.color,
     }"
@@ -50,6 +50,8 @@ export default {
 
 <style lang="scss" scoped>
 .category-card-simple {
+  --text-dark: #{$black};
+  --text-light: #{$white};
   font-size: $font-size-base * 0.75;
 
   p {
