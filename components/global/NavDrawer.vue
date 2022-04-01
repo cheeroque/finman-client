@@ -113,11 +113,11 @@ export default {
           link: '/months',
           text: this.$t('calendar'),
         },
-        {
-          icon: 'user-24',
-          link: '/users',
-          text: this.$t('users'),
-        },
+        // {
+        //   icon: 'user-24',
+        //   link: '/users',
+        //   text: this.$t('users'),
+        // },
       ],
       drawerExpanded: false,
       loading: false,
