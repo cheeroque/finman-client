@@ -19,7 +19,7 @@
         </button>
         <nuxt-link
           v-else
-          :class="{ active: item.show === queryShow }"
+          :class="{ active: isRouteActive(item.show) }"
           :to="item.show ? `/?show=${item.show}` : '/'"
           class="nav-item"
         >
@@ -69,6 +69,13 @@ export default {
   computed: {
     queryShow() {
       return this.$route.query.show || null
+    },
+  },
+  methods: {
+    isRouteActive(show) {
+      return show
+        ? this.queryShow === show
+        : this.$route.path === '/' && this.queryShow === show
     },
   },
 }
