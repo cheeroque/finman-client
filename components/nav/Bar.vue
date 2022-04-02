@@ -116,7 +116,17 @@ export default {
       transition-property: color, background-color;
     }
 
+    &:focus {
+      color: var(--secondary);
+
+      .nav-item-icon {
+        color: var(--secondary);
+      }
+    }
+
     &.active {
+      color: $navbar-active-color;
+
       .nav-item-icon {
         color: $navbar-active-color;
         background-color: $navbar-active-bg;

@@ -73,6 +73,12 @@ export default {
     border-radius: 99rem;
     background-color: var(--on-primary-container);
     background-color: var(--primary-container);
+
+    &:not(:disabled):not(.disabled):focus,
+    &:not(:disabled):not(.disabled):hover {
+      color: var(--on-primary);
+      background-color: var(--primary);
+    }
   }
 }
 

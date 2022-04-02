@@ -24,6 +24,12 @@
     opacity: 0.5;
     cursor: default;
   }
+
+  &:not(:disabled):not(.disabled):focus,
+  &:not(:disabled):not(.disabled):hover {
+    color: var(--on-primary-container);
+    background-color: var(--primary-container);
+  }
 }
 
 .btn-link {
@@ -38,6 +44,11 @@
   background: none;
   appearance: none;
   cursor: pointer;
+
+  &:focus,
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .btn-block {
@@ -48,14 +59,32 @@
 .btn-danger {
   color: var(--on-danger-container) !important;
   background-color: var(--danger-container) !important;
+
+  &:not(:disabled):not(.disabled):focus,
+  &:not(:disabled):not(.disabled):hover {
+    color: var(--on-danger) !important;
+    background-color: var(--danger) !important;
+  }
 }
 
 .btn-primary {
   color: var(--on-primary-container) !important;
   background-color: var(--primary-container) !important;
+
+  &:not(:disabled):not(.disabled):focus,
+  &:not(:disabled):not(.disabled):hover {
+    color: var(--on-primary) !important;
+    background-color: var(--primary) !important;
+  }
 }
 
 .btn-secondary {
   color: var(--on-secondary-container) !important;
   background-color: var(--secondary-container) !important;
+
+  &:not(:disabled):not(.disabled):focus,
+  &:not(:disabled):not(.disabled):hover {
+    color: var(--on-secondary) !important;
+    background-color: var(--secondary) !important;
+  }
 }

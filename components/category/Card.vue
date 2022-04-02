@@ -113,6 +113,13 @@ export default {
     border: none;
     appearance: none;
     cursor: pointer;
+    transition: $transition;
+    transition-property: box-shadow;
+
+    &:not(:disabled):not(.disabled):focus,
+    &:not(:disabled):not(.disabled):hover {
+      box-shadow: 0 0 0 0.125rem var(--secondary-container);
+    }
   }
 }
 </style>

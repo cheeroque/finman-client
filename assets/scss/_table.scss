@@ -130,6 +130,12 @@
   .caret {
     margin-left: auto;
   }
+
+  &:not(:disabled):not(.disabled):focus,
+  &:not(:disabled):not(.disabled):hover {
+    color: var(--secondary);
+    background-color: transparent;
+  }
 }
 
 @include media-min-width('md') {

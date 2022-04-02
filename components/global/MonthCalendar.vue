@@ -218,12 +218,13 @@ export default {
     left: 0;
     border-radius: 0.25rem;
 
-    &:not(.disabled) {
+    &:not(:disabled):not(.disabled) {
       color: var(--on-surface);
       background-color: var(--surface);
       transition: $transition;
       transition-property: color, background-color;
 
+      &:focus,
       &:hover {
         text-decoration: none;
         color: var(--on-surface-variant);

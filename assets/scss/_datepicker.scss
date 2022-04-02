@@ -51,6 +51,7 @@
     margin-left: auto;
     padding: 0;
     border: none;
+    border-radius: 99rem;
   }
 }
 
@@ -73,6 +74,14 @@
     color: $dialog-button-color;
     border-color: $dialog-button-bg;
     background-color: $dialog-button-bg;
+    transition: $transition;
+    transition-property: color, background-color;
+
+    &:not(:disabled):not(.disabled):focus,
+    &:not(:disabled):not(.disabled):hover {
+      color: $dialog-button-active-color;
+      background-color: $dialog-button-active-bg;
+    }
   }
 }
 

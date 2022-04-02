@@ -137,6 +137,9 @@ $dialog-color-accent: var(--primary);
 $dialog-button-bg: var(--primary-container);
 $dialog-button-color: var(--on-primary-container);
 
+$dialog-button-active-bg: var(--primary);
+$dialog-button-active-color: var(--on-primary);
+
 /* Drawer colors */
 
 $drawer-bg: var(--secondary-container);
@@ -157,6 +160,9 @@ $fab-active-color: var(--on-tertiary-container);
 
 $form-button-bg: var(--primary-container);
 $form-button-color: var(--on-primary-container);
+
+$form-button-active-bg: var(--primary);
+$form-button-active-color: var(--on-primary);
 
 $form-control-bg: var(--surface);
 $form-control-color: var(--on-surface);

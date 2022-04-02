@@ -124,6 +124,15 @@ export default {
       }
     }
   }
+
+  &:focus-within {
+    color: var(--on-secondary-container);
+    background-color: var(--secondary-container);
+
+    .card-text-accent {
+      color: var(--secondary);
+    }
+  }
 }
 
 .show-all {
@@ -134,6 +143,15 @@ export default {
     .card-text-muted,
     .card-text-accent {
       color: $success;
+    }
+
+    &:focus-within {
+      color: var(--on-secondary-container);
+      background-color: var(--secondary-container);
+
+      .card-text-accent {
+        color: var(--secondary);
+      }
     }
   }
 }

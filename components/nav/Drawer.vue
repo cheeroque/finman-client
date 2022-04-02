@@ -190,6 +190,7 @@ export default {
         margin-right: $drawer-item-icon-spacing;
       }
 
+      &:focus,
       &:hover {
         color: $drawer-active-bg;
       }
