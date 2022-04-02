@@ -9,6 +9,7 @@
 .app-wrapper {
   display: flex;
   flex-direction: column;
+  padding: $grid-gap ($grid-gap * 0.5);
 }
 
 @include media-min-width('lg') {
