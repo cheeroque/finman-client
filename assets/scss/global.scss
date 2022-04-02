@@ -18,3 +18,8 @@ hr {
   border-style: solid;
   border-color: var(--outline);
 }
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
