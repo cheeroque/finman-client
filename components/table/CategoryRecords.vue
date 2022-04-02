@@ -43,7 +43,7 @@ export default {
           label: this.$t('date'),
           thClass: 'cell-date',
           tdClass: 'cell-date',
-          formatter: (value) => this.formatPeriod(value, this.$i18n.locale),
+          formatter: (value) => this.formatPeriod(value, this.$i18n.locale, 4),
         },
         {
           key: 'sum',

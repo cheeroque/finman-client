@@ -108,6 +108,10 @@ export default {
   }
 
   .row-details {
+    .cell-date {
+      width: 35%;
+    }
+
     .cell-sum {
       width: 25%;
     }

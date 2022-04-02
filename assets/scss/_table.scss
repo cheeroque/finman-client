@@ -6,6 +6,7 @@
   border-collapse: collapse;
   color: $table-color;
   background-color: $table-bg;
+  table-layout: fixed;
 
   th,
   td {
