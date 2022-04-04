@@ -164,6 +164,7 @@ export default {
           padding: 0;
           border: none;
           color: var(--primary-container);
+          background-color: transparent;
           appearance: none;
         }
 
