@@ -311,6 +311,18 @@
     }
   }
 
+  &.form-group-disabled {
+    .form-group-label {
+      color: var(--on-disabled-container);
+    }
+
+    .input-group {
+      .input-group-append {
+        color: var(--on-disabled-container);
+      }
+    }
+  }
+
   &.form-group-invalid {
     .form-group-label {
       color: $danger;

@@ -2,7 +2,9 @@
   <ValidationObserver v-slot="{ handleSubmit }" slim>
     <form @submit.prevent="handleSubmit(submit)">
       <FormGroup :label="$t('snapshot.form.balancePrevious.label')">
-        <FormInput :value="form.balance_previous" disabled />
+        <InputGroup append="₽">
+          <FormInput :value="form.balance_previous" disabled />
+        </InputGroup>
       </FormGroup>
       <ValidationProvider
         v-slot="{ valid, validated }"

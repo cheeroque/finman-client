@@ -3,8 +3,9 @@
     :is="isSimpleGroup ? 'div' : 'fieldset'"
     ref="group"
     :class="{
-      'form-group-no-label': !label,
+      'form-group-disabled': isDisabled,
       'form-group-invalid': state === false,
+      'form-group-no-label': !label,
       'form-group-valid': state === true,
     }"
     :role="isSimpleGroup ? 'group' : null"
@@ -46,6 +47,7 @@ export default {
   },
   data() {
     return {
+      isDisabled: false,
       isSimpleGroup: true,
     }
   },
@@ -64,6 +66,7 @@ export default {
       )
       if (controls && controls.length === 1) {
         controls[0].setAttribute('id', this.controlId)
+        this.isDisabled = Boolean(controls[0].getAttribute('disabled'))
       } else {
         this.isSimpleGroup = false
       }
