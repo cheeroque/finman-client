@@ -52,6 +52,7 @@ export default {
 .category-card-simple {
   --text-dark: #{$black};
   --text-light: #{$white};
+
   font-size: $font-size-base * 0.75;
 
   p {
