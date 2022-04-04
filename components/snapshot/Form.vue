@@ -117,9 +117,11 @@ export default {
       }
     },
     onDialogShown() {
-      this.form.balance_previous = this.snapshot.balance
+      this.form.balance_previous = this.snapshot.balance || 0
       this.form.balance = this.total
-      this.form.created_at = new Date(this.snapshot.created_at)
+      this.form.created_at = this.snapshot.created_at
+        ? new Date(this.snapshot.created_at)
+        : new Date()
       this.form.id = this.snapshot.id
       this.form.note = this.snapshot.note
     },
