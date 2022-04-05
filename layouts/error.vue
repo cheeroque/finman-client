@@ -3,7 +3,7 @@
     <h1 class="error-title">{{ $t('error.error') }} {{ error.statusCode }}</h1>
     <p class="error-message">{{ errorMessage }}</p>
     <p class="error-link">
-      <nuxt-link to="/"> {{ $t('error.backToHome') }} </nuxt-link>
+      <a href="#" @click.prevent="goToHome"> {{ $t('error.backToHome') }} </a>
     </p>
   </main>
 </template>
@@ -31,6 +31,12 @@ export default {
       return this.$te(`error.${this.error?.statusCode}`)
         ? this.$t(`error.${this.error?.statusCode}`)
         : this.$t('error.default')
+    },
+  },
+  methods: {
+    goToHome() {
+      if (this.$route.path !== '/') this.$router.push('/')
+      else window.location.reload()
     },
   },
 }
