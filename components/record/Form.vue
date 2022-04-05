@@ -181,6 +181,7 @@ export default {
           ? this.$t('record.updated').replace('%s', this.form.note)
           : this.$t('record.created')
         this.$infoToast(message, this.$t('success'))
+        await this.$store.dispatch('fetchTotal')
         await this.$store.dispatch('fetchRecords', this.$route.query)
         await this.$store.dispatch('fetchCurrentMonthRecords')
         this.$emit('close')
@@ -191,6 +192,7 @@ export default {
     async deleteRecord() {
       try {
         await this.$store.dispatch('deleteRecord', this.recordId)
+        await this.$store.dispatch('fetchTotal')
         await this.$store.dispatch('fetchRecords', this.$route.query)
         await this.$store.dispatch('fetchCurrentMonthRecords')
         const message = this.$t('record.deleted').replace('%s', this.form.note)
