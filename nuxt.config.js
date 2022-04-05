@@ -26,6 +26,7 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
+    link: [{ rel: 'manifest', href: '/manifest.json' }],
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
