@@ -42,6 +42,8 @@ export default {
 <style lang="scss" scoped>
 .dialog-fullscreen {
   .dialog-content {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 0;
     right: 0;
@@ -49,6 +51,7 @@ export default {
     left: 0;
     color: $dialog-color;
     background-color: $dialog-bg;
+    overflow-y: auto;
   }
 
   .dialog-header {
@@ -65,9 +68,8 @@ export default {
   }
 
   .btn-dialog-close {
-    position: absolute;
-    right: $grid-gap * 0.5;
-    bottom: $grid-gap * 0.58;
+    align-self: flex-end;
+    margin: auto $grid-gap * 0.5 $grid-gap auto;
     padding: $btn-padding-y;
     border: none;
     border-radius: 99rem;
