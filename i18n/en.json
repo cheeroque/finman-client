@@ -22,7 +22,7 @@
     "add": "Add category",
     "categories": "Categories",
     "category": "Category",
-    "categoryNotSelected": "Category not selected",
+    "categoryNotSelected": "Choose a category",
     "create": "Create category",
     "created": "Category created",
     "deleted": "Deleted category “%s”",

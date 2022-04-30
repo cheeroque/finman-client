@@ -213,8 +213,11 @@ export default {
       this.$emit('hidden')
     },
     resetForm() {
+      const firstCategory = this.categoryOptions.find(({ value }) =>
+        Boolean(value)
+      )
       this.form = {
-        category_id: null,
+        category_id: firstCategory.value,
         created_at: new Date(),
         note: null,
         sum: 0,
