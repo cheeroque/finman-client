@@ -6,14 +6,35 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Finance Manager',
-    // htmlAttrs: {
-    //   lang: 'ru',
-    // },
+    title: 'Finance Manager 2',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: '' },
+      {
+        hid: 'mobile-web-app-capable',
+        name: 'mobile-web-app-capable',
+        content: 'yes',
+      },
+    ],
+    link: [
+      {
+        rel: 'shortcut icon',
+        hid: 'shortcut-icon',
+        type: 'image/png',
+        href: '/icon-32.png',
+      },
+      {
+        rel: 'apple-touch-icon',
+        hid: 'apple-touch-icon',
+        type: 'image/png',
+        href: '/icon.png',
+      },
+      {
+        rel: 'manifest',
+        hid: 'manifest',
+        href: '/manifest.json',
+      },
     ],
   },
 
@@ -31,11 +52,7 @@ export default {
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    '@nuxtjs/eslint-module',
-    '@nuxtjs/pwa',
-    '@nuxtjs/style-resources',
-  ],
+  buildModules: ['@nuxtjs/eslint-module', '@nuxtjs/style-resources'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -88,18 +105,6 @@ export default {
     },
     vueI18n: '~/config/i18n.js',
     vueI18nLoader: true,
-  },
-
-  pwa: {
-    manifest: {
-      name: 'Finance Manager 2',
-      short_name: 'Finman 2',
-      background_color: '#6750a4',
-      theme_color: '#21005d',
-    },
-    workbox: {
-      enabled: false,
-    },
   },
 
   svgSprite: {
