@@ -4,7 +4,26 @@
     :fields="tableFields"
     :items="tableItems"
     class="table-fixed mb-0"
-  />
+  >
+    <template #tbody-after>
+      <tr role="row" class="row-total row-total-expenses">
+        <td class="cell-category">
+          {{ $t('expensesTotal') }}
+        </td>
+        <td class="cell-sum">
+          {{ formatSumWithCurrency(expensesTotal) }}
+        </td>
+      </tr>
+      <tr v-if="incomesTotal" role="row" class="row-total row-total-incomes">
+        <td class="cell-category">
+          {{ $t('incomesTotal') }}
+        </td>
+        <td class="cell-sum">
+          {{ formatSumWithCurrency(incomesTotal) }}
+        </td>
+      </tr>
+    </template>
+  </DataTable>
 </template>
 
 <script>
@@ -45,46 +64,66 @@ export default {
       ],
       tableFields: [
         {
-          key: 'category_id',
+          key: 'category_name',
           label: this.$t('category.category'),
           thClass: 'cell-category',
           tdClass: 'cell-category',
-          formatter: this.getCategoryName,
         },
         {
           key: 'sum',
           label: this.$t('sum'),
           thClass: 'cell-sum',
           tdClass: 'cell-sum',
+          formatter: this.formatSumWithCurrency,
           isDetailsToggle: true,
         },
       ],
     }
   },
   computed: {
+    expensesTotal() {
+      return this.tableItems
+        .filter(({ is_income }) => !is_income)
+        .reduce((total, cur) => (total += cur.sum), 0)
+    },
+    incomesTotal() {
+      const incomeCategories = this.tableItems.filter(
+        ({ is_income }) => is_income
+      )
+      return incomeCategories?.length > 1
+        ? incomeCategories.reduce((total, cur) => (total += cur.sum), 0)
+        : null
+    },
     tableItems() {
       if (!this.records) return []
-      return Object.keys(this.records).map((key) => {
-        const sum =
-          this.records[key]?.reduce(
-            (total, record) => (total += parseInt(record.sum || 0)),
-            0
-          ) || 0
-        return {
-          category_id: key,
-          children: this.records[key] || [],
-          sum: this.formatSumWithCurrency(sum),
-        }
-      })
+      return Object.keys(this.records)
+        .map((key) => {
+          const category = this.getCategory(key)
+          const sum =
+            this.records[key]?.reduce(
+              (total, record) => (total += parseInt(record.sum || 0)),
+              0
+            ) || 0
+          return {
+            category_name: category?.name,
+            children: this.records[key] || [],
+            is_income: category?.is_income,
+            row_class: category?.is_income ? 'row-incomes' : null,
+            sum,
+          }
+        })
+        .sort((a, b) => b.sum - a.sum)
+        .sort((a, b) => a.is_income - b.is_income)
     },
   },
   methods: {
     formatSum,
-    getCategoryName(categoryId) {
-      const category = this.categories.find(
-        ({ id }) => parseInt(id) === parseInt(categoryId)
+    getCategory(categoryId) {
+      return (
+        this.categories.find(
+          ({ id }) => parseInt(id) === parseInt(categoryId)
+        ) || {}
       )
-      return category && category.name
     },
     formatChildDate(datestring) {
       const date = new Date(datestring)
@@ -119,6 +158,28 @@ export default {
     .cell-note {
       width: 40%;
     }
+  }
+
+  .row-incomes {
+    color: var(--success);
+  }
+
+  .row-total {
+    font-weight: $font-weight-medium;
+
+    .cell-sum {
+      font-weight: inherit;
+    }
+  }
+
+  .row-total-expenses {
+    color: var(--on-danger-container);
+    background-color: var(--danger-container);
+  }
+
+  .row-total-incomes {
+    color: var(--on-success-container);
+    background-color: var(--success-container);
   }
 }
 </style>

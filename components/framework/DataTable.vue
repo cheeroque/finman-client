@@ -19,7 +19,10 @@
         <template v-for="(item, index) in items">
           <tr
             :key="`row-${index}`"
-            :class="{ 'details-open': isDetailsVisible(index) }"
+            :class="[
+              { 'details-open': isDetailsVisible(index) },
+              item.row_class,
+            ]"
             role="row"
           >
             <td
@@ -92,6 +95,9 @@
             {{ $t('nothingToDisplay') }}
           </td>
         </tr>
+      </tbody>
+      <tbody v-if="$slots['tbody-after']">
+        <slot name="tbody-after"></slot>
       </tbody>
     </table>
   </div>
