@@ -15,6 +15,7 @@ export default {
   computed: {
     ...mapGetters(['latestSnapshot']),
     snapshotText() {
+      if (!this.latestSnapshot?.balance) return this.$t('noData')
       const sum = this.formatSum(
         this.latestSnapshot?.balance || 0,
         this.$i18n.locale
