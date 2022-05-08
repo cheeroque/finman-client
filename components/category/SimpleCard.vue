@@ -1,6 +1,6 @@
 <template>
   <nuxt-link
-    :to="`/categories/${category.id}`"
+    :to="localePath(`/categories/${category.id}`)"
     :style="{
       color: getContrastColor(
         category.color,

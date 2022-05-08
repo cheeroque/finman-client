@@ -47,7 +47,7 @@
             >
               <component
                 :is="monthItem.disabled ? 'span' : 'nuxt-link'"
-                :to="`/months/${getPeriod(year, monthItem.month)}`"
+                :to="localePath(`/months/${getPeriod(year, monthItem.month)}`)"
                 :class="{ disabled: monthItem.disabled }"
                 class="calendar-month-content"
               >

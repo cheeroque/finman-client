@@ -1,7 +1,7 @@
 <template>
   <header class="page-header-main">
     <h1 class="mb-0">
-      <nuxt-link to="/">
+      <nuxt-link :to="localePath('/')">
         {{ formatSum(total, $i18n.locale) }}&nbsp;₽
       </nuxt-link>
     </h1>

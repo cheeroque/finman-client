@@ -8,7 +8,7 @@
       >
         <nuxt-link
           :class="{ active: item.show === queryShow }"
-          :to="item.show ? `/?show=${item.show}` : '/'"
+          :to="localePath(item.show ? `/?show=${item.show}` : '/')"
           class="nav-item"
         >
           <span class="nav-item-icon">

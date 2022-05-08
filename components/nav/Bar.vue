@@ -20,7 +20,7 @@
         <nuxt-link
           v-else
           :class="{ active: isRouteActive(item.show) }"
-          :to="item.show ? `/?show=${item.show}` : '/'"
+          :to="localePath(item.show ? `/?show=${item.show}` : '/')"
           class="nav-item"
         >
           <span class="nav-item-icon">

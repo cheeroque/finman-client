@@ -4,7 +4,7 @@
       <li role="presentation">
         <component
           :is="isBeginning ? 'span' : 'nuxt-link'"
-          :to="isBeginning ? null : getPageLink(1)"
+          :to="isBeginning ? null : localePath(getPageLink(1))"
           :class="{ disabled: isBeginning }"
           :aria-label="$t('pagination.goToFirst')"
           class="btn nav-item nav-item-first"
@@ -24,7 +24,7 @@
       >
         <component
           :is="page === currentPage ? 'span' : 'nuxt-link'"
-          :to="page === currentPage ? null : getPageLink(page)"
+          :to="page === currentPage ? null : localePath(getPageLink(page))"
           :class="{ active: page === currentPage }"
           :aria-label="`${$t('pagination.goToPage')} ${page}`"
           class="btn nav-item"
@@ -35,7 +35,7 @@
       <li role="presentation">
         <component
           :is="isEnd ? 'button' : 'nuxt-link'"
-          :to="isEnd ? null : getPageLink(totalPages)"
+          :to="isEnd ? null : localePath(getPageLink(totalPages))"
           :class="{ disabled: isEnd }"
           :disabled="isEnd"
           :aria-label="$t('pagination.goToLast')"

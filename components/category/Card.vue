@@ -1,7 +1,7 @@
 <template>
   <div class="card category-card">
     <p class="h5 category-name">
-      <nuxt-link :to="`/categories/${category.id}`">
+      <nuxt-link :to="localePath(`/categories/${category.id}`)">
         {{ category.name }}
       </nuxt-link>
     </p>

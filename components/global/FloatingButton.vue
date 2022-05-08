@@ -1,7 +1,7 @@
 <template>
   <component
     :is="link ? 'nuxt-link' : 'button'"
-    :to="link"
+    :to="localePath(link)"
     :title="title"
     :aria-label="title"
     :class="{ offscreen: scrolledToBottom }"

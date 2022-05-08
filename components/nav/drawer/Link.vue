@@ -1,7 +1,7 @@
 <template>
   <li role="presentation">
     <nuxt-link
-      :to="item.link"
+      :to="localePath(item.link)"
       :title="item.text"
       :class="{ active: active }"
       class="nav-item"

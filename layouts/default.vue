@@ -1,13 +1,16 @@
 <template>
   <div class="app-wrapper">
     <NavDrawer
-      :key="$i18n.locale"
+      :key="`drawer-${$i18n.locale}`"
       :visible="drawerVisible"
       class="app-drawer"
       @close="setDrawerOpen(false)"
     />
     <Nuxt class="app-content" />
-    <NavBar :key="$i18n.locale" @drawer-show="setDrawerOpen(true)" />
+    <NavBar
+      :key="`navbar-${$i18n.locale}`"
+      @drawer-show="setDrawerOpen(true)"
+    />
     <ToastMessage />
     <DialogWrapper />
   </div>

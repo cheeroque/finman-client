@@ -4,7 +4,7 @@
     class="card record-card"
   >
     <p class="record-date">
-      <nuxt-link :to="monthLink">
+      <nuxt-link :to="localePath(monthLink)">
         {{
           formatDate(record.created_at, $i18n.locale, {
             dateStyle: 'long',
@@ -14,7 +14,7 @@
       </nuxt-link>
     </p>
     <p class="record-category card-text-muted">
-      <nuxt-link :to="`/categories/${record.category_id}`">
+      <nuxt-link :to="localePath(`/categories/${record.category_id}`)">
         {{ record.category && record.category.name }}
       </nuxt-link>
     </p>
