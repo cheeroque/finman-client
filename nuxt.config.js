@@ -99,9 +99,9 @@ export default {
     locales: ['en', 'ru'],
     defaultLocale: 'en',
     detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
+      alwaysRedirect: true,
       redirectOn: 'root',
+      useCookie: true,
     },
     vueI18n: '~/config/i18n.js',
     vueI18nLoader: true,

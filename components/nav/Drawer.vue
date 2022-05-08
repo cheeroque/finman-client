@@ -22,13 +22,13 @@
           <NavDrawerDivider />
 
           <NavDrawerHeader title="actions" />
+          <NavDrawerSnapshot />
           <NavDrawerAction
             v-for="(item, index) in drawerActions"
             :key="`nav-item-action-${index}`"
             :item="item"
             @click="item.action"
           />
-          <NavDrawerSnapshot />
 
           <NavDrawerDivider />
 
@@ -67,6 +67,11 @@ export default {
           icon: 'export-24',
           text: this.$t('exportData'),
         },
+        {
+          action: this.switchLocale,
+          icon: 'language-24',
+          text: this.$t('switchLocale'),
+        },
       ],
       drawerLogout: {
         action: this.logout,
@@ -89,11 +94,6 @@ export default {
           link: '/months',
           text: this.$t('calendar'),
         },
-        // {
-        //   icon: 'user-24',
-        //   link: '/users',
-        //   text: this.$t('users'),
-        // },
       ],
       drawerExpanded: false,
       loading: false,
@@ -122,6 +122,9 @@ export default {
     },
     saveSnapshot() {
       return false
+    },
+    switchLocale() {
+      this.$i18n.setLocale(this.$i18n.locale === 'ru' ? 'en' : 'ru')
     },
   },
 }
