@@ -97,12 +97,8 @@ export default {
 
   i18n: {
     locales: ['en', 'ru'],
-    defaultLocale: 'en',
-    detectBrowserLanguage: {
-      alwaysRedirect: true,
-      redirectOn: 'root',
-      useCookie: true,
-    },
+    defaultLocale: process.env.DEFAULT_LOCALE,
+    detectBrowserLanguage: false,
     vueI18n: '~/config/i18n.js',
     vueI18nLoader: true,
   },
