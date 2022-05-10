@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  name: 'PagesMonthsIndex',
   transition: {
     name: 'page',
     mode: '',

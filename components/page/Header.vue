@@ -39,7 +39,7 @@ export default {
     goBack() {
       if (this.backIsClose) this.$emit('close')
       else if (this.$nuxt.context.from) this.$router.back()
-      else this.$router.push(this.linkBack)
+      else this.$router.push(this.localePath(this.linkBack))
     },
   },
 }

@@ -14,6 +14,7 @@ import { formatPeriod } from '@/utils'
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'PagesMonthsPeriod',
   transition: {
     name: 'page',
     mode: '',

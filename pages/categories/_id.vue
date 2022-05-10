@@ -10,6 +10,7 @@
 
 <script>
 export default {
+  name: 'PagesCategoriesId',
   transition: {
     name: 'page',
     mode: '',
