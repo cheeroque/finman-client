@@ -1,5 +1,4 @@
 export default {
-  ssr: false,
   env: {
     API_URL: process.env.API_URL || 'http://127.0.0.1:8000/api',
     PUBLIC_URL: process.env.PUBLIC_URL || 'http://127.0.0.1:8000',
