@@ -19,6 +19,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'PagesCategoriesIndex',
   transition: {
     name: 'page',
     mode: '',

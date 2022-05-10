@@ -23,6 +23,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  name: 'PagesSearch',
   async asyncData({ query, store, error }) {
     try {
       await store.dispatch('fetchSearchResults', query)
