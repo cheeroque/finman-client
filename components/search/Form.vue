@@ -43,7 +43,7 @@ export default {
         this.query = ''
         return
       }
-      this.$router.push(`/search?q=${trimmedQuery}`)
+      this.$router.push(this.localePath(`/search?q=${trimmedQuery}`))
     },
   },
 }
