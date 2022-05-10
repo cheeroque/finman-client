@@ -22,6 +22,7 @@ export default {
   },
   async asyncData({ params, store, error }) {
     try {
+      await store.dispatch('fetchCategories')
       const records = await store.dispatch('fetchRecordsByPeriod', {
         period: params.period,
       })

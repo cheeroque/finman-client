@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   props: {
@@ -160,6 +160,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['fetchCurrentMonthRecords', 'fetchRecords', 'fetchTotal']),
     async fetchRecord() {
       try {
         this.loading = true
@@ -181,9 +182,7 @@ export default {
           ? this.$t('record.updated').replace('%s', this.form.note)
           : this.$t('record.created')
         this.$infoToast(message, this.$t('success'))
-        await this.$store.dispatch('fetchTotal')
-        await this.$store.dispatch('fetchRecords', this.$route.query)
-        await this.$store.dispatch('fetchCurrentMonthRecords')
+        await this.updateRecordsData()
         this.$emit('close')
       } catch (error) {
         this.$errorToast(error)
@@ -192,9 +191,7 @@ export default {
     async deleteRecord() {
       try {
         await this.$store.dispatch('deleteRecord', this.recordId)
-        await this.$store.dispatch('fetchTotal')
-        await this.$store.dispatch('fetchRecords', this.$route.query)
-        await this.$store.dispatch('fetchCurrentMonthRecords')
+        await this.updateRecordsData()
         const message = this.$t('record.deleted').replace('%s', this.form.note)
         this.$infoToast(message, this.$t('success'))
         this.$emit('close')
@@ -202,10 +199,13 @@ export default {
         this.$errorToast(error)
       }
     },
-    setNow() {
-      this.form.created_at = new Date()
+    async updateRecordsData() {
+      await this.fetchTotal()
+      await this.fetchRecords(this.$route.query)
+      await this.fetchCurrentMonthRecords()
     },
-    onDialogShown() {
+    async onDialogShown() {
+      await this.$store.dispatch('fetchCategories')
       if (this.isEdit) this.fetchRecord()
       else this.resetForm()
     },
@@ -222,6 +222,9 @@ export default {
         note: null,
         sum: 0,
       }
+    },
+    setNow() {
+      this.form.created_at = new Date()
     },
   },
 }

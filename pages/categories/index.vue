@@ -25,6 +25,9 @@ export default {
     mode: '',
     duration: 200,
   },
+  async asyncData({ store }) {
+    await store.dispatch('fetchCategories')
+  },
   computed: {
     ...mapGetters(['categories']),
   },

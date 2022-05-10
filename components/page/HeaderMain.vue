@@ -1,9 +1,12 @@
 <template>
   <header class="page-header-main">
     <h1 class="mb-0">
-      <nuxt-link :to="localePath('/')">
-        {{ formatSum(total, $i18n.locale) }}&nbsp;₽
-      </nuxt-link>
+      <transition name="fade" mode="out-in">
+        <span v-if="$fetchState.pending">&nbsp;</span>
+        <nuxt-link v-else :to="localePath('/')">
+          {{ formatSum(total, $i18n.locale) }}&nbsp;₽
+        </nuxt-link>
+      </transition>
     </h1>
   </header>
 </template>
@@ -13,6 +16,9 @@ import { mapGetters } from 'vuex'
 import { formatSum } from '@/utils'
 
 export default {
+  async fetch() {
+    await this.$store.dispatch('fetchTotal')
+  },
   computed: {
     ...mapGetters(['total']),
   },

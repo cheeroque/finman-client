@@ -1,6 +1,11 @@
 <template>
   <li role="presentation">
-    <button :title="snapshotText" class="nav-item" @click="showDialog">
+    <button
+      :title="snapshotText"
+      :class="{ loading: $fetchState.pending }"
+      class="nav-item"
+      @click="showDialog"
+    >
       <svg-icon name="datetime-24" width="24" height="24" aria-hidden="true" />
       <slot>{{ snapshotText }}</slot>
     </button>
@@ -12,6 +17,9 @@ import { mapGetters } from 'vuex'
 import { formatDate, formatSum } from '@/utils'
 
 export default {
+  async fetch() {
+    await this.$store.dispatch('fetchLatestShapshot')
+  },
   computed: {
     ...mapGetters(['latestSnapshot']),
     snapshotText() {
@@ -40,3 +48,17 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+.nav-item.loading {
+  .icon {
+    animation: 1.5s linear infinite rotate;
+  }
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+</style>

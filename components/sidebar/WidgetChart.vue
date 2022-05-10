@@ -20,6 +20,9 @@ import { mapGetters } from 'vuex'
 import { getContrastColor, formatSum } from '@/utils'
 
 export default {
+  async fetch() {
+    await this.$store.dispatch('fetchCurrentMonthRecords')
+  },
   computed: {
     ...mapGetters(['currentMonthRecords']),
     chartData() {
@@ -47,12 +50,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-.widget-empty {
-  margin-bottom: 0;
-  font-size: 0.875rem;
-  text-align: center;
-  color: $card-color-muted;
-}
-</style>

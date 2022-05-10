@@ -38,6 +38,12 @@ export default {
     },
   },
   watch: {
+    $route: {
+      deep: true,
+      handler() {
+        this.closeDrawer()
+      },
+    },
     bodyFixed: {
       immediate: true,
       handler(value) {
@@ -57,7 +63,6 @@ export default {
   methods: {
     ...mapActions(['setDrawerOpen']),
     getViewportWidth,
-
     closeDrawer() {
       this.setDrawerOpen(false)
     },
