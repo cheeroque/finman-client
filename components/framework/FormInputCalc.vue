@@ -6,8 +6,6 @@
       'form-control-valid': state === true,
       'form-control-invalid': state === false,
     }"
-    inputmode="numeric"
-    pattern="[\d+-]+"
     placeholder="0"
     type="text"
     class="form-control"
