@@ -340,7 +340,8 @@
   position: absolute;
   top: $input-padding-y * 0.5;
   left: $input-padding-x;
-  right: $input-padding-x;
+  right: auto;
+  max-width: calc(100% - #{$input-padding-x * 2});
   font-size: $label-font-size;
   line-height: $line-height-base;
   color: $form-label-color;
@@ -352,4 +353,12 @@
   padding: 0 0 0 $input-padding-x;
   font-size: $font-size-base * 0.75;
   color: $danger;
+}
+
+/* fix <select> extra horizontal padding in Firefox */
+
+@-moz-document url-prefix() {
+  .form-select .form-control {
+    padding-left: calc(#{$input-padding-x} - 4px);
+  }
 }
