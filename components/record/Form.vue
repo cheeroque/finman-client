@@ -108,9 +108,11 @@ import { mapActions, mapGetters } from 'vuex'
 
 export default {
   props: {
-    recordId: {
-      type: [Number, String],
-      default: null,
+    record: {
+      type: Object,
+      default() {
+        return {}
+      },
     },
     visible: {
       type: Boolean,
@@ -125,7 +127,6 @@ export default {
         note: null,
         sum: 0,
       },
-      loading: false,
     }
   },
   computed: {
@@ -147,33 +148,14 @@ export default {
       return options
     },
     isEdit() {
-      return Boolean(this.recordId)
+      return Boolean(this.record?.id)
     },
   },
-  watch: {
-    visible: {
-      immediate: true,
-      handler(event) {
-        if (event) this.onDialogShown()
-        else this.onDialogHidden()
-      },
-    },
+  created() {
+    this.initForm()
   },
   methods: {
     ...mapActions(['fetchCurrentMonthRecords', 'fetchRecords', 'fetchTotal']),
-    async fetchRecord() {
-      try {
-        this.loading = true
-        const record = await this.$store.dispatch(
-          'fetchRecordById',
-          this.recordId
-        )
-        Object.assign(this.form, record)
-        this.loading = false
-      } catch (e) {
-        return this.$error({ statusCode: e?.response?.status || 500 })
-      }
-    },
     async submit() {
       const action = this.isEdit ? 'updateRecord' : 'storeRecord'
       try {
@@ -190,7 +172,7 @@ export default {
     },
     async deleteRecord() {
       try {
-        await this.$store.dispatch('deleteRecord', this.recordId)
+        await this.$store.dispatch('deleteRecord', this.record?.id)
         await this.updateRecordsData()
         const message = this.$t('record.deleted').replace('%s', this.form.note)
         this.$infoToast(message, this.$t('success'))
@@ -204,24 +186,24 @@ export default {
       await this.fetchRecords(this.$route.query)
       await this.fetchCurrentMonthRecords()
     },
-    async onDialogShown() {
-      await this.$store.dispatch('fetchCategories')
-      if (this.isEdit) this.fetchRecord()
-      else this.resetForm()
-    },
-    onDialogHidden() {
-      this.$emit('hidden')
-    },
-    resetForm() {
+    async initForm() {
+      if (!this.categories?.length) {
+        await this.$store.dispatch('fetchCategories')
+      }
       const firstCategory = this.categoryOptions.find(({ value }) =>
         Boolean(value)
       )
-      this.form = {
+      const record = {
+        ...this.record,
+        created_at: new Date(this.record?.created_at),
+      }
+      const formDefaults = {
         category_id: firstCategory.value,
         created_at: new Date(),
         note: null,
         sum: 0,
       }
+      Object.assign(this.form, this.isEdit ? record : formDefaults)
     },
     setNow() {
       this.form.created_at = new Date()

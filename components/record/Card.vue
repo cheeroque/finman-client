@@ -69,11 +69,12 @@ export default {
     formatDate,
     formatSum,
     editRecord() {
-      this.$dialogFullscreen(
-        'RecordForm',
-        { recordId: this.record.id },
-        { title: this.$t('record.edit') }
-      )
+      const componentProps = {
+        record: this.record,
+        recordId: this.record.id,
+      }
+      const dialogProps = { title: this.$t('record.edit') }
+      this.$dialogFullscreen('RecordForm', componentProps, dialogProps)
     },
   },
 }

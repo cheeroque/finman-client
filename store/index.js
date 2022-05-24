@@ -78,14 +78,6 @@ export const actions = {
     commit('SET_RECORDS_TOTAL', total)
   },
 
-  async fetchRecordById(_, id) {
-    const record = await this.$axios.$get(`records/${id}`).catch((error) => {
-      throw error
-    })
-    record.created_at = new Date(record.created_at)
-    return record
-  },
-
   async fetchRecordsByCategory(_, { categoryId, params }) {
     const records = await this.$axios
       .$get(`category/${categoryId}`, { params })
