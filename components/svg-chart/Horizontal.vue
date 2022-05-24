@@ -79,4 +79,12 @@ export default {
     }
   }
 }
+
+/* fix caption vertical alignment in Firefox */
+
+@-moz-document url-prefix() {
+  .svg-chart-caption {
+    transform: translate(0, 0.25em);
+  }
+}
 </style>
