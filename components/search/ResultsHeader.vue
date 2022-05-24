@@ -2,12 +2,14 @@
   <div class="search-results-header">
     <h1 class="h3 search-results-title">{{ query }}</h1>
     <p class="search-results-found">
-      {{ $t('recordsFound').replace('%s', total) }}
+      {{ foundText }}
     </p>
   </div>
 </template>
 
 <script>
+import { getDeclension } from '@/utils'
+
 export default {
   props: {
     query: {
@@ -17,6 +19,15 @@ export default {
     total: {
       type: [String, Number],
       default: 0,
+    },
+  },
+  computed: {
+    foundText() {
+      const string = getDeclension(
+        this.total,
+        this.$t('recordsFoundDeclensions')
+      )
+      return string.replace('%s', this.total)
     },
   },
 }

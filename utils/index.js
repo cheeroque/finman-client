@@ -30,16 +30,6 @@ export function formatPeriod(period, locale, yearDigits = 2) {
   return `${MM} ${YY}`
 }
 
-export function isRouteActive(routes = [], currentRoute) {
-  if (!routes || !routes.length) return
-  const results = []
-  routes.forEach((route) => {
-    if (route === '/') results.push(route === currentRoute)
-    else results.push(currentRoute.startsWith(route))
-  })
-  return results.some((result) => Boolean(result))
-}
-
 export function getContrastColor(hexColor, black = '#000', white = '#fff') {
   if (!(hexColor && hexColor.length)) return black
   const color = hexColor.substring(1)
@@ -52,9 +42,30 @@ export function getContrastColor(hexColor, black = '#000', white = '#fff') {
   return lightness >= 165 ? black : white
 }
 
+export function getDeclension(number, strings) {
+  const cases = [2, 0, 1, 1, 1, 2]
+  const titles = strings.split(',')
+
+  return titles[
+    number % 100 > 4 && number % 100 < 20
+      ? 2
+      : cases[number % 10 < 5 ? number % 10 : 5]
+  ]
+}
+
 export function getViewportWidth() {
   return Math.min(
     window?.innerWidth,
     document.documentElement.getBoundingClientRect().width
   )
+}
+
+export function isRouteActive(routes = [], currentRoute) {
+  if (!routes || !routes.length) return
+  const results = []
+  routes.forEach((route) => {
+    if (route === '/') results.push(route === currentRoute)
+    else results.push(currentRoute.startsWith(route))
+  })
+  return results.some((result) => Boolean(result))
 }

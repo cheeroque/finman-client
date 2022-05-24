@@ -120,7 +120,7 @@
     },
     "updated": "Updated record “%s”"
   },
-  "recordsFound": "%s records found",
+  "recordsFoundDeclensions": "%s record found,%s records found,%s records found",
   "save": "Save",
   "search": "Search",
   "searchRecords": "Search records",
