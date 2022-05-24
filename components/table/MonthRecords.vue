@@ -160,7 +160,7 @@ export default {
     }
   }
 
-  .row-incomes {
+  .table tbody .row-incomes {
     color: var(--success);
   }
 
