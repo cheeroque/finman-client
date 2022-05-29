@@ -90,5 +90,6 @@
   "display": "standalone",
   "background_color": "#6750a4",
   "theme_color": "#21005d",
-  "lang": "en"
+  "lang": "en",
+  "start_url": "/"
 }
