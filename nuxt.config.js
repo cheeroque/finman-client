@@ -34,6 +34,7 @@ export default {
         rel: 'manifest',
         hid: 'manifest',
         href: '/manifest.json',
+        crossorigin: 'use-credentials',
       },
     ],
   },
