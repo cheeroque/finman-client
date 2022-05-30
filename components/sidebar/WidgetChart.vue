@@ -3,10 +3,8 @@
     <div class="card-header">
       <h5 class="card-title">{{ $t('thisMonth') }}</h5>
     </div>
-    <SvgChartHorizontal
+    <SidebarChartMonthly
       v-if="chartData && chartData.length"
-      :border-radius="4"
-      :combine-threshold="0.05"
       :items="chartData"
     />
     <p v-else class="widget-empty">
@@ -17,7 +15,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { getContrastColor, formatSum } from '@/utils'
 
 export default {
   async fetch() {
@@ -26,27 +23,16 @@ export default {
   computed: {
     ...mapGetters(['currentMonthRecords']),
     chartData() {
-      return Object.values(this.currentMonthRecords)
-        .map((group) => {
-          const category = group[0]?.category
-          const isIncome = category?.is_income
-          const label = category?.name
-          const fill = category?.color
-          const textFill = this.getContrastColor(fill)
-          const value = group.reduce(
-            (total, record) => (total += parseInt(record.sum || 0)),
-            0
-          )
-          const displayValue = this.formatSum(value, this.$i18n.locale)
-          return { isIncome, label, fill, textFill, value, displayValue }
-        })
-        .sort((a, b) => b.value - a.value)
-        .filter(({ isIncome }) => !isIncome)
+      return Object.values(this.currentMonthRecords).map((group) => {
+        const category = group[0]?.category || {}
+        const { color, id, is_income, name } = category
+        const value = group.reduce(
+          (total, record) => (total += parseInt(record.sum || 0)),
+          0
+        )
+        return { color, id, is_income, name, value }
+      })
     },
-  },
-  methods: {
-    getContrastColor,
-    formatSum,
   },
 }
 </script>
