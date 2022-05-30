@@ -1,5 +1,5 @@
 <template>
-  <div ref="wrapper" class="chart-monthly">
+  <div ref="wrapper" :style="{ height: collapseHeight }" class="chart-monthly">
     <nuxt-link
       v-for="row in expenses"
       :key="`bar-${row.id}`"
@@ -21,6 +21,21 @@
         </span>
       </div>
     </nuxt-link>
+
+    <button
+      :aria-label="$t(collapseOpen ? 'collapse' : 'expand')"
+      :title="$t(collapseOpen ? 'collapse' : 'expand')"
+      :class="{ collapsed: !collapseOpen }"
+      class="btn btn-toggle"
+      @click="toggleCollapse"
+    >
+      <svg-icon
+        name="chevron-right-24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      />
+    </button>
   </div>
 </template>
 
@@ -38,8 +53,8 @@ export default {
   },
   data() {
     return {
-      availableWidth: null,
-      combineThreshold: 0.05,
+      collapseHeight: '17rem',
+      collapseOpen: false,
     }
   },
   computed: {
@@ -80,6 +95,15 @@ export default {
         }
       })
     },
+    toggleCollapse() {
+      this.collapseOpen = !this.collapseOpen
+      if (this.collapseOpen) {
+        const collapseContentHeight = this.$refs.wrapper.scrollHeight
+        this.collapseHeight = `${collapseContentHeight}px`
+      } else {
+        this.collapseHeight = '17rem'
+      }
+    },
   },
 }
 </script>
@@ -87,6 +111,12 @@ export default {
 <style lang="scss" scoped>
 $bar-padding-x: 0.5rem;
 $bar-padding-y: 0.25rem;
+
+.chart-monthly {
+  position: relative;
+  overflow: hidden;
+  transition: height 0.2s linear;
+}
 
 .chart-bar {
   position: relative;
@@ -140,5 +170,28 @@ $bar-padding-y: 0.25rem;
 .chart-bar-name {
   font-size: 0.875em;
   opacity: 0.75;
+}
+
+.btn-toggle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 0.25rem;
+  border-radius: 99rem;
+  border: none;
+  color: var(--on-primary-container);
+  background-color: var(--primary-container);
+
+  .icon {
+    transition: $transition;
+    transition-property: transform;
+    transform: rotate(-90deg);
+  }
+
+  &.collapsed {
+    .icon {
+      transform: rotate(90deg);
+    }
+  }
 }
 </style>

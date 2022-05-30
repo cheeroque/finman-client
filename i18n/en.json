@@ -44,6 +44,7 @@
     "updated": "Updated category “%s”"
   },
   "close": "Close",
+  "collapse": "Collapse",
   "connectionError": "Connection error",
   "date": "Date",
   "dateAndTime": "Date and time",
@@ -57,6 +58,7 @@
     "default": "Undefined error",
     "error": "Error"
   },
+  "expand": "Expand",
   "expenses": "Expenses",
   "expensesOnly": "Expenses",
   "expensesTotal": "Expenses total",
