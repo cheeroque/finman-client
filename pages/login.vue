@@ -1,5 +1,5 @@
 <template>
-  <main v-if="isMounted">
+  <main v-if="formVisible">
     <header class="page-header">
       <h3 class="header-content">
         {{ $t('login') }}
@@ -63,19 +63,20 @@ export default {
         name: null,
         password: null,
       },
-      isMounted: false,
+      formVisible: false,
     }
   },
-  beforeMount() {
-    if (this.$auth.loggedIn) {
-      this.$router.push(this.localePath('/'))
-    }
-  },
+  /*
+   * Auth middleware not working as intended on initial PWA load.
+   * Force redirect to root if logged in.
+   * To prevent login form flashing, only show it if not logged in.
+   */
   mounted() {
     if (this.$auth.loggedIn) {
       this.$router.push(this.localePath('/categories'))
+    } else {
+      this.formVisible = true
     }
-    this.isMounted = true
   },
   methods: {
     async submit() {
