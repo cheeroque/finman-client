@@ -57,22 +57,18 @@
 export default {
   name: 'PagesLogin',
   layout: 'simple',
+  /* force redirect to root in PWA */
+  middleware({ $auth, localePath, redirect }) {
+    if ($auth.loggedIn) {
+      redirect(localePath('/'))
+    }
+  },
   data() {
     return {
       form: {
         name: null,
         password: null,
       },
-    }
-  },
-  created() {
-    if (this.$auth.loggedIn) {
-      this.$router.push('/')
-    }
-  },
-  mounted() {
-    if (this.$auth.loggedIn) {
-      this.$router.push('/categories')
     }
   },
   methods: {
