@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main v-if="isMounted">
     <header class="page-header">
       <h3 class="header-content">
         {{ $t('login') }}
@@ -57,19 +57,25 @@
 export default {
   name: 'PagesLogin',
   layout: 'simple',
-  /* force redirect to root in PWA */
-  middleware({ $auth, localePath, redirect }) {
-    if ($auth.loggedIn) {
-      redirect(localePath('/'))
-    }
-  },
   data() {
     return {
       form: {
         name: null,
         password: null,
       },
+      isMounted: false,
     }
+  },
+  beforeMount() {
+    if (this.$auth.loggedIn) {
+      this.$route.push(this.localePath('/'))
+    }
+  },
+  mounted() {
+    if (this.$auth.loggedIn) {
+      this.$route.push(this.localePath('/categories'))
+    }
+    this.isMounted = true
   },
   methods: {
     async submit() {
