@@ -68,12 +68,12 @@ export default {
   },
   beforeMount() {
     if (this.$auth.loggedIn) {
-      this.$route.push(this.localePath('/'))
+      this.$router.push(this.localePath('/'))
     }
   },
   mounted() {
     if (this.$auth.loggedIn) {
-      this.$route.push(this.localePath('/categories'))
+      this.$router.push(this.localePath('/categories'))
     }
     this.isMounted = true
   },
