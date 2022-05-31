@@ -65,6 +65,16 @@ export default {
       },
     }
   },
+  created() {
+    if (this.$auth.loggedIn) {
+      this.$router.push('/')
+    }
+  },
+  mounted() {
+    if (this.$auth.loggedIn) {
+      this.$router.push('/categories')
+    }
+  },
   methods: {
     async submit() {
       try {
