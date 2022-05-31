@@ -73,7 +73,7 @@ export default {
    */
   mounted() {
     if (this.$auth.loggedIn) {
-      this.$router.push(this.localePath('/categories'))
+      this.$router.push(this.localePath('/'))
     } else {
       this.formVisible = true
     }
