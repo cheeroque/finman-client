@@ -44,6 +44,10 @@ import { getContrastColor, getViewportWidth, formatSum } from '@/utils'
 
 export default {
   props: {
+    expanded: {
+      type: Boolean,
+      default: false,
+    },
     items: {
       type: Array,
       default() {
@@ -53,8 +57,8 @@ export default {
   },
   data() {
     return {
-      collapseHeight: '17rem',
-      collapseOpen: false,
+      collapseHeight: this.expanded ? 'auto' : '17rem',
+      collapseOpen: this.expanded,
     }
   },
   computed: {
@@ -65,7 +69,9 @@ export default {
     },
   },
   mounted() {
-    this.initChartCaptions()
+    this.$nextTick(() => {
+      this.initChartCaptions()
+    })
   },
   methods: {
     getContrastColor,
@@ -97,11 +103,14 @@ export default {
     },
     toggleCollapse() {
       this.collapseOpen = !this.collapseOpen
+      const collapseContentHeight = this.$refs.wrapper.scrollHeight
       if (this.collapseOpen) {
-        const collapseContentHeight = this.$refs.wrapper.scrollHeight
         this.collapseHeight = `${collapseContentHeight}px`
       } else {
-        this.collapseHeight = '17rem'
+        this.collapseHeight = `${collapseContentHeight}px`
+        setTimeout(() => {
+          this.collapseHeight = '17rem'
+        }, 1)
       }
     },
   },

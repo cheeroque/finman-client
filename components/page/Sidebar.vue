@@ -1,15 +1,10 @@
 <template>
   <aside class="app-sidebar">
     <SearchForm class="search-widget" />
-    <transition-group name="sidebar-widgets" tag="div">
-      <template v-if="showWidgets">
-        <component
-          :is="`SidebarWidget${widget}`"
-          v-for="widget in widgets"
-          :key="`widget${widget}`"
-        />
-      </template>
-    </transition-group>
+    <div v-show="showWidgets">
+      <SidebarWidgetChart :expanded="isCalendarRoute" />
+      <SidebarWidgetCalendar v-if="!isCalendarRoute" />
+    </div>
   </aside>
 </template>
 
@@ -20,11 +15,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    widgets: {
-      type: Array,
-      default() {
-        return ['Chart', 'Calendar', 'Categories']
-      },
+  },
+  computed: {
+    isCalendarRoute() {
+      return this.$route.name.startsWith('months')
     },
   },
 }

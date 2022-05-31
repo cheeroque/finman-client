@@ -6,6 +6,7 @@
     <SidebarChartMonthly
       v-if="chartData && chartData.length"
       :items="chartData"
+      :expanded="expanded"
     />
     <p v-else class="widget-empty">
       {{ $t('nothingToDisplay') }}
@@ -17,6 +18,12 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  props: {
+    expanded: {
+      type: Boolean,
+      default: false,
+    },
+  },
   async fetch() {
     await this.$store.dispatch('fetchCurrentMonthRecords')
   },

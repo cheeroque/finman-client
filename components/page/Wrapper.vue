@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <PageSidebar :show-widgets="widgetsVisible" :widgets="widgets" />
+    <PageSidebar :show-widgets="widgetsVisible" />
     <div class="page-content">
       <slot></slot>
     </div>
@@ -11,14 +11,6 @@
 import { getViewportWidth } from '@/utils'
 
 export default {
-  props: {
-    widgets: {
-      type: Array,
-      default() {
-        return ['Chart', 'Calendar', 'Categories']
-      },
-    },
-  },
   data() {
     return {
       breakpointSidebar: 768,

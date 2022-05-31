@@ -1,5 +1,5 @@
 <template>
-  <PageWrapper :widgets="['Chart', 'Calendar']">
+  <PageWrapper>
     <PageHeader> {{ $t('category.categories') }} </PageHeader>
     <main class="categories-list">
       <CategoryCard
