@@ -1,5 +1,9 @@
 <template>
-  <div ref="wrapper" :style="{ height: collapseHeight }" class="chart-monthly">
+  <div
+    ref="wrapper"
+    :style="{ maxHeight: collapseHeight }"
+    class="chart-monthly"
+  >
     <nuxt-link
       v-for="row in expenses"
       :key="`bar-${row.id}`"
@@ -12,17 +16,20 @@
       }"
       class="chart-bar"
     >
-      <div class="chart-bar-caption">
-        <span class="chart-bar-value">
-          {{ formatSum(row.value, $i18n.locale) }}&nbsp;₽
-        </span>
-        <span class="chart-bar-name">
-          {{ row.name }}
-        </span>
-      </div>
+      <transition name="fade">
+        <div v-show="captionsVisible" class="chart-bar-caption">
+          <span class="chart-bar-value">
+            {{ formatSum(row.value, $i18n.locale) }}&nbsp;₽
+          </span>
+          <span class="chart-bar-name">
+            {{ row.name }}
+          </span>
+        </div>
+      </transition>
     </nuxt-link>
 
     <button
+      v-if="collapseToggleVisible"
       :aria-label="$t(collapseOpen ? 'collapse' : 'expand')"
       :title="$t(collapseOpen ? 'collapse' : 'expand')"
       :class="{ collapsed: !collapseOpen }"
@@ -48,6 +55,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    initialHeight: {
+      type: String,
+      default: '17rem',
+    },
     items: {
       type: Array,
       default() {
@@ -57,8 +68,10 @@ export default {
   },
   data() {
     return {
-      collapseHeight: this.expanded ? 'auto' : '17rem',
+      captionsVisible: false,
+      collapseHeight: this.expanded ? 'auto' : this.initialHeight,
       collapseOpen: this.expanded,
+      collapseToggleVisible: false,
     }
   },
   computed: {
@@ -69,9 +82,8 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      this.initChartCaptions()
-    })
+    this.initCollapse()
+    setTimeout(() => this.initChartCaptions(), 300)
   },
   methods: {
     getContrastColor,
@@ -100,6 +112,14 @@ export default {
           }
         }
       })
+      this.captionsVisible = true
+    },
+    initCollapse() {
+      const collapseHeight = this.$refs.wrapper.clientHeight
+      const collapseContentHeight = this.$refs.wrapper.scrollHeight
+      if (collapseContentHeight > collapseHeight) {
+        this.collapseToggleVisible = true
+      }
     },
     toggleCollapse() {
       this.collapseOpen = !this.collapseOpen
@@ -109,7 +129,7 @@ export default {
       } else {
         this.collapseHeight = `${collapseContentHeight}px`
         setTimeout(() => {
-          this.collapseHeight = '17rem'
+          this.collapseHeight = this.initialHeight
         }, 1)
       }
     },
@@ -124,7 +144,7 @@ $bar-padding-y: 0.25rem;
 .chart-monthly {
   position: relative;
   overflow: hidden;
-  transition: height 0.2s linear;
+  transition: max-height 0.2s linear;
 }
 
 .chart-bar {
