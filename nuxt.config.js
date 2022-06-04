@@ -69,6 +69,16 @@ export default {
   },
 
   auth: {
+    cookie: {
+      options: {
+        sameSite: 'lax',
+      },
+    },
+    redirect: {
+      home: '/',
+      login: '/login',
+      logout: '/login',
+    },
     strategies: {
       local: {
         token: {
@@ -83,11 +93,6 @@ export default {
           user: false,
         },
       },
-    },
-    redirect: {
-      home: '/',
-      login: '/login',
-      logout: '/login',
     },
   },
 
