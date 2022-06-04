@@ -16,16 +16,14 @@
       }"
       class="chart-bar"
     >
-      <transition name="fade">
-        <div v-show="captionsVisible" class="chart-bar-caption">
-          <span class="chart-bar-value">
-            {{ formatSum(row.value, $i18n.locale) }}&nbsp;₽
-          </span>
-          <span class="chart-bar-name">
-            {{ row.name }}
-          </span>
-        </div>
-      </transition>
+      <div :class="{ show: captionsVisible }" class="chart-bar-caption">
+        <span class="chart-bar-value">
+          {{ formatSum(row.value, $i18n.locale) }}&nbsp;₽
+        </span>
+        <span class="chart-bar-name">
+          {{ row.name }}
+        </span>
+      </div>
     </nuxt-link>
 
     <button
@@ -189,6 +187,13 @@ $bar-padding-y: 0.25rem;
   justify-content: center;
   line-height: 1.2;
   white-space: nowrap;
+  opacity: 1;
+  transition: $transition;
+  transition-property: opacity;
+
+  &:not(.show) {
+    opacity: 0;
+  }
 }
 
 .chart-bar-value {
