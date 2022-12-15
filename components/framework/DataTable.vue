@@ -76,10 +76,7 @@
                   disable-head
                 >
                   <template #cell-note="{ item: detailsItem }">
-                    <button
-                      class="btn-link"
-                      @click="editRecord(detailsItem.id)"
-                    >
+                    <button class="btn-link" @click="editRecord(detailsItem)">
                       {{ detailsItem.note }}
                     </button>
                   </template>
@@ -144,12 +141,14 @@ export default {
     }
   },
   methods: {
-    editRecord(recordId) {
-      this.$dialogFullscreen(
-        'RecordForm',
-        { recordId },
-        { title: this.$t('record.edit') }
-      )
+    editRecord(record) {
+      const componentProps = {
+        record,
+        recordId: record.id,
+      }
+      this.$dialogFullscreen('RecordForm', componentProps, {
+        title: this.$t('record.edit'),
+      })
     },
     getValue(item, field) {
       if (field.itemFormatter && typeof field.itemFormatter === 'function') {
