@@ -354,11 +354,3 @@
   font-size: $font-size-base * 0.75;
   color: $danger;
 }
-
-/* fix <select> extra horizontal padding in Firefox */
-
-@-moz-document url-prefix() {
-  .form-select .form-control {
-    padding-left: calc(#{$input-padding-x} - 4px);
-  }
-}
